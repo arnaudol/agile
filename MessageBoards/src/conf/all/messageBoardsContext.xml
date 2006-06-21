@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+<!-- =============== BUSINESS OBJECT, BUSINESS SERVICE, REPOSITORIES AND MAPPER DEFINITIONS =============== --> 
+
+<!-- services -->
+
+
+<!-- domain objects -->
+
+	<!-- Entity -->
+
+		<!-- not Ghost -->
+     
+			<!-- message -->
+			
+			<bean id="message" class="net.sf.pmr.messageBoards.domain.MessageImpl" 
+				  singleton="false" dependency-check="objects">
+				<property name="postedDate"><value>01/01/2000 00:00</value></property>
+                <property name="postedBy"><ref bean="user"/></property>
+                <property name="topic"><ref local="topic"/></property>
+                <property name="board"><ref local="board"/></property>
+                <property name="persistanceVersion"><value>0</value></property>
+            </bean>
+                
+            <!-- board -->
+		    
+		   <bean id="board" class="net.sf.pmr.messageBoards.domain.BoardImpl" 
+				 singleton="false" dependency-check="objects">
+				<property name="basicProject"><ref bean="basicProject"/></property>
+                <property name="persistanceVersion"><value>0</value></property>
+           </bean>
+	    
+		<!-- Ghost -->
+
+			    
+	<!-- value objects -->
+
+		<!-- not Ghost -->
+		
+		 <!-- topic -->
+			
+			<bean id="topic" class="net.sf.pmr.messageBoards.domain.TopicImpl" 
+				  singleton="false" dependency-check="objects">
+            </bean>
+			
+		<!-- Ghost -->
+		  
+                         
+	<!-- DomainList (always Ghost)-->
+	    
+	    <!-- messages -->
+	    <!--
+	    <bean id="messagesList" class="net.sf.pmr.keopsframework.domain.GhostDomainListImpl" 
+	          singleton="false" dependency-check="objects">
+	         <constructor-arg index="0"><ref local="messageMapper"/></constructor-arg>
+	         <constructor-arg index="1"><list></list></constructor-arg>
+	    </bean>
+	    -->
+			    
+
+<!-- repositories -->
+
+	<!-- board -->
+
+     <bean id="boardRepository" class="net.sf.pmr.messageBoards.domain.BoardRepositoryImpl"
+          singleton="true" dependency-check="objects">
+	    <constructor-arg index="0"><ref local="boardMapper"/></constructor-arg>
+    </bean>   
+    
+	<!-- message -->
+
+     <bean id="messageRepository" class="net.sf.pmr.messageBoards.domain.MessageRepositoryImpl"
+          singleton="true" dependency-check="objects">
+	    <constructor-arg index="0"><ref local="messageMapper"/></constructor-arg>
+    </bean>   
+
+    
+<!-- mappers -->
+
+	<!-- TODO vérifier l'utilité de depends-on avec dependency-check=none -->
+
+	<!-- board -->
+
+   <bean id="boardMapper" class="net.sf.pmr.messageBoards.data.BoardMapperImpl"
+    	  singleton="true" dependency-check="none">
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property>
+	</bean>
+	
+   <!-- message -->
+
+   <bean id="messageMapper" class="net.sf.pmr.messageBoards.data.MessageMapperImpl"
+    	  singleton="true" dependency-check="none">
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property>
+	</bean>
+   
+</beans>

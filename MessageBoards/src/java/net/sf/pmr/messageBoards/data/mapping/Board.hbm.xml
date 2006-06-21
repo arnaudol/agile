@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="net.sf.pmr.messageBoards.domain.BoardImpl" table="BOARD">
+
+       <id column="ID" name="Id" type="int" unsaved-value="0">
+			<generator class="native" />
+		</id>
+
+		<version column="VERSION" name="PersistanceVersion" type="long" />
+
+		<property name="name" column="NAME" type="string" not-null="true" />
+        <property name="description" column="DESCRIPTION" type="string" />
+
+		<!-- TODO : lazy loading -->
+
+        <many-to-one name="basicProject" class="net.sf.pmr.core.domain.basicProject.BasicProjectImpl"
+					outer-join="true" cascade="none">
+					<column name="PRO_ID" />
+		</many-to-one>
+
+
+    </class>
+</hibernate-mapping>
+

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="net.sf.pmr.messageBoards.domain.MessageImpl" table="MESSAGE">
+
+	  	<id column="ID" name="Id" type="int" unsaved-value="0">
+			<generator class="native" />
+		</id>
+
+		<version column="VERSION" name="PersistanceVersion" type="long" />
+
+        <property name="content" column="CONTENT" type="string" not-null="true" />
+        <property name="postedDate" column="POSTEDDATE" type="timestamp" not-null="true" />
+
+		<component name="topic" class="net.sf.pmr.messageBoards.domain.TopicImpl">
+        	        <property column="TITLE" name="title" type="string"/>
+	    </component>
+
+        <many-to-one name="board" class="net.sf.pmr.messageBoards.domain.BoardImpl"
+					 outer-join="true" cascade="none">
+					<column name="BOA_ID" />
+		</many-to-one>
+        
+        <many-to-one  name="postedBy" class="net.sf.pmr.core.domain.user.UserImpl"
+					 outer-join="true" cascade="none">
+					<column name="PMU_ID" />
+		</many-to-one>
+
+    </class>
+</hibernate-mapping>
+

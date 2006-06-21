@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<configs>
+		<config>src/conf/all/beanRefContext.xml</config>
+		<config>src/conf/all/messageBoardsContext.xml</config>
+	</configs>
+	<configSets>
+		<configSet>
+			<name>MessageBoards</name>
+			<allowBeanDefinitionOverriding>false</allowBeanDefinitionOverriding>
+			<incomplete>false</incomplete>
+			<configs>
+				<config>/Core/src/conf/all/beanRefContext.xml</config>
+				<config>/Core/src/conf/all/coreContext.xml</config>
+				<config>src/conf/all/beanRefContext.xml</config>
+				<config>src/conf/all/messageBoardsContext.xml</config>
+			</configs>
+		</configSet>
+	</configSets>
+</beansProjectDescription>

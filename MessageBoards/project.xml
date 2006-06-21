@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <extend>../Core/project.xml</extend>
+    <pomVersion>3</pomVersion>
+    <id>messageboards:messageboards</id>
+    <artifactId>messageboards</artifactId>
+    <name>MessageBoards</name>
+    <groupId>messageboards</groupId>
+    <currentVersion>0.2</currentVersion>
+    <organization />
+    <inceptionYear>2005</inceptionYear>
+    <logo>/images/logo.gif</logo>
+    <repository />
+    <mailingLists>
+        <mailingList>
+            <name>${pom.name} Dev List</name>
+        </mailingList>
+        <mailingList>
+            <name>${pom.name} User List</name>
+        </mailingList>
+    </mailingLists>
+    <dependencies>
+        <dependency>
+            <groupId>core</groupId>
+            <artifactId>core</artifactId>
+            <version>0.1</version>
+            <type>jar</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+        <unitTest>
+            <includes>
+                <include>**/*Test.java</include>
+            </includes>
+        </unitTest>
+    </build>
+</project>
+

@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE dataset SYSTEM "pm.dtd">
+
+<dataset>
+
+	<table name="Project">
+        <column>id</column>
+        <column>pro_id</column>
+        <column>code</column>
+        <column>name</column>
+        <column>version</column>
+        <row>
+            <value>1</value>
+            <null/>
+            <value>PR1</value>
+            <value>PM Project</value>
+            <value>1</value>
+        </row>
+	</table>
+
+	 <table name="PMUser">
+        <column>id</column>
+        <column>login</column>
+        <column>pwd</column>
+        <column>firstname</column>
+        <column>lastname</column>
+        <column>email</column>
+        <column>com_id</column>
+        <column>version</column>
+        <row>
+            <value>1</value>
+            <value>ponfel</value>
+            <value>password</value>
+            <value>Pon</value>
+            <value>Fel</value>
+            <value>ponfel@worldcompany.com</value>
+            <null/>
+            <value>2</value>
+        </row>
+	</table>
+
+    <table name="BOARD">
+		<column>id</column>
+        <column>pro_id</column>
+        <column>name</column>
+		<column>description</column>
+        <column>version</column>
+        <row>
+			<value>1</value>
+			<value>1</value>
+            <value>Discuss about latest movies</value>
+            <value>Board where we discuss about latest movies</value>
+            <value>1</value>
+        </row>
+	    <row>
+			<value>2</value>
+			<value>1</value>
+            <value>Discuss about latest movies on DVD</value>
+			<value>Board where we discuss about latest movies on DVD</value>
+            <value>1</value>
+        </row>
+    </table>
+
+
+	<table name="MESSAGE">
+        <column>id</column>
+		<column>pmu_id</column>
+        <column>boa_id</column>
+		<column>title</column>
+        <column>content</column>
+		<column>postedDate</column>
+        <column>version</column>
+        <row>
+            <value>1</value>
+            <value>1</value>
+			<value>1</value>
+			<value>les clés de bagnole</value>
+			<value>les clés de bagnole est vraiement un excellent film malgrès une ou deux longueurs. Il est unique !</value>
+			<value>2001-01-01 13:24:00</value>
+			<value>1</value>
+        </row>
+		<row>
+            <value>2</value>
+            <value>1</value>
+			<value>1</value>
+			<value>les clés de bagnole</value>
+			<value>tout à fait d'accord, il est excellent !</value>
+			<value>2004-01-04 09:24:00</value>
+			<value>2</value>
+        </row>
+    </table>
+    
+</dataset>
