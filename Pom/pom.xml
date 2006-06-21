@@ -1,0 +1,347 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.sf.pmr</groupId>
+	<version>0.3.3</version>
+	<artifactId>pmr</artifactId>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>../core</module>
+		<module>../agilePlanning</module>
+		<module>../toDo</module>
+		<module>../web</module>
+	</modules>
+
+	<dependencies>
+
+		<!-- hibernate dependencies - start-->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>[3.1.3,3.2)</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>[1.1,)</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.0.1B</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>[2.7.1,)</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>[1.0.4,)</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>[1.2.9,)</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>[1.6.1,)</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>antlr</groupId>
+			<artifactId>antlr</artifactId>
+			<version>[2.7.6rc1,)</version>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>[2.1_3,)</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.sql</groupId>
+			<artifactId>jdbc-stdext</artifactId>
+			<version>2.0</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>jaxen</groupId>
+			<artifactId>jaxen</artifactId>
+			<version>[1.1-beta-7,)</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- hibernate dependencies - end-->
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>[2.1,)</version>
+			<scope>compile</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>[1.7.0,)</version>
+			<scope>compile</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+			<version>[1.1.4,)</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>[1.2.1,1.3)</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>keopsframework</groupId>
+			<artifactId>keopsframework</artifactId>
+			<version>0.9h</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Spring-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>2.0-m4</version>
+			<scope>compile</scope>
+			<exclusions>
+				
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-web</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-webmvc</artifactId>
+				</exclusion>
+								
+
+			</exclusions>
+
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-hibernate3</artifactId>
+			<version>2.0-m4</version>
+			<scope>compile</scope>
+			<exclusions>
+				
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-web</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-webmvc</artifactId>
+				</exclusion>
+
+
+			</exclusions>
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-dao</artifactId>
+			<version>2.0-m4</version>
+			<scope>compile</scope>
+			<exclusions>
+
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-web</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-webmvc</artifactId>
+				</exclusion>
+
+			</exclusions>
+
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>2.0-m4</version>
+			<scope>compile</scope>
+			<exclusions>
+
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-web</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-webmvc</artifactId>
+				</exclusion>
+								
+			</exclusions>
+
+
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>2.0-m4</version>
+			<scope>compile</scope>
+			<exclusions>
+
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-web</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-webmvc</artifactId>
+				</exclusion>
+				
+			</exclusions>
+
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>2.0-m4</version>
+			<scope>compile</scope>
+			<exclusions>
+
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-web</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-webmvc</artifactId>
+				</exclusion>
+
+			</exclusions>
+
+
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>2.0-m4</version>
+			<scope>compile</scope>
+			<exclusions>
+
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-web</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-webmvc</artifactId>
+				</exclusion>
+
+
+			</exclusions>
+
+		</dependency>
+
+		<!-- jdbc driver -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>3.0.17-ga-bin</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- dependencies for tests -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+			<version>2.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>mockcreator</groupId>
+			<artifactId>mockcreator</artifactId>
+			<version>2005-02-21</version>
+			<scope>test</scope>
+		</dependency>
+
+
+		<!-- dependencies exclusions-->
+		<!--<dependency>
+			<exclusions>
+			<exclusion>
+			<groupId>icu4j</groupId>
+			<artifactId>icu4j</artifactId>
+			</exclusion>
+			</exclusions>
+			</dependency>-->
+
+	</dependencies>
+
+
+	<repositories>
+		<repository>
+			<id>pmr-repository</id>
+			<url>http://pmr.sourceforge.net/maven2-repository</url>
+		</repository>
+	</repositories>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+
+</project>
