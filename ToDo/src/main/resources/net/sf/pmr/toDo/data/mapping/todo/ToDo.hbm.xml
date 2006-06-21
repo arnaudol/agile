@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.sf.pmr.toDo.data.mapping.todo">
+
+	<class name="net.sf.pmr.toDo.domain.todo.ToDoImpl" table="TODO">
+		
+		<id column="ID" name="PersistanceId" type="int" unsaved-value="0">
+			<generator class="native" />
+		</id>
+
+		<version column="VERSION" name="PersistanceVersion" type="long" />
+
+		<property column="DESCRIPTION" length="1000" name="Description" not-null="true" type="string" />
+		
+		<property column="DATE" name="Date" not-null="true" type="java.util.Date" />
+		
+		<property column="DONE" name="Done" not-null="true" type="boolean" />
+		    		    
+		<many-to-one class="net.sf.pmr.core.domain.basicProject.BasicProjectImpl" name="BasicProject" 
+					 lazy="false" cascade="none" update="true" insert="true">
+			<column name="PRO_ID" />
+		</many-to-one>
+
+		<many-to-one class="net.sf.pmr.core.domain.user.UserImpl" name="Owner" 
+					 lazy="false" cascade="none" update="true" insert="true">
+			<column name="PMU_ID" />
+		</many-to-one>		
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+
+<dataset>
+
+	<table name="PMUSER">
+        <column>id</column>
+        <column>login</column>
+        <column>pwd</column>
+        <column>firstname</column>
+        <column>lastname</column>
+        <column>email</column>
+        <column>com_id</column>
+        <column>version</column>
+        <row>
+            <value>1</value>
+            <value>ponfel</value>
+            <value>password</value>
+            <value>Pon</value>
+            <value>Fel</value>
+            <value>ponfel@worldcompany.com</value>
+            <null/>
+            <value>2</value>
+        </row>
+         <row>
+            <value>2</value>
+            <value>aprost</value>
+            <value>password</value>
+            <value>Arnaud</value>
+            <value>Prost</value>
+            <value>aprost@worldcompany.com</value>
+            <null/>
+            <value>1</value>
+        </row>    
+      </table>
+
+    <table name="PROJECT">
+        <column>id</column>
+        <column>pro_id</column>
+        <column>code</column>
+        <column>name</column>
+        <column>version</column>
+        <row>
+            <value>2</value>
+            <null/>
+            <value>A</value>
+            <value>Super A</value>
+            <value>3</value>
+        </row>
+        <row>
+            <value>3</value>
+            <null/>
+            <value>B</value>
+            <value>Super B</value>
+            <value>4</value>
+        </row>   
+	</table>
+	
+	<table name="TODO">
+        <column>id</column>
+        <column>pro_id</column>
+        <column>pmu_id</column>
+        <column>description</column>
+        <column>date</column>
+        <column>done</column>
+        <column>version</column>
+        <row>
+            <value>1</value>
+            <value>2</value>
+            <value>1</value>
+            <value>préparer réunion projet</value>
+            <value>2001-03-13</value>
+            <value>0</value>
+            <value>3</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>2</value>
+            <value>1</value>
+            <value>téléphoner à Jacques</value>
+            <null/>
+            <value>0</value>
+            <value>4</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>2</value>
+            <value>2</value>
+            <value>mail à Pierre</value>
+            <null/>
+            <value>0</value>
+            <value>4</value>
+        </row>
+	</table>
+</dataset>
