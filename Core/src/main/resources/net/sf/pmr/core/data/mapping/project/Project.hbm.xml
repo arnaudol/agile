@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="net.sf.pmr.core.domain.project.ProjectImpl" table="PROJECT">
+
+		<id column="ID" name="PersistanceId" type="int" unsaved-value="0">
+			<generator class="native" />
+		</id>
+
+		<version column="VERSION" name="PersistanceVersion" type="long" />
+
+        <property name="Code" column="CODE" type="string" not-null="true" />
+        <property name="Name" column="NAME" type="string" not-null="true" />
+		  
+		<!-- Trouver une solution pour implémenter le lazy loading de manière propre... -->
+
+        <set name="Members" table="MEMBER" cascade="none" lazy="false">
+            <key column="ID"/>
+            <many-to-many column="PMU_ID" class="net.sf.pmr.core.domain.user.UserImpl" outer-join="false"/>
+        </set>
+
+    </class>
+</hibernate-mapping>
+

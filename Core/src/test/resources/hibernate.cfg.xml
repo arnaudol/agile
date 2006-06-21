@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- Mapping files -->
+		<mapping resource="net/sf/pmr/core/data/mapping/user/User.hbm.xml" />
+		<mapping resource="net/sf/pmr/core/data/mapping/user/company/Company.hbm.xml" />
+		<mapping resource="net/sf/pmr/core/data/mapping/reference/Country.hbm.xml" />
+		<mapping resource="net/sf/pmr/core/data/mapping/project/Project.hbm.xml" />
+	</session-factory>
+</hibernate-configuration>

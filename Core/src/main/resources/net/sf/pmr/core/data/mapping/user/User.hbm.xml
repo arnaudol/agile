@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.sf.pmr.core.data.mapping">
+
+	<class name="net.sf.pmr.core.domain.user.UserImpl" table="PMUSER">
+		
+		<id column="ID" name="PersistanceId" type="int" unsaved-value="0">
+			<generator class="native" />
+		</id>
+
+		<!-- TODO il est possible de mettre les sublass dans un fichier externe 
+		et de travailler avec des interfaces...
+		<subclass name="net.sf.pmr.core.domain.user.UserImpl"/> 
+		-->
+
+		<version column="VERSION" name="PersistanceVersion" type="long" />
+
+		<property column="PWD" length="10" name="Password" not-null="true" type="string" />
+		<property column="LOGIN" length="10" name="Login" not-null="true" type="string" />
+		<property column="LASTNAME" length="100" name="LastName" not-null="false" type="string" />
+		<property column="FIRSTNAME" length="100" name="FirstName" not-null="false" type="string" />
+		<property column="EMAIL" length="50" name="Email" not-null="true" type="string" />
+		    
+		<many-to-one class="net.sf.pmr.core.domain.user.company.CompanyImpl" name="Company" 
+					 outer-join="true" cascade="none" update="false" insert="false">
+			<column name="COM_ID" />
+		</many-to-one>
+
+		<set name="Projects" table="MEMBER" cascade="none" lazy="false" >
+            <key column="PMU_ID"/>
+            <many-to-many column="ID" class="net.sf.pmr.core.domain.project.ProjectImpl" outer-join="true"/>
+        </set>
+
+	</class>
+</hibernate-mapping>

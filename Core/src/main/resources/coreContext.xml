@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+<!-- =============== BUSINESS OBJECT, BUSINESS SERVICE, REPOSITORIES, ASPECTS AND MAPPER DEFINITIONS =============== --> 
+
+<!-- services -->
+
+	<!-- security -->
+	   
+    <bean id="securityService" class="net.sf.pmr.core.service.SecurityServiceImpl" 
+          singleton="true" dependency-check="objects">
+        <constructor-arg index="0"><ref local="userRepository"/></constructor-arg>
+    </bean>
+
+	<!-- user -->
+
+    <bean id="userService" class="net.sf.pmr.core.service.UserServiceImpl" 
+          singleton="true" dependency-check="objects">
+          <constructor-arg index="0"><ref local="userRepository"/></constructor-arg>
+          <constructor-arg index="1"><ref local="userValidator"/></constructor-arg>
+          <constructor-arg index="2"><ref local="companyRepository"/></constructor-arg>
+          <constructor-arg index="3"><ref local="projectRepository"/></constructor-arg>
+    </bean>      
+
+	<!-- company -->
+
+    <bean id="companyService" class="net.sf.pmr.core.service.CompanyServiceImpl" 
+          singleton="true" dependency-check="objects">
+          <constructor-arg index="0"><ref local="companyRepository"/></constructor-arg>
+          <constructor-arg index="1"><ref local="companyValidator"/></constructor-arg>
+          <constructor-arg index="2"><ref local="addressValidator"/></constructor-arg>
+    </bean>      
+
+
+	<!-- project -->
+	   
+    <bean id="projectService" class="net.sf.pmr.core.service.ProjectServiceImpl" 
+          singleton="true" dependency-check="objects">
+          <constructor-arg index="0"><ref local="projectValidator"/></constructor-arg>
+          <constructor-arg index="1"><ref local="projectRepository"/></constructor-arg>
+          <constructor-arg index="2"><ref local="userRepository"/></constructor-arg>
+    </bean> 
+    
+	<!-- reference service -->
+
+    <bean id="referenceService" class="net.sf.pmr.core.service.ReferenceServiceImpl" 
+          singleton="true" dependency-check="objects">
+        <constructor-arg index="0"><ref local="countryRepository"/></constructor-arg>
+    </bean>
+
+
+<!-- domain objects -->
+
+	<!-- Entity -->
+
+		<!-- not Ghost -->
+
+		   <!-- user -->
+		
+		    <bean id="user" class="net.sf.pmr.core.domain.user.UserImpl" 
+		          singleton="false" dependency-check="objects">
+		          <property name="persistanceId"><value>0</value></property>
+		          <property name="login"><value></value></property>
+		          <property name="company"><ref bean="company"/></property>
+		          <property name="projects"><set></set></property>
+		          <property name="persistanceVersion"><value>0</value></property>
+		    </bean>
+		    
+		    <!-- company -->
+	    
+		    <bean id="company" class="net.sf.pmr.core.domain.user.company.CompanyImpl" 
+		          singleton="false" dependency-check="objects">
+	            <property name="persistanceId"><value>0</value></property>
+	            <property name="name"><value></value></property>
+				<property name="address"><ref bean="address"/></property>
+				<property name="persistanceVersion"><value>0</value></property>
+		    </bean>
+		    
+		    <!-- project -->
+
+			<!-- Pourquoi ne pas  utiliser la propriété target ? car le bean "targeté" est alors obligatoirement un singleton... faut le savoir -->
+			<!-- see : http://forum.springframework.org/viewtopic.php?t=1112 -->
+			<bean id="project" class="org.springframework.aop.framework.ProxyFactoryBean">
+    			<property name="proxyInterfaces"><value>net.sf.pmr.core.domain.project.Project</value></property>
+				<property name="singleton"><value>false</value></property>				
+    			<property name="interceptorNames">
+        			<list>
+            			<value>membersLasyLoadingAdvisor</value>
+						<value>projectTarget</value>
+        			</list>
+    			</property>
+				<!-- <property name="proxyTargetClass"><value>true</value></property> -->
+			</bean>
+
+		    <bean id="projectTarget" class="net.sf.pmr.core.domain.project.ProjectImpl" 
+	         		singleton="false" dependency-check="none">
+            		<property name="persistanceId"><value>0</value></property>
+            		<property name="code"><value></value></property>
+                    <property name="members"><null/></property>
+					<property name="persistanceVersion"><value>0</value></property>
+	    	</bean>
+	    	
+			<!-- country (Reference) -->
+	    
+		    <bean id="country" class="net.sf.pmr.core.domain.reference.CountryImpl" 
+		          singleton="false" dependency-check="objects">
+	            <property name="code"><value></value></property>
+		    </bean>
+	    
+		<!-- Ghost -->
+	    
+        
+	<!-- value objects -->
+
+		<!-- not Ghost -->
+		
+			<!-- address -->
+		    
+		    <bean id="address" class="net.sf.pmr.core.domain.user.company.AddressImpl" 
+		          singleton="false" 
+		          dependency-check="objects">
+		   	</bean>          
+		
+		
+		<!-- Ghost -->
+		
+		   
+	    
+<!-- aspects -->
+
+	<!-- advice (also called interceptor by Spring) -->
+	<!-- Action taken by the AOP framework at a particular joinpoint -->
+	<bean id="membersLasyLoadingAdvice" class="net.sf.pmr.core.domain.project.GetMembersLasyLoadingInterceptor" 
+		  singleton="true" dependency-check="objects">
+		  <property name="domainListMapper"><ref local="userMapper"/></property>
+	</bean>
+
+	<!--  pointcut -->
+	<!-- A set of joinpoints specifying when an advice should fire -->
+
+	<bean id="membersLasyLoadingPointcut"
+        class="org.springframework.aop.support.NameMatchMethodPointcut">
+        <property name="mappedName"><value>getMembers</value></property> 
+    </bean> 
+
+	<!-- In Spring, an Advisor is a modularization of an aspect. Advisors typically incorporate both an advice and a pointcut -->
+	<bean id="membersLasyLoadingAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor"
+          singleton="false">
+        <property name="pointcut">
+            <ref local="membersLasyLoadingPointcut"/>
+        </property>
+        <property name="advice">
+            <ref local="membersLasyLoadingAdvice"/>
+        </property>
+    </bean> 
+	
+	<!-- projectProxyUtil -->
+	
+   	<bean id="projectProxyUtil" class="net.sf.pmr.core.domain.project.ProjectProxyUtilImpl" 
+        		singleton="true" dependency-check="none">
+   	</bean>
+    
+	
+<!-- validators --> 
+
+	<bean id="coreMessageSource" 
+            class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>net.sf.pmr.core.resource.validator</value>
+            </list>
+        </property>
+	</bean>
+
+	<!-- general Errors structure -->
+
+	<bean id="coreErrors" class="net.sf.pmr.keopsframework.domain.validation.ErrorsImpl"
+		  singleton="false" dependency-check="objects">
+		<constructor-arg index="0"><ref bean="coreMessageSource"/></constructor-arg>
+	</bean>
+
+	<!-- project Validator -->
+
+	<bean id="projectValidator" class="net.sf.pmr.core.domain.project.ProjectValidatorImpl"
+		  singleton="true" 	dependency-check="none"/>
+
+	<!-- user Validator -->
+
+	<bean id="userValidator" class="net.sf.pmr.core.domain.user.UserValidatorImpl"
+		  singleton="true" 	dependency-check="none">
+        <constructor-arg index="0"><ref local="userRepository"/></constructor-arg>
+	</bean>
+
+	<!-- company Validator -->
+
+	<bean id="companyValidator" class="net.sf.pmr.core.domain.user.company.CompanyValidatorImpl"
+		  singleton="true" 	dependency-check="none"/>
+
+	<!--  address Validator -->
+
+	<bean id="addressValidator" class="net.sf.pmr.core.domain.user.company.AddressValidatorImpl"
+		  singleton="true" 	dependency-check="none"/>
+
+<!-- repositories -->
+
+	<!-- user -->
+
+    <bean id="userRepository" class="net.sf.pmr.core.domain.user.UserRepositoryImpl"
+          singleton="true" dependency-check="objects">
+	    <constructor-arg index="0"><ref local="userMapper"/></constructor-arg>
+	    <constructor-arg index="1"><ref local="projectProxyUtil"/></constructor-arg>
+    </bean>   
+
+	<!-- company -->
+	<bean id="companyRepository" class="net.sf.pmr.core.domain.user.company.CompanyRepositoryImpl"
+          singleton="true" dependency-check="objects">
+	    <constructor-arg index="0"><ref local="companyMapper"/></constructor-arg>
+    </bean>   
+    
+    
+    <!-- project -->
+
+    <bean id="projectRepository" class="net.sf.pmr.core.domain.project.ProjectRepositoryImpl"
+          singleton="true" dependency-check="objects">
+	    <constructor-arg index="0"><ref local="projectMapper"/></constructor-arg>
+	    <constructor-arg index="1"><ref local="projectProxyUtil"/></constructor-arg>
+    </bean>   
+    
+    <!-- country -->
+    
+    <bean id="countryRepository" class="net.sf.pmr.core.domain.reference.CountryRepositoryImpl"
+          singleton="true" dependency-check="objects">
+	    <constructor-arg index="0"><ref local="countryMapper"/></constructor-arg>
+    </bean>   
+    
+    
+<!-- mappers -->
+
+	<!-- TODO vérifier l'utilité de depends-on avec dependency-check=none -->
+
+	<!-- user -->
+
+    <bean id="userMapper" class="net.sf.pmr.core.data.user.UserMapperImpl"
+    	  singleton="true" dependency-check="none">
+		<property name="sessionFactory"><ref local="sessionFactory"/></property>
+	</bean>
+    
+    <!-- company -->
+    
+    <bean id="companyMapper" class="net.sf.pmr.core.data.user.company.CompanyMapperImpl"
+    	  singleton="true" dependency-check="none">
+		<property name="sessionFactory"><ref local="sessionFactory"/></property>
+	</bean>
+	
+	<!-- country -->
+	
+	<bean id="countryMapper" class="net.sf.pmr.core.data.reference.CountryMapperImpl"
+    	  singleton="true" dependency-check="none">
+		<property name="sessionFactory"><ref local="sessionFactory"/></property>
+	</bean>
+	
+	<!-- project -->
+	
+	<bean id="projectMapper" class="net.sf.pmr.core.data.project.ProjectMapperImpl"
+    	  singleton="true" dependency-check="none">
+		<property name="sessionFactory"><ref local="sessionFactory"/></property>
+	</bean>
+	
+	<!-- =============== Java Object =============== -->
+
+	<bean id="date" class="java.util.Date" 
+				  singleton="false" dependency-check="none">
+    </bean>
+	
+	
+          
+<!-- ========================= GENERAL DEFINITIONS ========================= -->           
+          
+<!--- CustomEditor -->
+
+	<bean id="customEditorConfigurer" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+			<entry key="java.util.Date">
+				<bean class="org.springframework.beans.propertyeditors.CustomDateEditor">
+					<constructor-arg index="0">
+						<bean class="java.text.SimpleDateFormat">
+							<constructor-arg><value>dd/mm/yyyy hh:mm</value></constructor-arg>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="1"><value>false</value></constructor-arg>
+				</bean>
+			</entry>
+			</map>
+		</property>
+	</bean>
+
+<!-- ========================= DATA ACCESS DEFINITIONS ========================= --> 
+	
+<!-- data access properties -->
+
+    <bean id="dataAccessProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <description>Data access specific options</description>
+        <property name="locations">
+			<list>
+            	<value>jdbc.properties</value>
+            	<value>hibernate.properties</value>
+            </list>
+        </property>
+    </bean>
+	
+<!-- DataSource configuration-->
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		    <property name="driverClassName"><value>${jdbc.driverClassName}</value></property>
+			<property name="url"><value>${jdbc.url}</value></property>
+			<property name="username"><value>${jdbc.username}</value></property>
+			<property name="password"><value>${jdbc.password}</value></property>
+			<property name="maxIdle"><value>${jdbc.maxIdle}</value></property>
+			<property name="minIdle"><value>${jdbc.minIdle}</value></property>
+	</bean>	
+	
+<!-- Hibernate configuration-->	
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+       <property name="configLocation">
+               <value>classpath:hibernate.cfg.xml</value>
+       </property>
+       <property name="hibernateProperties">
+           <props>
+               <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+               <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+           </props>
+       </property>
+       <property name="dataSource">
+           <ref bean="dataSource"/>
+       </property>
+   </bean>
+	
+<!-- ========================= TRANSACTION DEFINITION ========================= --> 	
+	
+<!-- Transaction Manager -->
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory"><ref local="sessionFactory"/></property>
+	</bean>
+	
+
+<!-- define transaction interceptor -->
+	
+	<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager"><ref bean="transactionManager"/></property>
+		<property name="transactionAttributeSource"><ref bean="txAttributes"/></property>
+    </bean>
+	
+<!-- Define transactional methods (NameMatchTransactionAttributeSource applies
+specific attributes to methods that match to a pattern)  -->	
+	
+	<bean id="txAttributes" class="org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource">
+		<property name="properties"><value>find*=ISOLATION_DEFAULT, PROPAGATION_NOT_SUPPORTED, readOnly
+										   load*=ISOLATION_DEFAULT, PROPAGATION_NOT_SUPPORTED, readOnly
+										   count*=ISOLATION_DEFAULT, PROPAGATION_NEVER, readOnly
+		 								   addOrUpdate=ISOLATION_DEFAULT, PROPAGATION_REQUIRED, -Throwable 
+		 								   addOrUpdate*=ISOLATION_DEFAULT, PROPAGATION_REQUIRED, -Throwable 
+										   delete=ISOLATION_DEFAULT, PROPAGATION_REQUIRED, -Throwable
+										   delete*=ISOLATION_DEFAULT, PROPAGATION_REQUIRED, -Throwable
+									</value>
+		</property>
+	</bean>
+	
+<!-- Define transactional beans (thanks Autoproxy) i.e. every mappers -->
+	
+	<bean id="autoProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="interceptorNames">
+			<value>transactionInterceptor</value>
+		</property>
+		<property name="beanNames"><value>*Mapper</value></property>
+	</bean> 
+
+</beans>

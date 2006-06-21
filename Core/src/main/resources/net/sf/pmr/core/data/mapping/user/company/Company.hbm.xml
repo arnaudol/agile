@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.sf.pmr.core.data.mapping">
+
+	<class name="net.sf.pmr.core.domain.user.company.CompanyImpl" table="COMPANY">
+
+		<id column="ID" name="PersistanceId" type="int" unsaved-value="0">
+			<generator class="native" />
+		</id>
+
+		<version column="VERSION" name="PersistanceVersion" type="long" />
+
+		<property column="NAME" length="100" name="Name" not-null="false" type="string" />
+
+		<component name="Address" class="net.sf.pmr.core.domain.user.company.AddressImpl">
+        	        <property column="STREETNUMBER" length="100" name="StreetNumber" type="string"/>
+					<property column="STREETNAME" length="100" name="StreetName" type="string"/>
+					<property column="POSTALCODE" length="20" name="PostalCode" type="string"/>
+					<property column="CITY" length="100" name="City" type="string"/>
+					<property column="COUNTRY" length="50" name="country" type="string"/>
+	    </component>
+
+	</class>
+</hibernate-mapping>
