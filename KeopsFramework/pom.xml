@@ -1,0 +1,87 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sf.pmr.keopsframework</groupId>
+  <artifactId>keopsframework</artifactId>
+  <packaging>jar</packaging>
+  <version>0.9h</version>
+  <name>Keops Framework</name>
+  <url>http://sourceforge.net/projects/pmr/</url>
+  
+  <description>commun fonctionnality</description>
+  <issueManagement>
+    <url>http://sourceforge.net/tracker/?group_id=120429</url>
+  </issueManagement>
+  
+  <licenses>
+      <license>
+          <name>CeCILL v2</name>
+          <url>http://www.cecill.fr</url>
+      </license>
+  </licenses>
+  
+  <repositories>
+    <repository>
+      <id>pmr-repository1</id>
+      <url>http://pmr.sourceforge.net/maven2-repository</url>
+    </repository>
+  </repositories>
+
+  <dependencies>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>1.2.6</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>1.2.6</version>
+            <type>jar</type>
+        </dependency>
+       <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+           <scope>test</scope>
+      </dependency>
+       <dependency>
+            <groupId>mockcreator</groupId>
+            <artifactId>mockcreator</artifactId>
+            <version>2005-02-21</version>
+            <type>jar</type>
+            <scope>test</scope>
+        </dependency>
+  </dependencies>
+
+  <!-- build for java 1.5 -->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <!-- deploy jar in remote repository -->
+  <distributionManagement>
+    <repository>
+      <id>pmr-repository</id>
+      <name>pmr repository</name>
+      <url>scp://pmr.sourceforge.net/maven2-repository</url>
+    </repository>
+  </distributionManagement>
+
+</project>
