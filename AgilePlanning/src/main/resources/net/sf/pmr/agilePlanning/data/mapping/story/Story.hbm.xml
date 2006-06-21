@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.sf.pmr.agilePlanning.data.mapping">
+
+	<class name="net.sf.pmr.agilePlanning.domain.story.StoryImpl" table="STORY">
+		
+		<id column="ID" name="PersistanceId" type="int" unsaved-value="0">
+			<generator class="native" />
+		</id>
+
+		<version column="VERSION" name="PersistanceVersion" type="long" />
+
+		<property column="SHORTDESCRIPTION" length="100" name="ShortDescription" not-null="false" type="string" />
+		<property column="DESCRIPTION" length="255" name="Description" not-null="false" type="string" />
+		<property column="DAYSESTIMATED" name="DaysEstimated" not-null="false" type="double" />
+		    
+    	<many-to-one class="net.sf.pmr.agilePlanning.domain.story.BusinessValueImpl" name="BusinessValue" 
+					 lazy="false" outer-join="false" cascade="none" update="true" insert="true">
+			<column name="BUS_ID" />
+		</many-to-one>   
+		    
+		<many-to-one class="net.sf.pmr.agilePlanning.domain.story.RiskLevelImpl" name="RiskLevel" 
+					 lazy="false" outer-join="false" cascade="none" update="true" insert="true">
+			<column name="RIS_ID" />
+		</many-to-one>       
+		    
+		<many-to-one class="net.sf.pmr.core.domain.basicProject.BasicProjectImpl" name="BasicProject" 
+					 lazy="false" outer-join="false" cascade="none" update="true" insert="true">
+			<column name="PRO_ID" />
+		</many-to-one>
+		
+		<set name="Tasks" cascade="all" lazy="false" table="STORY_HAS_TASKS">
+            <key column="STO_ID"/>
+            <many-to-many column="ID" class="net.sf.pmr.agilePlanning.domain.story.task.TaskImpl"/>
+        </set>
+
+	</class>
+</hibernate-mapping>
