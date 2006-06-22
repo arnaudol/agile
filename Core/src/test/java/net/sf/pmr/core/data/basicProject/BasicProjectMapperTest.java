@@ -147,7 +147,7 @@ public class BasicProjectMapperTest extends MapperTestCase {
             throws Exception {
 
        // get a new Project
-       Project basicProject = CoreObjectFactory.getBasicProject();
+       Project basicProject = CoreObjectFactory.getProject();
                 
        basicProject.setCode("SP");
        basicProject.setName("Super Project");
@@ -197,8 +197,8 @@ public class BasicProjectMapperTest extends MapperTestCase {
             throws Exception {
         
         // get a new Project
-        Project basicProject1 = CoreObjectFactory.getBasicProject();
-        Project basicProject2 = CoreObjectFactory.getBasicProject();
+        Project basicProject1 = CoreObjectFactory.getProject();
+        Project basicProject2 = CoreObjectFactory.getProject();
         
         basicProject1.setCode("FFGT2");
         basicProject1.setName("mega project");
@@ -235,7 +235,7 @@ public class BasicProjectMapperTest extends MapperTestCase {
             throws Exception {
         
         // get a new Project
-        Project basicProject = CoreObjectFactory.getBasicProject();
+        Project basicProject = CoreObjectFactory.getProject();
 
         // set the properties of a project in the database but change the name
         basicProject.setPersistanceId(1);
@@ -268,8 +268,8 @@ public class BasicProjectMapperTest extends MapperTestCase {
             throws Exception {
 
         // get a new Project
-        Project basicProject1 = CoreObjectFactory.getBasicProject();
-        Project basicProject2 = CoreObjectFactory.getBasicProject();
+        Project basicProject1 = CoreObjectFactory.getProject();
+        Project basicProject2 = CoreObjectFactory.getProject();
 
         // set the properties of a project in the database but change the name
         basicProject1.setPersistanceId(1);
@@ -314,7 +314,7 @@ public class BasicProjectMapperTest extends MapperTestCase {
     public final void testDeleteWithoutConcurrencyFailureException()
             throws Exception {
         
-        Project basicProject = CoreObjectFactory.getBasicProject();
+        Project basicProject = CoreObjectFactory.getProject();
 
         // set the properties of a project in the database
         basicProject.setPersistanceId(1);
@@ -343,8 +343,8 @@ public class BasicProjectMapperTest extends MapperTestCase {
     public final void testDeleteWithConcurrencyFailureException()
             throws Exception {
 
-        Project basicProject1 = CoreObjectFactory.getBasicProject();
-        Project basicProject2 = CoreObjectFactory.getBasicProject();
+        Project basicProject1 = CoreObjectFactory.getProject();
+        Project basicProject2 = CoreObjectFactory.getProject();
 
         // set the properties of a project in the database
         basicProject1.setPersistanceId(1);

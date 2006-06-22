@@ -88,7 +88,7 @@ public class ProjectProxyUtilImpl implements ProjectProxyUtil {
         } else {
 
             Project basicProjectFromFactory = CoreObjectFactory
-                    .getBasicProject();
+                    .getProject();
 
             BeanUtils.copyProperties(basicProject, basicProjectFromFactory);
 

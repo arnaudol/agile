@@ -88,7 +88,7 @@ public class ProjectServiceImpl implements ProjectService {
     public Errors add(final String code, final String name, final int defaultMemberPersistanceId) {
 
       // First call for a project instance
-      Project basicProject = CoreObjectFactory.getBasicProject();
+      Project basicProject = CoreObjectFactory.getProject();
 
       // populate the instance
       basicProject.setCode(code);
@@ -124,7 +124,7 @@ public class ProjectServiceImpl implements ProjectService {
     public Errors update(final int persistanceId, final String code, final String name, final long persistanceVersion) {
 
         // First call for a project instance
-        Project basicProject = CoreObjectFactory.getBasicProject();
+        Project basicProject = CoreObjectFactory.getProject();
 
         // populate the instance
         basicProject.setPersistanceId(persistanceId);

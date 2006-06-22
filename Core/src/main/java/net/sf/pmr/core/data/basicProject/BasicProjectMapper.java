@@ -39,11 +39,11 @@ package net.sf.pmr.core.data.basicProject;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.pmr.core.domain.basicProject.BasicProject;
+import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.keopsframework.data.DomainObjectRootAggregateMapper;
 
 /**
- * Mapper for BasicProject.
+ * Mapper for Project.
  * @author arnaud.prost@gmail.com
  */
 public interface BasicProjectMapper extends DomainObjectRootAggregateMapper {
@@ -58,14 +58,14 @@ public interface BasicProjectMapper extends DomainObjectRootAggregateMapper {
      * find all users.
      * @return List of basicProjects
      */
-    List < BasicProject > findAll();
+    List < Project > findAll();
 
 
     /**
      * find projects for a user.
      * @param userPersistanceId persistance id of the user
-     * @return Set of BasicProject
+     * @return Set of Project
      */
-    Set < BasicProject > findForAUser(final int userPersistanceId);
+    Set < Project > findForAUser(final int userPersistanceId);
 
 }

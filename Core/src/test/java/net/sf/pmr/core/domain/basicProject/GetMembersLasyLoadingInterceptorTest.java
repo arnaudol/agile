@@ -69,7 +69,7 @@ public class GetMembersLasyLoadingInterceptorTest extends TestCase {
         super.setUp();
         
         // Project
-        basicProject = CoreObjectFactory.getBasicProject();
+        basicProject = CoreObjectFactory.getProject();
 
         // interceptor
         domainCollectionLasyLoadingInterceptor = CoreObjectFactory.getMembersLasyLoadingAdvice();

@@ -39,8 +39,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectImpl;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 import net.sf.pmr.keopsframework.domain.object.DomainObject;
 
 import org.springframework.dao.support.DataAccessUtils;
@@ -57,8 +57,8 @@ public class BasicProjectMapperImpl extends
      */
     public final Object findById(final int id) {
 
-        return (BasicProject) getHibernateTemplate().get(
-                BasicProjectImpl.class, new Integer(id));
+        return (Project) getHibernateTemplate().get(
+                ProjectImpl.class, new Integer(id));
 
     }
 
@@ -67,7 +67,7 @@ public class BasicProjectMapperImpl extends
      */
     public final void addOrUpdate(DomainObject domainObject) {
 
-        getHibernateTemplate().saveOrUpdate((BasicProject) domainObject);
+        getHibernateTemplate().saveOrUpdate((Project) domainObject);
 
     }
 
@@ -76,7 +76,7 @@ public class BasicProjectMapperImpl extends
      */
     public final void delete(final DomainObject DomainObject) {
 
-        getHibernateTemplate().delete((BasicProject) DomainObject);
+        getHibernateTemplate().delete((Project) DomainObject);
 
     }
 
@@ -87,7 +87,7 @@ public class BasicProjectMapperImpl extends
 
         List list = getHibernateTemplate()
                 .find(
-                        "select count(*) from net.sf.pmr.core.domain.basicProject.BasicProjectImpl");
+                        "select count(*) from net.sf.pmr.core.domain.basicProject.ProjectImpl");
         return (Integer) DataAccessUtils.uniqueResult(list);
 
     }
@@ -97,9 +97,9 @@ public class BasicProjectMapperImpl extends
      * @see net.sf.pmr.core.data.basicProject.BasicProjectMapper#findAll()
      */
 	@SuppressWarnings("unchecked")
-	public final List<BasicProject> findAll() {
+	public final List<Project> findAll() {
 
-        return getHibernateTemplate().loadAll(BasicProject.class);
+        return getHibernateTemplate().loadAll(Project.class);
 
     }
 
@@ -107,14 +107,14 @@ public class BasicProjectMapperImpl extends
 	 * @see net.sf.pmr.core.data.basicProject.BasicProjectMapper#findForAUser()
 	 */
 	@SuppressWarnings("unchecked")
-	public Set<BasicProject> findForAUser(final int userPersistanceId) {
+	public Set<Project> findForAUser(final int userPersistanceId) {
 
-		List<BasicProject> list = getHibernateTemplate()
+		List<Project> list = getHibernateTemplate()
 				.find(
-						"from net.sf.pmr.core.domain.basicProject.BasicProjectImpl basicProject where basicProject.Members.PersistanceId = ?",
+						"from net.sf.pmr.core.domain.basicProject.ProjectImpl basicProject where basicProject.Members.PersistanceId = ?",
 						new Integer(userPersistanceId));
 
-		Set<BasicProject> setToReturn = new HashSet<BasicProject>();
+		Set<Project> setToReturn = new HashSet<Project>();
 
 		setToReturn.addAll(list);
 

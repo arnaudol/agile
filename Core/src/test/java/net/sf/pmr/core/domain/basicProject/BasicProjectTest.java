@@ -67,7 +67,7 @@ public class BasicProjectTest extends TestCase {
     public final void testObjectConstruction() {
 
         // get a member from the application context
-        Project basicProject = CoreObjectFactory.getBasicProject();
+        Project basicProject = CoreObjectFactory.getProject();
 
         assertEquals("id", new Integer(0), new Integer(basicProject.getPersistanceId()));
         assertEquals("code", "", basicProject.getCode());

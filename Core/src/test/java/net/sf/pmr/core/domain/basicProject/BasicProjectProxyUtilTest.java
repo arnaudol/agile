@@ -67,7 +67,7 @@ public class BasicProjectProxyUtilTest extends TestCase {
      */
     public void testGetTargetWithAnAdvised() {
 
-        Project basicProject = CoreObjectFactory.getBasicProject();
+        Project basicProject = CoreObjectFactory.getProject();
 
         Project basicProjectTargetReturned = basicProjectProxyUtil
                 .getTarget(basicProject);
@@ -115,7 +115,7 @@ public class BasicProjectProxyUtilTest extends TestCase {
      */
     public void testInjectDependenciesWithAnAdvised() {
 
-        Project basicProject1 = CoreObjectFactory.getBasicProject();
+        Project basicProject1 = CoreObjectFactory.getProject();
 
         Project basicProject2 = basicProjectProxyUtil.injectDependencies(basicProject1);
 

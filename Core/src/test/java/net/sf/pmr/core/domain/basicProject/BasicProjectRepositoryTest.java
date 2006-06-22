@@ -82,7 +82,7 @@ public class BasicProjectRepositoryTest extends TestCase {
         basicProjectRepository = new ProjectRepositoryImpl(mockBasicProjectMapper, mockBasicProjectProxyUtil);
         
         // instanciation d'un basicProject (un proxy)
-        basicProject = CoreObjectFactory.getBasicProject();
+        basicProject = CoreObjectFactory.getProject();
         
         // reset du mockCore
         MockCore.reset();

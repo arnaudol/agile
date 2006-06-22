@@ -39,9 +39,9 @@ import net.sf.pmr.core.data.project.ProjectMapper;
 import net.sf.pmr.core.data.reference.CountryMapper;
 import net.sf.pmr.core.data.user.UserMapper;
 import net.sf.pmr.core.data.user.company.CompanyMapper;
+import net.sf.pmr.core.domain.project.DomainCollectionLasyLoadingInterceptor;
 import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.project.ProjectRepository;
-import net.sf.pmr.core.domain.project.DomainCollectionLasyLoadingInterceptor;
 import net.sf.pmr.core.domain.reference.Country;
 import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.core.domain.user.UserRepository;
@@ -202,7 +202,7 @@ public final class CoreObjectFactory {
      * get the basicProject
      * @return basicProject
      */
-    public static Project getBasicProject() {
+    public static Project getProject() {
 
         return (Project) CoreObjectFactory.getObject("project");
     }

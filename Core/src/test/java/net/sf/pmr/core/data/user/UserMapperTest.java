@@ -443,7 +443,7 @@ public class UserMapperTest extends MapperTestCase {
 	    
 	    // R�cup�ration d'un project qui a des membres...
 	    //... le project avec l'ID 2
-	    Project basicProject = CoreObjectFactory.getBasicProject();
+	    Project basicProject = CoreObjectFactory.getProject();
 	    
 	    basicProject.setPersistanceId(2);
 	    basicProject.setCode("PR2");
@@ -475,7 +475,7 @@ public class UserMapperTest extends MapperTestCase {
 	    
         // R�cup�ration d'un project qui n'a pas de membre...
 	    //... le project avec l'ID 2
-	    Project basicProject = CoreObjectFactory.getBasicProject();
+	    Project basicProject = CoreObjectFactory.getProject();
 	    
 	    basicProject.setPersistanceId(1);
 	    basicProject.setCode("PR1");

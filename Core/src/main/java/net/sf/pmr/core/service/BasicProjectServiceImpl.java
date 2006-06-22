@@ -40,8 +40,8 @@ import java.util.List;
 import java.util.Set;
 
 import net.sf.pmr.core.CoreObjectFactory;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectRepository;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectRepository;
 import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.core.domain.user.UserRepository;
 import net.sf.pmr.keopsframework.domain.validation.Errors;
@@ -60,7 +60,7 @@ public class BasicProjectServiceImpl implements BasicProjectService {
     /**
      * basicProject repository
      */
-    private BasicProjectRepository basicProjectRepository;
+    private ProjectRepository basicProjectRepository;
 
     /**
      * user repository
@@ -73,7 +73,7 @@ public class BasicProjectServiceImpl implements BasicProjectService {
      * @param userRepository
      */
     public BasicProjectServiceImpl(final Validator basicProjectValidator,
-            final BasicProjectRepository basicProjectRepository,
+            final ProjectRepository basicProjectRepository,
             final UserRepository userRepository) {
         super();
         this.basicProjectValidator = basicProjectValidator;
@@ -88,11 +88,11 @@ public class BasicProjectServiceImpl implements BasicProjectService {
     public Errors add(final String code, final String name, final int defaultMemberPersistanceId) {
 
       // First call for a project instance
-      BasicProject basicProject = CoreObjectFactory.getBasicProject();
+      Project project = CoreObjectFactory.getProject();
 
       // populate the instance
-      basicProject.setCode(code);
-      basicProject.setName(name);
+      project.setCode(code);
+      project.setName(name);
 
       // then find the default member in the user repository
       User user = userRepository.findUserByPersistanceId(defaultMemberPersistanceId);
@@ -100,16 +100,16 @@ public class BasicProjectServiceImpl implements BasicProjectService {
       // add the user to the set of members
       Set<User> members = new HashSet<User>();
       members.add(user);
-      basicProject.setMembers(members);
+      project.setMembers(members);
 
       // validation of the basicProject
-      Errors errors = basicProjectValidator.validate(basicProject);
+      Errors errors = basicProjectValidator.validate(project);
 
       if (!errors.hasErrors()) {
 
           // if no error, add to repository
           try {
-              basicProjectRepository.addOrUpdate(basicProject);
+              basicProjectRepository.addOrUpdate(project);
           } catch (Exception exception) {
               // in case of exception, it put in the error struture
               errors.reject(exception.getClass().getName());
@@ -124,7 +124,7 @@ public class BasicProjectServiceImpl implements BasicProjectService {
     public Errors update(final int persistanceId, final String code, final String name, final long persistanceVersion) {
 
         // First call for a project instance
-        BasicProject basicProject = CoreObjectFactory.getBasicProject();
+        Project basicProject = CoreObjectFactory.getProject();
 
         // populate the instance
         basicProject.setPersistanceId(persistanceId);
@@ -162,7 +162,7 @@ public class BasicProjectServiceImpl implements BasicProjectService {
     /**
      * @see net.sf.pmr.core.service.BasicProjectService#findAll()
      */
-    public List<BasicProject> findAll() {
+    public List<Project> findAll() {
         return basicProjectRepository.findAll();
     }
 
@@ -170,7 +170,7 @@ public class BasicProjectServiceImpl implements BasicProjectService {
     /** 
      * @see net.sf.pmr.core.service.BasicProjectService#findByPersistanceId(int)
      */
-    public BasicProject findByPersistanceId(final int persistanceId) {
+    public Project findByPersistanceId(final int persistanceId) {
         return basicProjectRepository.findByPersistanceId(persistanceId);
     }
 
@@ -178,7 +178,7 @@ public class BasicProjectServiceImpl implements BasicProjectService {
 	/* (non-Javadoc)
 	 * @see net.sf.pmr.core.service.BasicProjectService#findForAUser(int)
 	 */
-	public Set<BasicProject> findForAUser(final int userPersistanceId) {
+	public Set<Project> findForAUser(final int userPersistanceId) {
 		return this.basicProjectRepository.findForAUser(userPersistanceId);
 	}
     
