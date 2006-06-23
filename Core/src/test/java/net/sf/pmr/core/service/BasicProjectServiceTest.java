@@ -37,7 +37,7 @@ package net.sf.pmr.core.service;
 
 import junit.framework.TestCase;
 import net.sf.pmr.core.CoreObjectFactory;
-import net.sf.pmr.core.domain.basicProject.MockBasicProjectRepository;
+import net.sf.pmr.core.domain.project.MockProjectRepository;
 import net.sf.pmr.core.domain.user.MockUserRepository;
 import net.sf.pmr.core.domain.user.UserImpl;
 import net.sf.pmr.keopsframework.domain.validation.MockErrors;
@@ -54,7 +54,7 @@ public class BasicProjectServiceTest extends TestCase {
     
     private MockValidator mockBasicProjectValidator; 
     
-    private MockBasicProjectRepository mockBasicProjectRepository;
+    private MockProjectRepository mockBasicProjectRepository;
     
     private MockUserRepository mockUserRepository;
     
@@ -69,7 +69,7 @@ public class BasicProjectServiceTest extends TestCase {
 
         // mock
         mockBasicProjectValidator = new MockValidator();
-        mockBasicProjectRepository = new MockBasicProjectRepository();
+        mockBasicProjectRepository = new MockProjectRepository();
         mockUserRepository = new MockUserRepository();
         
         // basicProjectService

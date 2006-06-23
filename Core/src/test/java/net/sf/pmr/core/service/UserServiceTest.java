@@ -39,7 +39,7 @@ import java.util.HashSet;
 
 import junit.framework.TestCase;
 import net.sf.pmr.core.CoreObjectFactory;
-import net.sf.pmr.core.domain.basicProject.MockBasicProjectRepository;
+import net.sf.pmr.core.domain.project.MockProjectRepository;
 import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.project.ProjectImpl;
 import net.sf.pmr.core.domain.user.MockUserRepository;
@@ -70,7 +70,7 @@ public class UserServiceTest extends TestCase {
     
     private MockErrors mockCompanyErrors;
     
-    private MockBasicProjectRepository mockBasicProjectRepository;
+    private MockProjectRepository mockBasicProjectRepository;
 
 
     /*
@@ -87,7 +87,7 @@ public class UserServiceTest extends TestCase {
         
         // mockcompanyValidator = new MockValidator();
 
-        mockBasicProjectRepository = new MockBasicProjectRepository();
+        mockBasicProjectRepository = new MockProjectRepository();
         
         userService = new UserServiceImpl(mockUserRepository, mockUserValidator, mockCompanyRepository, mockBasicProjectRepository);
         
