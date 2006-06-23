@@ -73,7 +73,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
 
     /**
-     * @see net.sf.pmr.core.domain.project.BasicProjectRepositoryTest#countAll()
+     * @see net.sf.pmr.core.domain.project.ProjectRepositoryTest#countAll()
      */
     public Integer countAll() {
         return basicProjectMapper.countAll();

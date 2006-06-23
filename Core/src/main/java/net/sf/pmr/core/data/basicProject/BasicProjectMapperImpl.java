@@ -87,14 +87,14 @@ public class BasicProjectMapperImpl extends
 
         List list = getHibernateTemplate()
                 .find(
-                        "select count(*) from net.sf.pmr.core.domain.basicProject.ProjectImpl");
+                        "select count(*) from net.sf.pmr.core.domain.project.ProjectImpl");
         return (Integer) DataAccessUtils.uniqueResult(list);
 
     }
 
     /*
      * (non-Javadoc)
-     * @see net.sf.pmr.core.data.basicProject.BasicProjectMapper#findAll()
+     * @see net.sf.pmr.core.data.project.BasicProjectMapper#findAll()
      */
 	@SuppressWarnings("unchecked")
 	public final List<Project> findAll() {
@@ -104,14 +104,14 @@ public class BasicProjectMapperImpl extends
     }
 
 	/* (non-Javadoc)
-	 * @see net.sf.pmr.core.data.basicProject.BasicProjectMapper#findForAUser()
+	 * @see net.sf.pmr.core.data.project.BasicProjectMapper#findForAUser()
 	 */
 	@SuppressWarnings("unchecked")
 	public Set<Project> findForAUser(final int userPersistanceId) {
 
 		List<Project> list = getHibernateTemplate()
 				.find(
-						"from net.sf.pmr.core.domain.basicProject.ProjectImpl basicProject where basicProject.Members.PersistanceId = ?",
+						"from net.sf.pmr.core.domain.project.ProjectImpl basicProject where basicProject.Members.PersistanceId = ?",
 						new Integer(userPersistanceId));
 
 		Set<Project> setToReturn = new HashSet<Project>();
