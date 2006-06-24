@@ -38,7 +38,7 @@ import java.util.Date;
 import java.util.Set;
 
 import net.sf.pmr.agilePlanning.domain.story.Story;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
+import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.keopsframework.domain.object.AbstractDomainObject;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -50,9 +50,9 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class ReleaseImpl extends AbstractDomainObject implements Release {
 
     /**
-     * basic Project.
+     * project.
      */
-    private BasicProject basicProject;
+    private Project project;
 
     /**
      * number.
@@ -72,15 +72,15 @@ public class ReleaseImpl extends AbstractDomainObject implements Release {
     /* (non-Javadoc)
      * @see net.sf.pmr.agilePlanning.domain.release.Release#getBasicProject()
      */
-    public BasicProject getBasicProject() {
-        return basicProject;
+    public Project getProject() {
+        return project;
     }
 
     /* (non-Javadoc)
-     * @see net.sf.pmr.agilePlanning.domain.release.Release#setBasicProject(net.sf.pmr.core.domain.basicProject.BasicProject)
+     * @see net.sf.pmr.agilePlanning.domain.release.Release#setBasicProject(net.sf.pmr.core.domain.project.BasicProject)
      */
-    public void setBasicProject(final BasicProject basicProject) {
-        this.basicProject = basicProject;
+    public void setProject(final Project project) {
+        this.project = project;
     }
 
     /* (non-Javadoc)
@@ -160,13 +160,13 @@ public class ReleaseImpl extends AbstractDomainObject implements Release {
             return false;
         }
         ReleaseImpl rhs = (ReleaseImpl) object;
-        return new EqualsBuilder().append(this.basicProject, rhs.basicProject).append(this.number, rhs.number).isEquals();
+        return new EqualsBuilder().append(this.project, rhs.project).append(this.number, rhs.number).isEquals();
     }
 
     /**
      * @see java.lang.Object#hashCode()
      */
     public int hashCode() {
-        return new HashCodeBuilder(-746013211, 836163745).append(this.basicProject).append(this.number).toHashCode();
+        return new HashCodeBuilder(-746013211, 836163745).append(this.project).append(this.number).toHashCode();
     }
 }

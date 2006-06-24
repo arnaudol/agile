@@ -38,7 +38,7 @@ package net.sf.pmr.agilePlanning.domain.story;
 import java.util.Set;
 
 import net.sf.pmr.agilePlanning.domain.story.task.Task;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
+import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.keopsframework.domain.object.DomainObject;
 
 /**
@@ -101,13 +101,13 @@ public interface Story extends DomainObject {
      * basic project.
      * @return basic project
      */
-    BasicProject getBasicProject();
+    Project getProject();
 
     /**
      * basic project.
      * @param basicProject basic project
      */
-    void setBasicProject(final BasicProject basicProject);
+    void setProject(final Project project);
     
     
     /**

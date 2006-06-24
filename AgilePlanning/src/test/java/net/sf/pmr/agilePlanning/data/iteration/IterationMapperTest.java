@@ -45,8 +45,8 @@ import net.sf.pmr.agilePlanning.domain.iteration.Iteration;
 import net.sf.pmr.agilePlanning.domain.iteration.IterationImpl;
 import net.sf.pmr.agilePlanning.domain.story.Story;
 import net.sf.pmr.agilePlanning.domain.story.StoryImpl;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectImpl;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 
 import org.dbunit.dataset.ITable;
 import org.springframework.dao.ConcurrencyFailureException;
@@ -93,15 +93,15 @@ public class IterationMapperTest extends MapperTestCase {
         iterationMapper = AgilePlanningObjectFactory.getIterationMapper();
         
         // build basic project
-        BasicProject basicProject = new BasicProjectImpl();
-        basicProject.setCode("A");
-        basicProject.setName("Super A");
-        basicProject.setPersistanceId(2);
-        basicProject.setPersistanceVersion(3);
+        Project project = new ProjectImpl();
+        project.setCode("A");
+        project.setName("Super A");
+        project.setPersistanceId(2);
+        project.setPersistanceVersion(3);
         
         // Build iteration to Add
         iterationToAdd = new IterationImpl();
-        iterationToAdd.setBasicProject(basicProject);
+        iterationToAdd.setProject(project);
         
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, 2000);
@@ -120,7 +120,7 @@ public class IterationMapperTest extends MapperTestCase {
 
         // Build iteration to Update
         iterationToUpdate = new IterationImpl();
-        iterationToUpdate.setBasicProject(basicProject);
+        iterationToUpdate.setProject(project);
 
         calendar.set(Calendar.YEAR, 2000);
         calendar.set(Calendar.MONTH, Calendar.MARCH);
@@ -137,7 +137,7 @@ public class IterationMapperTest extends MapperTestCase {
         // Build IterationToDelete
         iterationToDelete = new IterationImpl();
         
-        iterationToDelete.setBasicProject(basicProject);
+        iterationToDelete.setProject(project);
 
         calendar.set(Calendar.YEAR, 2004);
         calendar.set(Calendar.MONTH, Calendar.APRIL);
@@ -158,14 +158,14 @@ public class IterationMapperTest extends MapperTestCase {
         story1.setPersistanceVersion(2);
         story1.setShortDescription("avancement des tâches à modifier");
         story1.setDescription("faire un report d'avancement des tâches à modifier");
-        story1.setBasicProject(basicProject);
+        story1.setProject(project);
         
         story2 = new StoryImpl();
         story2.setPersistanceId(2);
         story2.setPersistanceVersion(3);
         story2.setShortDescription("revue de code");
         story2.setDescription("faire une revue de code de l'iteration courant");
-        story2.setBasicProject(basicProject);
+        story2.setProject(project);
 
         
     }
@@ -203,7 +203,7 @@ public class IterationMapperTest extends MapperTestCase {
 		
 		assertEquals("id", new Integer(iterationToUpdate.getPersistanceId()), (Integer) databaseData.getValue(0, "id"));
 		assertEquals("rel_id", new Integer(3) , (Integer) databaseData.getValue(0, "rel_id"));
-		assertEquals("pro_id", new Integer(iterationToUpdate.getBasicProject().getPersistanceId()), (Integer) databaseData.getValue(0, "pro_id"));
+		assertEquals("pro_id", new Integer(iterationToUpdate.getProject().getPersistanceId()), (Integer) databaseData.getValue(0, "pro_id"));
 		// TODO comment tester les dates ??
 //	    assertEquals("start", iterationToUpdate.getStart(), (Date) databaseData.getValue(0, "start") );
 //	    assertEquals("end", iterationToUpdate.getStart(), (Date) databaseData.getValue(0, "end") );
@@ -233,7 +233,7 @@ public class IterationMapperTest extends MapperTestCase {
 		
 		assertEquals("id", new Integer(iterationToUpdate.getPersistanceId()), (Integer) databaseData.getValue(0, "id"));
 		assertEquals("rel_id", new Integer(3) , (Integer) databaseData.getValue(0, "rel_id"));
-		assertEquals("pro_id", new Integer(iterationToUpdate.getBasicProject().getPersistanceId()), (Integer) databaseData.getValue(0, "pro_id"));
+		assertEquals("pro_id", new Integer(iterationToUpdate.getProject().getPersistanceId()), (Integer) databaseData.getValue(0, "pro_id"));
 		// TODO comment tester les dates ??
 //	    assertEquals("start", iterationToUpdate.getStart(), (Date) databaseData.getValue(0, "start") );
 //	    assertEquals("end", iterationToUpdate.getStart(), (Date) databaseData.getValue(0, "end") );
@@ -276,7 +276,7 @@ public class IterationMapperTest extends MapperTestCase {
             throws Exception {
 
         // modify BasicProjet
-        iterationToUpdate.getBasicProject().setName("bordel!");
+        iterationToUpdate.getProject().setName("bordel!");
         
         // update
         iterationMapper.addOrUpdate(iterationToUpdate);
@@ -338,7 +338,7 @@ public class IterationMapperTest extends MapperTestCase {
 		
 		assertTrue("id", new Integer(iterationToAdd.getPersistanceId()) != (Integer) databaseData.getValue(0, "id"));
 		assertEquals("rel_id", null , (Integer) databaseData.getValue(0, "rel_id"));
-		assertEquals("pro_id", new Integer(iterationToAdd.getBasicProject().getPersistanceId()), (Integer) databaseData.getValue(0, "pro_id"));
+		assertEquals("pro_id", new Integer(iterationToAdd.getProject().getPersistanceId()), (Integer) databaseData.getValue(0, "pro_id"));
 		// TODO comment tester les dates ??
 //	    assertEquals("start", iterationToAdd.getStart(), (Date) databaseData.getValue(0, "start") );
 //	    assertEquals("end", iterationToAdd.getStart(), (Date) databaseData.getValue(0, "end") );
@@ -366,7 +366,7 @@ public class IterationMapperTest extends MapperTestCase {
 		
 		assertTrue("id", new Integer(iterationToAdd.getPersistanceId()) != (Integer) databaseData.getValue(0, "id"));
 		assertEquals("rel_id", null , (Integer) databaseData.getValue(0, "rel_id"));
-		assertEquals("pro_id", new Integer(iterationToAdd.getBasicProject().getPersistanceId()), (Integer) databaseData.getValue(0, "pro_id"));
+		assertEquals("pro_id", new Integer(iterationToAdd.getProject().getPersistanceId()), (Integer) databaseData.getValue(0, "pro_id"));
 		// TODO comment tester les dates ??
 //	    assertEquals("start", iterationToAdd.getStart(), (Date) databaseData.getValue(0, "start") );
 //	    assertEquals("end", iterationToAdd.getStart(), (Date) databaseData.getValue(0, "end") );
@@ -409,7 +409,7 @@ public class IterationMapperTest extends MapperTestCase {
             throws Exception {
 
         // modify BasicProjet
-        iterationToAdd.getBasicProject().setName("bordel!");
+        iterationToAdd.getProject().setName("bordel!");
         
         // add
         iterationMapper.addOrUpdate(iterationToAdd);
@@ -629,7 +629,7 @@ public class IterationMapperTest extends MapperTestCase {
         calendar.set(Calendar.MONTH, Calendar.MARCH);
         calendar.set(Calendar.DAY_OF_MONTH, 13);
         
-        Iteration iteration = iterationMapper.findByProjectPersistanceIdAndByDate(iterationToUpdate.getBasicProject().getPersistanceId(), calendar.getTime());
+        Iteration iteration = iterationMapper.findByProjectPersistanceIdAndByDate(iterationToUpdate.getProject().getPersistanceId(), calendar.getTime());
     
         // test que l'iteration est trouv�e
         assertNotNull(iteration);
@@ -651,7 +651,7 @@ public class IterationMapperTest extends MapperTestCase {
 
         
         Iteration iteration = iterationMapper.findByProjectPersistanceIdAndByDate
-        				(iterationToUpdate.getBasicProject().getPersistanceId(), calendar.getTime());
+        				(iterationToUpdate.getProject().getPersistanceId(), calendar.getTime());
     
         // test que l'iteration est trouvée
         
@@ -674,7 +674,7 @@ public class IterationMapperTest extends MapperTestCase {
         calendar.set(Calendar.MONTH, Calendar.MARCH);
         calendar.set(Calendar.DAY_OF_MONTH, 20);
         
-        Iteration iteration = iterationMapper.findByProjectPersistanceIdAndByDate(iterationToUpdate.getBasicProject().getPersistanceId(), calendar.getTime());
+        Iteration iteration = iterationMapper.findByProjectPersistanceIdAndByDate(iterationToUpdate.getProject().getPersistanceId(), calendar.getTime());
     
         // test que l'iteration est trouv�e
         assertNotNull(iteration);
@@ -694,7 +694,7 @@ public class IterationMapperTest extends MapperTestCase {
         calendar.set(Calendar.MONTH, Calendar.MARCH);
         calendar.set(Calendar.DAY_OF_MONTH, 2);
         
-        Iteration iteration = iterationMapper.findByProjectPersistanceIdAndByDate(iterationToUpdate.getBasicProject().getPersistanceId(), calendar.getTime());
+        Iteration iteration = iterationMapper.findByProjectPersistanceIdAndByDate(iterationToUpdate.getProject().getPersistanceId(), calendar.getTime());
     
 		assertNull(iteration);
         
@@ -711,7 +711,7 @@ public class IterationMapperTest extends MapperTestCase {
         calendar.set(Calendar.MONTH, Calendar.APRIL);
         calendar.set(Calendar.DAY_OF_MONTH, 2);
         
-        Iteration iteration = iterationMapper.findByProjectPersistanceIdAndByDate(iterationToUpdate.getBasicProject().getPersistanceId(), calendar.getTime());
+        Iteration iteration = iterationMapper.findByProjectPersistanceIdAndByDate(iterationToUpdate.getProject().getPersistanceId(), calendar.getTime());
     
 		assertNull(iteration);
         

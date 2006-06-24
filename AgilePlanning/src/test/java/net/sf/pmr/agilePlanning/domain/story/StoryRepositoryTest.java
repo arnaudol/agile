@@ -42,17 +42,13 @@ import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
 import net.sf.pmr.agilePlanning.data.story.MockStoryMapper;
 import net.sf.pmr.agilePlanning.data.story.task.MockTaskMapper;
 import net.sf.pmr.agilePlanning.data.story.task.charge.MockChargeMapper;
-import net.sf.pmr.agilePlanning.domain.story.Story;
-import net.sf.pmr.agilePlanning.domain.story.StoryImpl;
-import net.sf.pmr.agilePlanning.domain.story.StoryRepository;
-import net.sf.pmr.agilePlanning.domain.story.StoryRepositoryImpl;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectImpl;
-import net.sf.pmr.core.domain.basicProject.MockBasicProjectProxyUtil;
+import net.sf.pmr.core.domain.project.MockProjectProxyUtil;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 import de.abstrakt.mock.MockCore;
 
 /**
- * D�finition :
+ * Définition :
  * 
  * @author a.prost
  * 
@@ -61,11 +57,11 @@ public class StoryRepositoryTest extends TestCase {
 
     private Story story1;
 
-    private BasicProject basicProject1;
+    private Project basicProject1;
 
     private Story story2;
 
-    private BasicProject basicProject2;
+    private Project basicProject2;
 
     private Set<Story> setOfStories;
 
@@ -73,9 +69,9 @@ public class StoryRepositoryTest extends TestCase {
     
     private MockChargeMapper mockChargeMapper;
 
-    private MockBasicProjectProxyUtil mockBasicProjectProxyUtil;
+    private MockProjectProxyUtil mockBasicProjectProxyUtil;
 
-    private BasicProject basicProject;
+    private Project basicProject;
 
     private StoryRepository storyRepository;
 
@@ -89,21 +85,21 @@ public class StoryRepositoryTest extends TestCase {
         
         mockChargeMapper = new MockChargeMapper();
 
-        mockBasicProjectProxyUtil = new MockBasicProjectProxyUtil();
+        mockBasicProjectProxyUtil = new MockProjectProxyUtil();
 
-        basicProject = new BasicProjectImpl();
+        basicProject = new ProjectImpl();
 
         storyRepository = new StoryRepositoryImpl(mockStoryMapper,
                 new MockTaskMapper(),mockChargeMapper,  mockBasicProjectProxyUtil);
 
         story1 = new StoryImpl();
-        basicProject1 = new BasicProjectImpl();
-        story1.setBasicProject(basicProject1);
+        basicProject1 = new ProjectImpl();
+        story1.setProject(basicProject1);
         story1.setShortDescription("1");
 
         story2 = new StoryImpl();
-        basicProject2 = new BasicProjectImpl();
-        story2.setBasicProject(basicProject2);
+        basicProject2 = new ProjectImpl();
+        story2.setProject(basicProject2);
         story2.setShortDescription("2");
 
         setOfStories = new HashSet<Story>();
@@ -137,9 +133,9 @@ public class StoryRepositoryTest extends TestCase {
      */
     public void testAddOrUpdate() {
 
-        story1.setBasicProject(basicProject);
+        story1.setProject(basicProject);
 
-        BasicProject basicProjectTarget = new BasicProjectImpl();
+        Project basicProjectTarget = new ProjectImpl();
 
         mockBasicProjectProxyUtil.expectGetTarget(basicProject,
                 basicProjectTarget);
@@ -152,7 +148,7 @@ public class StoryRepositoryTest extends TestCase {
         MockCore.verify();
 
         // check the the basic poject is replaced by the target
-        assertSame(story1.getBasicProject(), basicProjectTarget);
+        assertSame(story1.getProject(), basicProjectTarget);
 
     }
 
@@ -162,9 +158,9 @@ public class StoryRepositoryTest extends TestCase {
      */
     public void testDelete() {
 
-        story1.setBasicProject(basicProject);
+        story1.setProject(basicProject);
 
-        BasicProject basicProjectTarget = new BasicProjectImpl();
+        Project basicProjectTarget = new ProjectImpl();
 
         mockBasicProjectProxyUtil.expectGetTarget(basicProject,
                 basicProjectTarget);
@@ -177,7 +173,7 @@ public class StoryRepositoryTest extends TestCase {
         MockCore.verify();
 
         // check the the basic poject is replaced by the target
-        assertSame(story1.getBasicProject(), basicProjectTarget);
+        assertSame(story1.getProject(), basicProjectTarget);
 
     }
 
@@ -189,8 +185,8 @@ public class StoryRepositoryTest extends TestCase {
 
         mockStoryMapper.expectFindByProjectPersistanceId(1, setOfStories);
 
-        BasicProject basicProjectToReturn1 = new BasicProjectImpl();
-        BasicProject basicProjectToReturn2 = new BasicProjectImpl();
+        Project basicProjectToReturn1 = new ProjectImpl();
+        Project basicProjectToReturn2 = new ProjectImpl();
 
         MockCore.startBlock();
 
@@ -206,8 +202,8 @@ public class StoryRepositoryTest extends TestCase {
 
         MockCore.verify();
 
-        assertSame(story1.getBasicProject(), basicProjectToReturn1);
-        assertSame(story2.getBasicProject(), basicProjectToReturn2);
+        assertSame(story1.getProject(), basicProjectToReturn1);
+        assertSame(story2.getProject(), basicProjectToReturn2);
 
     }
 
@@ -218,8 +214,8 @@ public class StoryRepositoryTest extends TestCase {
 
         mockStoryMapper.expectFindByReleasePersistanceId(1, setOfStories);
 
-        BasicProject basicProjectToReturn1 = new BasicProjectImpl();
-        BasicProject basicProjectToReturn2 = new BasicProjectImpl();
+        Project basicProjectToReturn1 = new ProjectImpl();
+        Project basicProjectToReturn2 = new ProjectImpl();
 
         MockCore.startBlock();
 
@@ -235,8 +231,8 @@ public class StoryRepositoryTest extends TestCase {
 
         MockCore.verify();
 
-        assertSame(story1.getBasicProject(), basicProjectToReturn1);
-        assertSame(story2.getBasicProject(), basicProjectToReturn2);
+        assertSame(story1.getProject(), basicProjectToReturn1);
+        assertSame(story2.getProject(), basicProjectToReturn2);
 
     }
 
@@ -247,8 +243,8 @@ public class StoryRepositoryTest extends TestCase {
 
         mockStoryMapper.expectFindByIterationPersistanceId(1, setOfStories);
 
-        BasicProject basicProjectToReturn1 = new BasicProjectImpl();
-        BasicProject basicProjectToReturn2 = new BasicProjectImpl();
+        Project basicProjectToReturn1 = new ProjectImpl();
+        Project basicProjectToReturn2 = new ProjectImpl();
 
         MockCore.startBlock();
 
@@ -264,8 +260,8 @@ public class StoryRepositoryTest extends TestCase {
 
         MockCore.verify();
 
-        assertSame(story1.getBasicProject(), basicProjectToReturn1);
-        assertSame(story2.getBasicProject(), basicProjectToReturn2);
+        assertSame(story1.getProject(), basicProjectToReturn1);
+        assertSame(story2.getProject(), basicProjectToReturn2);
 
     }
 
@@ -274,9 +270,9 @@ public class StoryRepositoryTest extends TestCase {
      */
     public void testFindByPersistanceId() {
 
-        story1.setBasicProject(basicProject);
+        story1.setProject(basicProject);
 
-        BasicProject basicProjectToReturn = new BasicProjectImpl();
+        Project basicProjectToReturn = new ProjectImpl();
 
         mockStoryMapper.expectFindById(1, story1);
 
@@ -287,13 +283,13 @@ public class StoryRepositoryTest extends TestCase {
 
         MockCore.verify();
 
-        assertSame(story1.getBasicProject(), basicProjectToReturn);
+        assertSame(story1.getProject(), basicProjectToReturn);
 
     }
     
     /**
-     * Test quand la story n'est pas trouv�e, il ne doit pas 
-     * avoir de crash quand on inject la d�pendance manuellement
+     * Test quand la story n'est pas trouvée, il ne doit pas 
+     * avoir de crash quand on inject la dépendance manuellement
      */
     public void testFindByPersistanceIdWhenStoryIsNotFound() {
  

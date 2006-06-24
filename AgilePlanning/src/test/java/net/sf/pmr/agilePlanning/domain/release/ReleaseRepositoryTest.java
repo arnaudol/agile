@@ -40,13 +40,9 @@ import java.util.Set;
 import junit.framework.TestCase;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
 import net.sf.pmr.agilePlanning.data.release.MockReleaseMapper;
-import net.sf.pmr.agilePlanning.domain.release.Release;
-import net.sf.pmr.agilePlanning.domain.release.ReleaseImpl;
-import net.sf.pmr.agilePlanning.domain.release.ReleaseRepository;
-import net.sf.pmr.agilePlanning.domain.release.ReleaseRepositoryImpl;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectImpl;
-import net.sf.pmr.core.domain.basicProject.MockBasicProjectProxyUtil;
+import net.sf.pmr.core.domain.project.MockProjectProxyUtil;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 import de.abstrakt.mock.MockCore;
 
 /**
@@ -58,11 +54,11 @@ public class ReleaseRepositoryTest extends TestCase {
     
     private MockReleaseMapper mockReleaseMapper;
     
-    private MockBasicProjectProxyUtil mockBasicProjectProxyUtil;
+    private MockProjectProxyUtil mockBasicProjectProxyUtil;
     
     private Release release;
     
-    private BasicProject basicProject = new BasicProjectImpl();
+    private Project basicProject = new ProjectImpl();
     
     private ReleaseRepository releaseRepository;
 
@@ -74,11 +70,11 @@ public class ReleaseRepositoryTest extends TestCase {
         
         mockReleaseMapper = new MockReleaseMapper();
         
-        mockBasicProjectProxyUtil = new MockBasicProjectProxyUtil();
+        mockBasicProjectProxyUtil = new MockProjectProxyUtil();
         
         release = new ReleaseImpl();
         
-        basicProject = new BasicProjectImpl();
+        basicProject = new ProjectImpl();
         
         releaseRepository = new ReleaseRepositoryImpl(mockReleaseMapper, mockBasicProjectProxyUtil);
         
@@ -110,9 +106,9 @@ public class ReleaseRepositoryTest extends TestCase {
      */
     public void testAddOrUpdate() {
 
-        release.setBasicProject(basicProject);
+        release.setProject(basicProject);
         
-        BasicProject basicProjectTarget = new BasicProjectImpl();
+        Project basicProjectTarget = new ProjectImpl();
         
         mockBasicProjectProxyUtil.expectGetTarget(basicProject, basicProjectTarget);
         
@@ -124,7 +120,7 @@ public class ReleaseRepositoryTest extends TestCase {
          MockCore.verify();
         
         // check the the basic poject is replaced by the target
-        assertSame(release.getBasicProject(), basicProjectTarget);
+        assertSame(release.getProject(), basicProjectTarget);
     
     }
     
@@ -134,9 +130,9 @@ public class ReleaseRepositoryTest extends TestCase {
      */
     public void testdelete() {
 
-        release.setBasicProject(basicProject);
+        release.setProject(basicProject);
         
-        BasicProject basicProjectTarget = new BasicProjectImpl();
+        Project basicProjectTarget = new ProjectImpl();
         
         mockBasicProjectProxyUtil.expectGetTarget(basicProject, basicProjectTarget);
         
@@ -148,7 +144,7 @@ public class ReleaseRepositoryTest extends TestCase {
          MockCore.verify();
         
         // check the the basic poject is replaced by the target
-        assertSame(release.getBasicProject(), basicProjectTarget);
+        assertSame(release.getProject(), basicProjectTarget);
     
     }
 
@@ -161,13 +157,13 @@ public class ReleaseRepositoryTest extends TestCase {
        Set set = new HashSet();
        
        Release release1 = new ReleaseImpl();
-       BasicProject basicProject1 = new BasicProjectImpl();
-       release1.setBasicProject(basicProject1);
+       Project basicProject1 = new ProjectImpl();
+       release1.setProject(basicProject1);
        release1.setNumber("1");
 
        Release release2 = new ReleaseImpl();
-       BasicProject basicProject2 = new BasicProjectImpl();
-       release2.setBasicProject(basicProject2);
+       Project basicProject2 = new ProjectImpl();
+       release2.setProject(basicProject2);
        release2.setNumber("2");
        
        set.add(release1);
@@ -175,8 +171,8 @@ public class ReleaseRepositoryTest extends TestCase {
        
        mockReleaseMapper.expectFindByProjectPersistanceId(1, set);
        
-       BasicProject basicProjectToReturn1 = new BasicProjectImpl();
-       BasicProject basicProjectToReturn2 = new BasicProjectImpl();
+       Project basicProjectToReturn1 = new ProjectImpl();
+       Project basicProjectToReturn2 = new ProjectImpl();
 
        MockCore.startBlock();
        
@@ -189,8 +185,8 @@ public class ReleaseRepositoryTest extends TestCase {
        
        MockCore.verify();
        
-       assertSame(release1.getBasicProject(), basicProjectToReturn1);
-       assertSame(release2.getBasicProject(), basicProjectToReturn2);
+       assertSame(release1.getProject(), basicProjectToReturn1);
+       assertSame(release2.getProject(), basicProjectToReturn2);
        
        
     }
@@ -200,10 +196,10 @@ public class ReleaseRepositoryTest extends TestCase {
     public void testFindByPersistanceId() {
 
         Release release = new ReleaseImpl();
-        BasicProject basicProject = new BasicProjectImpl();
-        release.setBasicProject(basicProject);
+        Project basicProject = new ProjectImpl();
+        release.setProject(basicProject);
         
-        BasicProject basicProjectToReturn = new BasicProjectImpl();
+        Project basicProjectToReturn = new ProjectImpl();
         
         mockReleaseMapper.expectFindById(1, release);
         
@@ -213,7 +209,7 @@ public class ReleaseRepositoryTest extends TestCase {
         
         MockCore.verify();
         
-        assertSame(release.getBasicProject(), basicProjectToReturn);
+        assertSame(release.getProject(), basicProjectToReturn);
         
     }
     

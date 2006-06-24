@@ -51,8 +51,8 @@ import net.sf.pmr.agilePlanning.domain.story.task.Task;
 import net.sf.pmr.agilePlanning.domain.story.task.TaskValidator;
 import net.sf.pmr.agilePlanning.domain.story.task.charge.Charge;
 import net.sf.pmr.core.CoreObjectFactory;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectRepository;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectRepository;
 import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.core.domain.user.UserRepository;
 import net.sf.pmr.keopsframework.domain.validation.Errors;
@@ -73,9 +73,9 @@ public class StoryServiceImpl implements StoryService {
     private StoryRepository storyRepository;
 
     /**
-     * basicProjectRepository.
+     * projectRepository.
      */
-    private BasicProjectRepository basicProjectRepository;
+    private ProjectRepository projectRepository;
 
     /**
      * BusinessValue repository.
@@ -98,7 +98,7 @@ public class StoryServiceImpl implements StoryService {
     private StoryValidator storyValidator;
 
     public StoryServiceImpl(final TaskValidator taskValidator, final StoryRepository storyRepository,
-            final StoryValidator storyValidator, final BasicProjectRepository basicProjectRepository,
+            final StoryValidator storyValidator, final ProjectRepository projectRepository,
             final BusinessValueRepository businessValueRepository, final RiskLevelRepository riskLevelRepository,
             final UserRepository userRepository) {
         super();
@@ -106,7 +106,7 @@ public class StoryServiceImpl implements StoryService {
         this.taskValidator = taskValidator;
         this.storyRepository = storyRepository;
         this.storyValidator = storyValidator;
-        this.basicProjectRepository = basicProjectRepository;
+        this.projectRepository = projectRepository;
         this.businessValueRepository = businessValueRepository;
         this.riskLevelRepository = riskLevelRepository;
         this.userRepository = userRepository;
@@ -538,8 +538,8 @@ public class StoryServiceImpl implements StoryService {
         Story story = AgilePlanningObjectFactory.getStory();
 
         // find the project
-        BasicProject basicProject = basicProjectRepository.findByPersistanceId(projectPersistanceId);
-        story.setBasicProject(basicProject);
+        Project project = projectRepository.findByPersistanceId(projectPersistanceId);
+        story.setProject(project);
 
         story.setShortDescription(shortDescription);
         story.setDescription(description);

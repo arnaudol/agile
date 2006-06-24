@@ -39,8 +39,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 import net.sf.pmr.agilePlanning.data.release.ReleaseMapper;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectProxyUtil;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectProxyUtil;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
@@ -57,16 +57,16 @@ public class ReleaseRepositoryImpl implements ReleaseRepository {
     /**
      * BasicProjectProxyUtil.
      */
-    private BasicProjectProxyUtil basicProjectProxyUtil;
+    private ProjectProxyUtil projectProxyUtil;
 
 
     /**
      * @param releaseMapper releaseMapper
      */
-    public ReleaseRepositoryImpl(final ReleaseMapper releaseMapper, final BasicProjectProxyUtil basicProjectProxyUtil) {
+    public ReleaseRepositoryImpl(final ReleaseMapper releaseMapper, final ProjectProxyUtil basicProjectProxyUtil) {
         super();
         this.releaseMapper = releaseMapper;
-        this.basicProjectProxyUtil = basicProjectProxyUtil;
+        this.projectProxyUtil = projectProxyUtil;
     }
 
     /*
@@ -76,7 +76,7 @@ public class ReleaseRepositoryImpl implements ReleaseRepository {
     public Release findByPersistanceId(final int persistanceId) {
         Release release =  (Release) releaseMapper.findById(persistanceId);
         
-        release.setBasicProject(basicProjectProxyUtil.injectDependencies(release.getBasicProject()));
+        release.setProject(projectProxyUtil.injectDependencies(release.getProject()));
         
         return release;
 
@@ -122,7 +122,7 @@ public class ReleaseRepositoryImpl implements ReleaseRepository {
         for (Iterator iterator = set.iterator(); iterator.hasNext();) {
             Release release = (Release) iterator.next();
 
-            release.setBasicProject(basicProjectProxyUtil.injectDependencies(release.getBasicProject()));
+            release.setProject(projectProxyUtil.injectDependencies(release.getProject()));
 
         }
 
@@ -144,8 +144,8 @@ public class ReleaseRepositoryImpl implements ReleaseRepository {
 	 */
 	private void replaceBasicProjectProxyByTarget(final Release release) {
 
-        BasicProject basicProjectTarget = (basicProjectProxyUtil.getTarget(release.getBasicProject()));
-        release.setBasicProject(basicProjectTarget);
+        Project projectTarget = (projectProxyUtil.getTarget(release.getProject()));
+        release.setProject(projectTarget);
 		
 	}
     

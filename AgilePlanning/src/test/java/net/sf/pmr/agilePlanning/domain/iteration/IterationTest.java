@@ -40,12 +40,10 @@ import java.util.HashSet;
 
 import junit.framework.TestCase;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
-import net.sf.pmr.agilePlanning.domain.iteration.Iteration;
-import net.sf.pmr.agilePlanning.domain.iteration.IterationImpl;
 import net.sf.pmr.agilePlanning.domain.story.MockStory;
 import net.sf.pmr.agilePlanning.domain.story.Story;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectImpl;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 import de.abstrakt.mock.MockCore;
 
 /**
@@ -117,15 +115,15 @@ public class IterationTest extends TestCase {
 
         Calendar calendar3 = Calendar.getInstance();
 
-        BasicProject basicProject = new BasicProjectImpl();
+        Project basicProject = new ProjectImpl();
 
-        iteration1.setBasicProject(basicProject);
+        iteration1.setProject(basicProject);
         iteration1.setStartDate(calendar1.getTime());
         iteration1.setEndDate(calendar3.getTime());
         iteration1.setPersistanceVersion(1);
         iteration1.setPersistanceId(1);
 
-        iteration2.setBasicProject(basicProject);
+        iteration2.setProject(basicProject);
         iteration2.setStartDate(calendar2.getTime());
         iteration2.setEndDate(calendar3.getTime());
         iteration2.setPersistanceVersion(2);
@@ -160,15 +158,15 @@ public class IterationTest extends TestCase {
 
         Calendar calendar3 = Calendar.getInstance();
 
-        BasicProject basicProject = new BasicProjectImpl();
+        Project basicProject = new ProjectImpl();
 
-        iteration1.setBasicProject(basicProject);
+        iteration1.setProject(basicProject);
         iteration1.setStartDate(calendar3.getTime());
         iteration1.setEndDate(calendar1.getTime());
         iteration1.setPersistanceVersion(1);
         iteration1.setPersistanceId(1);
 
-        iteration2.setBasicProject(basicProject);
+        iteration2.setProject(basicProject);
         iteration2.setStartDate(calendar3.getTime());
         iteration2.setEndDate(calendar2.getTime());
         iteration2.setPersistanceVersion(2);
@@ -194,12 +192,12 @@ public class IterationTest extends TestCase {
         Iteration iteration1 = new IterationImpl();
         Iteration iteration2 = new IterationImpl();
 
-        BasicProject basicProject1 = new BasicProjectImpl();
+        Project basicProject1 = new ProjectImpl();
         basicProject1.setCode("A");
         basicProject1.setName("AA");
         basicProject1.setPersistanceId(1);
         basicProject1.setPersistanceVersion(1);
-        BasicProject basicProject2 = new BasicProjectImpl();
+        Project basicProject2 = new ProjectImpl();
         basicProject2.setCode("B");
         basicProject2.setName("BB");
         basicProject2.setPersistanceId(2);
@@ -208,13 +206,13 @@ public class IterationTest extends TestCase {
         Calendar calendar1 = Calendar.getInstance();
         Calendar calendar2 = Calendar.getInstance();
 
-        iteration1.setBasicProject(basicProject1);
+        iteration1.setProject(basicProject1);
         iteration1.setStartDate(calendar1.getTime());
         iteration1.setEndDate(calendar2.getTime());
         iteration1.setPersistanceVersion(1);
         iteration1.setPersistanceId(1);
 
-        iteration2.setBasicProject(basicProject2);
+        iteration2.setProject(basicProject2);
         iteration2.setStartDate(calendar1.getTime());
         iteration2.setEndDate(calendar2.getTime());
         iteration2.setPersistanceVersion(2);
@@ -240,12 +238,12 @@ public class IterationTest extends TestCase {
         Iteration iteration1 = new IterationImpl();
         Iteration iteration2 = new IterationImpl();
 
-        BasicProject basicProject1 = new BasicProjectImpl();
+        Project basicProject1 = new ProjectImpl();
         basicProject1.setCode("A");
         basicProject1.setName("AA");
         basicProject1.setPersistanceId(1);
         basicProject1.setPersistanceVersion(1);
-        BasicProject basicProject2 = new BasicProjectImpl();
+        Project basicProject2 = new ProjectImpl();
         basicProject2.setCode("A");
         basicProject2.setName("AA");
         basicProject2.setPersistanceId(1);
@@ -254,13 +252,13 @@ public class IterationTest extends TestCase {
         Calendar calendar1 = Calendar.getInstance();
         Calendar calendar2 = Calendar.getInstance();
 
-        iteration1.setBasicProject(basicProject1);
+        iteration1.setProject(basicProject1);
         iteration1.setStartDate(calendar1.getTime());
         iteration1.setEndDate(calendar2.getTime());
         iteration1.setPersistanceVersion(1);
         iteration1.setPersistanceId(1);
 
-        iteration2.setBasicProject(basicProject2);
+        iteration2.setProject(basicProject2);
         iteration2.setStartDate(calendar1.getTime());
         iteration2.setEndDate(calendar2.getTime());
         iteration2.setPersistanceVersion(2);

@@ -40,7 +40,7 @@ import java.util.Date;
 import java.util.Set;
 
 import net.sf.pmr.agilePlanning.domain.story.Story;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
+import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.keopsframework.domain.object.AbstractDomainObject;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -54,7 +54,7 @@ public class IterationImpl extends AbstractDomainObject implements Iteration {
     /**
      * basic Project.
      */
-    private BasicProject basicProject;
+    private Project project;
 
     /**
      * start.
@@ -79,15 +79,15 @@ public class IterationImpl extends AbstractDomainObject implements Iteration {
 	/* (non-Javadoc)
      * @see net.sf.pmr.agilePlanning.domain.iteration.Iteration#getBasicProject()
      */
-    public BasicProject getBasicProject() {
-        return basicProject;
+    public Project getProject() {
+        return project;
     }
 
 	/* (non-Javadoc)
-     * @see net.sf.pmr.agilePlanning.domain.iteration.Iteration#setBasicProject(net.sf.pmr.core.domain.basicProject.BasicProject)
+     * @see net.sf.pmr.agilePlanning.domain.iteration.Iteration#setBasicProject(net.sf.pmr.core.domain.project.BasicProject)
      */
-    public void setBasicProject(final BasicProject basicProject) {
-        this.basicProject = basicProject;
+    public void setProject(final Project project) {
+        this.project = project;
     }
 
 	/* (non-Javadoc)
@@ -324,7 +324,7 @@ public class IterationImpl extends AbstractDomainObject implements Iteration {
             return false;
         }
         IterationImpl rhs = (IterationImpl) object;
-        return new EqualsBuilder().append(this.basicProject, rhs.basicProject)
+        return new EqualsBuilder().append(this.project, rhs.project)
                                   .append(this.start, rhs.start)
                                   .append(this.end, rhs.end)
                                   .isEquals();
@@ -334,7 +334,7 @@ public class IterationImpl extends AbstractDomainObject implements Iteration {
      * @see java.lang.Object#hashCode()
      */
     public int hashCode() {
-        return new HashCodeBuilder(522268527, -355299201).append(this.basicProject)
+        return new HashCodeBuilder(522268527, -355299201).append(this.project)
                                                          .append(this.start)
                                                          .append(this.end)
                                                          .toHashCode();

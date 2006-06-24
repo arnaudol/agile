@@ -38,7 +38,7 @@ import java.util.Date;
 import java.util.Set;
 
 import net.sf.pmr.agilePlanning.domain.story.Story;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
+import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.keopsframework.domain.object.DomainObject;
 
 /**
@@ -50,13 +50,13 @@ public interface Iteration extends DomainObject {
      * basicProject.
      * @return basicProject
      */
-    BasicProject getBasicProject();
+    Project getProject();
 
     /**
      * basicProject.
      * @param basicProject basicProject
      */
-    void setBasicProject(final BasicProject basicProject);
+    void setProject(final Project basicProject);
 
     /**
      * début de l'iteration.

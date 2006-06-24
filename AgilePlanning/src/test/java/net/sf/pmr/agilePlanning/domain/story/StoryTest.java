@@ -39,12 +39,10 @@ import java.util.HashSet;
 
 import junit.framework.TestCase;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
-import net.sf.pmr.agilePlanning.domain.story.Story;
-import net.sf.pmr.agilePlanning.domain.story.StoryImpl;
 import net.sf.pmr.agilePlanning.domain.story.task.MockTask;
 import net.sf.pmr.agilePlanning.domain.story.task.Task;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectImpl;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 import de.abstrakt.mock.MockCore;
 
 /**
@@ -104,21 +102,21 @@ public class StoryTest extends TestCase {
         Story story1 = new StoryImpl();
         Story story2 = new StoryImpl();
         
-        BasicProject basicProject1 = new BasicProjectImpl();
-        BasicProject basicProject2 = new BasicProjectImpl();
+        Project basicProject1 = new ProjectImpl();
+        Project basicProject2 = new ProjectImpl();
         
         // les descriptions sont diff�rentes
         story1.setShortDescription("aa");
         story1.setDescription("super");
         story1.setDaysEstimated(3);
         story1.setPersistanceVersion(0);
-        story1.setBasicProject(basicProject1);
+        story1.setProject(basicProject1);
         
         story2.setShortDescription("bb");
         story2.setDescription("super good");
         story2.setDaysEstimated(4);
         story2.setPersistanceVersion(10); 
-        story2.setBasicProject(basicProject2);
+        story2.setProject(basicProject2);
 
         
         assertFalse(story1.equals(story2));
@@ -141,9 +139,9 @@ public class StoryTest extends TestCase {
         Story story1 = new StoryImpl();
         Story story2 = new StoryImpl();
 
-        BasicProject basicProject1 = new BasicProjectImpl();
+        Project basicProject1 = new ProjectImpl();
         basicProject1.setName("toto");
-        BasicProject basicProject2 = new BasicProjectImpl();
+        Project basicProject2 = new ProjectImpl();
         basicProject1.setName("titi");
 
         // les descriptions sont identiques mais pas les iterations
@@ -151,13 +149,13 @@ public class StoryTest extends TestCase {
         story1.setDescription("super");
         story1.setDaysEstimated(3);
         story1.setPersistanceVersion(0);
-        story1.setBasicProject(basicProject1);
+        story1.setProject(basicProject1);
 
         story2.setShortDescription("aa");
         story2.setDescription("super good");
         story2.setDaysEstimated(4);
         story2.setPersistanceVersion(10);
-        story2.setBasicProject(basicProject2);
+        story2.setProject(basicProject2);
 
         assertFalse(story1.equals(story2));
         assertFalse(story1.hashCode() == story2.hashCode());
@@ -178,22 +176,22 @@ public class StoryTest extends TestCase {
         Story story1 = new StoryImpl();
         Story story2 = new StoryImpl();
 
-        BasicProject basicProject1 = new BasicProjectImpl();
-        BasicProject basicProject2 = new BasicProjectImpl();
+        Project basicProject1 = new ProjectImpl();
+        Project basicProject2 = new ProjectImpl();
 
         // les descriptions et it�rations sont identiques
         story1.setShortDescription("aa");
         story1.setDescription("super");
         story1.setDaysEstimated(3);
         story1.setPersistanceVersion(0);
-        story1.setBasicProject(basicProject1);
+        story1.setProject(basicProject1);
 
 
         story2.setShortDescription("aa");
         story2.setDescription("super good");
         story2.setDaysEstimated(4);
         story2.setPersistanceVersion(10);
-        story2.setBasicProject(basicProject2);
+        story2.setProject(basicProject2);
 
         assertTrue(story1.equals(story2));
         assertTrue(story1.hashCode() == story2.hashCode());

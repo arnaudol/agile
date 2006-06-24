@@ -39,7 +39,7 @@ import java.util.Date;
 import java.util.Set;
 
 import net.sf.pmr.agilePlanning.domain.story.Story;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
+import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.keopsframework.domain.object.DomainObject;
 
 /**
@@ -51,12 +51,12 @@ public interface Release extends DomainObject {
      * basicProject.
      * @return basicProject
      */
-    BasicProject getBasicProject();
+    Project getProject();
 
     /**
      * final basicProject.
      */
-    void setBasicProject(final BasicProject basicProject);
+    void setProject(final Project project);
 
     /**
      * Number of the release, for example: 1.1, 2.4b, etc.

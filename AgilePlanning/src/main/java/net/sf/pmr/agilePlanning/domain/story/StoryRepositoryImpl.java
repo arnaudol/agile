@@ -42,8 +42,8 @@ import net.sf.pmr.agilePlanning.data.story.task.TaskMapper;
 import net.sf.pmr.agilePlanning.data.story.task.charge.ChargeMapper;
 import net.sf.pmr.agilePlanning.domain.story.task.Task;
 import net.sf.pmr.agilePlanning.domain.story.task.charge.Charge;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectProxyUtil;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectProxyUtil;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
@@ -70,18 +70,18 @@ public class StoryRepositoryImpl implements StoryRepository {
     /**
      * BasicProjectProxyUtil.
      */
-    private BasicProjectProxyUtil basicProjectProxyUtil;
+    private ProjectProxyUtil projectProxyUtil;
 
 
     /**
      * @param storyMapper storyMapper
      */
-    public StoryRepositoryImpl(final StoryMapper storyMapper, final TaskMapper taskMapper, final ChargeMapper chargeMapper, final BasicProjectProxyUtil basicProjectProxyUtil) {
+    public StoryRepositoryImpl(final StoryMapper storyMapper, final TaskMapper taskMapper, final ChargeMapper chargeMapper, final ProjectProxyUtil projectProxyUtil) {
         super();
         this.storyMapper = storyMapper;
         this.taskMapper = taskMapper;
         this.chargeMapper = chargeMapper;
-        this.basicProjectProxyUtil = basicProjectProxyUtil;
+        this.projectProxyUtil = projectProxyUtil;
     }
 
     /**
@@ -92,8 +92,8 @@ public class StoryRepositoryImpl implements StoryRepository {
 
         if (story != null) {
 
-            story.setBasicProject(basicProjectProxyUtil
-                    .injectDependencies(story.getBasicProject()));
+            story.setProject(projectProxyUtil
+                    .injectDependencies(story.getProject()));
 
         }
 
@@ -121,8 +121,8 @@ public class StoryRepositoryImpl implements StoryRepository {
      */
     public void addOrUpdate(final Story story) {
         
-        BasicProject basicProjectTarget = (basicProjectProxyUtil.getTarget(story.getBasicProject()));
-        story.setBasicProject(basicProjectTarget);
+        Project projectTarget = (projectProxyUtil.getTarget(story.getProject()));
+        story.setProject(projectTarget);
         
         // enregistrement
         storyMapper.addOrUpdate(story);
@@ -147,8 +147,8 @@ public class StoryRepositoryImpl implements StoryRepository {
 	 */
 	public void delete(final Story story) {
 		
-		BasicProject basicProjectTarget = (basicProjectProxyUtil.getTarget(story.getBasicProject()));
-        story.setBasicProject(basicProjectTarget);
+		Project projectTarget = (projectProxyUtil.getTarget(story.getProject()));
+        story.setProject(projectTarget);
 		
 		this.storyMapper.delete(story);
 	}
@@ -227,8 +227,8 @@ public class StoryRepositoryImpl implements StoryRepository {
 
 		for (Story story : stories) {
 
-            story.setBasicProject(basicProjectProxyUtil
-                    .injectDependencies(story.getBasicProject()));
+            story.setProject(projectProxyUtil
+                    .injectDependencies(story.getProject()));
 			
 		} 
 

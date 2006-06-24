@@ -113,7 +113,7 @@ public interface StoryRepository {
      * find the stories which aren't in a release.
      * @return set of story
      */
-    Set < Story > findStoriesWhichAreNotInARelease(final int basicProjectPersistanceIds);
+    Set < Story > findStoriesWhichAreNotInARelease(final int projectPersistanceIds);
     
     /**
      * find the stories available to add for a release.

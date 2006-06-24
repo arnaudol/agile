@@ -41,9 +41,9 @@ import java.util.Set;
 import junit.framework.TestCase;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
 import net.sf.pmr.agilePlanning.data.iteration.MockIterationMapper;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectImpl;
-import net.sf.pmr.core.domain.basicProject.MockBasicProjectProxyUtil;
+import net.sf.pmr.core.domain.project.MockProjectProxyUtil;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 import de.abstrakt.mock.MockCore;
 
 /**
@@ -54,11 +54,11 @@ public class IterationRepositoryTest extends TestCase {
     // MockMapper
     private MockIterationMapper mockIterationMapper;
 
-    private MockBasicProjectProxyUtil mockBasicProjectProxyUtil;
+    private MockProjectProxyUtil mockBasicProjectProxyUtil;
     
     private Iteration iteration;
     
-    private BasicProject basicProject;
+    private Project project;
     
     private IterationRepository iterationRepository;
     
@@ -72,11 +72,11 @@ public class IterationRepositoryTest extends TestCase {
         
         mockIterationMapper = new MockIterationMapper();
         
-        mockBasicProjectProxyUtil = new MockBasicProjectProxyUtil();
+        mockBasicProjectProxyUtil = new MockProjectProxyUtil();
         
         iteration = new IterationImpl();
         
-        basicProject = new BasicProjectImpl();
+        project = new ProjectImpl();
         
         // create iterationRepository
         iterationRepository = new IterationRepositoryImpl(mockIterationMapper, mockBasicProjectProxyUtil);
@@ -108,11 +108,11 @@ public class IterationRepositoryTest extends TestCase {
      */
     public void testAddOrUpdate() {
 
-        iteration.setBasicProject(basicProject);
+        iteration.setProject(project);
         
-        BasicProject basicProjectTarget = new BasicProjectImpl();
+        Project basicProjectTarget = new ProjectImpl();
         
-        mockBasicProjectProxyUtil.expectGetTarget(basicProject, basicProjectTarget);
+        mockBasicProjectProxyUtil.expectGetTarget(project, basicProjectTarget);
         
         mockIterationMapper.expectAddOrUpdate(iteration);
         
@@ -122,7 +122,7 @@ public class IterationRepositoryTest extends TestCase {
          MockCore.verify();
         
         // check the the basic poject is replaced by the target
-        assertSame(iteration.getBasicProject(), basicProjectTarget);
+        assertSame(iteration.getProject(), basicProjectTarget);
     
     }
     
@@ -134,13 +134,13 @@ public class IterationRepositoryTest extends TestCase {
        Set<Iteration> set = new HashSet<Iteration>();
        
        Iteration iteration1 = new IterationImpl();
-       BasicProject basicProject1 = new BasicProjectImpl();
-       iteration1.setBasicProject(basicProject1);
+       Project basicProject1 = new ProjectImpl();
+       iteration1.setProject(basicProject1);
        iteration1.setStartDate(new Date());
 
        Iteration iteration2 = new IterationImpl();
-       BasicProject basicProject2 = new BasicProjectImpl();
-       iteration2.setBasicProject(basicProject2);
+       Project basicProject2 = new ProjectImpl();
+       iteration2.setProject(basicProject2);
        iteration2.setStartDate(new Date());
        iteration2.setEndDate(new Date());
        
@@ -149,7 +149,7 @@ public class IterationRepositoryTest extends TestCase {
        
        mockIterationMapper.expectFindByProjectPersistanceId(1, set);
        
-       BasicProject basicProjectToReturn = new BasicProjectImpl();
+       Project basicProjectToReturn = new ProjectImpl();
 
        MockCore.startBlock();
        
@@ -162,8 +162,8 @@ public class IterationRepositoryTest extends TestCase {
        
        MockCore.verify();
        
-       assertSame(iteration1.getBasicProject(), basicProjectToReturn);
-       assertSame(iteration2.getBasicProject(), basicProjectToReturn);
+       assertSame(iteration1.getProject(), basicProjectToReturn);
+       assertSame(iteration2.getProject(), basicProjectToReturn);
        
     }
 
@@ -173,10 +173,10 @@ public class IterationRepositoryTest extends TestCase {
     public void testFindByPersistanceId() {
 
         Iteration iteration = new IterationImpl();
-        BasicProject basicProject = new BasicProjectImpl();
-        iteration.setBasicProject(basicProject);
+        Project basicProject = new ProjectImpl();
+        iteration.setProject(basicProject);
         
-        BasicProject basicProjectToReturn = new BasicProjectImpl();
+        Project basicProjectToReturn = new ProjectImpl();
         
         mockIterationMapper.expectFindById(1, iteration);
         
@@ -186,7 +186,7 @@ public class IterationRepositoryTest extends TestCase {
         
         MockCore.verify();
         
-        assertSame(iteration.getBasicProject(), basicProjectToReturn);
+        assertSame(iteration.getProject(), basicProjectToReturn);
         
     }
     
@@ -196,10 +196,10 @@ public class IterationRepositoryTest extends TestCase {
     public void testFindByProjectPersistanceIdAndByDate() {
         
         Iteration iteration = new IterationImpl();
-        BasicProject basicProject = new BasicProjectImpl();
-        iteration.setBasicProject(basicProject);
+        Project basicProject = new ProjectImpl();
+        iteration.setProject(basicProject);
         
-        BasicProject basicProjectToReturn = new BasicProjectImpl();
+        Project basicProjectToReturn = new ProjectImpl();
         
         Date date = new Date();
         
@@ -211,7 +211,7 @@ public class IterationRepositoryTest extends TestCase {
         
         MockCore.verify();
         
-        assertSame(iteration.getBasicProject(), basicProjectToReturn); 
+        assertSame(iteration.getProject(), basicProjectToReturn); 
         
     }
     

@@ -38,9 +38,9 @@ package net.sf.pmr.agilePlanning.domain.story;
 import java.util.Set;
 
 import net.sf.pmr.agilePlanning.domain.story.task.Task;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectProxyUtil;
-import net.sf.pmr.core.domain.basicProject.BasicProjectProxyUtilImpl;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectProxyUtil;
+import net.sf.pmr.core.domain.project.ProjectProxyUtilImpl;
 import net.sf.pmr.core.utils.Math;
 import net.sf.pmr.keopsframework.domain.object.AbstractDomainObject;
 
@@ -73,9 +73,9 @@ public class StoryImpl extends AbstractDomainObject implements Story {
     private Set<Task> tasks;
 
     /**
-     * Basic project.
+     * Project.
      */
-    private BasicProject basicProject;
+    private Project project;
 
     /**
      * BusinessValue.
@@ -146,17 +146,17 @@ public class StoryImpl extends AbstractDomainObject implements Story {
     }
 
     /**
-     * @see net.sf.pmr.agilePlanning.domain.story.Story#getBasicProject()
+     * @see net.sf.pmr.agilePlanning.domain.story.Story#getProject()
      */
-    public BasicProject getBasicProject() {
-        return basicProject;
+    public Project getProject() {
+        return project;
     }
 
     /**
-     * @see net.sf.pmr.agilePlanning.domain.story.Story#setBasicProject(BasicProject)
+     * @see net.sf.pmr.agilePlanning.domain.story.Story#setProject(BasicProject)
      */
-    public void setBasicProject(final BasicProject basicProject) {
-        this.basicProject = basicProject;
+    public void setProject(final Project basicProject) {
+        this.project = basicProject;
     }
 
     /*
@@ -368,12 +368,12 @@ public class StoryImpl extends AbstractDomainObject implements Story {
         }
 
         // TODO : trouver mieux...
-        BasicProjectProxyUtil basicProjectProxyUtil = new BasicProjectProxyUtilImpl();
+        ProjectProxyUtil basicProjectProxyUtil = new ProjectProxyUtilImpl();
         
         StoryImpl rhs = (StoryImpl) object;
         return new EqualsBuilder().append(this.shortDescription,
-                rhs.shortDescription).append(basicProjectProxyUtil.getTarget(this.basicProject),
-                		basicProjectProxyUtil.getTarget(rhs.basicProject)).isEquals();
+                rhs.shortDescription).append(basicProjectProxyUtil.getTarget(this.project),
+                		basicProjectProxyUtil.getTarget(rhs.project)).isEquals();
         
         
     }
@@ -385,10 +385,10 @@ public class StoryImpl extends AbstractDomainObject implements Story {
     public int hashCode() {
     	
         // TODO : trouver mieux...
-        BasicProjectProxyUtil basicProjectProxyUtil = new BasicProjectProxyUtilImpl();
+        ProjectProxyUtil projectProxyUtil = new ProjectProxyUtilImpl();
     	
         return new HashCodeBuilder(258479881, -53180989).append(
-                this.shortDescription).append(basicProjectProxyUtil.getTarget(this.basicProject)).toHashCode();
+                this.shortDescription).append(projectProxyUtil.getTarget(this.project)).toHashCode();
     }
 
 }

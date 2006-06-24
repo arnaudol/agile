@@ -1,4 +1,4 @@
-// MockCreator v2.9.0 build 3065; HashCode:1179965240; net.sf.pmr.agilePlanning.domain.story.Story
+// MockCreator v2.9.0 build 3065; HashCode:-1607172788; net.sf.pmr.agilePlanning.domain.story.Story
 package net.sf.pmr.agilePlanning.domain.story;
 
 import de.abstrakt.mock.MockCore;
@@ -21,143 +21,100 @@ public static class PreMock implements de.abstrakt.mock.MockBase
         return this;
     }
 
-public void expectWarning(boolean valueToReturn)
+public void expectGetProject(net.sf.pmr.core.domain.project.Project valueToReturn)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("warning()"),params, new Boolean(valueToReturn) );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getProject()"),params, valueToReturn );
 }
-public void expectWarning(java.lang.Throwable toThrow)
+public void expectGetProject(java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("warning()"),params,toThrow );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getProject()"),params,toThrow );
 }
-public void acceptWarning(boolean valueToReturn)
+public void acceptGetProject(net.sf.pmr.core.domain.project.Project valueToReturn)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("warning()"),params, new Boolean(valueToReturn) );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getProject()"),params, valueToReturn );
 }
-public void acceptWarning(java.lang.Throwable toThrow)
+public void acceptGetProject(java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("warning()"),params,toThrow );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getProject()"),params,toThrow );
 }
-public void setWarningDummy(boolean toReturn)
+public void setGetProjectDummy(net.sf.pmr.core.domain.project.Project toReturn)
 {
-  MockCore.setDummy(getClassObjectMethodSignature("warning()"),null,new Boolean(toReturn));
+  MockCore.setDummy(getClassObjectMethodSignature("getProject()"),null,toReturn);
 }
-public void setWarningDummy(java.lang.Throwable toThrow)
+public void setGetProjectDummy(java.lang.Throwable toThrow)
 {
-    MockCore.setDummy(getClassObjectMethodSignature("warning()"),null,toThrow);
+    MockCore.setDummy(getClassObjectMethodSignature("getProject()"),null,toThrow);
 }
 
 
 
-public void acceptWarningDummy(java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.setDummy(getClassObjectMethodSignature("warning()"),params,valueToThrow);
-}
-
-
-public void expectGetDescription(java.lang.String valueToReturn)
+public void acceptGetProjectDummy(java.lang.Throwable valueToThrow)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getDescription()"),params, valueToReturn );
+    MockCore.setDummy(getClassObjectMethodSignature("getProject()"),params,valueToThrow);
 }
-public void expectGetDescription(java.lang.Throwable toThrow)
+
+
+public void expectSetProject(net.sf.pmr.core.domain.project.Project p0_Project)
 {
     java.util.List params = new java.util.ArrayList();
+        params.add(p0_Project);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getDescription()"),params,toThrow );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setProject(Project)"),params );
 }
-public void acceptGetDescription(java.lang.String valueToReturn)
+public void expectSetProject(net.sf.pmr.core.domain.project.Project p0_Project,java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
+        params.add(p0_Project);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getDescription()"),params, valueToReturn );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setProject(Project)"),params,toThrow );
 }
-public void acceptGetDescription(java.lang.Throwable toThrow)
+public void acceptSetProject(Object p0_Project)
 {
     java.util.List params = new java.util.ArrayList();
+params.add(p0_Project);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getDescription()"),params,toThrow );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setProject(Project)"),params );
 }
-public void setGetDescriptionDummy(java.lang.String toReturn)
-{
-  MockCore.setDummy(getClassObjectMethodSignature("getDescription()"),null,toReturn);
-}
-public void setGetDescriptionDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("getDescription()"),null,toThrow);
-}
-
-
-
-public void acceptGetDescriptionDummy(java.lang.Throwable valueToThrow)
+public void acceptSetProject(Object p0_Project,java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
+params.add(p0_Project);
 
-    MockCore.setDummy(getClassObjectMethodSignature("getDescription()"),params,valueToThrow);
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setProject(Project)"),params,toThrow );
 }
-
-
-public void expectSetDescription(java.lang.String p0_String)
+public void setSetProjectDummy()
+{
+  MockCore.setDummy(getClassObjectMethodSignature("setProject(Project)"),null,null);
+}
+public void setSetProjectDummy(java.lang.Throwable toThrow)
+{
+    MockCore.setDummy(getClassObjectMethodSignature("setProject(Project)"),null,toThrow);
+}
+public void setSetProjectDummy(net.sf.pmr.core.domain.project.Project p0_Project,java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
-        params.add(p0_String);
+        params.add(p0_Project);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setDescription(String)"),params );
+    MockCore.setDummy( getClassObjectMethodSignature("setProject(Project)"),params,toThrow);
 }
-public void expectSetDescription(java.lang.String p0_String,java.lang.Throwable toThrow)
+
+
+public void acceptSetProjectDummy(Object p0_Project, java.lang.Throwable valueToThrow)
 {
     java.util.List params = new java.util.ArrayList();
-        params.add(p0_String);
+params.add(p0_Project);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setDescription(String)"),params,toThrow );
-}
-public void acceptSetDescription(Object p0_String)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_String);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setDescription(String)"),params );
-}
-public void acceptSetDescription(Object p0_String,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_String);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setDescription(String)"),params,toThrow );
-}
-public void setSetDescriptionDummy()
-{
-  MockCore.setDummy(getClassObjectMethodSignature("setDescription(String)"),null,null);
-}
-public void setSetDescriptionDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("setDescription(String)"),null,toThrow);
-}
-public void setSetDescriptionDummy(java.lang.String p0_String,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_String);
-
-    MockCore.setDummy( getClassObjectMethodSignature("setDescription(String)"),params,toThrow);
-}
-
-
-public void acceptSetDescriptionDummy(Object p0_String, java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_String);
-
-    MockCore.setDummy(getClassObjectMethodSignature("setDescription(String)"),params,valueToThrow);
+    MockCore.setDummy(getClassObjectMethodSignature("setProject(Project)"),params,valueToThrow);
 }
 
 
@@ -204,103 +161,6 @@ public void acceptIsLeftDummy(java.lang.Throwable valueToThrow)
 }
 
 
-public void expectSetShortDescription(java.lang.String p0_String)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_String);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setShortDescription(String)"),params );
-}
-public void expectSetShortDescription(java.lang.String p0_String,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_String);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setShortDescription(String)"),params,toThrow );
-}
-public void acceptSetShortDescription(Object p0_String)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_String);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setShortDescription(String)"),params );
-}
-public void acceptSetShortDescription(Object p0_String,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_String);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setShortDescription(String)"),params,toThrow );
-}
-public void setSetShortDescriptionDummy()
-{
-  MockCore.setDummy(getClassObjectMethodSignature("setShortDescription(String)"),null,null);
-}
-public void setSetShortDescriptionDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("setShortDescription(String)"),null,toThrow);
-}
-public void setSetShortDescriptionDummy(java.lang.String p0_String,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_String);
-
-    MockCore.setDummy( getClassObjectMethodSignature("setShortDescription(String)"),params,toThrow);
-}
-
-
-public void acceptSetShortDescriptionDummy(Object p0_String, java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_String);
-
-    MockCore.setDummy(getClassObjectMethodSignature("setShortDescription(String)"),params,valueToThrow);
-}
-
-
-public void expectGetShortDescription(java.lang.String valueToReturn)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getShortDescription()"),params, valueToReturn );
-}
-public void expectGetShortDescription(java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getShortDescription()"),params,toThrow );
-}
-public void acceptGetShortDescription(java.lang.String valueToReturn)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getShortDescription()"),params, valueToReturn );
-}
-public void acceptGetShortDescription(java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getShortDescription()"),params,toThrow );
-}
-public void setGetShortDescriptionDummy(java.lang.String toReturn)
-{
-  MockCore.setDummy(getClassObjectMethodSignature("getShortDescription()"),null,toReturn);
-}
-public void setGetShortDescriptionDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("getShortDescription()"),null,toThrow);
-}
-
-
-
-public void acceptGetShortDescriptionDummy(java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.setDummy(getClassObjectMethodSignature("getShortDescription()"),params,valueToThrow);
-}
-
-
 public void expectGetTasks(java.util.Set valueToReturn)
 {
     java.util.List params = new java.util.ArrayList();
@@ -341,60 +201,6 @@ public void acceptGetTasksDummy(java.lang.Throwable valueToThrow)
     java.util.List params = new java.util.ArrayList();
 
     MockCore.setDummy(getClassObjectMethodSignature("getTasks()"),params,valueToThrow);
-}
-
-
-public void expectSetTasks(java.util.Set p0_Set)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_Set);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setTasks(Set)"),params );
-}
-public void expectSetTasks(java.util.Set p0_Set,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_Set);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setTasks(Set)"),params,toThrow );
-}
-public void acceptSetTasks(Object p0_Set)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_Set);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setTasks(Set)"),params );
-}
-public void acceptSetTasks(Object p0_Set,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_Set);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setTasks(Set)"),params,toThrow );
-}
-public void setSetTasksDummy()
-{
-  MockCore.setDummy(getClassObjectMethodSignature("setTasks(Set)"),null,null);
-}
-public void setSetTasksDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("setTasks(Set)"),null,toThrow);
-}
-public void setSetTasksDummy(java.util.Set p0_Set,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_Set);
-
-    MockCore.setDummy( getClassObjectMethodSignature("setTasks(Set)"),params,toThrow);
-}
-
-
-public void acceptSetTasksDummy(Object p0_Set, java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_Set);
-
-    MockCore.setDummy(getClassObjectMethodSignature("setTasks(Set)"),params,valueToThrow);
 }
 
 
@@ -495,294 +301,57 @@ params.add(p0_double);
 }
 
 
-public void expectGetIteration(net.sf.pmr.agilePlanning.domain.iteration.Iteration valueToReturn)
+public void expectSetTasks(java.util.Set p0_Set)
 {
     java.util.List params = new java.util.ArrayList();
+        params.add(p0_Set);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getIteration()"),params, valueToReturn );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setTasks(Set)"),params );
 }
-public void expectGetIteration(java.lang.Throwable toThrow)
+public void expectSetTasks(java.util.Set p0_Set,java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
+        params.add(p0_Set);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getIteration()"),params,toThrow );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setTasks(Set)"),params,toThrow );
 }
-public void acceptGetIteration(net.sf.pmr.agilePlanning.domain.iteration.Iteration valueToReturn)
+public void acceptSetTasks(Object p0_Set)
 {
     java.util.List params = new java.util.ArrayList();
+params.add(p0_Set);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getIteration()"),params, valueToReturn );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setTasks(Set)"),params );
 }
-public void acceptGetIteration(java.lang.Throwable toThrow)
+public void acceptSetTasks(Object p0_Set,java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
+params.add(p0_Set);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getIteration()"),params,toThrow );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setTasks(Set)"),params,toThrow );
 }
-public void setGetIterationDummy(net.sf.pmr.agilePlanning.domain.iteration.Iteration toReturn)
+public void setSetTasksDummy()
 {
-  MockCore.setDummy(getClassObjectMethodSignature("getIteration()"),null,toReturn);
+  MockCore.setDummy(getClassObjectMethodSignature("setTasks(Set)"),null,null);
 }
-public void setGetIterationDummy(java.lang.Throwable toThrow)
+public void setSetTasksDummy(java.lang.Throwable toThrow)
 {
-    MockCore.setDummy(getClassObjectMethodSignature("getIteration()"),null,toThrow);
+    MockCore.setDummy(getClassObjectMethodSignature("setTasks(Set)"),null,toThrow);
 }
-
-
-
-public void acceptGetIterationDummy(java.lang.Throwable valueToThrow)
+public void setSetTasksDummy(java.util.Set p0_Set,java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
+        params.add(p0_Set);
 
-    MockCore.setDummy(getClassObjectMethodSignature("getIteration()"),params,valueToThrow);
+    MockCore.setDummy( getClassObjectMethodSignature("setTasks(Set)"),params,toThrow);
 }
 
 
-public void expectSetIteration(net.sf.pmr.agilePlanning.domain.iteration.Iteration p0_Iteration)
+public void acceptSetTasksDummy(Object p0_Set, java.lang.Throwable valueToThrow)
 {
     java.util.List params = new java.util.ArrayList();
-        params.add(p0_Iteration);
+params.add(p0_Set);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setIteration(Iteration)"),params );
-}
-public void expectSetIteration(net.sf.pmr.agilePlanning.domain.iteration.Iteration p0_Iteration,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_Iteration);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setIteration(Iteration)"),params,toThrow );
-}
-public void acceptSetIteration(Object p0_Iteration)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_Iteration);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setIteration(Iteration)"),params );
-}
-public void acceptSetIteration(Object p0_Iteration,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_Iteration);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setIteration(Iteration)"),params,toThrow );
-}
-public void setSetIterationDummy()
-{
-  MockCore.setDummy(getClassObjectMethodSignature("setIteration(Iteration)"),null,null);
-}
-public void setSetIterationDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("setIteration(Iteration)"),null,toThrow);
-}
-public void setSetIterationDummy(net.sf.pmr.agilePlanning.domain.iteration.Iteration p0_Iteration,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_Iteration);
-
-    MockCore.setDummy( getClassObjectMethodSignature("setIteration(Iteration)"),params,toThrow);
-}
-
-
-public void acceptSetIterationDummy(Object p0_Iteration, java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_Iteration);
-
-    MockCore.setDummy(getClassObjectMethodSignature("setIteration(Iteration)"),params,valueToThrow);
-}
-
-
-public void expectGetRelease(net.sf.pmr.agilePlanning.domain.release.Release valueToReturn)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getRelease()"),params, valueToReturn );
-}
-public void expectGetRelease(java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getRelease()"),params,toThrow );
-}
-public void acceptGetRelease(net.sf.pmr.agilePlanning.domain.release.Release valueToReturn)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getRelease()"),params, valueToReturn );
-}
-public void acceptGetRelease(java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getRelease()"),params,toThrow );
-}
-public void setGetReleaseDummy(net.sf.pmr.agilePlanning.domain.release.Release toReturn)
-{
-  MockCore.setDummy(getClassObjectMethodSignature("getRelease()"),null,toReturn);
-}
-public void setGetReleaseDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("getRelease()"),null,toThrow);
-}
-
-
-
-public void acceptGetReleaseDummy(java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.setDummy(getClassObjectMethodSignature("getRelease()"),params,valueToThrow);
-}
-
-
-public void expectSetRelease(net.sf.pmr.agilePlanning.domain.release.Release p0_Release)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_Release);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setRelease(Release)"),params );
-}
-public void expectSetRelease(net.sf.pmr.agilePlanning.domain.release.Release p0_Release,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_Release);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setRelease(Release)"),params,toThrow );
-}
-public void acceptSetRelease(Object p0_Release)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_Release);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setRelease(Release)"),params );
-}
-public void acceptSetRelease(Object p0_Release,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_Release);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setRelease(Release)"),params,toThrow );
-}
-public void setSetReleaseDummy()
-{
-  MockCore.setDummy(getClassObjectMethodSignature("setRelease(Release)"),null,null);
-}
-public void setSetReleaseDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("setRelease(Release)"),null,toThrow);
-}
-public void setSetReleaseDummy(net.sf.pmr.agilePlanning.domain.release.Release p0_Release,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_Release);
-
-    MockCore.setDummy( getClassObjectMethodSignature("setRelease(Release)"),params,toThrow);
-}
-
-
-public void acceptSetReleaseDummy(Object p0_Release, java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_Release);
-
-    MockCore.setDummy(getClassObjectMethodSignature("setRelease(Release)"),params,valueToThrow);
-}
-
-
-public void expectGetBasicProject(net.sf.pmr.core.domain.basicProject.BasicProject valueToReturn)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getBasicProject()"),params, valueToReturn );
-}
-public void expectGetBasicProject(java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getBasicProject()"),params,toThrow );
-}
-public void acceptGetBasicProject(net.sf.pmr.core.domain.basicProject.BasicProject valueToReturn)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getBasicProject()"),params, valueToReturn );
-}
-public void acceptGetBasicProject(java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getBasicProject()"),params,toThrow );
-}
-public void setGetBasicProjectDummy(net.sf.pmr.core.domain.basicProject.BasicProject toReturn)
-{
-  MockCore.setDummy(getClassObjectMethodSignature("getBasicProject()"),null,toReturn);
-}
-public void setGetBasicProjectDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("getBasicProject()"),null,toThrow);
-}
-
-
-
-public void acceptGetBasicProjectDummy(java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.setDummy(getClassObjectMethodSignature("getBasicProject()"),params,valueToThrow);
-}
-
-
-public void expectSetBasicProject(net.sf.pmr.core.domain.basicProject.BasicProject p0_BasicProject)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_BasicProject);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setBasicProject(BasicProject)"),params );
-}
-public void expectSetBasicProject(net.sf.pmr.core.domain.basicProject.BasicProject p0_BasicProject,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_BasicProject);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setBasicProject(BasicProject)"),params,toThrow );
-}
-public void acceptSetBasicProject(Object p0_BasicProject)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_BasicProject);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setBasicProject(BasicProject)"),params );
-}
-public void acceptSetBasicProject(Object p0_BasicProject,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_BasicProject);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setBasicProject(BasicProject)"),params,toThrow );
-}
-public void setSetBasicProjectDummy()
-{
-  MockCore.setDummy(getClassObjectMethodSignature("setBasicProject(BasicProject)"),null,null);
-}
-public void setSetBasicProjectDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("setBasicProject(BasicProject)"),null,toThrow);
-}
-public void setSetBasicProjectDummy(net.sf.pmr.core.domain.basicProject.BasicProject p0_BasicProject,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_BasicProject);
-
-    MockCore.setDummy( getClassObjectMethodSignature("setBasicProject(BasicProject)"),params,toThrow);
-}
-
-
-public void acceptSetBasicProjectDummy(Object p0_BasicProject, java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_BasicProject);
-
-    MockCore.setDummy(getClassObjectMethodSignature("setBasicProject(BasicProject)"),params,valueToThrow);
+    MockCore.setDummy(getClassObjectMethodSignature("setTasks(Set)"),params,valueToThrow);
 }
 
 
@@ -1324,6 +893,92 @@ public void acceptDifferenceInPercentBetweenEstimateAndTaskChargeDummy(java.lang
 }
 
 
+public void expectIsCompleted(boolean valueToReturn)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("isCompleted()"),params, new Boolean(valueToReturn) );
+}
+public void expectIsCompleted(java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("isCompleted()"),params,toThrow );
+}
+public void acceptIsCompleted(boolean valueToReturn)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("isCompleted()"),params, new Boolean(valueToReturn) );
+}
+public void acceptIsCompleted(java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("isCompleted()"),params,toThrow );
+}
+public void setIsCompletedDummy(boolean toReturn)
+{
+  MockCore.setDummy(getClassObjectMethodSignature("isCompleted()"),null,new Boolean(toReturn));
+}
+public void setIsCompletedDummy(java.lang.Throwable toThrow)
+{
+    MockCore.setDummy(getClassObjectMethodSignature("isCompleted()"),null,toThrow);
+}
+
+
+
+public void acceptIsCompletedDummy(java.lang.Throwable valueToThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.setDummy(getClassObjectMethodSignature("isCompleted()"),params,valueToThrow);
+}
+
+
+public void expectWarning(boolean valueToReturn)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("warning()"),params, new Boolean(valueToReturn) );
+}
+public void expectWarning(java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("warning()"),params,toThrow );
+}
+public void acceptWarning(boolean valueToReturn)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("warning()"),params, new Boolean(valueToReturn) );
+}
+public void acceptWarning(java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("warning()"),params,toThrow );
+}
+public void setWarningDummy(boolean toReturn)
+{
+  MockCore.setDummy(getClassObjectMethodSignature("warning()"),null,new Boolean(toReturn));
+}
+public void setWarningDummy(java.lang.Throwable toThrow)
+{
+    MockCore.setDummy(getClassObjectMethodSignature("warning()"),null,toThrow);
+}
+
+
+
+public void acceptWarningDummy(java.lang.Throwable valueToThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.setDummy(getClassObjectMethodSignature("warning()"),params,valueToThrow);
+}
+
+
 public void expectIsInProgress(boolean valueToReturn)
 {
     java.util.List params = new java.util.ArrayList();
@@ -1367,46 +1022,197 @@ public void acceptIsInProgressDummy(java.lang.Throwable valueToThrow)
 }
 
 
-public void expectIsCompleted(boolean valueToReturn)
+public void expectGetDescription(java.lang.String valueToReturn)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("isCompleted()"),params, new Boolean(valueToReturn) );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getDescription()"),params, valueToReturn );
 }
-public void expectIsCompleted(java.lang.Throwable toThrow)
+public void expectGetDescription(java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("isCompleted()"),params,toThrow );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getDescription()"),params,toThrow );
 }
-public void acceptIsCompleted(boolean valueToReturn)
+public void acceptGetDescription(java.lang.String valueToReturn)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("isCompleted()"),params, new Boolean(valueToReturn) );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getDescription()"),params, valueToReturn );
 }
-public void acceptIsCompleted(java.lang.Throwable toThrow)
+public void acceptGetDescription(java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("isCompleted()"),params,toThrow );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getDescription()"),params,toThrow );
 }
-public void setIsCompletedDummy(boolean toReturn)
+public void setGetDescriptionDummy(java.lang.String toReturn)
 {
-  MockCore.setDummy(getClassObjectMethodSignature("isCompleted()"),null,new Boolean(toReturn));
+  MockCore.setDummy(getClassObjectMethodSignature("getDescription()"),null,toReturn);
 }
-public void setIsCompletedDummy(java.lang.Throwable toThrow)
+public void setGetDescriptionDummy(java.lang.Throwable toThrow)
 {
-    MockCore.setDummy(getClassObjectMethodSignature("isCompleted()"),null,toThrow);
+    MockCore.setDummy(getClassObjectMethodSignature("getDescription()"),null,toThrow);
 }
 
 
 
-public void acceptIsCompletedDummy(java.lang.Throwable valueToThrow)
+public void acceptGetDescriptionDummy(java.lang.Throwable valueToThrow)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.setDummy(getClassObjectMethodSignature("isCompleted()"),params,valueToThrow);
+    MockCore.setDummy(getClassObjectMethodSignature("getDescription()"),params,valueToThrow);
+}
+
+
+public void expectSetDescription(java.lang.String p0_String)
+{
+    java.util.List params = new java.util.ArrayList();
+        params.add(p0_String);
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setDescription(String)"),params );
+}
+public void expectSetDescription(java.lang.String p0_String,java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+        params.add(p0_String);
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setDescription(String)"),params,toThrow );
+}
+public void acceptSetDescription(Object p0_String)
+{
+    java.util.List params = new java.util.ArrayList();
+params.add(p0_String);
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setDescription(String)"),params );
+}
+public void acceptSetDescription(Object p0_String,java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+params.add(p0_String);
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setDescription(String)"),params,toThrow );
+}
+public void setSetDescriptionDummy()
+{
+  MockCore.setDummy(getClassObjectMethodSignature("setDescription(String)"),null,null);
+}
+public void setSetDescriptionDummy(java.lang.Throwable toThrow)
+{
+    MockCore.setDummy(getClassObjectMethodSignature("setDescription(String)"),null,toThrow);
+}
+public void setSetDescriptionDummy(java.lang.String p0_String,java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+        params.add(p0_String);
+
+    MockCore.setDummy( getClassObjectMethodSignature("setDescription(String)"),params,toThrow);
+}
+
+
+public void acceptSetDescriptionDummy(Object p0_String, java.lang.Throwable valueToThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+params.add(p0_String);
+
+    MockCore.setDummy(getClassObjectMethodSignature("setDescription(String)"),params,valueToThrow);
+}
+
+
+public void expectGetShortDescription(java.lang.String valueToReturn)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getShortDescription()"),params, valueToReturn );
+}
+public void expectGetShortDescription(java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getShortDescription()"),params,toThrow );
+}
+public void acceptGetShortDescription(java.lang.String valueToReturn)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getShortDescription()"),params, valueToReturn );
+}
+public void acceptGetShortDescription(java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getShortDescription()"),params,toThrow );
+}
+public void setGetShortDescriptionDummy(java.lang.String toReturn)
+{
+  MockCore.setDummy(getClassObjectMethodSignature("getShortDescription()"),null,toReturn);
+}
+public void setGetShortDescriptionDummy(java.lang.Throwable toThrow)
+{
+    MockCore.setDummy(getClassObjectMethodSignature("getShortDescription()"),null,toThrow);
+}
+
+
+
+public void acceptGetShortDescriptionDummy(java.lang.Throwable valueToThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.setDummy(getClassObjectMethodSignature("getShortDescription()"),params,valueToThrow);
+}
+
+
+public void expectSetShortDescription(java.lang.String p0_String)
+{
+    java.util.List params = new java.util.ArrayList();
+        params.add(p0_String);
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setShortDescription(String)"),params );
+}
+public void expectSetShortDescription(java.lang.String p0_String,java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+        params.add(p0_String);
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setShortDescription(String)"),params,toThrow );
+}
+public void acceptSetShortDescription(Object p0_String)
+{
+    java.util.List params = new java.util.ArrayList();
+params.add(p0_String);
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setShortDescription(String)"),params );
+}
+public void acceptSetShortDescription(Object p0_String,java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+params.add(p0_String);
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setShortDescription(String)"),params,toThrow );
+}
+public void setSetShortDescriptionDummy()
+{
+  MockCore.setDummy(getClassObjectMethodSignature("setShortDescription(String)"),null,null);
+}
+public void setSetShortDescriptionDummy(java.lang.Throwable toThrow)
+{
+    MockCore.setDummy(getClassObjectMethodSignature("setShortDescription(String)"),null,toThrow);
+}
+public void setSetShortDescriptionDummy(java.lang.String p0_String,java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+        params.add(p0_String);
+
+    MockCore.setDummy( getClassObjectMethodSignature("setShortDescription(String)"),params,toThrow);
+}
+
+
+public void acceptSetShortDescriptionDummy(Object p0_String, java.lang.Throwable valueToThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+params.add(p0_String);
+
+    MockCore.setDummy(getClassObjectMethodSignature("setShortDescription(String)"),params,valueToThrow);
 }
 
 
@@ -1638,13 +1444,13 @@ params.add(p0_long);
         return new net.sf.pmr.agilePlanning.domain.story.MockStory.PreMock(id);
     }
 
-    public boolean warning()
+    public net.sf.pmr.core.domain.project.Project getProject()
     {
         id = MockCore.enteredMethodBody(id);
         Object returnValue = null;
         java.util.List params = new java.util.ArrayList();
 
-        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("warning()"),params,MockCore.OPT_DEFAULT);
+        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("getProject()"),params,MockCore.OPT_DEFAULT);
     if( returnValue instanceof RuntimeException )
     {
         throw (RuntimeException)returnValue;
@@ -1653,120 +1459,59 @@ params.add(p0_long);
     {
         throw (Error)returnValue;
     }
-    if( returnValue == null ) throw MockCore.makeException("warning: called but not prepared");
-    return ((Boolean)returnValue).booleanValue();
+    return (net.sf.pmr.core.domain.project.Project)returnValue;
 }
-public void expectWarning(boolean valueToReturn)
+public void expectGetProject(net.sf.pmr.core.domain.project.Project valueToReturn)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("warning()"),params, new Boolean(valueToReturn) );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getProject()"),params, valueToReturn );
 }
-public void expectWarning(java.lang.Throwable toThrow)
+public void expectGetProject(java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("warning()"),params,toThrow );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getProject()"),params,toThrow );
 }
-public void acceptWarning(boolean valueToReturn)
+public void acceptGetProject(net.sf.pmr.core.domain.project.Project valueToReturn)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("warning()"),params, new Boolean(valueToReturn) );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getProject()"),params, valueToReturn );
 }
-public void acceptWarning(java.lang.Throwable toThrow)
+public void acceptGetProject(java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("warning()"),params,toThrow );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getProject()"),params,toThrow );
 }
-public void setWarningDummy(boolean toReturn)
+public void setGetProjectDummy(net.sf.pmr.core.domain.project.Project toReturn)
 {
-  MockCore.setDummy(getClassObjectMethodSignature("warning()"),null,new Boolean(toReturn));
+  MockCore.setDummy(getClassObjectMethodSignature("getProject()"),null,toReturn);
 }
-public void setWarningDummy(java.lang.Throwable toThrow)
+public void setGetProjectDummy(java.lang.Throwable toThrow)
 {
-    MockCore.setDummy(getClassObjectMethodSignature("warning()"),null,toThrow);
+    MockCore.setDummy(getClassObjectMethodSignature("getProject()"),null,toThrow);
 }
 
 
 
-public void acceptWarningDummy(java.lang.Throwable valueToThrow)
+public void acceptGetProjectDummy(java.lang.Throwable valueToThrow)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.setDummy(getClassObjectMethodSignature("warning()"),params,valueToThrow);
+    MockCore.setDummy(getClassObjectMethodSignature("getProject()"),params,valueToThrow);
 }
 
 
-    public java.lang.String getDescription()
+    public void setProject(net.sf.pmr.core.domain.project.Project p0_Project)
     {
         id = MockCore.enteredMethodBody(id);
         Object returnValue = null;
         java.util.List params = new java.util.ArrayList();
+        params.add(p0_Project);
 
-        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("getDescription()"),params,MockCore.OPT_DEFAULT);
-    if( returnValue instanceof RuntimeException )
-    {
-        throw (RuntimeException)returnValue;
-    }
-    if( returnValue instanceof Error )
-    {
-        throw (Error)returnValue;
-    }
-    return (java.lang.String)returnValue;
-}
-public void expectGetDescription(java.lang.String valueToReturn)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getDescription()"),params, valueToReturn );
-}
-public void expectGetDescription(java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getDescription()"),params,toThrow );
-}
-public void acceptGetDescription(java.lang.String valueToReturn)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getDescription()"),params, valueToReturn );
-}
-public void acceptGetDescription(java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getDescription()"),params,toThrow );
-}
-public void setGetDescriptionDummy(java.lang.String toReturn)
-{
-  MockCore.setDummy(getClassObjectMethodSignature("getDescription()"),null,toReturn);
-}
-public void setGetDescriptionDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("getDescription()"),null,toThrow);
-}
-
-
-
-public void acceptGetDescriptionDummy(java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.setDummy(getClassObjectMethodSignature("getDescription()"),params,valueToThrow);
-}
-
-
-    public void setDescription(java.lang.String p0_String)
-    {
-        id = MockCore.enteredMethodBody(id);
-        Object returnValue = null;
-        java.util.List params = new java.util.ArrayList();
-        params.add(p0_String);
-
-        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("setDescription(String)"),params,MockCore.OPT_UNEXPECTED_VOID_OKAY);
+        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("setProject(Project)"),params,MockCore.OPT_UNEXPECTED_VOID_OKAY);
     if( returnValue instanceof RuntimeException )
     {
         throw (RuntimeException)returnValue;
@@ -1776,57 +1521,57 @@ public void acceptGetDescriptionDummy(java.lang.Throwable valueToThrow)
         throw (Error)returnValue;
     }
 }
-public void expectSetDescription(java.lang.String p0_String)
+public void expectSetProject(net.sf.pmr.core.domain.project.Project p0_Project)
 {
     java.util.List params = new java.util.ArrayList();
-        params.add(p0_String);
+        params.add(p0_Project);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setDescription(String)"),params );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setProject(Project)"),params );
 }
-public void expectSetDescription(java.lang.String p0_String,java.lang.Throwable toThrow)
+public void expectSetProject(net.sf.pmr.core.domain.project.Project p0_Project,java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
-        params.add(p0_String);
+        params.add(p0_Project);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setDescription(String)"),params,toThrow );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setProject(Project)"),params,toThrow );
 }
-public void acceptSetDescription(Object p0_String)
+public void acceptSetProject(Object p0_Project)
 {
     java.util.List params = new java.util.ArrayList();
-params.add(p0_String);
+params.add(p0_Project);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setDescription(String)"),params );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setProject(Project)"),params );
 }
-public void acceptSetDescription(Object p0_String,java.lang.Throwable toThrow)
+public void acceptSetProject(Object p0_Project,java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
-params.add(p0_String);
+params.add(p0_Project);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setDescription(String)"),params,toThrow );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setProject(Project)"),params,toThrow );
 }
-public void setSetDescriptionDummy()
+public void setSetProjectDummy()
 {
-  MockCore.setDummy(getClassObjectMethodSignature("setDescription(String)"),null,null);
+  MockCore.setDummy(getClassObjectMethodSignature("setProject(Project)"),null,null);
 }
-public void setSetDescriptionDummy(java.lang.Throwable toThrow)
+public void setSetProjectDummy(java.lang.Throwable toThrow)
 {
-    MockCore.setDummy(getClassObjectMethodSignature("setDescription(String)"),null,toThrow);
+    MockCore.setDummy(getClassObjectMethodSignature("setProject(Project)"),null,toThrow);
 }
-public void setSetDescriptionDummy(java.lang.String p0_String,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_String);
-
-    MockCore.setDummy( getClassObjectMethodSignature("setDescription(String)"),params,toThrow);
-}
-
-
-public void acceptSetDescriptionDummy(Object p0_String, java.lang.Throwable valueToThrow)
+public void setSetProjectDummy(net.sf.pmr.core.domain.project.Project p0_Project,java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
-params.add(p0_String);
+        params.add(p0_Project);
 
-    MockCore.setDummy(getClassObjectMethodSignature("setDescription(String)"),params,valueToThrow);
+    MockCore.setDummy( getClassObjectMethodSignature("setProject(Project)"),params,toThrow);
+}
+
+
+public void acceptSetProjectDummy(Object p0_Project, java.lang.Throwable valueToThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+params.add(p0_Project);
+
+    MockCore.setDummy(getClassObjectMethodSignature("setProject(Project)"),params,valueToThrow);
 }
 
 
@@ -1891,137 +1636,6 @@ public void acceptIsLeftDummy(java.lang.Throwable valueToThrow)
 }
 
 
-    public void setShortDescription(java.lang.String p0_String)
-    {
-        id = MockCore.enteredMethodBody(id);
-        Object returnValue = null;
-        java.util.List params = new java.util.ArrayList();
-        params.add(p0_String);
-
-        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("setShortDescription(String)"),params,MockCore.OPT_UNEXPECTED_VOID_OKAY);
-    if( returnValue instanceof RuntimeException )
-    {
-        throw (RuntimeException)returnValue;
-    }
-    if( returnValue instanceof Error )
-    {
-        throw (Error)returnValue;
-    }
-}
-public void expectSetShortDescription(java.lang.String p0_String)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_String);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setShortDescription(String)"),params );
-}
-public void expectSetShortDescription(java.lang.String p0_String,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_String);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setShortDescription(String)"),params,toThrow );
-}
-public void acceptSetShortDescription(Object p0_String)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_String);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setShortDescription(String)"),params );
-}
-public void acceptSetShortDescription(Object p0_String,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_String);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setShortDescription(String)"),params,toThrow );
-}
-public void setSetShortDescriptionDummy()
-{
-  MockCore.setDummy(getClassObjectMethodSignature("setShortDescription(String)"),null,null);
-}
-public void setSetShortDescriptionDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("setShortDescription(String)"),null,toThrow);
-}
-public void setSetShortDescriptionDummy(java.lang.String p0_String,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_String);
-
-    MockCore.setDummy( getClassObjectMethodSignature("setShortDescription(String)"),params,toThrow);
-}
-
-
-public void acceptSetShortDescriptionDummy(Object p0_String, java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_String);
-
-    MockCore.setDummy(getClassObjectMethodSignature("setShortDescription(String)"),params,valueToThrow);
-}
-
-
-    public java.lang.String getShortDescription()
-    {
-        id = MockCore.enteredMethodBody(id);
-        Object returnValue = null;
-        java.util.List params = new java.util.ArrayList();
-
-        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("getShortDescription()"),params,MockCore.OPT_DEFAULT);
-    if( returnValue instanceof RuntimeException )
-    {
-        throw (RuntimeException)returnValue;
-    }
-    if( returnValue instanceof Error )
-    {
-        throw (Error)returnValue;
-    }
-    return (java.lang.String)returnValue;
-}
-public void expectGetShortDescription(java.lang.String valueToReturn)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getShortDescription()"),params, valueToReturn );
-}
-public void expectGetShortDescription(java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getShortDescription()"),params,toThrow );
-}
-public void acceptGetShortDescription(java.lang.String valueToReturn)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getShortDescription()"),params, valueToReturn );
-}
-public void acceptGetShortDescription(java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getShortDescription()"),params,toThrow );
-}
-public void setGetShortDescriptionDummy(java.lang.String toReturn)
-{
-  MockCore.setDummy(getClassObjectMethodSignature("getShortDescription()"),null,toReturn);
-}
-public void setGetShortDescriptionDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("getShortDescription()"),null,toThrow);
-}
-
-
-
-public void acceptGetShortDescriptionDummy(java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.setDummy(getClassObjectMethodSignature("getShortDescription()"),params,valueToThrow);
-}
-
-
     public java.util.Set getTasks()
     {
         id = MockCore.enteredMethodBody(id);
@@ -2079,77 +1693,6 @@ public void acceptGetTasksDummy(java.lang.Throwable valueToThrow)
     java.util.List params = new java.util.ArrayList();
 
     MockCore.setDummy(getClassObjectMethodSignature("getTasks()"),params,valueToThrow);
-}
-
-
-    public void setTasks(java.util.Set p0_Set)
-    {
-        id = MockCore.enteredMethodBody(id);
-        Object returnValue = null;
-        java.util.List params = new java.util.ArrayList();
-        params.add(p0_Set);
-
-        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("setTasks(Set)"),params,MockCore.OPT_UNEXPECTED_VOID_OKAY);
-    if( returnValue instanceof RuntimeException )
-    {
-        throw (RuntimeException)returnValue;
-    }
-    if( returnValue instanceof Error )
-    {
-        throw (Error)returnValue;
-    }
-}
-public void expectSetTasks(java.util.Set p0_Set)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_Set);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setTasks(Set)"),params );
-}
-public void expectSetTasks(java.util.Set p0_Set,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_Set);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setTasks(Set)"),params,toThrow );
-}
-public void acceptSetTasks(Object p0_Set)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_Set);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setTasks(Set)"),params );
-}
-public void acceptSetTasks(Object p0_Set,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_Set);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setTasks(Set)"),params,toThrow );
-}
-public void setSetTasksDummy()
-{
-  MockCore.setDummy(getClassObjectMethodSignature("setTasks(Set)"),null,null);
-}
-public void setSetTasksDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("setTasks(Set)"),null,toThrow);
-}
-public void setSetTasksDummy(java.util.Set p0_Set,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_Set);
-
-    MockCore.setDummy( getClassObjectMethodSignature("setTasks(Set)"),params,toThrow);
-}
-
-
-public void acceptSetTasksDummy(Object p0_Set, java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_Set);
-
-    MockCore.setDummy(getClassObjectMethodSignature("setTasks(Set)"),params,valueToThrow);
 }
 
 
@@ -2285,74 +1828,14 @@ params.add(p0_double);
 }
 
 
-    public net.sf.pmr.agilePlanning.domain.iteration.Iteration getIteration()
+    public void setTasks(java.util.Set p0_Set)
     {
         id = MockCore.enteredMethodBody(id);
         Object returnValue = null;
         java.util.List params = new java.util.ArrayList();
+        params.add(p0_Set);
 
-        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("getIteration()"),params,MockCore.OPT_DEFAULT);
-    if( returnValue instanceof RuntimeException )
-    {
-        throw (RuntimeException)returnValue;
-    }
-    if( returnValue instanceof Error )
-    {
-        throw (Error)returnValue;
-    }
-    return (net.sf.pmr.agilePlanning.domain.iteration.Iteration)returnValue;
-}
-public void expectGetIteration(net.sf.pmr.agilePlanning.domain.iteration.Iteration valueToReturn)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getIteration()"),params, valueToReturn );
-}
-public void expectGetIteration(java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getIteration()"),params,toThrow );
-}
-public void acceptGetIteration(net.sf.pmr.agilePlanning.domain.iteration.Iteration valueToReturn)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getIteration()"),params, valueToReturn );
-}
-public void acceptGetIteration(java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getIteration()"),params,toThrow );
-}
-public void setGetIterationDummy(net.sf.pmr.agilePlanning.domain.iteration.Iteration toReturn)
-{
-  MockCore.setDummy(getClassObjectMethodSignature("getIteration()"),null,toReturn);
-}
-public void setGetIterationDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("getIteration()"),null,toThrow);
-}
-
-
-
-public void acceptGetIterationDummy(java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.setDummy(getClassObjectMethodSignature("getIteration()"),params,valueToThrow);
-}
-
-
-    public void setIteration(net.sf.pmr.agilePlanning.domain.iteration.Iteration p0_Iteration)
-    {
-        id = MockCore.enteredMethodBody(id);
-        Object returnValue = null;
-        java.util.List params = new java.util.ArrayList();
-        params.add(p0_Iteration);
-
-        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("setIteration(Iteration)"),params,MockCore.OPT_UNEXPECTED_VOID_OKAY);
+        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("setTasks(Set)"),params,MockCore.OPT_UNEXPECTED_VOID_OKAY);
     if( returnValue instanceof RuntimeException )
     {
         throw (RuntimeException)returnValue;
@@ -2362,319 +1845,57 @@ public void acceptGetIterationDummy(java.lang.Throwable valueToThrow)
         throw (Error)returnValue;
     }
 }
-public void expectSetIteration(net.sf.pmr.agilePlanning.domain.iteration.Iteration p0_Iteration)
+public void expectSetTasks(java.util.Set p0_Set)
 {
     java.util.List params = new java.util.ArrayList();
-        params.add(p0_Iteration);
+        params.add(p0_Set);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setIteration(Iteration)"),params );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setTasks(Set)"),params );
 }
-public void expectSetIteration(net.sf.pmr.agilePlanning.domain.iteration.Iteration p0_Iteration,java.lang.Throwable toThrow)
+public void expectSetTasks(java.util.Set p0_Set,java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
-        params.add(p0_Iteration);
+        params.add(p0_Set);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setIteration(Iteration)"),params,toThrow );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setTasks(Set)"),params,toThrow );
 }
-public void acceptSetIteration(Object p0_Iteration)
+public void acceptSetTasks(Object p0_Set)
 {
     java.util.List params = new java.util.ArrayList();
-params.add(p0_Iteration);
+params.add(p0_Set);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setIteration(Iteration)"),params );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setTasks(Set)"),params );
 }
-public void acceptSetIteration(Object p0_Iteration,java.lang.Throwable toThrow)
+public void acceptSetTasks(Object p0_Set,java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
-params.add(p0_Iteration);
+params.add(p0_Set);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setIteration(Iteration)"),params,toThrow );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setTasks(Set)"),params,toThrow );
 }
-public void setSetIterationDummy()
+public void setSetTasksDummy()
 {
-  MockCore.setDummy(getClassObjectMethodSignature("setIteration(Iteration)"),null,null);
+  MockCore.setDummy(getClassObjectMethodSignature("setTasks(Set)"),null,null);
 }
-public void setSetIterationDummy(java.lang.Throwable toThrow)
+public void setSetTasksDummy(java.lang.Throwable toThrow)
 {
-    MockCore.setDummy(getClassObjectMethodSignature("setIteration(Iteration)"),null,toThrow);
+    MockCore.setDummy(getClassObjectMethodSignature("setTasks(Set)"),null,toThrow);
 }
-public void setSetIterationDummy(net.sf.pmr.agilePlanning.domain.iteration.Iteration p0_Iteration,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_Iteration);
-
-    MockCore.setDummy( getClassObjectMethodSignature("setIteration(Iteration)"),params,toThrow);
-}
-
-
-public void acceptSetIterationDummy(Object p0_Iteration, java.lang.Throwable valueToThrow)
+public void setSetTasksDummy(java.util.Set p0_Set,java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
-params.add(p0_Iteration);
+        params.add(p0_Set);
 
-    MockCore.setDummy(getClassObjectMethodSignature("setIteration(Iteration)"),params,valueToThrow);
+    MockCore.setDummy( getClassObjectMethodSignature("setTasks(Set)"),params,toThrow);
 }
 
 
-    public net.sf.pmr.agilePlanning.domain.release.Release getRelease()
-    {
-        id = MockCore.enteredMethodBody(id);
-        Object returnValue = null;
-        java.util.List params = new java.util.ArrayList();
-
-        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("getRelease()"),params,MockCore.OPT_DEFAULT);
-    if( returnValue instanceof RuntimeException )
-    {
-        throw (RuntimeException)returnValue;
-    }
-    if( returnValue instanceof Error )
-    {
-        throw (Error)returnValue;
-    }
-    return (net.sf.pmr.agilePlanning.domain.release.Release)returnValue;
-}
-public void expectGetRelease(net.sf.pmr.agilePlanning.domain.release.Release valueToReturn)
+public void acceptSetTasksDummy(Object p0_Set, java.lang.Throwable valueToThrow)
 {
     java.util.List params = new java.util.ArrayList();
+params.add(p0_Set);
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getRelease()"),params, valueToReturn );
-}
-public void expectGetRelease(java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getRelease()"),params,toThrow );
-}
-public void acceptGetRelease(net.sf.pmr.agilePlanning.domain.release.Release valueToReturn)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getRelease()"),params, valueToReturn );
-}
-public void acceptGetRelease(java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getRelease()"),params,toThrow );
-}
-public void setGetReleaseDummy(net.sf.pmr.agilePlanning.domain.release.Release toReturn)
-{
-  MockCore.setDummy(getClassObjectMethodSignature("getRelease()"),null,toReturn);
-}
-public void setGetReleaseDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("getRelease()"),null,toThrow);
-}
-
-
-
-public void acceptGetReleaseDummy(java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.setDummy(getClassObjectMethodSignature("getRelease()"),params,valueToThrow);
-}
-
-
-    public void setRelease(net.sf.pmr.agilePlanning.domain.release.Release p0_Release)
-    {
-        id = MockCore.enteredMethodBody(id);
-        Object returnValue = null;
-        java.util.List params = new java.util.ArrayList();
-        params.add(p0_Release);
-
-        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("setRelease(Release)"),params,MockCore.OPT_UNEXPECTED_VOID_OKAY);
-    if( returnValue instanceof RuntimeException )
-    {
-        throw (RuntimeException)returnValue;
-    }
-    if( returnValue instanceof Error )
-    {
-        throw (Error)returnValue;
-    }
-}
-public void expectSetRelease(net.sf.pmr.agilePlanning.domain.release.Release p0_Release)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_Release);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setRelease(Release)"),params );
-}
-public void expectSetRelease(net.sf.pmr.agilePlanning.domain.release.Release p0_Release,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_Release);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setRelease(Release)"),params,toThrow );
-}
-public void acceptSetRelease(Object p0_Release)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_Release);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setRelease(Release)"),params );
-}
-public void acceptSetRelease(Object p0_Release,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_Release);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setRelease(Release)"),params,toThrow );
-}
-public void setSetReleaseDummy()
-{
-  MockCore.setDummy(getClassObjectMethodSignature("setRelease(Release)"),null,null);
-}
-public void setSetReleaseDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("setRelease(Release)"),null,toThrow);
-}
-public void setSetReleaseDummy(net.sf.pmr.agilePlanning.domain.release.Release p0_Release,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_Release);
-
-    MockCore.setDummy( getClassObjectMethodSignature("setRelease(Release)"),params,toThrow);
-}
-
-
-public void acceptSetReleaseDummy(Object p0_Release, java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_Release);
-
-    MockCore.setDummy(getClassObjectMethodSignature("setRelease(Release)"),params,valueToThrow);
-}
-
-
-    public net.sf.pmr.core.domain.basicProject.BasicProject getBasicProject()
-    {
-        id = MockCore.enteredMethodBody(id);
-        Object returnValue = null;
-        java.util.List params = new java.util.ArrayList();
-
-        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("getBasicProject()"),params,MockCore.OPT_DEFAULT);
-    if( returnValue instanceof RuntimeException )
-    {
-        throw (RuntimeException)returnValue;
-    }
-    if( returnValue instanceof Error )
-    {
-        throw (Error)returnValue;
-    }
-    return (net.sf.pmr.core.domain.basicProject.BasicProject)returnValue;
-}
-public void expectGetBasicProject(net.sf.pmr.core.domain.basicProject.BasicProject valueToReturn)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getBasicProject()"),params, valueToReturn );
-}
-public void expectGetBasicProject(java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getBasicProject()"),params,toThrow );
-}
-public void acceptGetBasicProject(net.sf.pmr.core.domain.basicProject.BasicProject valueToReturn)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getBasicProject()"),params, valueToReturn );
-}
-public void acceptGetBasicProject(java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getBasicProject()"),params,toThrow );
-}
-public void setGetBasicProjectDummy(net.sf.pmr.core.domain.basicProject.BasicProject toReturn)
-{
-  MockCore.setDummy(getClassObjectMethodSignature("getBasicProject()"),null,toReturn);
-}
-public void setGetBasicProjectDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("getBasicProject()"),null,toThrow);
-}
-
-
-
-public void acceptGetBasicProjectDummy(java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-
-    MockCore.setDummy(getClassObjectMethodSignature("getBasicProject()"),params,valueToThrow);
-}
-
-
-    public void setBasicProject(net.sf.pmr.core.domain.basicProject.BasicProject p0_BasicProject)
-    {
-        id = MockCore.enteredMethodBody(id);
-        Object returnValue = null;
-        java.util.List params = new java.util.ArrayList();
-        params.add(p0_BasicProject);
-
-        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("setBasicProject(BasicProject)"),params,MockCore.OPT_UNEXPECTED_VOID_OKAY);
-    if( returnValue instanceof RuntimeException )
-    {
-        throw (RuntimeException)returnValue;
-    }
-    if( returnValue instanceof Error )
-    {
-        throw (Error)returnValue;
-    }
-}
-public void expectSetBasicProject(net.sf.pmr.core.domain.basicProject.BasicProject p0_BasicProject)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_BasicProject);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setBasicProject(BasicProject)"),params );
-}
-public void expectSetBasicProject(net.sf.pmr.core.domain.basicProject.BasicProject p0_BasicProject,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_BasicProject);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setBasicProject(BasicProject)"),params,toThrow );
-}
-public void acceptSetBasicProject(Object p0_BasicProject)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_BasicProject);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setBasicProject(BasicProject)"),params );
-}
-public void acceptSetBasicProject(Object p0_BasicProject,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_BasicProject);
-
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setBasicProject(BasicProject)"),params,toThrow );
-}
-public void setSetBasicProjectDummy()
-{
-  MockCore.setDummy(getClassObjectMethodSignature("setBasicProject(BasicProject)"),null,null);
-}
-public void setSetBasicProjectDummy(java.lang.Throwable toThrow)
-{
-    MockCore.setDummy(getClassObjectMethodSignature("setBasicProject(BasicProject)"),null,toThrow);
-}
-public void setSetBasicProjectDummy(net.sf.pmr.core.domain.basicProject.BasicProject p0_BasicProject,java.lang.Throwable toThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-        params.add(p0_BasicProject);
-
-    MockCore.setDummy( getClassObjectMethodSignature("setBasicProject(BasicProject)"),params,toThrow);
-}
-
-
-public void acceptSetBasicProjectDummy(Object p0_BasicProject, java.lang.Throwable valueToThrow)
-{
-    java.util.List params = new java.util.ArrayList();
-params.add(p0_BasicProject);
-
-    MockCore.setDummy(getClassObjectMethodSignature("setBasicProject(BasicProject)"),params,valueToThrow);
+    MockCore.setDummy(getClassObjectMethodSignature("setTasks(Set)"),params,valueToThrow);
 }
 
 
@@ -3428,6 +2649,128 @@ public void acceptDifferenceInPercentBetweenEstimateAndTaskChargeDummy(java.lang
 }
 
 
+    public boolean isCompleted()
+    {
+        id = MockCore.enteredMethodBody(id);
+        Object returnValue = null;
+        java.util.List params = new java.util.ArrayList();
+
+        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("isCompleted()"),params,MockCore.OPT_DEFAULT);
+    if( returnValue instanceof RuntimeException )
+    {
+        throw (RuntimeException)returnValue;
+    }
+    if( returnValue instanceof Error )
+    {
+        throw (Error)returnValue;
+    }
+    if( returnValue == null ) throw MockCore.makeException("isCompleted: called but not prepared");
+    return ((Boolean)returnValue).booleanValue();
+}
+public void expectIsCompleted(boolean valueToReturn)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("isCompleted()"),params, new Boolean(valueToReturn) );
+}
+public void expectIsCompleted(java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("isCompleted()"),params,toThrow );
+}
+public void acceptIsCompleted(boolean valueToReturn)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("isCompleted()"),params, new Boolean(valueToReturn) );
+}
+public void acceptIsCompleted(java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("isCompleted()"),params,toThrow );
+}
+public void setIsCompletedDummy(boolean toReturn)
+{
+  MockCore.setDummy(getClassObjectMethodSignature("isCompleted()"),null,new Boolean(toReturn));
+}
+public void setIsCompletedDummy(java.lang.Throwable toThrow)
+{
+    MockCore.setDummy(getClassObjectMethodSignature("isCompleted()"),null,toThrow);
+}
+
+
+
+public void acceptIsCompletedDummy(java.lang.Throwable valueToThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.setDummy(getClassObjectMethodSignature("isCompleted()"),params,valueToThrow);
+}
+
+
+    public boolean warning()
+    {
+        id = MockCore.enteredMethodBody(id);
+        Object returnValue = null;
+        java.util.List params = new java.util.ArrayList();
+
+        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("warning()"),params,MockCore.OPT_DEFAULT);
+    if( returnValue instanceof RuntimeException )
+    {
+        throw (RuntimeException)returnValue;
+    }
+    if( returnValue instanceof Error )
+    {
+        throw (Error)returnValue;
+    }
+    if( returnValue == null ) throw MockCore.makeException("warning: called but not prepared");
+    return ((Boolean)returnValue).booleanValue();
+}
+public void expectWarning(boolean valueToReturn)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("warning()"),params, new Boolean(valueToReturn) );
+}
+public void expectWarning(java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("warning()"),params,toThrow );
+}
+public void acceptWarning(boolean valueToReturn)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("warning()"),params, new Boolean(valueToReturn) );
+}
+public void acceptWarning(java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("warning()"),params,toThrow );
+}
+public void setWarningDummy(boolean toReturn)
+{
+  MockCore.setDummy(getClassObjectMethodSignature("warning()"),null,new Boolean(toReturn));
+}
+public void setWarningDummy(java.lang.Throwable toThrow)
+{
+    MockCore.setDummy(getClassObjectMethodSignature("warning()"),null,toThrow);
+}
+
+
+
+public void acceptWarningDummy(java.lang.Throwable valueToThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.setDummy(getClassObjectMethodSignature("warning()"),params,valueToThrow);
+}
+
+
     public boolean isInProgress()
     {
         id = MockCore.enteredMethodBody(id);
@@ -3489,13 +2832,13 @@ public void acceptIsInProgressDummy(java.lang.Throwable valueToThrow)
 }
 
 
-    public boolean isCompleted()
+    public java.lang.String getDescription()
     {
         id = MockCore.enteredMethodBody(id);
         Object returnValue = null;
         java.util.List params = new java.util.ArrayList();
 
-        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("isCompleted()"),params,MockCore.OPT_DEFAULT);
+        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("getDescription()"),params,MockCore.OPT_DEFAULT);
     if( returnValue instanceof RuntimeException )
     {
         throw (RuntimeException)returnValue;
@@ -3504,49 +2847,250 @@ public void acceptIsInProgressDummy(java.lang.Throwable valueToThrow)
     {
         throw (Error)returnValue;
     }
-    if( returnValue == null ) throw MockCore.makeException("isCompleted: called but not prepared");
-    return ((Boolean)returnValue).booleanValue();
+    return (java.lang.String)returnValue;
 }
-public void expectIsCompleted(boolean valueToReturn)
+public void expectGetDescription(java.lang.String valueToReturn)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("isCompleted()"),params, new Boolean(valueToReturn) );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getDescription()"),params, valueToReturn );
 }
-public void expectIsCompleted(java.lang.Throwable toThrow)
+public void expectGetDescription(java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("isCompleted()"),params,toThrow );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getDescription()"),params,toThrow );
 }
-public void acceptIsCompleted(boolean valueToReturn)
+public void acceptGetDescription(java.lang.String valueToReturn)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("isCompleted()"),params, new Boolean(valueToReturn) );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getDescription()"),params, valueToReturn );
 }
-public void acceptIsCompleted(java.lang.Throwable toThrow)
+public void acceptGetDescription(java.lang.Throwable toThrow)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("isCompleted()"),params,toThrow );
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getDescription()"),params,toThrow );
 }
-public void setIsCompletedDummy(boolean toReturn)
+public void setGetDescriptionDummy(java.lang.String toReturn)
 {
-  MockCore.setDummy(getClassObjectMethodSignature("isCompleted()"),null,new Boolean(toReturn));
+  MockCore.setDummy(getClassObjectMethodSignature("getDescription()"),null,toReturn);
 }
-public void setIsCompletedDummy(java.lang.Throwable toThrow)
+public void setGetDescriptionDummy(java.lang.Throwable toThrow)
 {
-    MockCore.setDummy(getClassObjectMethodSignature("isCompleted()"),null,toThrow);
+    MockCore.setDummy(getClassObjectMethodSignature("getDescription()"),null,toThrow);
 }
 
 
 
-public void acceptIsCompletedDummy(java.lang.Throwable valueToThrow)
+public void acceptGetDescriptionDummy(java.lang.Throwable valueToThrow)
 {
     java.util.List params = new java.util.ArrayList();
 
-    MockCore.setDummy(getClassObjectMethodSignature("isCompleted()"),params,valueToThrow);
+    MockCore.setDummy(getClassObjectMethodSignature("getDescription()"),params,valueToThrow);
+}
+
+
+    public void setDescription(java.lang.String p0_String)
+    {
+        id = MockCore.enteredMethodBody(id);
+        Object returnValue = null;
+        java.util.List params = new java.util.ArrayList();
+        params.add(p0_String);
+
+        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("setDescription(String)"),params,MockCore.OPT_UNEXPECTED_VOID_OKAY);
+    if( returnValue instanceof RuntimeException )
+    {
+        throw (RuntimeException)returnValue;
+    }
+    if( returnValue instanceof Error )
+    {
+        throw (Error)returnValue;
+    }
+}
+public void expectSetDescription(java.lang.String p0_String)
+{
+    java.util.List params = new java.util.ArrayList();
+        params.add(p0_String);
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setDescription(String)"),params );
+}
+public void expectSetDescription(java.lang.String p0_String,java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+        params.add(p0_String);
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setDescription(String)"),params,toThrow );
+}
+public void acceptSetDescription(Object p0_String)
+{
+    java.util.List params = new java.util.ArrayList();
+params.add(p0_String);
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setDescription(String)"),params );
+}
+public void acceptSetDescription(Object p0_String,java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+params.add(p0_String);
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setDescription(String)"),params,toThrow );
+}
+public void setSetDescriptionDummy()
+{
+  MockCore.setDummy(getClassObjectMethodSignature("setDescription(String)"),null,null);
+}
+public void setSetDescriptionDummy(java.lang.Throwable toThrow)
+{
+    MockCore.setDummy(getClassObjectMethodSignature("setDescription(String)"),null,toThrow);
+}
+public void setSetDescriptionDummy(java.lang.String p0_String,java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+        params.add(p0_String);
+
+    MockCore.setDummy( getClassObjectMethodSignature("setDescription(String)"),params,toThrow);
+}
+
+
+public void acceptSetDescriptionDummy(Object p0_String, java.lang.Throwable valueToThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+params.add(p0_String);
+
+    MockCore.setDummy(getClassObjectMethodSignature("setDescription(String)"),params,valueToThrow);
+}
+
+
+    public java.lang.String getShortDescription()
+    {
+        id = MockCore.enteredMethodBody(id);
+        Object returnValue = null;
+        java.util.List params = new java.util.ArrayList();
+
+        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("getShortDescription()"),params,MockCore.OPT_DEFAULT);
+    if( returnValue instanceof RuntimeException )
+    {
+        throw (RuntimeException)returnValue;
+    }
+    if( returnValue instanceof Error )
+    {
+        throw (Error)returnValue;
+    }
+    return (java.lang.String)returnValue;
+}
+public void expectGetShortDescription(java.lang.String valueToReturn)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getShortDescription()"),params, valueToReturn );
+}
+public void expectGetShortDescription(java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getShortDescription()"),params,toThrow );
+}
+public void acceptGetShortDescription(java.lang.String valueToReturn)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getShortDescription()"),params, valueToReturn );
+}
+public void acceptGetShortDescription(java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("getShortDescription()"),params,toThrow );
+}
+public void setGetShortDescriptionDummy(java.lang.String toReturn)
+{
+  MockCore.setDummy(getClassObjectMethodSignature("getShortDescription()"),null,toReturn);
+}
+public void setGetShortDescriptionDummy(java.lang.Throwable toThrow)
+{
+    MockCore.setDummy(getClassObjectMethodSignature("getShortDescription()"),null,toThrow);
+}
+
+
+
+public void acceptGetShortDescriptionDummy(java.lang.Throwable valueToThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+
+    MockCore.setDummy(getClassObjectMethodSignature("getShortDescription()"),params,valueToThrow);
+}
+
+
+    public void setShortDescription(java.lang.String p0_String)
+    {
+        id = MockCore.enteredMethodBody(id);
+        Object returnValue = null;
+        java.util.List params = new java.util.ArrayList();
+        params.add(p0_String);
+
+        returnValue = MockCore.getReturnValue( getClassObjectMethodSignature("setShortDescription(String)"),params,MockCore.OPT_UNEXPECTED_VOID_OKAY);
+    if( returnValue instanceof RuntimeException )
+    {
+        throw (RuntimeException)returnValue;
+    }
+    if( returnValue instanceof Error )
+    {
+        throw (Error)returnValue;
+    }
+}
+public void expectSetShortDescription(java.lang.String p0_String)
+{
+    java.util.List params = new java.util.ArrayList();
+        params.add(p0_String);
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setShortDescription(String)"),params );
+}
+public void expectSetShortDescription(java.lang.String p0_String,java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+        params.add(p0_String);
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setShortDescription(String)"),params,toThrow );
+}
+public void acceptSetShortDescription(Object p0_String)
+{
+    java.util.List params = new java.util.ArrayList();
+params.add(p0_String);
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setShortDescription(String)"),params );
+}
+public void acceptSetShortDescription(Object p0_String,java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+params.add(p0_String);
+
+    MockCore.addExpectedMethodCall( getClassObjectMethodSignature("setShortDescription(String)"),params,toThrow );
+}
+public void setSetShortDescriptionDummy()
+{
+  MockCore.setDummy(getClassObjectMethodSignature("setShortDescription(String)"),null,null);
+}
+public void setSetShortDescriptionDummy(java.lang.Throwable toThrow)
+{
+    MockCore.setDummy(getClassObjectMethodSignature("setShortDescription(String)"),null,toThrow);
+}
+public void setSetShortDescriptionDummy(java.lang.String p0_String,java.lang.Throwable toThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+        params.add(p0_String);
+
+    MockCore.setDummy( getClassObjectMethodSignature("setShortDescription(String)"),params,toThrow);
+}
+
+
+public void acceptSetShortDescriptionDummy(Object p0_String, java.lang.Throwable valueToThrow)
+{
+    java.util.List params = new java.util.ArrayList();
+params.add(p0_String);
+
+    MockCore.setDummy(getClassObjectMethodSignature("setShortDescription(String)"),params,valueToThrow);
 }
 
 

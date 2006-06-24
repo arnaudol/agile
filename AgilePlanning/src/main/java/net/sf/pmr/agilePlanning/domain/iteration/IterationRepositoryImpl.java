@@ -39,8 +39,8 @@ import java.util.Date;
 import java.util.Set;
 
 import net.sf.pmr.agilePlanning.data.iteration.IterationMapper;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectProxyUtil;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectProxyUtil;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
@@ -57,16 +57,16 @@ public class IterationRepositoryImpl implements IterationRepository {
     /**
      * BasicProjectProxyUtil
      */
-    private BasicProjectProxyUtil basicProjectProxyUtil;
+    private ProjectProxyUtil projectProxyUtil;
 
     /**
      * @param iterationMapper
      */
     public IterationRepositoryImpl(final IterationMapper iterationMapper,
-            final BasicProjectProxyUtil basicProjectProxyUtil) {
+            final ProjectProxyUtil projectProxyUtil) {
         super();
         this.iterationMapper = iterationMapper;
-        this.basicProjectProxyUtil = basicProjectProxyUtil;
+        this.projectProxyUtil = projectProxyUtil;
     }
 
     /**
@@ -77,8 +77,8 @@ public class IterationRepositoryImpl implements IterationRepository {
         Iteration iteration = (Iteration) iterationMapper
                 .findById(persistanceId);
 
-        iteration.setBasicProject(basicProjectProxyUtil
-                .injectDependencies(iteration.getBasicProject()));
+        iteration.setProject(projectProxyUtil
+                .injectDependencies(iteration.getProject()));
 
         return iteration;
 
@@ -89,9 +89,9 @@ public class IterationRepositoryImpl implements IterationRepository {
      */
     public void addOrUpdate(final Iteration iteration) {
 
-        BasicProject basicProjectTarget = (basicProjectProxyUtil
-                .getTarget(iteration.getBasicProject()));
-        iteration.setBasicProject(basicProjectTarget);
+        Project projectTarget = (projectProxyUtil
+                .getTarget(iteration.getProject()));
+        iteration.setProject(projectTarget);
 
         iterationMapper.addOrUpdate(iteration);
     }
@@ -105,8 +105,8 @@ public class IterationRepositoryImpl implements IterationRepository {
         
         for (Iteration iteration : set) {
             
-            iteration.setBasicProject(basicProjectProxyUtil
-                    .injectDependencies(iteration.getBasicProject()));
+            iteration.setProject(projectProxyUtil
+                    .injectDependencies(iteration.getProject()));
         	
 		} 
         
@@ -127,8 +127,8 @@ public class IterationRepositoryImpl implements IterationRepository {
 
         if (iteration != null) {
 
-            iteration.setBasicProject(basicProjectProxyUtil
-                    .injectDependencies(iteration.getBasicProject()));
+            iteration.setProject(projectProxyUtil
+                    .injectDependencies(iteration.getProject()));
 
         }
         

@@ -88,7 +88,7 @@ public class IterationServiceImpl implements IterationService {
 
         // Buid the object to persist
         Iteration iteration = AgilePlanningObjectFactory.getIteration();
-        iteration.getBasicProject().setPersistanceId(projetPersistanceId);
+        iteration.getProject().setPersistanceId(projetPersistanceId);
         iteration.setEndDate(end);
         iteration.setStartDate(start);
 

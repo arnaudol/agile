@@ -41,12 +41,10 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
-import net.sf.pmr.agilePlanning.domain.release.Release;
-import net.sf.pmr.agilePlanning.domain.release.ReleaseImpl;
 import net.sf.pmr.agilePlanning.domain.story.MockStory;
 import net.sf.pmr.agilePlanning.domain.story.Story;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectImpl;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 import de.abstrakt.mock.MockCore;
 
 /**
@@ -86,13 +84,13 @@ public class ReleaseTest extends TestCase {
      */
     public void testIsEqualsAndHashcodeWithSameNumberAndSameProject() {
         
-        BasicProject basicProject1 = new BasicProjectImpl();
+        Project basicProject1 = new ProjectImpl();
         basicProject1.setCode("001");
         basicProject1.setName("Bound");
         basicProject1.setPersistanceId(5);
         basicProject1.setPersistanceVersion(23);
         
-        BasicProject basicProject2 = new BasicProjectImpl();
+        Project basicProject2 = new ProjectImpl();
         basicProject2.setCode("001");
         basicProject2.setName("Bound");
         basicProject2.setPersistanceId(5);
@@ -104,14 +102,14 @@ public class ReleaseTest extends TestCase {
         release1.setDate(new Date());
         release1.setPersistanceId(1);
         release1.setPersistanceVersion(1);
-        release1.setBasicProject(basicProject1);
+        release1.setProject(basicProject1);
         
         Release release2 = new ReleaseImpl();
         release2.setNumber("1");
         release2.setDate(new Date());
         release2.setPersistanceId(1);
         release2.setPersistanceVersion(1);
-        release2.setBasicProject(basicProject2);
+        release2.setProject(basicProject2);
         
         // equals
         assertTrue(release1.equals(release2));
@@ -132,13 +130,13 @@ public class ReleaseTest extends TestCase {
     public void testIsEqualsAndHashcodeWithDifferentNumberAndSameProject() {
         
         
-        BasicProject basicProject1 = new BasicProjectImpl();
+        Project basicProject1 = new ProjectImpl();
         basicProject1.setCode("001");
         basicProject1.setName("Bound");
         basicProject1.setPersistanceId(5);
         basicProject1.setPersistanceVersion(23);
         
-        BasicProject basicProject2 = new BasicProjectImpl();
+        Project basicProject2 = new ProjectImpl();
         basicProject2.setCode("001");
         basicProject2.setName("Bound");
         basicProject2.setPersistanceId(5);
@@ -149,14 +147,14 @@ public class ReleaseTest extends TestCase {
         release1.setDate(new Date());
         release1.setPersistanceId(1);
         release1.setPersistanceVersion(1);
-        release1.setBasicProject(basicProject1);
+        release1.setProject(basicProject1);
         
         Release release2 = new ReleaseImpl();
         release2.setNumber("2");
         release2.setDate(new Date());
         release2.setPersistanceId(1);
         release2.setPersistanceVersion(1);
-        release2.setBasicProject(basicProject2);
+        release2.setProject(basicProject2);
         
         // equals
         assertFalse(release1.equals(release2));
@@ -177,13 +175,13 @@ public class ReleaseTest extends TestCase {
     public void testIsEqualsAndHashcodeWithSameNumberAndDifferentProject() {
         
         
-        BasicProject basicProject1 = new BasicProjectImpl();
+        Project basicProject1 = new ProjectImpl();
         basicProject1.setCode("001");
         basicProject1.setName("Bound");
         basicProject1.setPersistanceId(5);
         basicProject1.setPersistanceVersion(23);
         
-        BasicProject basicProject2 = new BasicProjectImpl();
+        Project basicProject2 = new ProjectImpl();
         basicProject2.setCode("Scooby");
         basicProject2.setName("Doo");
         basicProject2.setPersistanceId(10);
@@ -194,14 +192,14 @@ public class ReleaseTest extends TestCase {
         release1.setDate(new Date());
         release1.setPersistanceId(1);
         release1.setPersistanceVersion(1);
-        release1.setBasicProject(basicProject1);
+        release1.setProject(basicProject1);
         
         Release release2 = new ReleaseImpl();
         release2.setNumber("1");
         release2.setDate(new Date());
         release2.setPersistanceId(1);
         release2.setPersistanceVersion(1);
-        release2.setBasicProject(basicProject2);
+        release2.setProject(basicProject2);
         
         // equals
         assertFalse(release1.equals(release2));
@@ -222,13 +220,13 @@ public class ReleaseTest extends TestCase {
     public void testIsEqualsAndHashcodeWithDifferentNumberAndDifferentProject() {
         
         
-        BasicProject basicProject1 = new BasicProjectImpl();
+        Project basicProject1 = new ProjectImpl();
         basicProject1.setCode("001");
         basicProject1.setName("Bound");
         basicProject1.setPersistanceId(5);
         basicProject1.setPersistanceVersion(23);
         
-        BasicProject basicProject2 = new BasicProjectImpl();
+        Project basicProject2 = new ProjectImpl();
         basicProject2.setCode("Scooby");
         basicProject2.setName("Doo");
         basicProject2.setPersistanceId(10);
@@ -239,14 +237,14 @@ public class ReleaseTest extends TestCase {
         release1.setDate(new Date());
         release1.setPersistanceId(1);
         release1.setPersistanceVersion(1);
-        release1.setBasicProject(basicProject1);
+        release1.setProject(basicProject1);
         
         Release release2 = new ReleaseImpl();
         release2.setNumber("2");
         release2.setDate(new Date());
         release2.setPersistanceId(1);
         release2.setPersistanceVersion(1);
-        release2.setBasicProject(basicProject2);
+        release2.setProject(basicProject2);
         
         // equals
         assertFalse(release1.equals(release2));

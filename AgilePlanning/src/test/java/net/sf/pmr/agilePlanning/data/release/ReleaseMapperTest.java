@@ -43,13 +43,12 @@ import java.util.Set;
 
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
 import net.sf.pmr.agilePlanning.MapperTestCase;
-import net.sf.pmr.agilePlanning.data.release.ReleaseMapper;
 import net.sf.pmr.agilePlanning.domain.release.Release;
 import net.sf.pmr.agilePlanning.domain.release.ReleaseImpl;
 import net.sf.pmr.agilePlanning.domain.story.Story;
 import net.sf.pmr.agilePlanning.domain.story.StoryImpl;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectImpl;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 
 import org.dbunit.dataset.ITable;
 import org.springframework.dao.ConcurrencyFailureException;
@@ -67,7 +66,7 @@ public class ReleaseMapperTest extends MapperTestCase {
     
     private Release releaseToDelete;
     
-    private BasicProject basicProject;
+    private Project project;
     
     private String number;
     
@@ -104,11 +103,11 @@ public class ReleaseMapperTest extends MapperTestCase {
         releaseMapper = AgilePlanningObjectFactory.getReleaseMapper();
         
         // buid BasicProject
-        basicProject = new BasicProjectImpl();
-        basicProject.setPersistanceId(2);
-        basicProject.setPersistanceVersion(3);
-        basicProject.setCode("A");
-        basicProject.setName("Super A");
+        project = new ProjectImpl();
+        project.setPersistanceId(2);
+        project.setPersistanceVersion(3);
+        project.setCode("A");
+        project.setName("Super A");
         
         // build release
         Calendar calendar = Calendar.getInstance();
@@ -129,7 +128,7 @@ public class ReleaseMapperTest extends MapperTestCase {
         release = new ReleaseImpl();
         
         release.setDate(date);
-        release.setBasicProject(basicProject);
+        release.setProject(project);
         release.setNumber(number);
         release.setPersistanceId(persistanceId);
         release.setPersistanceVersion(persistanceVersion);
@@ -137,7 +136,7 @@ public class ReleaseMapperTest extends MapperTestCase {
         releaseToDelete = new ReleaseImpl();
         
         releaseToDelete.setDate(date);
-        releaseToDelete.setBasicProject(basicProject);
+        releaseToDelete.setProject(project);
         releaseToDelete.setNumber(number);
         releaseToDelete.setPersistanceId(4);
         releaseToDelete.setPersistanceVersion(5);
@@ -148,7 +147,7 @@ public class ReleaseMapperTest extends MapperTestCase {
         story1.setShortDescription("avancement des tâches à modifier");
         story1.setDescription("faire un report d'avancement des tâches à modifier");
         
-        story1.setBasicProject(basicProject);
+        story1.setProject(project);
         
         story2 = new StoryImpl();
         story2.setPersistanceId(2);
@@ -157,7 +156,7 @@ public class ReleaseMapperTest extends MapperTestCase {
         story2.setDescription("faire une revue de code de l'iteration courant");
         
         
-        story2.setBasicProject(basicProject);
+        story2.setProject(project);
 
         
     }
@@ -268,7 +267,7 @@ public class ReleaseMapperTest extends MapperTestCase {
     public void testAddOrUpdateDoesntUpdateProjectWhenUpdating() throws Exception {
         
         // update
-        release.getBasicProject().setName("super B");
+        release.getProject().setName("super B");
         
         releaseMapper.addOrUpdate(release);
         
@@ -360,7 +359,7 @@ public class ReleaseMapperTest extends MapperTestCase {
         release.setNumber("2B");
         
         // update
-        release.getBasicProject().setName("super B");
+        release.getProject().setName("super B");
         
         releaseMapper.addOrUpdate(release);
         
@@ -411,10 +410,10 @@ public class ReleaseMapperTest extends MapperTestCase {
      */
     public void testAddOrUpdateWhenProjectDoesNotExists() {
         
-        BasicProject basicProject = new BasicProjectImpl();
-        basicProject.setPersistanceId(999);
-        basicProject.setPersistanceVersion(888);
-        release.setBasicProject(basicProject);
+        Project project = new ProjectImpl();
+        project.setPersistanceId(999);
+        project.setPersistanceVersion(888);
+        release.setProject(project);
         
         //update
         try {
@@ -431,7 +430,7 @@ public class ReleaseMapperTest extends MapperTestCase {
      */    
     public void testAddOrUpdateWhenProjectIsNull() {
 
-        release.setBasicProject(null);
+        release.setProject(null);
         
         //update
         try {

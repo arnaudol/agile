@@ -88,7 +88,7 @@ public class ReleaseServiceImpl implements ReleaseService {
 
         // Buid the object to persist
         Release release = AgilePlanningObjectFactory.getRelease();
-        release.getBasicProject().setPersistanceId(projectPersistanceId);
+        release.getProject().setPersistanceId(projectPersistanceId);
         release.setDate(date);
         release.setNumber(number);
 

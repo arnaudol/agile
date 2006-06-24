@@ -43,7 +43,6 @@ import java.util.Set;
 
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
 import net.sf.pmr.agilePlanning.MapperTestCase;
-import net.sf.pmr.agilePlanning.data.story.StoryMapper;
 import net.sf.pmr.agilePlanning.domain.story.BusinessValue;
 import net.sf.pmr.agilePlanning.domain.story.BusinessValueImpl;
 import net.sf.pmr.agilePlanning.domain.story.RiskLevel;
@@ -54,13 +53,12 @@ import net.sf.pmr.agilePlanning.domain.story.task.Task;
 import net.sf.pmr.agilePlanning.domain.story.task.TaskImpl;
 import net.sf.pmr.agilePlanning.domain.story.task.charge.Charge;
 import net.sf.pmr.agilePlanning.domain.story.task.charge.ChargeImpl;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectImpl;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.core.domain.user.UserImpl;
 
 import org.dbunit.dataset.ITable;
-import org.hibernate.LazyInitializationException;
 import org.springframework.dao.ConcurrencyFailureException;
 
 /**
@@ -100,7 +98,7 @@ public class StoryMapperTest extends MapperTestCase {
     
     private Charge charge2ToAdd;
     
-    private BasicProject basicProject;
+    private Project project;
     
     private static final String SELECT_STORY_TO_UPDATE  = "select * from STORY where id = 1";
     
@@ -139,11 +137,11 @@ public class StoryMapperTest extends MapperTestCase {
         storyMapper = AgilePlanningObjectFactory.getStoryMapper();
         
         // build basic project
-        basicProject = new BasicProjectImpl();
-        basicProject.setCode("A");
-        basicProject.setName("Super A");
-        basicProject.setPersistanceId(2);
-        basicProject.setPersistanceVersion(3);
+        project = new ProjectImpl();
+        project.setCode("A");
+        project.setName("Super A");
+        project.setPersistanceId(2);
+        project.setPersistanceVersion(3);
         
         // BusinessValue
         businessValue = new BusinessValueImpl();
@@ -228,7 +226,7 @@ public class StoryMapperTest extends MapperTestCase {
         
         // Story to Update
         storyToUpdate = new StoryImpl();
-        storyToUpdate.setBasicProject(basicProject);
+        storyToUpdate.setProject(project);
         storyToUpdate.setDescription("faire un report d'avancement des tâches");
         storyToUpdate.setDaysEstimated(4);
         storyToUpdate.setPersistanceId(1);
@@ -302,7 +300,7 @@ public class StoryMapperTest extends MapperTestCase {
                 
         // Story to Add
         storyToAdd = new StoryImpl();
-        storyToAdd.setBasicProject(basicProject);
+        storyToAdd.setProject(project);
         storyToAdd.setDescription("statistiques");
         storyToAdd.setDaysEstimated(5);
         storyToAdd.setPersistanceId(0);
@@ -355,7 +353,7 @@ public class StoryMapperTest extends MapperTestCase {
 		assertEquals("number of row", 1, databaseData.getRowCount());
 		
 		assertEquals("id", new Integer(storyToUpdate.getPersistanceId()), (Integer) databaseData.getValue(0, "id"));
-		assertEquals("pro_id", new Integer(storyToUpdate.getBasicProject().getPersistanceId()), (Integer) databaseData.getValue(0, "pro_id"));
+		assertEquals("pro_id", new Integer(storyToUpdate.getProject().getPersistanceId()), (Integer) databaseData.getValue(0, "pro_id"));
 		assertEquals("description", storyToUpdate.getDescription(), (String) databaseData.getValue(0, "description")); 
 		assertEquals("daysestimated", new Double(storyToUpdate.getDaysEstimated()), new Double(databaseData.getValue(0, "daysestimated").toString()));
         assertEquals("bus_id", new Integer(storyToUpdate.getBusinessValue().getId()),  (Integer) databaseData.getValue(0, "bus_id"));
@@ -481,7 +479,7 @@ public class StoryMapperTest extends MapperTestCase {
             throws Exception {
 
         // modify BasicProjet
-        storyToUpdate.getBasicProject().setName("bordel!");
+        storyToUpdate.getProject().setName("bordel!");
         
         // update
         storyMapper.addOrUpdate(storyToUpdate);
@@ -573,7 +571,7 @@ public class StoryMapperTest extends MapperTestCase {
 		assertEquals("number of row", 1, databaseData.getRowCount());
 		
 		assertEquals("id", new Integer(storyToAdd.getPersistanceId()), (Integer) databaseData.getValue(0, "id"));
-		assertEquals("pro_id", new Integer(storyToAdd.getBasicProject().getPersistanceId()), (Integer) databaseData.getValue(0, "pro_id"));
+		assertEquals("pro_id", new Integer(storyToAdd.getProject().getPersistanceId()), (Integer) databaseData.getValue(0, "pro_id"));
 		assertEquals("description", storyToAdd.getDescription(), (String) databaseData.getValue(0, "description")); 
 		assertEquals("daysestimated", new Double(storyToAdd.getDaysEstimated()), new Double(databaseData.getValue(0, "daysestimated").toString()));
         assertEquals("bus_id", new Integer(storyToAdd.getBusinessValue().getId()),  (Integer) databaseData.getValue(0, "bus_id"));
@@ -660,7 +658,7 @@ public class StoryMapperTest extends MapperTestCase {
             throws Exception {
 
         // modify BasicProjet
-        storyToAdd.getBasicProject().setName("bordel!");
+        storyToAdd.getProject().setName("bordel!");
         
         // add
         storyMapper.addOrUpdate(storyToAdd);
@@ -900,7 +898,7 @@ public class StoryMapperTest extends MapperTestCase {
     	
         // Story to Update
         Story story1 = new StoryImpl();
-        story1.setBasicProject(basicProject);
+        story1.setProject(project);
         story1.setDescription("faire un report d'avancement des tâches à modifier");
         story1.setDaysEstimated(10);
         story1.setPersistanceId(1);
@@ -910,7 +908,7 @@ public class StoryMapperTest extends MapperTestCase {
         story1.setRiskLevel(riskLevel);
 
         Story story2 = new StoryImpl();
-        story2.setBasicProject(basicProject);
+        story2.setProject(project);
         story2.setDescription("faire une revue de code de l'iteration courant");
         story2.setDaysEstimated(1);
         story2.setPersistanceId(2);
@@ -936,7 +934,7 @@ public class StoryMapperTest extends MapperTestCase {
 //		
 //		assertEquals("id", storyToUpdate.getPersistanceId(), story.getPersistanceId());
 //		
-//		// test du lazy loading sur le basicProject
+//		// test du lazy loading sur le project
 //		try {
 //			story.getBasicProject().getCode();
 //			fail("doit retourner une LazyInitializationException");
