@@ -50,8 +50,8 @@ import net.sf.pmr.agilePlanning.domain.story.Story;
 import net.sf.pmr.agilePlanning.domain.story.StoryImpl;
 import net.sf.pmr.agilePlanning.service.IterationService;
 import net.sf.pmr.agilePlanning.service.IterationServiceImpl;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectImpl;
+import net.sf.pmr.core.domain.project.BasicProject;
+import net.sf.pmr.core.domain.project.BasicProjectImpl;
 import net.sf.pmr.keopsframework.domain.validation.Errors;
 import de.abstrakt.mock.MockCore;
 import de.abstrakt.mock.expectable.Ignore;
@@ -88,7 +88,7 @@ public class IterationServiceTest extends TestCase {
         // iteration to add or update
         iterationToAddOrUpdate = new IterationImpl();
         basicProject = new BasicProjectImpl();
-        iterationToAddOrUpdate.setBasicProject(basicProject);
+        iterationToAddOrUpdate.setProject(basicProject);
         iterationToAddOrUpdate.setPersistanceId(1);
 
         mockIterationValidator = new MockIterationValidator();
@@ -209,7 +209,7 @@ public class IterationServiceTest extends TestCase {
         Errors errorsFromService = iterationService.update(start, end, persistanceId, persistanceVersion);
 
         // contrôle que l'object est bien mis à jour
-        assertEquals("basicProject", iterationToAddOrUpdate.getBasicProject(), basicProject);
+        assertEquals("basicProject", iterationToAddOrUpdate.getProject(), basicProject);
         // TODO Comment tester les dates ??
         //        assertEquals("end", iterationToUpdate.getEnd(), end);
         assertEquals("persistanceId", iterationToAddOrUpdate.getPersistanceId(), persistanceId);
@@ -273,7 +273,7 @@ public class IterationServiceTest extends TestCase {
 
         Iteration iterationToUpdate = new IterationImpl();
         BasicProject basicProject = new BasicProjectImpl();
-        iterationToUpdate.setBasicProject(basicProject);
+        iterationToUpdate.setProject(basicProject);
 
         // recherche de l'iteration
         mockIterationRepository.expectFindByPersistanceId(persistanceId, iterationToUpdate);
