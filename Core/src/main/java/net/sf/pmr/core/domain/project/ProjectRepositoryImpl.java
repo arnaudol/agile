@@ -56,27 +56,27 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     /**
      * project mapper.
      */
-    private ProjectMapper basicProjectMapper;
+    private ProjectMapper projectMapper;
     
     /**
-     * basicProjectProxyUtil.
+     * projectProxyUtil.
      */
-    private ProjectProxyUtil basicProjectProxyUtil;
+    private ProjectProxyUtil projectProxyUtil;
 
     /**
-     * @param basicProjectMapper basicProjectMapper
+     * @param projectMapper basicProjectMapper
      */
     public ProjectRepositoryImpl(
-            final ProjectMapper basicProjectMapper, final ProjectProxyUtil basicProjectProxyUtil) {
-        this.basicProjectMapper = basicProjectMapper;
-        this.basicProjectProxyUtil = basicProjectProxyUtil;
+            final ProjectMapper projectMapper, final ProjectProxyUtil projectProxyUtil) {
+        this.projectMapper = projectMapper;
+        this.projectProxyUtil = projectProxyUtil;
     }
 
     /**
      * @see net.sf.pmr.core.domain.project.ProjectRepositoryTest#countAll()
      */
     public Integer countAll() {
-        return basicProjectMapper.countAll();
+        return projectMapper.countAll();
     }
 
     /**
@@ -84,7 +84,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
      */
     public void addOrUpdate(final Project basicProject) {
         
-        basicProjectMapper.addOrUpdate(basicProjectProxyUtil.getTarget(basicProject));
+        projectMapper.addOrUpdate(projectProxyUtil.getTarget(basicProject));
 
     }
 
@@ -93,14 +93,14 @@ public class ProjectRepositoryImpl implements ProjectRepository {
      */
     public List<Project> findAll() {
 
-        List<Project> list = basicProjectMapper.findAll();
+        List<Project> list = projectMapper.findAll();
 
         List<Project> listToReturn = new ArrayList<Project>();
 
         for (Iterator iterator = list.iterator(); iterator.hasNext();) {
-            Project basicProject = (Project) iterator.next();
+            Project project = (Project) iterator.next();
 
-            listToReturn.add(basicProjectProxyUtil.injectDependencies(basicProject));
+            listToReturn.add(projectProxyUtil.injectDependencies(project));
 
         }
 
@@ -110,9 +110,9 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
     public Project findByPersistanceId(final int persistanceId) {
         
-        Project basicProject =  (Project) basicProjectMapper.findById(persistanceId);
+        Project project =  (Project) projectMapper.findById(persistanceId);
         
-        return basicProjectProxyUtil.injectDependencies(basicProject);
+        return projectProxyUtil.injectDependencies(project);
         
     }
 
@@ -120,7 +120,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 	 * @see net.sf.pmr.core.domain.project.ProjectRepository#findForAUser(int)
 	 */
 	public Set<Project> findForAUser(final int userPersistanceId) {
-		return this.basicProjectMapper.findForAUser(userPersistanceId);
+		return this.projectMapper.findForAUser(userPersistanceId);
 	}
     
 }

@@ -52,12 +52,12 @@ public class ProjectProxyUtilImpl implements ProjectProxyUtil {
     /**
      * @see net.sf.pmr.core.domain.project.ProjectProxyUtil#getTarget(java.lang.Object)
      */
-    public Project getTarget(Project basicProject) {
+    public Project getTarget(Project project) {
 
-        if (basicProject instanceof Advised) {
+        if (project instanceof Advised) {
 
             // Project est un proxy, il faut récupérer la target
-            TargetSource targetSource = ((Advised) basicProject)
+            TargetSource targetSource = ((Advised) project)
                     .getTargetSource();
             Object target = ((SingletonTargetSource) targetSource).getTarget();
 
@@ -67,7 +67,7 @@ public class ProjectProxyUtilImpl implements ProjectProxyUtil {
         } else {
 
         	// sinon on renvoit le projet tel qu'il est
-        	return basicProject;
+        	return project;
 
         }
 
@@ -76,23 +76,23 @@ public class ProjectProxyUtilImpl implements ProjectProxyUtil {
     /**
      * @see net.sf.pmr.core.domain.project.ProjectProxyUtil#injectDependencies(net.sf.pmr.core.domain.project.Project)
      */
-    public Project injectDependencies(final Project basicProject) {
+    public Project injectDependencies(final Project project) {
 
 
     	// si le projet est déjà advised...
-        if ( basicProject instanceof Advised) {
+        if ( project instanceof Advised) {
 
-            return basicProject;
+            return project;
 
         // sinon...
         } else {
 
-            Project basicProjectFromFactory = CoreObjectFactory
+            Project projectFromFactory = CoreObjectFactory
                     .getProject();
 
-            BeanUtils.copyProperties(basicProject, basicProjectFromFactory);
+            BeanUtils.copyProperties(project, projectFromFactory);
 
-            return basicProjectFromFactory;
+            return projectFromFactory;
 
         }
 

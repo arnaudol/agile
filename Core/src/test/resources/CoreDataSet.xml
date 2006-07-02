@@ -76,20 +76,17 @@
 
     <table name="PROJECT">
         <column>id</column>
-        <column>pro_id</column>
         <column>code</column>
         <column>name</column>
         <column>version</column>
         <row>
             <value>1</value>
-            <null/>
             <value>PR1</value>
             <value>PM Project</value>
             <value>1</value>
         </row>
         <row>
             <value>2</value>
-            <null/>
             <value>PR2</value>
             <value>PM Project 2</value>
             <value>2</value>

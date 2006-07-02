@@ -111,7 +111,7 @@ public class ProjectMapperImpl extends
 
 		List<Project> list = getHibernateTemplate()
 				.find(
-						"from net.sf.pmr.core.domain.project.ProjectImpl basicProject where basicProject.Members.PersistanceId = ?",
+						"from net.sf.pmr.core.domain.project.ProjectImpl project where project.Members.PersistanceId = ?",
 						new Integer(userPersistanceId));
 
 		Set<Project> setToReturn = new HashSet<Project>();
