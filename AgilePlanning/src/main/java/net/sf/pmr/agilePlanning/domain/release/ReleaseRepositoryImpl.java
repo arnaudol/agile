@@ -63,7 +63,7 @@ public class ReleaseRepositoryImpl implements ReleaseRepository {
     /**
      * @param releaseMapper releaseMapper
      */
-    public ReleaseRepositoryImpl(final ReleaseMapper releaseMapper, final ProjectProxyUtil basicProjectProxyUtil) {
+    public ReleaseRepositoryImpl(final ReleaseMapper releaseMapper, final ProjectProxyUtil projectProxyUtil) {
         super();
         this.releaseMapper = releaseMapper;
         this.projectProxyUtil = projectProxyUtil;

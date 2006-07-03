@@ -19,7 +19,7 @@
             <one-to-many class="net.sf.pmr.agilePlanning.domain.story.StoryImpl"/>
         </set>
         
-   		<many-to-one class="net.sf.pmr.core.domain.project.BasicProjectImpl" name="BasicProject" 
+   		<many-to-one class="net.sf.pmr.core.domain.project.ProjectImpl" name="Project" 
 					 lazy="no-proxy" outer-join="false" cascade="none" update="true" insert="true" not-found="exception">
 			<column name="PRO_ID" />
 		</many-to-one>

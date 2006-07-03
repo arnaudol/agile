@@ -35,13 +35,11 @@
 
     <table name="PROJECT">
         <column>id</column>
-        <column>pro_id</column>
         <column>code</column>
         <column>name</column>
         <column>version</column>
         <row>
             <value>2</value>
-            <null/>
             <value>A</value>
             <value>Super A</value>
             <value>3</value>
@@ -74,8 +72,8 @@
         <column>id</column>
         <column>pro_id</column>
         <column>rel_id</column>
-        <column>start</column>
-        <column>end</column>
+        <column>startDate</column>
+        <column>endDate</column>
         <column>version</column>
         <row>
             <value>1</value>

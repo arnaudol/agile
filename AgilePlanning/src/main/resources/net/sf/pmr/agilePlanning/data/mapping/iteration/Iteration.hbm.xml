@@ -11,15 +11,15 @@
 
 		<version column="VERSION" name="PersistanceVersion" type="long" />
 
-		<property column="START" name="StartDate" not-null="true" type="java.util.Date" />
-  	    <property column="END" name="EndDate" not-null="true" type="java.util.Date" />
+		<property column="STARTDATE" name="StartDate" not-null="true" type="java.util.Date" />
+  	    <property column="ENDDATE" name="EndDate" not-null="true" type="java.util.Date" />
 
 		<set name="Stories" cascade="none" lazy="false" table="STORY">
             <key column="ITE_ID" not-null="false"/>
             <one-to-many class="net.sf.pmr.agilePlanning.domain.story.StoryImpl" />
         </set>
 
-		<many-to-one class="net.sf.pmr.core.domain.project.BasicProjectImpl" name="BasicProject" 
+		<many-to-one class="net.sf.pmr.core.domain.project.ProjectImpl" name="Project" 
 					 lazy="no-proxy" outer-join="false" cascade="none" update="true" insert="true">
 			<column name="PRO_ID" />
 		</many-to-one>

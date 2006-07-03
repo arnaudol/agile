@@ -85,7 +85,7 @@ public class ReleaseMapperImpl extends HibernateDaoSupport implements
 
         List list = getHibernateTemplate()
                 .find(
-                        "from net.sf.pmr.agilePlanning.domain.release.ReleaseImpl release where release.BasicProject.PersistanceId = ?",
+                        "from net.sf.pmr.agilePlanning.domain.release.ReleaseImpl release where release.Project.PersistanceId = ?",
                         new Integer(projetPersistanceId));
 
         Set<Release> setToReturn = new HashSet<Release>();
@@ -104,7 +104,7 @@ public class ReleaseMapperImpl extends HibernateDaoSupport implements
 	/**
 	 * @see net.sf.pmr.agilePlanning.data.release.ReleaseMapper#findByIterationPersistanceId(int)
 	 */
-	public Release findByIterationPersistanceId(final int basicProjectPrersistanceId, final int iterationPersistanceId) {
+	public Release findByIterationPersistanceId(final int projectPersistanceId, final int iterationPersistanceId) {
 		
         List list = getHibernateTemplate()
         .findByNamedParam(
@@ -113,14 +113,14 @@ public class ReleaseMapperImpl extends HibernateDaoSupport implements
                 + " 	 net.sf.pmr.agilePlanning.domain.iteration.IterationImpl as iteration"
                 + " where iteration.PersistanceId = :iterationPersistanceId"
                 + " and iteration.EndDate <= release.Date"
-                + " and iteration.BasicProject.PersistanceId = :basicProjectPersistanceId"                
+                + " and iteration.Project.PersistanceId = :projectPersistanceId"                
                 + " and release.Date = ( select min(release2.Date) from net.sf.pmr.agilePlanning.domain.release.ReleaseImpl as release2, "
                 + "                 							     	net.sf.pmr.agilePlanning.domain.iteration.IterationImpl as iteration2 "
                 + " 												where iteration2.PersistanceId = :iterationPersistanceId"
                 + " 												and iteration2.EndDate <= release2.Date "
-                + " 											    and iteration2.BasicProject.PersistanceId = :basicProjectPersistanceId)",
-                new String[] {"iterationPersistanceId", "basicProjectPersistanceId"},
-                new Object[] {new Integer(iterationPersistanceId), new Integer(basicProjectPrersistanceId) });
+                + " 											    and iteration2.Project.PersistanceId = :projectPersistanceId)",
+                new String[] {"iterationPersistanceId", "projectPersistanceId"},
+                new Object[] {new Integer(iterationPersistanceId), new Integer(projectPersistanceId) });
 
          Release releaseToReturn = (Release) DataAccessUtils.uniqueResult(list);
         

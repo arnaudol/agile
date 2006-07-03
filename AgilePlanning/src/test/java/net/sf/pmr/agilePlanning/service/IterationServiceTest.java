@@ -48,10 +48,8 @@ import net.sf.pmr.agilePlanning.domain.iteration.MockIterationValidator;
 import net.sf.pmr.agilePlanning.domain.story.MockStoryRepository;
 import net.sf.pmr.agilePlanning.domain.story.Story;
 import net.sf.pmr.agilePlanning.domain.story.StoryImpl;
-import net.sf.pmr.agilePlanning.service.IterationService;
-import net.sf.pmr.agilePlanning.service.IterationServiceImpl;
-import net.sf.pmr.core.domain.project.BasicProject;
-import net.sf.pmr.core.domain.project.BasicProjectImpl;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 import net.sf.pmr.keopsframework.domain.validation.Errors;
 import de.abstrakt.mock.MockCore;
 import de.abstrakt.mock.expectable.Ignore;
@@ -75,7 +73,7 @@ public class IterationServiceTest extends TestCase {
     
     private Iteration iterationToAddOrUpdate;
     
-    private BasicProject basicProject;
+    private Project project;
 
     private Errors errors;
 
@@ -87,8 +85,8 @@ public class IterationServiceTest extends TestCase {
         
         // iteration to add or update
         iterationToAddOrUpdate = new IterationImpl();
-        basicProject = new BasicProjectImpl();
-        iterationToAddOrUpdate.setProject(basicProject);
+        project = new ProjectImpl();
+        iterationToAddOrUpdate.setProject(project);
         iterationToAddOrUpdate.setPersistanceId(1);
 
         mockIterationValidator = new MockIterationValidator();
@@ -209,7 +207,7 @@ public class IterationServiceTest extends TestCase {
         Errors errorsFromService = iterationService.update(start, end, persistanceId, persistanceVersion);
 
         // contrôle que l'object est bien mis à jour
-        assertEquals("basicProject", iterationToAddOrUpdate.getProject(), basicProject);
+        assertEquals("basicProject", iterationToAddOrUpdate.getProject(), project);
         // TODO Comment tester les dates ??
         //        assertEquals("end", iterationToUpdate.getEnd(), end);
         assertEquals("persistanceId", iterationToAddOrUpdate.getPersistanceId(), persistanceId);
@@ -272,8 +270,8 @@ public class IterationServiceTest extends TestCase {
         int persistanceId = 2;
 
         Iteration iterationToUpdate = new IterationImpl();
-        BasicProject basicProject = new BasicProjectImpl();
-        iterationToUpdate.setProject(basicProject);
+        Project project = new ProjectImpl();
+        iterationToUpdate.setProject(project);
 
         // recherche de l'iteration
         mockIterationRepository.expectFindByPersistanceId(persistanceId, iterationToUpdate);

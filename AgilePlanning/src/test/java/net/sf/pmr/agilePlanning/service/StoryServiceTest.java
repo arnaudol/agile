@@ -58,9 +58,9 @@ import net.sf.pmr.agilePlanning.domain.story.task.Task;
 import net.sf.pmr.agilePlanning.domain.story.task.TaskImpl;
 import net.sf.pmr.agilePlanning.domain.story.task.charge.Charge;
 import net.sf.pmr.agilePlanning.domain.story.task.charge.ChargeImpl;
-import net.sf.pmr.core.domain.project.BasicProject;
-import net.sf.pmr.core.domain.project.BasicProjectImpl;
-import net.sf.pmr.core.domain.project.MockBasicProjectRepository;
+import net.sf.pmr.core.domain.project.MockProjectRepository;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 import net.sf.pmr.core.domain.user.MockUserRepository;
 import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.core.domain.user.UserImpl;
@@ -87,7 +87,7 @@ public class StoryServiceTest extends TestCase {
     
     private MockRiskLevelRepository mockRiskLevelRepository;
     
-    private MockBasicProjectRepository mockBasicProjectRepository;
+    private MockProjectRepository mockProjectRepository;
     
     private MockUserRepository mockUserRepository; 
     
@@ -109,13 +109,13 @@ public class StoryServiceTest extends TestCase {
         
         mockRiskLevelRepository = new MockRiskLevelRepository();
         
-        mockBasicProjectRepository = new MockBasicProjectRepository();
+        mockProjectRepository = new MockProjectRepository();
         
         mockUserRepository = new MockUserRepository();
         
         errors = AgilePlanningObjectFactory.getErrors();
 
-        storyService = new StoryServiceImpl(mockTaskValidator, mockStoryRepository, mockStoryValidator, mockBasicProjectRepository, mockBusinessValueRepository, mockRiskLevelRepository, mockUserRepository);
+        storyService = new StoryServiceImpl(mockTaskValidator, mockStoryRepository, mockStoryValidator, mockProjectRepository, mockBusinessValueRepository, mockRiskLevelRepository, mockUserRepository);
 
         MockCore.reset();
 
@@ -162,9 +162,9 @@ public class StoryServiceTest extends TestCase {
         story.setBusinessValue(businessValue);
         story.setRiskLevel(riskLevel);
         
-        BasicProject basicProject = new BasicProjectImpl();
-        basicProject.setPersistanceId(5);
-        story.setProject(basicProject);
+        Project project = new ProjectImpl();
+        project.setPersistanceId(5);
+        story.setProject(project);
         
         story.setShortDescription("titi");
         story.setDescription("toto");
@@ -173,7 +173,7 @@ public class StoryServiceTest extends TestCase {
         MockCore.startBlock();
         
         // recherche bu basicProject
-        mockBasicProjectRepository.expectFindByPersistanceId(story.getProject().getPersistanceId(), basicProject);
+        mockProjectRepository.expectFindByPersistanceId(story.getProject().getPersistanceId(), project);
         
         // recherche des business value et risk level
         mockBusinessValueRepository.expectFindById(story.getBusinessValue().getId(), businessValue);
@@ -225,9 +225,9 @@ public class StoryServiceTest extends TestCase {
         story.setBusinessValue(businessValue);
         story.setRiskLevel(riskLevel);
         
-        BasicProject basicProject = new BasicProjectImpl();
-        basicProject.setPersistanceId(5);
-        story.setProject(basicProject);
+        Project project = new ProjectImpl();
+        project.setPersistanceId(5);
+        story.setProject(project);
         
         story.setShortDescription("titi");
         story.setDescription("toto");
@@ -236,7 +236,7 @@ public class StoryServiceTest extends TestCase {
         MockCore.startBlock();
         
         // recherche bu basicProject
-        mockBasicProjectRepository.expectFindByPersistanceId(story.getProject().getPersistanceId(), basicProject);
+        mockProjectRepository.expectFindByPersistanceId(story.getProject().getPersistanceId(), project);
         
         // recherche des business value et risk level
         mockBusinessValueRepository.expectFindById(story.getBusinessValue().getId(), businessValue);

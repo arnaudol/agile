@@ -32,7 +32,7 @@
               <constructor-arg index="0"><ref local="taskValidator"/></constructor-arg>
               <constructor-arg index="1"><ref local="storyRepository"/></constructor-arg>
               <constructor-arg index="2"><ref local="storyValidator"/></constructor-arg>
-			  <constructor-arg index="3"><ref bean="basicProjectRepository"/></constructor-arg>
+			  <constructor-arg index="3"><ref bean="projectRepository"/></constructor-arg>
 			  <constructor-arg index="4"><ref local="businessValueRepository"/></constructor-arg>
 			  <constructor-arg index="5"><ref local="riskLevelRepository"/></constructor-arg>
 			  <constructor-arg index="6"><ref bean="userRepository"/></constructor-arg>
@@ -49,7 +49,7 @@
                  
              <bean id="iteration" class="net.sf.pmr.agilePlanning.domain.iteration.IterationImpl" 
                   singleton="false" dependency-check="objects">
-                <property name="basicProject"><ref bean="basicProject"/></property>
+                <property name="project"><ref bean="project"/></property>
                 <property name="stories"><list></list></property>
                 <property name="startDate"><ref bean="date"/></property>
                 <property name="endDate"><ref bean="date"/></property>
@@ -63,7 +63,7 @@
 			 
              <bean id="release" class="net.sf.pmr.agilePlanning.domain.release.ReleaseImpl" 
                   singleton="false" dependency-check="objects">
-                <property name="basicProject"><ref bean="basicProject"/></property>
+                <property name="project"><ref bean="project"/></property>
                 <property name="stories"><list></list></property>
                 <property name="number"><value></value></property>
                 <property name="date"><ref bean="date"/></property>
@@ -78,7 +78,7 @@
             <bean id="story" class="net.sf.pmr.agilePlanning.domain.story.StoryImpl" 
                   singleton="false" dependency-check="objects">
                 <property name="tasks"><list></list></property>
-                <property name="basicProject"><ref bean="basicProject"/></property>
+                <property name="project"><ref bean="project"/></property>
                 <property name="riskLevel"><ref local="riskLevel"/></property>
                 <property name="businessValue"><ref local="businessValue"/></property>
                 <property name="persistanceId"><value>0</value></property>
@@ -174,7 +174,7 @@
 	    <constructor-arg index="0"><ref local="storyMapper"/></constructor-arg>
    	    <constructor-arg index="1"><ref local="taskMapper"/></constructor-arg>
    	    <constructor-arg index="2"><ref local="chargeMapper"/></constructor-arg>
-  	    <constructor-arg index="3"><ref bean="basicProjectProxyUtil"/></constructor-arg>
+  	    <constructor-arg index="3"><ref bean="projectProxyUtil"/></constructor-arg>
     </bean>   
 
 	<!-- business value -->
@@ -198,7 +198,7 @@
 	 <bean id="iterationRepository" class="net.sf.pmr.agilePlanning.domain.iteration.IterationRepositoryImpl"
           singleton="true" dependency-check="objects">
 	    <constructor-arg index="0"><ref local="iterationMapper"/></constructor-arg>
-  	    <constructor-arg index="1"><ref bean="basicProjectProxyUtil"/></constructor-arg>
+  	    <constructor-arg index="1"><ref bean="projectProxyUtil"/></constructor-arg>
     </bean>   
 
 	<!-- release -->
@@ -206,7 +206,7 @@
     <bean id="releaseRepository" class="net.sf.pmr.agilePlanning.domain.release.ReleaseRepositoryImpl"
           singleton="true" dependency-check="objects">
 	    <constructor-arg index="0"><ref local="releaseMapper"/></constructor-arg>
-   	    <constructor-arg index="1"><ref bean="basicProjectProxyUtil"/></constructor-arg>
+   	    <constructor-arg index="1"><ref bean="projectProxyUtil"/></constructor-arg>
     </bean>   
     
 <!-- =============== mappers =============== -->

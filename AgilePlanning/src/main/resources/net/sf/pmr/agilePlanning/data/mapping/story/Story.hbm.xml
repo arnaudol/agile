@@ -25,7 +25,7 @@
 			<column name="RIS_ID" />
 		</many-to-one>       
 		    
-		<many-to-one class="net.sf.pmr.core.domain.project.BasicProjectImpl" name="BasicProject" 
+		<many-to-one class="net.sf.pmr.core.domain.project.ProjectImpl" name="Project" 
 					 lazy="false" outer-join="false" cascade="none" update="true" insert="true">
 			<column name="PRO_ID" />
 		</many-to-one>

@@ -48,10 +48,8 @@ import net.sf.pmr.agilePlanning.domain.release.ReleaseImpl;
 import net.sf.pmr.agilePlanning.domain.story.MockStoryRepository;
 import net.sf.pmr.agilePlanning.domain.story.Story;
 import net.sf.pmr.agilePlanning.domain.story.StoryImpl;
-import net.sf.pmr.agilePlanning.service.ReleaseService;
-import net.sf.pmr.agilePlanning.service.ReleaseServiceImpl;
-import net.sf.pmr.core.domain.project.BasicProject;
-import net.sf.pmr.core.domain.project.BasicProjectImpl;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 import net.sf.pmr.keopsframework.domain.validation.Errors;
 import de.abstrakt.mock.MockCore;
 import de.abstrakt.mock.expectable.Ignore;
@@ -224,12 +222,12 @@ public class ReleaseServiceTest extends TestCase {
 
         Release release = new ReleaseImpl();
 
-        BasicProject basicProject = new BasicProjectImpl();
+        Project project = new ProjectImpl();
         Date date = new Date();
         String number = "2";
         int persistanceId = 1;
         long persistanceVersion = 3;
-        release.setProject(basicProject);
+        release.setProject(project);
 
         // recherche
         mockReleaseRepository.expectFindByPersistanceId(persistanceId, release);
@@ -250,7 +248,7 @@ public class ReleaseServiceTest extends TestCase {
 
         // vérifie la mise à jour
         assertEquals(release.getNumber(), number);
-        assertSame(release.getProject(), basicProject);
+        assertSame(release.getProject(), project);
         assertEquals(release.getDate(), date);
         assertEquals(release.getPersistanceId(), persistanceId);
         assertEquals(release.getPersistanceVersion(), persistanceVersion);
@@ -271,12 +269,12 @@ public class ReleaseServiceTest extends TestCase {
 
         Release release = new ReleaseImpl();
 
-        BasicProject basicProject = new BasicProjectImpl();
+        Project project = new ProjectImpl();
         Date date = new Date();
         String number = "2";
         int persistanceId = 1;
         long persistanceVersion = 3;
-        release.setProject(basicProject);
+        release.setProject(project);
 
         errors.reject("erreur");
 
@@ -296,7 +294,7 @@ public class ReleaseServiceTest extends TestCase {
 
         // vérifie la mise à jour
         assertEquals(release.getNumber(), number);
-        assertSame(release.getProject(), basicProject);
+        assertSame(release.getProject(), project);
         assertEquals(release.getDate(), date);
         assertEquals(release.getPersistanceId(), persistanceId);
         assertEquals(release.getPersistanceVersion(), persistanceVersion);

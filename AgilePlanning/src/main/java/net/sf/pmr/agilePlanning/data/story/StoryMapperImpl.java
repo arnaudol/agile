@@ -86,7 +86,7 @@ public class StoryMapperImpl extends HibernateDaoSupport implements StoryMapper 
 
         List list = getHibernateTemplate()
                 .find(
-                        "from net.sf.pmr.agilePlanning.domain.story.StoryImpl story where story.BasicProject.PersistanceId = ? order by story.PersistanceId asc",
+                        "from net.sf.pmr.agilePlanning.domain.story.StoryImpl story where story.Project.PersistanceId = ? order by story.PersistanceId asc",
                         new Integer(projetPersistanceId));
 
         Set<Story> setToReturn = new HashSet<Story>();
@@ -113,16 +113,16 @@ public class StoryMapperImpl extends HibernateDaoSupport implements StoryMapper 
 	/* (non-Javadoc)
 	 * @see net.sf.pmr.agilePlanning.data.story.StoryMapper#findStoriesWhichAreNotInARelease()
 	 */
-	public Set<Story> findStoriesWhichAreNotInARelease(final int basicProjectPersistanceId) {
+	public Set<Story> findStoriesWhichAreNotInARelease(final int projectPersistanceId) {
 
 		List list = getHibernateTemplate()
 				.findByNamedParam(
 						"from net.sf.pmr.agilePlanning.domain.story.StoryImpl as story "
 						+ " where story.PersistanceId not in "
 						+ " (select release.Stories.PersistanceId from net.sf.pmr.agilePlanning.domain.release.ReleaseImpl as release)"
-						+ " and story.BasicProject.PersistanceId = :basicProjectPersistanceId",
-		                new String[] {"basicProjectPersistanceId"},
-		                new Object[] {new Integer(basicProjectPersistanceId)});
+						+ " and story.Project.PersistanceId = :projectPersistanceId",
+		                new String[] {"projectPersistanceId"},
+		                new Object[] {new Integer(projectPersistanceId)});
 
 		
 		Set<Story> setToReturn = new HashSet<Story>();
@@ -139,7 +139,7 @@ public class StoryMapperImpl extends HibernateDaoSupport implements StoryMapper 
 	 * (non-Javadoc)
 	 * @see net.sf.pmr.agilePlanning.data.story.StoryMapper#findAvailableStoriesToAddForAnIteration(int)
 	 */
-	public Set <Story> findAvailableStoriesToAddForAnIteration(final int basicProjectPersistanceId, final int iterationPersistanceId) {
+	public Set <Story> findAvailableStoriesToAddForAnIteration(final int projectPersistanceId, final int iterationPersistanceId) {
 		
 		
         List list = getHibernateTemplate()
@@ -151,11 +151,11 @@ public class StoryMapperImpl extends HibernateDaoSupport implements StoryMapper 
                 // La story n'est dans aucune iteration
                 + " where story.PersistanceId not in (select iteration2.Stories.PersistanceId "
                 + "									  from net.sf.pmr.agilePlanning.domain.iteration.IterationImpl as iteration2"
-                + "									  where iteration2.BasicProject.PersistanceId = :basicProjectPersistanceId)"
-                + " and story.BasicProject.PersistanceId = :basicProjectPersistanceId"
+                + "									  where iteration2.Project.PersistanceId = :projectPersistanceId)"
+                + " and story.Project.PersistanceId = :projectPersistanceId"
                 // mais elle est dans la release de l'iteration...
                 // ... recherche de la release de l'iteration
-                + " and iteration.BasicProject.PersistanceId = :basicProjectPersistanceId"
+                + " and iteration.Project.PersistanceId = :projectPersistanceId"
                 + " and iteration.PersistanceId = :iterationPersistanceId"
                 + " and iteration.EndDate <= release.Date"
                 + " and release.Date = ( select min(release2.Date) from net.sf.pmr.agilePlanning.domain.release.ReleaseImpl as release2, "
@@ -164,8 +164,8 @@ public class StoryMapperImpl extends HibernateDaoSupport implements StoryMapper 
                 + " 												and iteration2.EndDate <= release2.Date )"
                 // ... recherche des stories de la release
                 + " and story.PersistanceId in (release.Stories.PersistanceId)",
-                new String[] {"iterationPersistanceId", "basicProjectPersistanceId"},
-                new Object[] {new Integer(iterationPersistanceId), new Integer(basicProjectPersistanceId)});
+                new String[] {"iterationPersistanceId", "projectPersistanceId"},
+                new Object[] {new Integer(iterationPersistanceId), new Integer(projectPersistanceId)});
         
          Set<Story> setToReturn = new HashSet<Story>();
          

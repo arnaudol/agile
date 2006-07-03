@@ -90,7 +90,7 @@ public class IterationMapperImpl extends HibernateDaoSupport implements Iteratio
 
         List list = getHibernateTemplate()
                 .find(
-                        "from net.sf.pmr.agilePlanning.domain.iteration.IterationImpl iteration where iteration.BasicProject.PersistanceId = ?",
+                        "from net.sf.pmr.agilePlanning.domain.iteration.IterationImpl iteration where iteration.Project.PersistanceId = ?",
                         new Integer(projetPersistanceId));
 
         Set<Iteration> setToReturn = new HashSet<Iteration>();
@@ -113,7 +113,7 @@ public class IterationMapperImpl extends HibernateDaoSupport implements Iteratio
         
         List list = getHibernateTemplate()
         .findByNamedParam(
-                "from net.sf.pmr.agilePlanning.domain.iteration.IterationImpl iteration where iteration.BasicProject.PersistanceId = :persistanceId" +
+                "from net.sf.pmr.agilePlanning.domain.iteration.IterationImpl iteration where iteration.Project.PersistanceId = :persistanceId" +
                 " and :date between iteration.StartDate and iteration.EndDate",
                 new String[] {"persistanceId", "date"},
                 new Object[] {new Integer(projectPersistanceId), date});
