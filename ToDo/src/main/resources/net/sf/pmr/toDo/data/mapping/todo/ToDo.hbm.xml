@@ -17,7 +17,7 @@
 		
 		<property column="DONE" name="Done" not-null="true" type="boolean" />
 		    		    
-		<many-to-one class="net.sf.pmr.core.domain.basicProject.BasicProjectImpl" name="BasicProject" 
+		<many-to-one class="net.sf.pmr.core.domain.project.ProjectImpl" name="Project" 
 					 lazy="false" cascade="none" update="true" insert="true">
 			<column name="PRO_ID" />
 		</many-to-one>

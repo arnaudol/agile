@@ -37,8 +37,8 @@ package net.sf.pmr.toDo.service;
 import java.util.Date;
 import java.util.List;
 
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectRepository;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectRepository;
 import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.core.domain.user.UserRepository;
 import net.sf.pmr.toDo.ToDoObjectFactory;
@@ -64,7 +64,7 @@ public class ToDoServiceImpl implements ToDoService {
 	/**
 	 * basicProjectRepository.
 	 */
-	private BasicProjectRepository basicProjectRepository;
+	private ProjectRepository basicProjectRepository;
 
 	/**
 	 * constuctor.
@@ -72,7 +72,7 @@ public class ToDoServiceImpl implements ToDoService {
 	 * @param userRepository userRepository
 	 * @param basicProjectRepository basicProjectrepository
 	 */
-	public ToDoServiceImpl(final ToDoRepository toDoRepository, final UserRepository userRepository, final BasicProjectRepository basicProjectRepository) {
+	public ToDoServiceImpl(final ToDoRepository toDoRepository, final UserRepository userRepository, final ProjectRepository basicProjectRepository) {
 		this.toDoRepository = toDoRepository;
 		this.userRepository = userRepository;
 		this.basicProjectRepository = basicProjectRepository;
@@ -91,13 +91,13 @@ public class ToDoServiceImpl implements ToDoService {
 		User user = userRepository.findUserByPersistanceId(userPersistanceId);
 		
 		// recherche du basicProject
-		BasicProject basicProject =  basicProjectRepository.findByPersistanceId(basicProjectPersistanceId);
+		Project project =  basicProjectRepository.findByPersistanceId(basicProjectPersistanceId);
 		
 		// mise à jour du todo
 		toDo.setDescription(description);
 		toDo.setDate(date);
 		toDo.setDone(done);
-		toDo.setBasicProject(basicProject);
+		toDo.setProject(project);
 		toDo.setOwner(user);
 		
 		// enregistrement

@@ -37,9 +37,10 @@ package net.sf.pmr.toDo.domain.todo;
 
 import java.util.Date;
 
-import net.sf.pmr.core.domain.basicProject.BasicProject;
+import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.keopsframework.domain.object.AbstractDomainObject;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -61,7 +62,7 @@ public class ToDoImpl extends AbstractDomainObject implements ToDo {
     /**
      * Basic project.
      */
-    private BasicProject basicProject;
+    private Project project;
     
     /**
      * Owner.
@@ -76,15 +77,15 @@ public class ToDoImpl extends AbstractDomainObject implements ToDo {
 	/* (non-Javadoc)
 	 * @see net.sf.pmr.todo.domain.story.ToDo#getBasicProject()
 	 */
-	public BasicProject getBasicProject() {
-		return basicProject;
+	public Project getProject() {
+		return project;
 	}
 
 	/* (non-Javadoc)
 	 * @see net.sf.pmr.todo.domain.story.ToDo#setBasicProject(net.sf.pmr.core.domain.basicProject.BasicProject)
 	 */
-	public void setBasicProject(final BasicProject basicProject) {
-		this.basicProject = basicProject;
+	public void setProject(final Project project) {
+		this.project = project;
 	}
 
 	/* (non-Javadoc)
@@ -155,7 +156,7 @@ public class ToDoImpl extends AbstractDomainObject implements ToDo {
 		}
 		ToDoImpl rhs = (ToDoImpl) object;
 		return new EqualsBuilder().append(
-				this.basicProject, rhs.basicProject).append(this.owner,
+				this.project, rhs.project).append(this.owner,
 				rhs.owner).append(this.description, rhs.description).isEquals();
 	}
 
@@ -163,7 +164,7 @@ public class ToDoImpl extends AbstractDomainObject implements ToDo {
 	 * @see java.lang.Object#hashCode()
 	 */
 	public int hashCode() {
-		return new HashCodeBuilder(1252424663, 549631693).append(this.basicProject).append(this.owner)
+		return new HashCodeBuilder(1252424663, 549631693).append(this.project).append(this.owner)
 				.append(this.description).toHashCode();
 	}
 

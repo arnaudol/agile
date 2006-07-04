@@ -37,7 +37,7 @@ package net.sf.pmr.toDo.domain.todo;
 
 import java.util.List;
 
-import net.sf.pmr.core.domain.basicProject.BasicProjectProxyUtil;
+import net.sf.pmr.core.domain.project.ProjectProxyUtil;
 import net.sf.pmr.toDo.data.todo.ToDoMapper;
 
 /**
@@ -53,18 +53,18 @@ public class ToDoRepositoryImpl implements ToDoRepository {
     private ToDoMapper toDoMapper;
     
     /**
-     * BasicProjectProxyUtil.
+     * ProjectProxyUtil.
      */
-    private BasicProjectProxyUtil basicProjectProxyUtil;
+    private ProjectProxyUtil projectProxyUtil;
 
 
     /**
      * @param storyMapper storyMapper
      */
-    public ToDoRepositoryImpl(final ToDoMapper toDoMapper, final BasicProjectProxyUtil basicProjectProxyUtil) {
+    public ToDoRepositoryImpl(final ToDoMapper toDoMapper, final ProjectProxyUtil projectProxyUtil) {
         super();
         this.toDoMapper = toDoMapper;
-        this.basicProjectProxyUtil = basicProjectProxyUtil;
+        this.projectProxyUtil = projectProxyUtil;
     }
 
 
@@ -74,7 +74,7 @@ public class ToDoRepositoryImpl implements ToDoRepository {
 	public void addOrUpdate(final ToDo toDo) {
 		
 		// avant d'ajouter le toDo, on récupère la target du proxy
-		toDo.setBasicProject(basicProjectProxyUtil.getTarget(toDo.getBasicProject()));
+		toDo.setProject(projectProxyUtil.getTarget(toDo.getProject()));
 		
 		toDoMapper.addOrUpdate(toDo);
 		
@@ -87,7 +87,7 @@ public class ToDoRepositoryImpl implements ToDoRepository {
 	public void delete(final ToDo toDo) {
 		
 		// avant de supprimer le toDo, on récupère la target du proxy
-		toDo.setBasicProject(basicProjectProxyUtil.getTarget(toDo.getBasicProject()));
+		toDo.setProject(projectProxyUtil.getTarget(toDo.getProject()));
 		
 		toDoMapper.delete(toDo);
 		
@@ -102,9 +102,9 @@ public class ToDoRepositoryImpl implements ToDoRepository {
 		
 		  ToDo toDo = (ToDo) toDoMapper.findById(persistanceId);
 		  
-		if (toDo != null) {
-			toDo.setBasicProject(basicProjectProxyUtil.injectDependencies(toDo
-					.getBasicProject()));
+		  if (toDo != null) {
+			toDo.setProject(projectProxyUtil.injectDependencies(toDo
+					.getProject()));
 		}
 
 		return toDo;
@@ -150,7 +150,7 @@ public class ToDoRepositoryImpl implements ToDoRepository {
 	private void injectDependencies(final List <ToDo> todos) {
 
 		for (ToDo todo : todos) {
-			todo.setBasicProject(basicProjectProxyUtil.injectDependencies(todo.getBasicProject()));
+			todo.setProject(projectProxyUtil.injectDependencies(todo.getProject()));
 		} 
 		
 	}

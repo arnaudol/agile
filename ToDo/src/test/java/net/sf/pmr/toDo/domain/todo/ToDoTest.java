@@ -38,8 +38,8 @@ package net.sf.pmr.toDo.domain.todo;
 import java.util.Date;
 
 import junit.framework.TestCase;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectImpl;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.core.domain.user.UserImpl;
 import net.sf.pmr.toDo.ToDoObjectFactory;
@@ -86,7 +86,7 @@ public class ToDoTest extends TestCase {
     	ToDo toDo1 = new ToDoImpl();
     	ToDo toDo2 = new ToDoImpl();
     	
-   	    BasicProject basicProject = new BasicProjectImpl();
+   	    Project project = new ProjectImpl();
         
         Date date = new Date();
         
@@ -97,14 +97,14 @@ public class ToDoTest extends TestCase {
         toDo1.setDate(date);
         toDo1.setDescription("première description");
         toDo1.setOwner(owner);
-        toDo1.setBasicProject(basicProject);
+        toDo1.setProject(project);
         toDo1.setPersistanceVersion(2);
         
         toDo2.setPersistanceId(1);
         toDo2.setDate(date);
         toDo2.setDescription("seconde description");
         toDo2.setOwner(owner);
-        toDo2.setBasicProject(basicProject);
+        toDo2.setProject(project);
         toDo2.setPersistanceVersion(2);
         
         assertFalse(toDo1.equals(toDo2));
@@ -127,13 +127,13 @@ public class ToDoTest extends TestCase {
     	ToDo toDo1 = new ToDoImpl();
     	ToDo toDo2 = new ToDoImpl();
     	
-   	    BasicProject basicProject1 = new BasicProjectImpl();
-   	    basicProject1.setCode("code1");
-   	    basicProject1.setName("name1");
+   	    Project project1 = new ProjectImpl();
+   	    project1.setCode("code1");
+   	    project1.setName("name1");
         
-   	    BasicProject basicProject2 = new BasicProjectImpl();
-	    basicProject2.setCode("code2");
-	    basicProject2.setName("name2");
+   	    Project project2 = new ProjectImpl();
+	    project2.setCode("code2");
+	    project2.setName("name2");
    	    
         Date date = new Date();
         
@@ -144,14 +144,14 @@ public class ToDoTest extends TestCase {
         toDo1.setDate(date);
         toDo1.setDescription("description");
         toDo1.setOwner(owner);
-        toDo1.setBasicProject(basicProject1);
+        toDo1.setProject(project1);
         toDo1.setPersistanceVersion(2);
         
         toDo2.setPersistanceId(1);
         toDo2.setDate(date);
         toDo2.setDescription("description");
         toDo2.setOwner(owner);
-        toDo2.setBasicProject(basicProject2);
+        toDo2.setProject(project2);
         toDo2.setPersistanceVersion(2);
         
         assertFalse(toDo1.equals(toDo2));
@@ -175,9 +175,9 @@ public class ToDoTest extends TestCase {
     	ToDo toDo1 = new ToDoImpl();
     	ToDo toDo2 = new ToDoImpl();
     	
-   	    BasicProject basicProject = new BasicProjectImpl();
-   	    basicProject.setCode("code1");
-   	    basicProject.setName("name1");
+   	    Project project = new ProjectImpl();
+   	    project.setCode("code1");
+   	    project.setName("name1");
    	    
         Date date1 = new Date();
         Date date2 = new Date();
@@ -193,14 +193,14 @@ public class ToDoTest extends TestCase {
         toDo1.setDate(date1);
         toDo1.setDescription("description");
         toDo1.setOwner(owner1);
-        toDo1.setBasicProject(basicProject);
+        toDo1.setProject(project);
         toDo1.setPersistanceVersion(2);
         
         toDo2.setPersistanceId(1);
         toDo2.setDate(date2);
         toDo2.setDescription("description");
         toDo2.setOwner(owner2);
-        toDo2.setBasicProject(basicProject);
+        toDo2.setProject(project);
         toDo2.setPersistanceVersion(2);
         
         assertFalse(toDo1.equals(toDo2));
@@ -223,9 +223,9 @@ public class ToDoTest extends TestCase {
     	ToDo toDo1 = new ToDoImpl();
     	ToDo toDo2 = new ToDoImpl();
     	
-   	    BasicProject basicProject = new BasicProjectImpl();
-   	    basicProject.setCode("code1");
-   	    basicProject.setName("name1");
+   	    Project project = new ProjectImpl();
+   	    project.setCode("code1");
+   	    project.setName("name1");
    	    
         Date date1 = new Date();
         Date date2 = new Date();
@@ -239,14 +239,14 @@ public class ToDoTest extends TestCase {
         toDo1.setDate(date1);
         toDo1.setDescription("description");
         toDo1.setOwner(owner);
-        toDo1.setBasicProject(basicProject);
+        toDo1.setProject(project);
         toDo1.setPersistanceVersion(2);
         
         toDo2.setPersistanceId(2);
         toDo2.setDate(date2);
         toDo2.setDescription("description");
         toDo2.setOwner(owner);
-        toDo2.setBasicProject(basicProject);
+        toDo2.setProject(project);
         toDo2.setPersistanceVersion(3);
         
         assertTrue(toDo1.equals(toDo2));

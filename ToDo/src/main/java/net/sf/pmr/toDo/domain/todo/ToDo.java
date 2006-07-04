@@ -37,7 +37,7 @@ package net.sf.pmr.toDo.domain.todo;
 
 import java.util.Date;
 
-import net.sf.pmr.core.domain.basicProject.BasicProject;
+import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.keopsframework.domain.object.DomainObject;
 
@@ -49,12 +49,12 @@ public interface ToDo extends DomainObject {
 	/**
 	 * @return Returns the basicProject.
 	 */
-	BasicProject getBasicProject();
+	Project getProject();
 
 	/**
-	 * @param basicProject The basicProject to set.
+	 * @param project The basicProject to set.
 	 */
-	void setBasicProject(final BasicProject basicProject);
+	void setProject(final Project project);
 
 	/**
 	 * @return Returns the date.

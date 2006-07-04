@@ -104,9 +104,9 @@ public class ToDoMapperImpl extends HibernateDaoSupport implements ToDoMapper {
 		return getHibernateTemplate()
 		.findByNamedParam(
 				"from net.sf.pmr.toDo.domain.todo.ToDoImpl toDo"
-				+ " where toDo.BasicProject.PersistanceId = :basicProjectPersistanceId"
+				+ " where toDo.Project.PersistanceId = :projectPersistanceId"
 				+ " and toDo.Owner.PersistanceId = :userPersistanceId",
-                new String[] {"basicProjectPersistanceId", "userPersistanceId"},
+                new String[] {"projectPersistanceId", "userPersistanceId"},
                 new Object[] {new Integer(basicProjetPersistanceId), new Integer(userPersistanceId)});
 
 	}

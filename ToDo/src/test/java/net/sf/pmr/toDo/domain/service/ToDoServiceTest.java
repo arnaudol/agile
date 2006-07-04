@@ -38,9 +38,9 @@ package net.sf.pmr.toDo.domain.service;
 import java.util.Date;
 
 import junit.framework.TestCase;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectImpl;
-import net.sf.pmr.core.domain.basicProject.MockBasicProjectRepository;
+import net.sf.pmr.core.domain.project.MockProjectRepository;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 import net.sf.pmr.core.domain.user.MockUserRepository;
 import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.core.domain.user.UserImpl;
@@ -60,7 +60,7 @@ public class ToDoServiceTest extends TestCase {
     
     private MockUserRepository mockUserRepository;
     
-    private MockBasicProjectRepository mockBasicProjectRepository;
+    private MockProjectRepository mockProjectRepository;
     
     private ToDoService toDoService;
     
@@ -76,9 +76,9 @@ public class ToDoServiceTest extends TestCase {
         
         this.mockUserRepository = new MockUserRepository();
         
-        this.mockBasicProjectRepository = new MockBasicProjectRepository();
+        this.mockProjectRepository = new MockProjectRepository();
         
-        this.toDoService = new ToDoServiceImpl(mockToDoRepository, mockUserRepository, mockBasicProjectRepository);
+        this.toDoService = new ToDoServiceImpl(mockToDoRepository, mockUserRepository, mockProjectRepository);
         
         this.toDo = new ToDoImpl();
         this.toDo.setPersistanceId(0);
@@ -121,8 +121,8 @@ public class ToDoServiceTest extends TestCase {
     	
     	User user = new UserImpl();
     	user.setPersistanceId(1);
-    	BasicProject basicProject = new BasicProjectImpl();
-    	basicProject.setPersistanceId(2);
+    	Project project = new ProjectImpl();
+    	project.setPersistanceId(2);
     	
     	toDo.setDescription("réunion!");
 
@@ -130,7 +130,7 @@ public class ToDoServiceTest extends TestCase {
     	MockCore.startBlock();
         
     	this.mockUserRepository.expectFindUserById(1, user);
-    	this.mockBasicProjectRepository.expectFindByPersistanceId(2, basicProject);
+    	this.mockProjectRepository.expectFindByPersistanceId(2, project);
     	
     	MockCore.endBlock();
         
@@ -159,10 +159,10 @@ public class ToDoServiceTest extends TestCase {
     	
     	User user = new UserImpl();
     	user.setPersistanceId(2);
-    	BasicProject basicProject = new BasicProjectImpl();
-    	basicProject.setPersistanceId(3);
+    	Project project = new ProjectImpl();
+    	project.setPersistanceId(3);
 
-    	toDo.setBasicProject(basicProject);
+    	toDo.setProject(project);
     	toDo.setOwner(user);
     	toDo.setDescription("");
     	toDo.setDone(false);
@@ -185,7 +185,7 @@ public class ToDoServiceTest extends TestCase {
     	assertEquals(1, toDo.getPersistanceId());
     	assertEquals("réunion avec Bob", toDo.getDescription());
     	assertTrue(toDo.isDone());
-    	assertSame(basicProject, toDo.getBasicProject());
+    	assertSame(project, toDo.getProject());
     	assertSame(user, toDo.getOwner());
     	assertEquals(2, toDo.getPersistanceVersion());
     	

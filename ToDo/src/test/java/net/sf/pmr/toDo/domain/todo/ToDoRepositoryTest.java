@@ -38,9 +38,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectImpl;
-import net.sf.pmr.core.domain.basicProject.MockBasicProjectProxyUtil;
+import net.sf.pmr.core.domain.project.MockProjectProxyUtil;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 import net.sf.pmr.toDo.ToDoObjectFactory;
 import net.sf.pmr.toDo.data.todo.MockToDoMapper;
 import de.abstrakt.mock.MockCore;
@@ -50,11 +50,11 @@ public class ToDoRepositoryTest extends TestCase {
 	
 	private ToDo toDo;
 	
-    private MockBasicProjectProxyUtil mockBasicProjectProxyUtil;
+    private MockProjectProxyUtil mockProjectProxyUtil;
     
     private MockToDoMapper mockToDoMapper;
     
-    private BasicProject basicProject;
+    private Project project;
     
     private ToDoRepository toDoRepository;
     
@@ -67,11 +67,11 @@ public class ToDoRepositoryTest extends TestCase {
         
         mockToDoMapper = new MockToDoMapper();
         
-        mockBasicProjectProxyUtil = new MockBasicProjectProxyUtil();
+        mockProjectProxyUtil = new MockProjectProxyUtil();
         
-        basicProject = new BasicProjectImpl();
+        project = new ProjectImpl();
         
-        toDoRepository = new ToDoRepositoryImpl(mockToDoMapper, mockBasicProjectProxyUtil);
+        toDoRepository = new ToDoRepositoryImpl(mockToDoMapper, mockProjectProxyUtil);
         
         toDo = new ToDoImpl();        
         
@@ -102,14 +102,14 @@ public class ToDoRepositoryTest extends TestCase {
     public void testAddOrUpdate() {
 
     	// ajout d'un basic projet
-    	toDo.setBasicProject(basicProject);
+    	toDo.setProject(project);
 
     	// basic projectTarget
-        BasicProject basicProjectTarget = new BasicProjectImpl();
+        Project projectTarget = new ProjectImpl();
 
         // le basicProjectProxyUtil doit retrourner la target 
-        mockBasicProjectProxyUtil.expectGetTarget(basicProject,
-                basicProjectTarget);
+        mockProjectProxyUtil.expectGetTarget(project,
+                projectTarget);
 
         // il doit ensuite avoir un appel au mock
         mockToDoMapper.expectAddOrUpdate(toDo);
@@ -120,8 +120,8 @@ public class ToDoRepositoryTest extends TestCase {
         // contrôle de l'appel des méthodes
         MockCore.verify();
 
-        // contrôle que la basicProject est la target
-        assertSame(toDo.getBasicProject(), basicProjectTarget);
+        // contrôle que la project est la target
+        assertSame(toDo.getProject(), projectTarget);
 
     }
     
@@ -132,14 +132,13 @@ public class ToDoRepositoryTest extends TestCase {
     public void testDelete() {
 
     	// ajout d'un basic projet
-    	toDo.setBasicProject(basicProject);
+    	toDo.setProject(project);
 
     	// basic projectTarget
-        BasicProject basicProjectTarget = new BasicProjectImpl();
+        Project projectTarget = new ProjectImpl();
 
         // le basicProjectProxyUtil doit retrourner la target 
-        mockBasicProjectProxyUtil.expectGetTarget(basicProject,
-                basicProjectTarget);
+        mockProjectProxyUtil.expectGetTarget(project, projectTarget);
 
         // il doit ensuite avoir un appel au mock
         mockToDoMapper.expectDelete(toDo);
@@ -150,8 +149,8 @@ public class ToDoRepositoryTest extends TestCase {
         // contrôle de l'appel des méthodes
         MockCore.verify();
 
-        // contrôle que la basicProject est la target
-        assertSame(toDo.getBasicProject(), basicProjectTarget);
+        // contrôle que la project est la target
+        assertSame(toDo.getProject(), projectTarget);
 
     }
 
@@ -161,18 +160,18 @@ public class ToDoRepositoryTest extends TestCase {
      */
     public void testFindByPersistanceId() {
 
-    	// ajout du basicProject
-        toDo.setBasicProject(basicProject);
+    	// ajout du project
+        toDo.setProject(project);
 
         // projet à retourner
-        BasicProject basicProjectToReturn = new BasicProjectImpl();
+        Project projectToReturn = new ProjectImpl();
 
         // le mapper doit renvoyer un toDo
         mockToDoMapper.expectFindById(1, toDo);
 
         // le ProxyUtil doit injecter les dépendances
-        mockBasicProjectProxyUtil.expectInjectDependencies(basicProject,
-                basicProjectToReturn);
+        mockProjectProxyUtil.expectInjectDependencies(project,
+                projectToReturn);
 
         // appel de la méthode find
         toDoRepository.findByPersistanceId(1);
@@ -181,7 +180,7 @@ public class ToDoRepositoryTest extends TestCase {
         MockCore.verify();
 
         // contrôle que le projet est bien récupéré
-        assertSame(toDo.getBasicProject(), basicProjectToReturn);
+        assertSame(toDo.getProject(), projectToReturn);
 
     }
     
@@ -214,31 +213,31 @@ public class ToDoRepositoryTest extends TestCase {
         // construction des deux ToDO retournés par le mockMapper
     	ToDo toDo1 = new ToDoImpl();
     	toDo.setDescription("toto");
-    	BasicProject basicProject1 = new BasicProjectImpl();
-    	toDo1.setBasicProject(basicProject1);
+    	Project project1 = new ProjectImpl();
+    	toDo1.setProject(project1);
     	
     	ToDo toDo2 = new ToDoImpl();
     	toDo1.setDescription("titi");
-    	BasicProject basicProject2 = new BasicProjectImpl();
-    	toDo2.setBasicProject(basicProject2);
+    	Project project2 = new ProjectImpl();
+    	toDo2.setProject(project2);
     	
     	// ajout à la liste
     	listOfToDos.add(toDo1);
     	listOfToDos.add(toDo2);
     	
     	// construction des projets retournés
-    	BasicProject basicProjectToReturn1 = new BasicProjectImpl();
-    	basicProject1.setCode("A");
-    	BasicProject basicProjectToReturn2 = new BasicProjectImpl();
-    	basicProject2.setCode("B");
+    	Project projectToReturn1 = new ProjectImpl();
+    	project1.setCode("A");
+    	Project projectToReturn2 = new ProjectImpl();
+    	project2.setCode("B");
     	
     	mockToDoMapper.expectFindByUserPersistanceId(1, listOfToDos);
 
     	// injection des dépendances
     	MockCore.startBlock();
 
-        mockBasicProjectProxyUtil.expectInjectDependencies(basicProject1, basicProjectToReturn1);
-    	mockBasicProjectProxyUtil.expectInjectDependencies(basicProject2, basicProjectToReturn2);
+        mockProjectProxyUtil.expectInjectDependencies(project1, projectToReturn1);
+    	mockProjectProxyUtil.expectInjectDependencies(project2, projectToReturn2);
        
     	MockCore.endBlock();
     	
@@ -248,8 +247,8 @@ public class ToDoRepositoryTest extends TestCase {
     	// contrôle des appels
     	MockCore.verify();
     	
-       assertSame(toDo1.getBasicProject(), basicProjectToReturn1);
-       assertSame(toDo2.getBasicProject(), basicProjectToReturn2);
+       assertSame(toDo1.getProject(), projectToReturn1);
+       assertSame(toDo2.getProject(), projectToReturn2);
     	
     }
     
@@ -264,31 +263,31 @@ public class ToDoRepositoryTest extends TestCase {
         // construction des deux ToDO retournés par le mockMapper
     	ToDo toDo1 = new ToDoImpl();
     	toDo.setDescription("toto");
-    	BasicProject basicProject1 = new BasicProjectImpl();
-    	toDo1.setBasicProject(basicProject1);
+    	Project project1 = new ProjectImpl();
+    	toDo1.setProject(project1);
     	
     	ToDo toDo2 = new ToDoImpl();
     	toDo1.setDescription("titi");
-    	BasicProject basicProject2 = new BasicProjectImpl();
-    	toDo2.setBasicProject(basicProject2);
+    	Project project2 = new ProjectImpl();
+    	toDo2.setProject(project2);
     	
     	// ajout à la liste
     	listOfToDos.add(toDo1);
     	listOfToDos.add(toDo2);
     	
     	// construction des projets retournés
-    	BasicProject basicProjectToReturn1 = new BasicProjectImpl();
-    	basicProject1.setCode("A");
-    	BasicProject basicProjectToReturn2 = new BasicProjectImpl();
-    	basicProject2.setCode("B");
+    	Project projectToReturn1 = new ProjectImpl();
+    	project1.setCode("A");
+    	Project projectToReturn2 = new ProjectImpl();
+    	project2.setCode("B");
     	
     	mockToDoMapper.expectFindByProjectPersistanceIdAndUserPersistanceId(1, 1, listOfToDos);
 
     	// injection des dépendances
     	MockCore.startBlock();
 
-        mockBasicProjectProxyUtil.expectInjectDependencies(basicProject1, basicProjectToReturn1);
-    	mockBasicProjectProxyUtil.expectInjectDependencies(basicProject2, basicProjectToReturn2);
+        mockProjectProxyUtil.expectInjectDependencies(project1, projectToReturn1);
+    	mockProjectProxyUtil.expectInjectDependencies(project2, projectToReturn2);
        
     	MockCore.endBlock();
     	
@@ -298,8 +297,8 @@ public class ToDoRepositoryTest extends TestCase {
     	// contrôle des appels
     	MockCore.verify();
     	
-       assertSame(toDo1.getBasicProject(), basicProjectToReturn1);
-       assertSame(toDo2.getBasicProject(), basicProjectToReturn2);
+       assertSame(toDo1.getProject(), projectToReturn1);
+       assertSame(toDo2.getProject(), projectToReturn2);
     	
     }
 

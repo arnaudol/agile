@@ -13,7 +13,7 @@
               singleton="true" dependency-check="objects">
               <constructor-arg index="0"><ref local="toDoRepository"/></constructor-arg>
               <constructor-arg index="1"><ref bean="userRepository"/></constructor-arg>
-              <constructor-arg index="2"><ref bean="basicProjectRepository"/></constructor-arg>                            
+              <constructor-arg index="2"><ref bean="projectRepository"/></constructor-arg>                            
         </bean>
 
 <!-- =============== domain objects =============== -->
@@ -29,7 +29,7 @@
                 <property name="description"><value></value></property>
                 <property name="date"><ref bean="date"/></property>
                 <property name="done"><value>false</value></property>
-                <property name="basicProject"><ref bean="basicProject"/></property>
+                <property name="project"><ref bean="project"/></property>
                 <property name="owner"><ref bean="user"/></property>
                 <property name="persistanceId"><value>0</value></property>
                 <property name="persistanceVersion"><value>0</value></property>
@@ -70,7 +70,7 @@
      <bean id="toDoRepository" class="net.sf.pmr.toDo.domain.todo.ToDoRepositoryImpl"
           singleton="true" dependency-check="objects">
 	    <constructor-arg index="0"><ref local="toDoMapper"/></constructor-arg>
-  	    <constructor-arg index="1"><ref bean="basicProjectProxyUtil"/></constructor-arg>
+  	    <constructor-arg index="1"><ref bean="projectProxyUtil"/></constructor-arg>
     </bean>
     
 <!-- =============== mappers =============== -->

@@ -38,8 +38,8 @@ package net.sf.pmr.toDo.data.todo;
 import java.util.Calendar;
 import java.util.List;
 
-import net.sf.pmr.core.domain.basicProject.BasicProject;
-import net.sf.pmr.core.domain.basicProject.BasicProjectImpl;
+import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.core.domain.user.UserImpl;
 import net.sf.pmr.toDo.MapperTestCase;
@@ -69,9 +69,9 @@ public class ToDoMapperTest extends MapperTestCase {
 	
 	private User ownerForUpdate;
 
-    private BasicProject basicProjectForAdd;
+    private Project projectForAdd;
       
-    private BasicProject basicProjectForUpdate;
+    private Project projectForUpdate;
     
     private Calendar calendar;
 
@@ -96,17 +96,17 @@ public class ToDoMapperTest extends MapperTestCase {
         toDoMapper = ToDoObjectFactory.getToDoMapper();
         
         // build basic project
-        basicProjectForAdd = new BasicProjectImpl();
-        basicProjectForAdd.setCode("A");
-        basicProjectForAdd.setName("Super A");
-        basicProjectForAdd.setPersistanceId(2);
-        basicProjectForAdd.setPersistanceVersion(3);
+        projectForAdd = new ProjectImpl();
+        projectForAdd.setCode("A");
+        projectForAdd.setName("Super A");
+        projectForAdd.setPersistanceId(2);
+        projectForAdd.setPersistanceVersion(3);
         
-        basicProjectForUpdate = new BasicProjectImpl();
-        basicProjectForUpdate.setCode("B");
-        basicProjectForUpdate.setName("Super B");
-        basicProjectForUpdate.setPersistanceId(3);
-        basicProjectForUpdate.setPersistanceVersion(4);
+        projectForUpdate = new ProjectImpl();
+        projectForUpdate.setCode("B");
+        projectForUpdate.setName("Super B");
+        projectForUpdate.setPersistanceId(3);
+        projectForUpdate.setPersistanceVersion(4);
         
         ownerForAdd = new UserImpl();
         ownerForAdd.setFirstName("Pon");
@@ -139,7 +139,7 @@ public class ToDoMapperTest extends MapperTestCase {
         toDoToUpdate = new ToDoImpl();
         toDoToUpdate.setPersistanceId(1);
         toDoToUpdate.setDate(calendar.getTime());
-        toDoToUpdate.setBasicProject(basicProjectForUpdate);
+        toDoToUpdate.setProject(projectForUpdate);
         toDoToUpdate.setDescription("préparer une réunion projet");
         toDoToUpdate.setDone(true);
         toDoToUpdate.setOwner(ownerForUpdate);
@@ -148,7 +148,7 @@ public class ToDoMapperTest extends MapperTestCase {
 
         toDoToAdd = new ToDoImpl();
         toDoToAdd.setDate(calendar.getTime());
-        toDoToAdd.setBasicProject(basicProjectForAdd);
+        toDoToAdd.setProject(projectForAdd);
         toDoToAdd.setDescription("faire le modèle de compte-rendu");
         toDoToAdd.setOwner(ownerForAdd);
         toDoToAdd.setDone(false);
@@ -238,7 +238,7 @@ public class ToDoMapperTest extends MapperTestCase {
 		assertEquals("number of row", 1, databaseData.getRowCount());
 
 		assertFalse("id", new Integer(0) == (Integer) databaseData.getValue(0, "id"));
-		assertEquals(toDoToAdd.getBasicProject().getPersistanceId(), databaseData.getValue(0, "pro_id"));
+		assertEquals(toDoToAdd.getProject().getPersistanceId(), databaseData.getValue(0, "pro_id"));
 		assertEquals(toDoToAdd.getOwner().getPersistanceId(), databaseData.getValue(0, "pmu_id"));
 		assertEquals(toDoToAdd.getDescription(), databaseData.getValue(0, "description"));
 		assertEquals(toDoToAdd.isDone(), databaseData.getValue(0, "done"));
@@ -262,7 +262,7 @@ public class ToDoMapperTest extends MapperTestCase {
 		assertEquals("number of row", 1, databaseData.getRowCount());
 
 		assertEquals("id", new Integer(toDoToUpdate.getPersistanceId()), (Integer) databaseData.getValue(0, "id"));
-		assertEquals(toDoToUpdate.getBasicProject().getPersistanceId(), databaseData.getValue(0, "pro_id"));
+		assertEquals(toDoToUpdate.getProject().getPersistanceId(), databaseData.getValue(0, "pro_id"));
 		assertEquals(toDoToUpdate.getOwner().getPersistanceId(), databaseData.getValue(0, "pmu_id"));
 		assertEquals(toDoToUpdate.getDescription(), databaseData.getValue(0, "description"));
 		assertEquals(toDoToUpdate.isDone(), databaseData.getValue(0, "done"));
@@ -344,7 +344,7 @@ public class ToDoMapperTest extends MapperTestCase {
      */
     public void testAddOrUpdateWhenAddingDoesNotUpdateBasicProjectOrOwner() throws Exception {
     	
-    	toDoToAdd.getBasicProject().setName("scooby");
+    	toDoToAdd.getProject().setName("scooby");
     	toDoToAdd.getOwner().setFirstName("doo");
     	
     	// ajout
@@ -369,7 +369,7 @@ public class ToDoMapperTest extends MapperTestCase {
      */
     public void testAddOrUpdateWhenUpdatingDoesNotUpdateBasicProjectOrOwner() throws Exception {
     	
-    	toDoToUpdate.getBasicProject().setName("scooby");
+    	toDoToUpdate.getProject().setName("scooby");
     	toDoToUpdate.getOwner().setFirstName("doo");
     	
     	// ajout
@@ -394,9 +394,9 @@ public class ToDoMapperTest extends MapperTestCase {
      */
     public void testAddOrUpdateWhenAddingDoesNotAddBasicProject() throws Exception {
     	
-    	toDoToAdd.getBasicProject().setPersistanceId(0);
-    	toDoToAdd.getBasicProject().setPersistanceVersion(0);
-    	toDoToAdd.getBasicProject().setName("scooby");
+    	toDoToAdd.getProject().setPersistanceId(0);
+    	toDoToAdd.getProject().setPersistanceVersion(0);
+    	toDoToAdd.getProject().setName("scooby");
     	
     	// ajout
     	try {
@@ -416,9 +416,9 @@ public class ToDoMapperTest extends MapperTestCase {
      */
     public void testAddOrUpdateWhenUpdatingDoesNotAddBasicProject() throws Exception {
     	
-    	toDoToUpdate.getBasicProject().setPersistanceId(0);
-    	toDoToUpdate.getBasicProject().setPersistanceVersion(0);
-    	toDoToUpdate.getBasicProject().setName("scooby");
+    	toDoToUpdate.getProject().setPersistanceId(0);
+    	toDoToUpdate.getProject().setPersistanceVersion(0);
+    	toDoToUpdate.getProject().setName("scooby");
     	
     	// ajout
     	try {

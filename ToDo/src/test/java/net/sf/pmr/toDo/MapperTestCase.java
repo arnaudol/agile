@@ -35,11 +35,11 @@
 
 package net.sf.pmr.toDo;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
 import org.dbunit.DatabaseTestCase;
+import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
@@ -83,14 +83,33 @@ public abstract class MapperTestCase extends DatabaseTestCase {
 //                "jdbc:hsqldb:hsql://localhost/pm", "sa", "");
 //  			   "jdbc:hsqldb:hsql://localhost/", "sa", "");
 	    
-		Class driverClass = Class.forName("com.mysql.jdbc.Driver");
-
-		Connection jdbcConnection = DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/pm_tu", "pm", "pm");
+		
+		Class driverClass = Class.forName("org.hsqldb.jdbcDriver");
+		
+	      Connection jdbcConnection = DriverManager.getConnection(
+	    "jdbc:hsqldb:hsql://localhost/xdb", "sa", "");
+		
+//		Class driverClass = Class.forName("com.mysql.jdbc.Driver");
+//
+//		Connection jdbcConnection = DriverManager.getConnection(
+//				"jdbc:mysql://localhost:3306/pm_tu", "pm", "pm");
 
 		// connection (+ schema à utiliser éventuellement)
-		return new DatabaseConnection(jdbcConnection);
+	      
+	      IDatabaseConnection databaseConnection = new DatabaseConnection( jdbcConnection );
+	      
+		  DatabaseConfig config = databaseConnection.getConfig();
+		  
+		  config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new HsqlDataTypeFactory());
+		   
+	      
+	    return databaseConnection;   
+		     
+		//return new DatabaseConnection(jdbcConnection);
 
+		 
+		 
+		
 	}
 
 	/*
