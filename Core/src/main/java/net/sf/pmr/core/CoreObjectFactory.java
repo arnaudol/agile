@@ -212,7 +212,7 @@ public final class CoreObjectFactory {
      * get the basicProjectMapper
      * @return basicProject
      */
-    public static ProjectMapper getBasicProjectMapper() {
+    public static ProjectMapper getProjectMapper() {
 
         return (ProjectMapper) CoreObjectFactory.getObject("projectMapper");
     }
@@ -222,7 +222,7 @@ public final class CoreObjectFactory {
      * get the basicProjectRepository
      * @return basicProjectRepository
      */
-    public static ProjectRepository getBasicProjectRepository() {
+    public static ProjectRepository getProjectRepository() {
 
         return (ProjectRepository) CoreObjectFactory.getObject("projectRepository");
     }
@@ -231,7 +231,7 @@ public final class CoreObjectFactory {
      * get the basicProjectValidator
      * @return basicProjectValidator
      */
-    public static Validator getBasicProjectValidator() {
+    public static Validator getProjectValidator() {
 
         return (Validator) CoreObjectFactory.getObject("projectValidator");
     }
@@ -240,7 +240,7 @@ public final class CoreObjectFactory {
      * get the basicProjectService
      * @return basicProjectService
      */
-    public static ProjectService getBasicProjectService() {
+    public static ProjectService getProjectService() {
 
         return (ProjectService) CoreObjectFactory.getObject("projectService");
     }

@@ -66,7 +66,7 @@ public class BasicProjectMapperTest extends MapperTestCase {
         super.setUp();
         
         // getBasicProjectMapper        
-        basicProjectMapper = CoreObjectFactory.getBasicProjectMapper();
+        basicProjectMapper = CoreObjectFactory.getProjectMapper();
 
     }
 

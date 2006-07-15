@@ -62,7 +62,7 @@ public class ProjectValidatorTest extends TestCase {
      */
     protected void setUp() throws Exception {
         
-        basicProjectValidator = CoreObjectFactory.getBasicProjectValidator();
+        basicProjectValidator = CoreObjectFactory.getProjectValidator();
         
         basicProject = new ProjectImpl();
         basicProject.setMembers(new HashSet());
