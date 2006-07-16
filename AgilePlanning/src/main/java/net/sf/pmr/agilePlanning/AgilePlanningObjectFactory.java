@@ -80,7 +80,6 @@ public final class AgilePlanningObjectFactory {
         return (Errors) AgilePlanningObjectFactory.getObject("agilePlanningErrors");
     }
 
-
     /**
      * get the story
      * @return story

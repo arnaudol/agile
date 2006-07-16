@@ -11,7 +11,7 @@
 		<mapping resource="net/sf/pmr/core/data/mapping/user/User.hbm.xml" /> 
 		<mapping resource="net/sf/pmr/core/data/mapping/user/company/Company.hbm.xml" />
 		<mapping resource="net/sf/pmr/core/data/mapping/reference/Country.hbm.xml" />
-   		<mapping resource="net/sf/pmr/core/data/mapping/basicProject/Project.hbm.xml" />
+   		<mapping resource="net/sf/pmr/core/data/mapping/project/Project.hbm.xml" />
 
 		<!-- Mapping files -->
    	    <mapping resource="net/sf/pmr/agilePlanning/data/mapping/release/Release.hbm.xml" />

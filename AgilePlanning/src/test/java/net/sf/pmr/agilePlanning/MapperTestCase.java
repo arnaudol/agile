@@ -35,7 +35,6 @@
 
 package net.sf.pmr.agilePlanning;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
