@@ -26,27 +26,26 @@
       </plugin>
     </plugins>
   </build>
-  <repositories>
-    <repository>
-      <id>pmr-repository1</id>
-      <url>http://pmr.sourceforge.net/maven2-repository</url>
-    </repository>
-  </repositories>
   <dependencies>
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>2.1</version>
     </dependency>
+    		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.0.4</version>
+		</dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
-      <version>2.0-m4</version>
+      <version>2.0-rc2</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-      <version>2.0-m4</version>
+      <version>2.0-rc2</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -63,14 +62,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
-      <version>2.0-m4</version>
+      <version>2.0-rc2</version>
     </dependency>
   </dependencies>
-  <distributionManagement>
-    <repository>
-      <id>pmr-repository</id>
-      <name>pmr repository</name>
-      <url>scp://pmr.sourceforge.net/maven2-repository</url>
-    </repository>
-  </distributionManagement>
 </project>
