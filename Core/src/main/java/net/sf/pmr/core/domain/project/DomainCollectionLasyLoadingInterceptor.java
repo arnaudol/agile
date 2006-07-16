@@ -40,7 +40,6 @@ import net.sf.pmr.keopsframework.data.DomainListMapper;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
-
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
  */
