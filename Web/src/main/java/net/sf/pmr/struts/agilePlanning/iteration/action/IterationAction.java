@@ -153,7 +153,7 @@ public class IterationAction extends LookupDispatchAction {
         Set<Release> releases = releaseService.findByProjectPersistanceId(((Integer) request.getSession().getAttribute("basicProject.persistanceId")).intValue());
         // Ajout d'un ligne vide
         Release release = new ReleaseImpl();
-        release.setBasicProject(null);
+        release.setProject(null);
         release.setDate(null);
         release.setNumber("-");
         release.setPersistanceId(0);

@@ -37,7 +37,7 @@ package net.sf.pmr.struts.administration.core.action;
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.pmr.core.CoreObjectFactory;
-import net.sf.pmr.core.service.BasicProjectService;
+import net.sf.pmr.core.service.ProjectService;
 import net.sf.pmr.core.service.UserService;
 
 public final class Summary {
@@ -50,12 +50,12 @@ public final class Summary {
         // get the user service
         UserService userService = CoreObjectFactory.getUserService();
         // get the project repository
-        BasicProjectService basicProjectService = CoreObjectFactory.getBasicProjectService();
+        ProjectService projectService = CoreObjectFactory.getProjectService();
         
         // set the number of user in the request
         request.setAttribute("numberOfUser", userService.countAll());
         // set the number of project in the request
-        request.setAttribute("numberOfProject", basicProjectService.countAll());
+        request.setAttribute("numberOfProject", projectService.countAll());
         
     }
 

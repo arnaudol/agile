@@ -52,9 +52,9 @@ import net.sf.pmr.agilePlanning.service.IterationService;
 import net.sf.pmr.agilePlanning.service.ReleaseService;
 import net.sf.pmr.agilePlanning.service.StoryService;
 import net.sf.pmr.core.CoreObjectFactory;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
+import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.user.User;
-import net.sf.pmr.core.service.BasicProjectService;
+import net.sf.pmr.core.service.ProjectService;
 import net.sf.pmr.struts.myWorkspace.form.MyWorkspaceForm;
 import net.sf.pmr.toDo.ToDoObjectFactory;
 import net.sf.pmr.toDo.domain.todo.ToDo;
@@ -78,9 +78,9 @@ public class MyWorkspaceAction extends Action {
         
 	     // TODO regarder le ActionSupport pour struts de spring
 	    
-	    BasicProjectService basicProjectService = CoreObjectFactory.getBasicProjectService();
+	    ProjectService projectService = CoreObjectFactory.getProjectService();
         
-        Set projectSet = basicProjectService.findForAUser(((User) request.getSession().getAttribute("user")).getPersistanceId());
+        Set projectSet = projectService.findForAUser(((User) request.getSession().getAttribute("user")).getPersistanceId());
         
         List projects = new ArrayList(projectSet);
         
@@ -89,14 +89,14 @@ public class MyWorkspaceAction extends Action {
         // et si ce n'est pas déjà fait... et s'il n'y a rien en session
         if (projects.size() > 0 & myWorkspaceForm.getProjectId() == 0 & request.getSession().getAttribute("basicProject.persistanceId") == null || ((Integer) request.getSession().getAttribute("basicProject.persistanceId")).intValue() == 0){
             
-            myWorkspaceForm.setProjectId( ((BasicProject)projects.get(0)).getPersistanceId());
-            myWorkspaceForm.setProjectName( ((BasicProject)projects.get(0)).getName());
+            myWorkspaceForm.setProjectId( ((Project)projects.get(0)).getPersistanceId());
+            myWorkspaceForm.setProjectName( ((Project)projects.get(0)).getName());
             
         } // si un project est en session et que rien n'est dans le form
         else if (projects.size() > 0 & myWorkspaceForm.getProjectId() == 0 & request.getSession().getAttribute("basicProject.persistanceId") != null && ((Integer) request.getSession().getAttribute("basicProject.persistanceId")).intValue() != 0){
             
             for (Iterator iterator = projects.iterator(); iterator.hasNext();) {
-                BasicProject basicProject = (BasicProject) iterator.next();
+                Project basicProject = (Project) iterator.next();
                 
                 if (basicProject.getPersistanceId() == ((Integer) request.getSession().getAttribute("basicProject.persistanceId")).intValue()) {
 
@@ -112,7 +112,7 @@ public class MyWorkspaceAction extends Action {
         else if (projects.size() > 0 & myWorkspaceForm.getProjectId() > 0){
         	
             for (Iterator iterator = projects.iterator(); iterator.hasNext();) {
-                BasicProject basicProject = (BasicProject) iterator.next();
+                Project basicProject = (Project) iterator.next();
                 
                 if (basicProject.getPersistanceId() == myWorkspaceForm.getProjectId()) {
 

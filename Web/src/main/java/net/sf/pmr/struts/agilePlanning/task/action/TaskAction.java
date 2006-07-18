@@ -48,10 +48,10 @@ import net.sf.pmr.agilePlanning.domain.story.Story;
 import net.sf.pmr.agilePlanning.domain.story.task.Task;
 import net.sf.pmr.agilePlanning.service.StoryService;
 import net.sf.pmr.core.CoreObjectFactory;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
+import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.core.domain.user.UserImpl;
-import net.sf.pmr.core.service.BasicProjectService;
+import net.sf.pmr.core.service.ProjectService;
 import net.sf.pmr.keopsframework.domain.validation.Errors;
 import net.sf.pmr.keopsframework.domain.validation.MessageParameters;
 import net.sf.pmr.struts.agilePlanning.task.form.TaskForm;
@@ -341,8 +341,8 @@ public class TaskAction extends LookupDispatchAction {
     private void populateListBox(final HttpServletRequest request) {
         
         // get the list of developper for the project to populate the listBox
-        BasicProjectService basicProjectService = CoreObjectFactory.getBasicProjectService();
-        BasicProject basicProject = basicProjectService.findByPersistanceId(((Integer) request.getSession()
+        ProjectService projectService = CoreObjectFactory.getProjectService();
+        Project basicProject = projectService.findByPersistanceId(((Integer) request.getSession()
                                                                                               .getAttribute("basicProject.persistanceId")).intValue());
         Set<User> members = basicProject.getMembers();
         // ajout d'une ligne vide

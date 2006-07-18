@@ -43,9 +43,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.pmr.core.CoreObjectFactory;
-import net.sf.pmr.core.domain.basicProject.BasicProject;
+import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.user.User;
-import net.sf.pmr.core.service.BasicProjectService;
+import net.sf.pmr.core.service.ProjectService;
 import net.sf.pmr.keopsframework.domain.validation.Errors;
 import net.sf.pmr.keopsframework.domain.validation.MessageParameters;
 import net.sf.pmr.struts.administration.core.form.BasicProjectForm;
@@ -84,11 +84,10 @@ public class BasicProjectAction extends LookupDispatchAction {
 			throws Exception {
 
 		// get the project repository
-		BasicProjectService basicProjectService = CoreObjectFactory
-				.getBasicProjectService();
+		ProjectService projectService = CoreObjectFactory.getProjectService();
 
 		// set the userList in request for display in the page
-		request.setAttribute("basicProjectList", basicProjectService.findAll());
+		request.setAttribute("basicProjectList", projectService.findAll());
 
 		// populate the summary
 		Summary.populate(request);
@@ -111,13 +110,13 @@ public class BasicProjectAction extends LookupDispatchAction {
 			throws Exception {
 
 		// find basic project
-		BasicProject basicProject = findBasicProjectByPersistanceId(request);
+		Project project = findProjectByPersistanceId(request);
 
 		// if basicProject is found
-		if (basicProject != null) {
+		if (project != null) {
 
 			// set the member list in request for display in the page
-			request.setAttribute("memberList", basicProject.getMembers());
+			request.setAttribute("memberList", project.getMembers());
 		}
 
 		// populate the summary
@@ -159,8 +158,7 @@ public class BasicProjectAction extends LookupDispatchAction {
 			throws Exception {
 
 		// get the basicProject service
-		BasicProjectService basicProjectService = CoreObjectFactory
-				.getBasicProjectService();
+		ProjectService projectService = CoreObjectFactory.getProjectService();
 
 		// get the form
 		BasicProjectForm basicProjectForm = (BasicProjectForm) form;
@@ -171,11 +169,11 @@ public class BasicProjectAction extends LookupDispatchAction {
 			// get the current user from the session
 			User user = (User) request.getSession().getAttribute("user");
 			// add
-			errors = basicProjectService.add(basicProjectForm.getCode(),
+			errors = projectService.add(basicProjectForm.getCode(),
 					basicProjectForm.getName(), user.getPersistanceId());
 		} else {
 			// update
-			errors = basicProjectService.update(basicProjectForm
+			errors = projectService.update(basicProjectForm
 					.getPersistanceId(), basicProjectForm.getCode(),
 					basicProjectForm.getName(), basicProjectForm
 							.getPersistanceVersion());
@@ -251,17 +249,17 @@ public class BasicProjectAction extends LookupDispatchAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-		BasicProject basicProject = findBasicProjectByPersistanceId(request);
+		Project project = findProjectByPersistanceId(request);
 
 		// if a basicProject is found
-		if (basicProject != null) {
+		if (project != null) {
 
 			// populate the form
 			BasicProjectForm basicProjectForm = (BasicProjectForm) form;
-			basicProjectForm.setCode(basicProject.getCode());
-			basicProjectForm.setName(basicProject.getName());
-			basicProjectForm.setPersistanceId(basicProject.getPersistanceId());
-			basicProjectForm.setPersistanceVersion(basicProject
+			basicProjectForm.setCode(project.getCode());
+			basicProjectForm.setName(project.getName());
+			basicProjectForm.setPersistanceId(project.getPersistanceId());
+			basicProjectForm.setPersistanceVersion(project
 					.getPersistanceVersion());
 
 		}
@@ -279,18 +277,16 @@ public class BasicProjectAction extends LookupDispatchAction {
 	 * @param request
 	 * @return BasicProject
 	 */
-	private BasicProject findBasicProjectByPersistanceId(
-			final HttpServletRequest request) {
+	private Project findProjectByPersistanceId(final HttpServletRequest request) {
 
 		// get the BasicProject Service
-		BasicProjectService basicProjectService = CoreObjectFactory
-				.getBasicProjectService();
+		ProjectService projectService = CoreObjectFactory.getProjectService();
 
 		// find the basicProject, if a project is needed
 		if (StringUtils.isNotEmpty((String) request
 				.getParameter("persistanceId"))) {
 
-			return basicProjectService
+			return projectService
 					.findByPersistanceId(Integer.parseInt(request.getParameter(
 							"persistanceId").toString()));
 

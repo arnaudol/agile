@@ -43,7 +43,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.pmr.core.CoreObjectFactory;
-import net.sf.pmr.core.service.BasicProjectService;
+import net.sf.pmr.core.service.ProjectService;
 import net.sf.pmr.core.service.UserService;
 import net.sf.pmr.struts.administration.core.form.UserProjectForm;
 
@@ -76,11 +76,11 @@ public class UserProjectAction extends LookupDispatchAction {
 			throws Exception {
 
 		
-		// get the basicProject service
-		BasicProjectService basicProjectService = CoreObjectFactory.getBasicProjectService();
+		// get the project service
+		ProjectService projectService = CoreObjectFactory.getProjectService();
 		
 		// find all projects
-		List basicProjects = basicProjectService.findAll();
+		List basicProjects = projectService.findAll();
 		
 		request.setAttribute("basicProjects", basicProjects);
 		
