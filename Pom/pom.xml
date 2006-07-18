@@ -9,10 +9,10 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>../Core</module>
-		<module>../AgilePlanning</module>
-		<module>../ToDo</module>
-		<module>../Web</module>
+		<module>../core</module>
+		<module>../agileplanning</module>
+		<module>../todo</module>
+		<module>../web</module>
 	</modules>
 
 	<dependencies>
@@ -296,14 +296,15 @@
 			</dependency>
 
 		<!-- jdbc driver -->
-		<!--
+		<!-- 
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>3.0.17-ga-bin</version>
+			<version>3.1.13</version>
 			<scope>runtime</scope>
 		</dependency>
-		-->
+		 -->
+		
 		<dependency>
 			<groupId>hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
@@ -343,16 +344,6 @@
 			</dependency>-->
 
 	</dependencies>
-
-
-	<!--
-	<repositories>
-		<repository>
-			<id>pmr-repository</id>
-			<url>http://pmr.sourceforge.net/maven2-repository</url>
-		</repository>
-	</repositories>
-	 -->
 	
 	<build>
 		<plugins>
@@ -365,7 +356,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
-	
+	</build>	
 
 </project>
