@@ -42,21 +42,4 @@
 		</developer>
 	</developers>
 
-	<repositories>
-		<repository>
-			<id>pmr-repository</id>
-			<url>http://pmr.sourceforge.net/maven2-repository</url>
-		</repository>
-	</repositories>
-
-
-	<!-- deploy jar in remote repository -->
-	<distributionManagement>
-		<repository>
-			<id>pmr-repository</id>
-			<name>pmr repository</name>
-			<url>scp://pmr.sourceforge.net/maven2-repository</url>
-		</repository>
-	</distributionManagement>
-
 </project>
