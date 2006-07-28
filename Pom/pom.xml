@@ -7,12 +7,14 @@
 	<version>0.3.3</version>
 	<artifactId>pmr</artifactId>
 	<packaging>pom</packaging>
+	<name>pom</name>
 
 	<modules>
 		<module>../core</module>
 		<module>../agileplanning</module>
 		<module>../todo</module>
 		<module>../web</module>
+		<module>../webfaces</module>
 	</modules>
 
 	<dependencies>
@@ -344,7 +346,7 @@
 			</dependency>-->
 
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<plugin>
