@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Library/buildtime/test/junit-4.1.jar"/>
+	<classpathentry kind="lib" path="/Library/buildtime/test/mockcreator-2005-02-21.jar"/>
+	<classpathentry kind="lib" path="/Library/buildtime/jakartaCommons/commons-lang-2.1.jar"/>
+	<classpathentry kind="lib" path="/Library/buildtime/jakartaCommons/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="/Library/buildtime/springFramework-1.2.8/spring-context.jar"/>
+	<classpathentry kind="lib" path="/Library/buildtime/springFramework-1.2.8/spring-core.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
