@@ -3,11 +3,7 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Library/jakarta-commons/commons-lang-2.1.jar"/>
-	<classpathentry kind="lib" path="/Library/jakarta-commons/commons-logging-1.1.jar"/>
-	<classpathentry kind="lib" path="/Library/test/junit-4.1.jar"/>
-	<classpathentry kind="lib" path="/Library/test/mockcreator-2005-02-21.jar"/>
-	<classpathentry kind="lib" path="/Library/spring-framework-1.2.8/spring-context.jar"/>
-	<classpathentry kind="lib" path="/Library/spring-framework-1.2.8/spring-core.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Test libraries"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Compile libraries"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
