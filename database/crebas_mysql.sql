@@ -44,8 +44,8 @@ create table CHARGE
    TAS_ID                         int                            not null,
    PMU_ID                         int                            not null,
    DAY                            date                           not null,
-   TIMEUSED                       decimal(2,3)                   not null,
-   DAYSNEEDEDTOFINISH             decimal(2,3)                   not null,
+   TIMEUSED                       decimal(5,2)                   not null,
+   DAYSNEEDEDTOFINISH             decimal(5,2)                   not null,
    VERSION                        bigint                         not null,
    primary key (ID)
 )
@@ -614,7 +614,7 @@ create table STORY
    ITE_ID                         int,
    SHORTDESCRIPTION               varchar(100),
    DESCRIPTION                    varchar(255),
-   DAYSESTIMATED                  decimal(2,3),
+   DAYSESTIMATED                  decimal(5,2),
    VERSION                        bigint                         not null,
    primary key (ID)
 )
@@ -695,7 +695,7 @@ create table TASK
    ID                             int                            not null AUTO_INCREMENT,
    PMU_ID                         int,
    SHORTDESCRIPTION               varchar(100)                   not null,
-   DAYSESTIMATED                  decimal(2,3)                   default 0,
+   DAYSESTIMATED                  decimal(5,2)                   default 0,
    VERSION                        bigint                         not null,
    primary key (ID)
 )
