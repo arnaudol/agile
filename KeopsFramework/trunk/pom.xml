@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<project>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.sf.pmr.keopsframework</groupId>
+	<artifactId>keopsframework</artifactId>
+	<name>Keops Framework</name>
+	<version>0.9i</version>
+	<description>commun fonctionnality</description>
+	<url>http://sourceforge.net/projects/pmr/</url>
+	<issueManagement>
+		<url>http://sourceforge.net/tracker/?group_id=120429</url>
+	</issueManagement>
+
+	<!-- developpers -->
+	<developers>
+		<developer>
+			<id>arnaud</id>
+			<name>Arnaud Prost</name>
+			<email>arnaud.prost@gmail.com</email>
+			<url></url>
+			<organization></organization>
+			<organizationUrl></organizationUrl>
+			<roles>
+				<role>project lead</role>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone></timezone>
+		</developer>
+	</developers>
+
+	<!-- licences -->
+	<licenses>
+		<license>
+			<name>GPL</name>
+			<url>http://www.gnu.org/copyleft/gpl.html</url>
+		</license>
+		<license>
+			<name>CeCILL v2</name>
+			<url>http://www.cecill.fr</url>
+		</license>
+	</licenses>
+
+	<!-- jdk 1.5 -->
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- dependencies -->
+
+	<!-- commons -->
+	<dependencies>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+
+		<!-- spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>2.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+</project>
