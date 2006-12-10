@@ -1,80 +1,72 @@
 /*
- * Copyright ou © ou Copr. Arnaud Prost, 26 févr. 2005
+ * Copyright ou ï¿½ ou Copr. Arnaud Prost, 26 fï¿½vr. 2005
  *
  * arnaud.prost@gmail.com
  *
- * Ce logiciel est un programme informatique servant à faciliter le travail
+ * Ce logiciel est un programme informatique servant ï¿½ faciliter le travail
  * collaboratif.
  *
- * Ce logiciel est régi par la licence CeCILL soumise au droit français et
+ * Ce logiciel est rï¿½gi par la licence CeCILL soumise au droit franï¿½ais et
  * respectant les principes de diffusion des logiciels libres. Vous pouvez
  * utiliser, modifier et/ou redistribuer ce programme sous les conditions
- * de la licence CeCILL telle que diffusée par le CEA, le CNRS et l'INRIA
+ * de la licence CeCILL telle que diffusï¿½e par le CEA, le CNRS et l'INRIA
  * sur le site "http://www.cecill.info".
  *
- * En contrepartie de l'accessibilité au code source et des droits de copie,
- * de modification et de redistribution accordés par cette licence, il n'est
- * offert aux utilisateurs qu'une garantie limitée.  Pour les mêmes raisons,
- * seule une responsabilité restreinte pèse sur l'auteur du programme,  le
- * titulaire des droits patrimoniaux et les concédants successifs.
+ * En contrepartie de l'accessibilitï¿½ au code source et des droits de copie,
+ * de modification et de redistribution accordï¿½s par cette licence, il n'est
+ * offert aux utilisateurs qu'une garantie limitï¿½e.  Pour les mï¿½mes raisons,
+ * seule une responsabilitï¿½ restreinte pï¿½se sur l'auteur du programme,  le
+ * titulaire des droits patrimoniaux et les concï¿½dants successifs.
  *
- * A cet égard  l'attention de l'utilisateur est attirée sur les risques
- * associés au chargement,  à l'utilisation,  à la modification et/ou au
- * développement et à la reproduction du logiciel par l'utilisateur étant
- * donné sa spécificité de logiciel libre, qui peut le rendre complexe à
- * manipuler et qui le réserve donc à des développeurs et des professionnels
- * avertis possédant  des  connaissances  informatiques approfondies.  Les
- * utilisateurs sont donc invités à charger  et  tester  l'adéquation  du
- * logiciel à leurs besoins dans des conditions permettant d'assurer la
- * sécurité de leurs systèmes et ou de leurs données et, plus généralement,
- * à l'utiliser et l'exploiter dans les mêmes conditions de sécurité.
+ * A cet ï¿½gard  l'attention de l'utilisateur est attirï¿½e sur les risques
+ * associï¿½s au chargement,  ï¿½ l'utilisation,  ï¿½ la modification et/ou au
+ * dï¿½veloppement et ï¿½ la reproduction du logiciel par l'utilisateur ï¿½tant
+ * donnï¿½ sa spï¿½cificitï¿½ de logiciel libre, qui peut le rendre complexe ï¿½
+ * manipuler et qui le rï¿½serve donc ï¿½ des dï¿½veloppeurs et des professionnels
+ * avertis possï¿½dant  des  connaissances  informatiques approfondies.  Les
+ * utilisateurs sont donc invitï¿½s ï¿½ charger  et  tester  l'adï¿½quation  du
+ * logiciel ï¿½ leurs besoins dans des conditions permettant d'assurer la
+ * sï¿½curitï¿½ de leurs systï¿½mes et ou de leurs donnï¿½es et, plus gï¿½nï¿½ralement,
+ * ï¿½ l'utiliser et l'exploiter dans les mï¿½mes conditions de sï¿½curitï¿½.
 
- * Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
- * pris connaissance de la licence CeCILL, et que vous en avez accepté les
+ * Le fait que vous puissiez accï¿½der ï¿½ cet en-tï¿½te signifie que vous avez
+ * pris connaissance de la licence CeCILL, et que vous en avez acceptï¿½ les
  * termes.
  */
-
 package net.sf.pmr.keopsframework.domain.validation;
 
 
 import java.util.List;
 import java.util.Locale;
 
-import junit.framework.TestCase;
+import static org.easymock.EasyMock.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.context.MessageSource;
 
-import org.springframework.context.MockMessageSource;
-
-import de.abstrakt.mock.MockCore;
+import static org.junit.Assert.*;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
  */
-public class ErrorsTest extends TestCase {
+public class ErrorsTest {
 
     private Errors errors;
     
-    private MockMessageSource mockmessageSource;
+    private MessageSource mockmessageSource;
 
     /*
      * @see TestCase#setUp()
      */
-    protected void setUp() throws Exception {
+    @Before public void setUp() throws Exception {
         
-        super.setUp();
-        
-        mockmessageSource = new MockMessageSource();
+    	mockmessageSource = createMock(MessageSource.class);
         
         errors = new ErrorsImpl(mockmessageSource);
         
-        MockCore.reset();
+        //MockCore.reset();
         
-    }
-
-    /*
-     * @see TestCase#tearDown()
-     */
-    protected void tearDown() throws Exception {
-        super.tearDown();
     }
 
     
@@ -93,8 +85,8 @@ public class ErrorsTest extends TestCase {
 //    }
 
 //    /**
-//     * test que le message par défaut est bien pris en compte
-//     * quand il n'y a pas de message trouvé
+//     * test que le message par dï¿½faut est bien pris en compte
+//     * quand il n'y a pas de message trouvï¿½
 //     */
 //    public void testRejectWhenNoMessageResourceFound() {
 //        
@@ -117,7 +109,7 @@ public class ErrorsTest extends TestCase {
 //    }
 //
 //    /**
-//     * test reject value quand le nom du champs spécifié n'existe pas 
+//     * test reject value quand le nom du champs spï¿½cifiï¿½ n'existe pas 
 //     * dans l'object
 //     */
 //    public void testRejectValueWhenFieldDoesNotExist() {
@@ -126,10 +118,10 @@ public class ErrorsTest extends TestCase {
     
     
     /**
-     * Test la méthode GetAllErrorsMessageParameters
+     * Test la mÃ©thode GetAllErrorsMessageParameters
      * Avec des erreurs globales et de champs sans parametres  
      */
-    public void testGetAllErrorsMessageParametersWithoutParameters() {
+    @Test public void testGetAllErrorsMessageParametersWithoutParameters() {
         
         errors.reject("my.error");
         errors.reject("my.super.error");
@@ -148,10 +140,10 @@ public class ErrorsTest extends TestCase {
     }
     
     /**
-     * Test la méthode GetAllErrorsMessageParameters
+     * Test la mÃ©thode GetAllErrorsMessageParameters
      * Avec des erreurs globales et de champs avec parametres  
      */
-    public void testGetAllErrorsMessageParametersWithParameters() {
+    @Test public void testGetAllErrorsMessageParametersWithParameters() {
 
 
         Object[] errorParameters1 = new Object[] {"param1"};
@@ -200,136 +192,141 @@ public class ErrorsTest extends TestCase {
     
     
     /**
-     * test la méthode getAllErrors
-     * quand la la validation a trouvée une erreurs
+     * test la mÃ©thode getAllErrors
+     * quand la la validation a trouvÃ©e une erreurs
      */
-    public void testgetAllErrorsWithOneGlobalErrors() {
+    @Test public void testgetAllErrorsWithOneGlobalErrors() {
         
         errors.reject("1");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("L'object est incohÃ©rent");
         
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "L'object est incohérent");
+        replay(mockmessageSource);
         
-        assertEquals("L'object est incohérent", errors.getAllErrors(Locale.FRENCH).get(0));
-        
+        assertEquals("L'object est incohÃ©rent", errors.getAllErrors(Locale.FRENCH).get(0));
         assertEquals(1, errors.getGlobalErrorCount());
         
-        MockCore.verify();
+        verify(mockmessageSource);
 
     }
 
     /**
-     * test la méthode getAllErrors
-     * quand la la validation a trouvée des erreurs
+     * test la mÃ©thode getAllErrors
+     * quand la la validation a trouvÃ©e des erreurs
      */
-    public void testgetAllErrorsWithSeveralGlobalErrors() {
+    @Test public void testgetAllErrorsWithSeveralGlobalErrors() {
 
         errors.reject("1");
         errors.reject("2");
 
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "L'object est incohérent");
-        mockmessageSource.expectGetMessage("2", null, Locale.FRENCH, "L'object est super incohérent");
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "L'object est incohérent");
-        mockmessageSource.expectGetMessage("2", null, Locale.FRENCH, "L'object est super incohérent");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("L'object est incohÃ©rent");
+        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'object est super incohÃ©rent");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("L'object est incohÃ©rent");
+        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'object est super incohÃ©rent");
         
+        replay(mockmessageSource);
         
-        assertTrue(errors.getAllErrors(Locale.FRENCH).contains("L'object est incohérent"));
-        assertTrue(errors.getAllErrors(Locale.FRENCH).contains("L'object est super incohérent"));
+        assertTrue(errors.getAllErrors(Locale.FRENCH).contains("L'object est incohÃ©rent"));
+        assertTrue(errors.getAllErrors(Locale.FRENCH).contains("L'object est super incohÃ©rent"));
         
         assertEquals(2, errors.getErrorCount());
         
-        MockCore.verify();
+        verify(mockmessageSource);
+
 
     }
 
     /**
-     * test la méthode getAllErrors
-     * quand la la validation a trouvée une erreurs
+     * test la mÃ©thode getAllErrors
+     * quand la la validation a trouvÃ©e une erreurs
      */
-    public void testgetAllErrorsWithOneFieldErrors() {
+    @Test public void testgetAllErrorsWithOneFieldErrors() {
 
         errors.rejectValue("name", "1");
-        
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "Le nom est incorrect");
 
-        assertEquals("Le nom est incorrect", errors.getAllErrors(Locale.FRENCH).get(0));
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
         
+        replay(mockmessageSource);
+        assertEquals("Le nom est incorrect", errors.getAllErrors(Locale.FRENCH).get(0));
         assertEquals(1, errors.getErrorCount());
         
-        MockCore.verify();
+        verify(mockmessageSource);
 
     }
 
     /**
-     * test la méthode getAllErrors
-     * quand la la validation a trouvée des erreurs
+     * test la mÃ©thode getAllErrors
+     * quand la la validation a trouvÃ©e des erreurs
      */
-    public void testgetAllErrorsWithSeveralFieldErrors() {
+    @Test public void testgetAllErrorsWithSeveralFieldErrors() {
 
         errors.rejectValue("name", "1");
         errors.rejectValue("e-mail", "2");
         
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "Le nom est incorrect");
-        mockmessageSource.expectGetMessage("2", null, Locale.FRENCH, "L'email est incorrect");
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "Le nom est incorrect");
-        mockmessageSource.expectGetMessage("2", null, Locale.FRENCH, "L'email est incorrect");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
+        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'email est incorrect");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
+        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'email est incorrect");
+        
+        replay(mockmessageSource);
 
         assertTrue("", errors.getAllErrors(Locale.FRENCH).contains("Le nom est incorrect"));
         assertTrue("", errors.getAllErrors(Locale.FRENCH).contains("L'email est incorrect"));
         
         assertEquals(2, errors.getErrorCount());
         
-        MockCore.verify();
+        verify(mockmessageSource);
 
     }
 
     /**
-     * test la méthode getAllErrors
+     * test la mÃ©thode getAllErrors
      * Avec des erreurs globales et field
      */
-    public void testgetAllErrorsWithGlobalAndFieldErrors() {
+    @Test public void testgetAllErrorsWithGlobalAndFieldErrors() {
 
         errors.rejectValue("name", "1");
         errors.rejectValue("e-mail", "2");
         errors.reject("3");
+        
+        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'email est incorrect");
+        expect(mockmessageSource.getMessage("3", null, Locale.FRENCH)).andReturn("L'object est incohÃ©rent");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
 
-        MockCore.startBlock();
+        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'email est incorrect");
+        expect(mockmessageSource.getMessage("3", null, Locale.FRENCH)).andReturn("L'object est incohÃ©rent");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
+
+        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'email est incorrect");
+        expect(mockmessageSource.getMessage("3", null, Locale.FRENCH)).andReturn("L'object est incohÃ©rent");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
+        
+        replay(mockmessageSource);
       
-        mockmessageSource.expectGetMessage("2", null, Locale.FRENCH, "L'email est incorrect");
-        mockmessageSource.expectGetMessage("3", null, Locale.FRENCH, "L'object est incohérent");
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "Le nom est incorrect");
-        
-        mockmessageSource.expectGetMessage("2", null, Locale.FRENCH, "L'email est incorrect");
-        mockmessageSource.expectGetMessage("3", null, Locale.FRENCH, "L'object est incohérent");
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "Le nom est incorrect");
-        
-        mockmessageSource.expectGetMessage("2", null, Locale.FRENCH, "L'email est incorrect");
-        mockmessageSource.expectGetMessage("3", null, Locale.FRENCH, "L'object est incohérent");
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "Le nom est incorrect");
-              
-        MockCore.endBlock();
-
         assertTrue("nom", errors.getAllErrors(Locale.FRENCH).contains("Le nom est incorrect"));
         assertTrue("email", errors.getAllErrors(Locale.FRENCH).contains("L'email est incorrect"));
-        assertTrue("object", errors.getAllErrors(Locale.FRENCH).contains("L'object est incohérent"));
+        assertTrue("object", errors.getAllErrors(Locale.FRENCH).contains("L'object est incohÃ©rent"));
 
         assertEquals("nombre total d'erreur", 3, errors.getErrorCount());
+        
+        verify(mockmessageSource);
+        
     }
 
     /**
-     * test la méthode getAllErrors
-     * quand la la validation n'a pas trouvée d'erreurs
+     * test la mÃ©thode getAllErrors
+     * quand la la validation n'a pas trouvÃ©e d'erreurs
      */
-    public void testgetAllErrorsWithoutErrors() {
+    @Test public void testgetAllErrorsWithoutErrors() {
 
         assertEquals(0, errors.getErrorCount());
 
     }
 
     /**
-     * test la méthode hasErrors quand des erreurs
-     * sont détectées en field
+     * test la mÃ©thode hasErrors quand des erreurs
+     * sont dÃ©tectÃ©s en field
      */
-    public void testHasErrorswithFieldErrors() {
+    @Test public void testHasErrorswithFieldErrors() {
 
         errors.rejectValue("nom", "1");
 
@@ -338,10 +335,10 @@ public class ErrorsTest extends TestCase {
     }
 
     /**
-     * test la méthode hasErrors quand des erreurs
-     * sont détectées en Global
+     * test la mÃ©thode hasErrors quand des erreurs
+     * sont dÃ©tectÃ©es en Global
      */
-    public void testHasErrorswithGlobaldErrors() {
+    @Test public void testHasErrorswithGlobaldErrors() {
 
         errors.reject("1");
 
@@ -350,10 +347,10 @@ public class ErrorsTest extends TestCase {
     }
 
     /**
-     * test la méthode hasErrors quand des erreurs
-     * sont détectées en global et Field
+     * test la mÃ©thode hasErrors quand des erreurs
+     * sont dÃ©tectÃ©es en global et Field
      */
-    public void testHasErrorswithGlobaldAndFieldErrors() {
+    @Test public void testHasErrorswithGlobaldAndFieldErrors() {
 
         errors.rejectValue("nom", "1");
         errors.reject("1");
@@ -363,20 +360,20 @@ public class ErrorsTest extends TestCase {
     }
 
     /**
-     * test la méthode hasErrors quand il
+     * test la mÃ©thode hasErrors quand il
      * n'y a pas d'erreur
      */
-    public void testHasErrorswithoutErrors() {
+    @Test public void testHasErrorswithoutErrors() {
 
         assertFalse(errors.hasErrors());
 
     }
 
     /**
-     * test de la méthode quand il y a une
+     * test de la mÃ©thode quand il y a une
      * erreur globale
      */
-    public void testGetErrorCountWithOneGlobalError() {
+    @Test public void testGetErrorCountWithOneGlobalError() {
 
         errors.reject("1");
 
@@ -385,10 +382,10 @@ public class ErrorsTest extends TestCase {
     }
 
     /**
-     * test de la méthode quand il n'y a des
+     * test de la mÃ©thode quand il n'y a des
      * erreurs globales
      */
-    public void testGetErrorCountWithSeveralGlobalErrors() {
+    @Test public void testGetErrorCountWithSeveralGlobalErrors() {
 
         errors.reject("1");
         errors.reject("2");
@@ -398,10 +395,10 @@ public class ErrorsTest extends TestCase {
     }
 
     /**
-     * test de la méthode quand il n'y a des
+     * test de la mÃ©thode quand il n'y a des
      * erreurs field
      */
-    public void testGetErrorCountWithOneFieldError() {
+    @Test public void testGetErrorCountWithOneFieldError() {
 
         errors.rejectValue("nom", "1");
 
@@ -410,10 +407,10 @@ public class ErrorsTest extends TestCase {
     }
 
     /**
-     * test de la méthode quand il n'y a des
+     * test de la mÃ©thode quand il n'y a des
      * erreurs field
      */
-    public void testGetErrorCountWithSeveralFieldErrors() {
+    @Test public void testGetErrorCountWithSeveralFieldErrors() {
 
         errors.rejectValue("nom", "1");
         errors.rejectValue("nom", "2");
@@ -423,10 +420,10 @@ public class ErrorsTest extends TestCase {
     }
 
     /**
-     * test de la méthode quand il n'y a des
+     * test de la mÃ©thode quand il n'y a des
      * erreurs globale et field
      */
-    public void testGetErrorCountWithGlobalAndFieldErrors() {
+    @Test public void testGetErrorCountWithGlobalAndFieldErrors() {
 
         errors.reject("1");
         errors.rejectValue("nom", "1");
@@ -437,10 +434,10 @@ public class ErrorsTest extends TestCase {
     }
 
     /**
-     * test de la méthode quand il n'y a pas
+     * test de la mÃ©thode quand il n'y a pas
      * d'erreur
      */
-    public void testGetErrorCountWithoutErrors() {
+    @Test public void testGetErrorCountWithoutErrors() {
 
         assertEquals(0, errors.getErrorCount());
 
@@ -449,46 +446,49 @@ public class ErrorsTest extends TestCase {
     /**
      * test quand il y a une erreurs
      */
-    public void testGetFieldErrorWithOneError() {
+    @Test public void testGetFieldErrorWithOneError() {
 
         errors.rejectValue("name", "1");
         
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "nom incorrect");
-      
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
+        
+        replay(mockmessageSource);
+        
         assertEquals("nom incorrect", errors.getFieldError("name", Locale.FRENCH));
        
-       MockCore.verify();
+       verify(mockmessageSource);
 
     }
 
     /**
      * test quand il y a plusieurs erreurs
      */
-    public void testGetFieldErrorWithSeveralErrors() {
+    @Test public void testGetFieldErrorWithSeveralErrors() {
 
         errors.rejectValue("name", "1");
         errors.rejectValue("email", "1");
         
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "nom incorrect");
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "email incorrect");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("email incorrect");
+        
+        replay(mockmessageSource);
 
         assertEquals("nom incorrect", errors.getFieldError("name", Locale.FRENCH));
         assertEquals("email incorrect", errors.getFieldError("email", Locale.FRENCH));
         
-        MockCore.verify();
+        verify(mockmessageSource);
 
     }
 
     /**
      * test quand il y a une erreur globale
      */
-    public void testGetFieldErrorWithGlobalError() {
+    @Test public void testGetFieldErrorWithGlobalError() {
 
         errors.reject("1");
         
         assertNull(errors.getFieldError("name", Locale.FRENCH));
         
-        MockCore.verify();
 
     }
 
@@ -496,7 +496,7 @@ public class ErrorsTest extends TestCase {
      * test quand il n'y a pas d'erreurs correspondante pour le champs
      * 
      */
-    public void testGetFieldErrorWithoutErrorForTheField() {
+    @Test public void testGetFieldErrorWithoutErrorForTheField() {
 
         assertNull(errors.getFieldError("name", Locale.FRENCH));
 
@@ -505,7 +505,7 @@ public class ErrorsTest extends TestCase {
     /**
      * test quand il n'y a pas d'erreurs
      */
-    public void testGetFieldErrorsWithoutErrors() {
+    @Test public void testGetFieldErrorsWithoutErrors() {
 
         assertNull(errors.getFieldErrors("name", Locale.FRENCH));
 
@@ -514,70 +514,76 @@ public class ErrorsTest extends TestCase {
     /**
      * test avec une erreur sur le champs
      */
-    public void testGetFieldErrorsWithOneErrorOnField() {
+    @Test public void testGetFieldErrorsWithOneErrorOnField() {
 
         errors.rejectValue("name", "1");
         
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "nom incorrect");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
+        
+        replay(mockmessageSource);
 
         assertEquals("nom incorrect", errors.getFieldErrors("name", Locale.FRENCH).get(0));
         
-        MockCore.verify();	
+        verify(mockmessageSource);	
 
     }
 
     /**
      * test avec plusieurs erreurs sur le champs
      */
-    public void testGetFieldErrorsWithSeveralErrorsOnField() {
+    @Test public void testGetFieldErrorsWithSeveralErrorsOnField() {
 
         errors.rejectValue("name", "1");
         errors .rejectValue("name", "2");
+        
+        
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
+        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("mais alors pas du tout");
 
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "nom incorrect");
-        mockmessageSource.expectGetMessage("2", null, Locale.FRENCH, "mais alors pas du tout");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
+        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("mais alors pas du tout");
         
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "nom incorrect");
-        mockmessageSource.expectGetMessage("2", null, Locale.FRENCH, "mais alors pas du tout");
-        
+        replay(mockmessageSource);
         
         assertTrue(errors.getFieldErrors("name", Locale.FRENCH).contains("nom incorrect"));
         assertTrue(errors.getFieldErrors("name", Locale.FRENCH).contains("mais alors pas du tout"));
         
         assertEquals(2, errors.getFieldErrorCount("name"));
         
-        MockCore.verify();
+        verify(mockmessageSource);
 
     }
 
     /**
      * test avec plusieurs erreurs sur le champs
      */
-    public void testGetFieldErrorsWithSeveralErrorsOnDifferentField() {
+    @Test public void testGetFieldErrorsWithSeveralErrorsOnDifferentField() {
 
         errors.rejectValue("name", "1");
         errors.rejectValue("name", "2");
         errors.rejectValue("email", "3");
         
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "nom incorrect");
-        mockmessageSource.expectGetMessage("2", null, Locale.FRENCH, "mais alors pas du tout");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
+        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("mais alors pas du tout");
+
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
+        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("mais alors pas du tout");
         
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "nom incorrect");
-        mockmessageSource.expectGetMessage("2", null, Locale.FRENCH, "mais alors pas du tout");
+        replay(mockmessageSource);
         
         assertTrue(errors.getFieldErrors("name", Locale.FRENCH).contains("nom incorrect"));
         assertTrue(errors.getFieldErrors("name", Locale.FRENCH).contains("mais alors pas du tout"));
         
         assertEquals(2, errors.getFieldErrorCount("name"));
         
-        MockCore.verify();
+        verify(mockmessageSource);
 
     }
 
     /**
      * test sans erreurs sur le champs
      */
-    public void testGetFieldErrorsWithoutErrorsOnField() {
+    @Test public void testGetFieldErrorsWithoutErrorsOnField() {
 
         assertNull(errors.getFieldErrors("name", Locale.FRENCH));
 
@@ -586,7 +592,7 @@ public class ErrorsTest extends TestCase {
     /**
      * test sans erreurs sur le champs mais avec une erreur global
      */
-    public void testGetFieldErrorsWithGlobalError() {
+    @Test public void testGetFieldErrorsWithGlobalError() {
 
         errors.reject("1");
 
@@ -597,7 +603,7 @@ public class ErrorsTest extends TestCase {
     /**
      * test quand il y a une erreur
      */
-    public void testGetFieldErrorCountWithOneError() {
+    @Test public void testGetFieldErrorCountWithOneError() {
 
         errors.rejectValue("name", "1");
 
@@ -608,7 +614,7 @@ public class ErrorsTest extends TestCase {
     /**
      * test quand il y a plusieurs erreurs
      */
-    public void testGetFieldErrorCountWithSeveralErrors() {
+    @Test public void testGetFieldErrorCountWithSeveralErrors() {
 
         errors.rejectValue("name", "1");
         errors.rejectValue("name", "1");
@@ -618,9 +624,9 @@ public class ErrorsTest extends TestCase {
     }
 
     /**
-     * test quand il y a plusieurs erreurs sur des champs différents
+     * test quand il y a plusieurs erreurs sur des champs diffï¿½rents
      */
-    public void testGetFieldErrorCountWithSeveralErrorsOnDifferentField() {
+    @Test public void testGetFieldErrorCountWithSeveralErrorsOnDifferentField() {
 
         errors.rejectValue("name", "1");
         errors.rejectValue("name", "1");
@@ -633,7 +639,7 @@ public class ErrorsTest extends TestCase {
     /**
      * test quand il n'y a pas d'erreurs
      */
-    public void testGetFieldErrorCountWithoutErrors() {
+    @Test public void testGetFieldErrorCountWithoutErrors() {
 
         assertEquals(0, errors.getFieldErrorCount("name"));
 
@@ -642,7 +648,7 @@ public class ErrorsTest extends TestCase {
     /**
      * test quand il n'y a pas aussi des erreurs globales
      */
-    public void testGetFieldErrorCountWithGlobalErrors() {
+    @Test public void testGetFieldErrorCountWithGlobalErrors() {
 
         errors.rejectValue("name", "1");
         errors.reject("3");
@@ -654,15 +660,17 @@ public class ErrorsTest extends TestCase {
     /**
      * test avec une erreur
      */
-    public void testGetGlobalErrorWithOneError() {
+    @Test public void testGetGlobalErrorWithOneError() {
 
         errors.reject("1");
         
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "object incorrect");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("object incorrect");
+        
+        replay(mockmessageSource);
        
         assertEquals("object incorrect", errors.getGlobalError(Locale.FRENCH));
        
-        MockCore.verify();
+        verify(mockmessageSource);
 
     }
 
@@ -674,17 +682,21 @@ public class ErrorsTest extends TestCase {
         errors.reject("1");
         errors.reject("2");
         
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "object incorrect");
-        mockmessageSource.expectGetMessage("2", null, Locale.FRENCH, "object super incorrect");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("object incorrect");
+        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("object super incorrect");
         
+        replay(mockmessageSource);
+          
         assertEquals("object incorrect", errors.getGlobalError(Locale.FRENCH));
+        
+        verify(mockmessageSource);
 
     }
 
     /**
      * test sans erreurs
      */
-    public void testGetGlobalErrorWithoutErrors() {
+    @Test public void testGetGlobalErrorWithoutErrors() {
 
         assertNull(errors.getGlobalError(Locale.FRENCH));
 
@@ -693,7 +705,7 @@ public class ErrorsTest extends TestCase {
     /**
      * test sans erreurs globale mais avec des erreurs de champs
      */
-    public void testGetGlobalErrorWithoutErrorsButWithFieldErrors() {
+    @Test public void testGetGlobalErrorWithoutErrorsButWithFieldErrors() {
 
         errors.rejectValue("name", "1");
 
@@ -704,7 +716,7 @@ public class ErrorsTest extends TestCase {
     /**
      * test quand il y a une erreur
      */
-    public void testGetGlobalErrorCountWithOneError() {
+    @Test public void testGetGlobalErrorCountWithOneError() {
 
         errors.reject("1");
 
@@ -715,7 +727,7 @@ public class ErrorsTest extends TestCase {
     /**
      * test quand il y a plusieurs erreurs
      */
-    public void testGetGlobalErrorCountWithSeveralErrors() {
+    @Test public void testGetGlobalErrorCountWithSeveralErrors() {
 
         errors.reject("1");
         errors.reject("2");
@@ -727,7 +739,7 @@ public class ErrorsTest extends TestCase {
     /**
      * test quand il n'y a pas d'erreurs
      */
-    public void testGetGlobalErrorCountWithoutErrors() {
+    @Test public void testGetGlobalErrorCountWithoutErrors() {
 
         assertEquals(0, errors.getGlobalErrorCount());
 
@@ -736,7 +748,7 @@ public class ErrorsTest extends TestCase {
     /**
      * test quand il n'y a pas des erreurs globales et des erreurs field
      */
-    public void testGetGlobalErrorCountWithFieldErrors() {
+    @Test public void testGetGlobalErrorCountWithFieldErrors() {
 
         errors.reject("1");
         errors.reject("2");
@@ -749,46 +761,49 @@ public class ErrorsTest extends TestCase {
     /**
      * test quand il y a une seule erreur
      */
-    public void testGetGlobalErrorsWithOneError() {
+    @Test public void testGetGlobalErrorsWithOneError() {
 
         errors.reject("1");
 
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "object incorrect");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("object incorrect");
+        
+        replay(mockmessageSource);
         
         assertEquals("object incorrect", errors.getGlobalErrors(Locale.FRENCH).get(0));
         
-        MockCore.verify();
+        verify(mockmessageSource);
 
     }
 
     /**
      * test quand il y a plusieurs erreurs
      */
-    public void testGetGlobalErrorsWithSeveralErrors() {
+    @Test public void testGetGlobalErrorsWithSeveralErrors() {
 
         errors.reject("1");
         errors.reject("2");
         
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "object incorrect");
-        mockmessageSource.expectGetMessage("2", null, Locale.FRENCH, "object lui aussi incorrect");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("object incorrect");
+        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("object lui aussi incorrect");
         
-        mockmessageSource.expectGetMessage("1", null, Locale.FRENCH, "object incorrect");
-        mockmessageSource.expectGetMessage("2", null, Locale.FRENCH, "object lui aussi incorrect");
+        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("object incorrect");
+        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("object lui aussi incorrect");
         
-        
+        replay(mockmessageSource);
+                
         assertTrue(errors.getGlobalErrors(Locale.FRENCH).contains("object incorrect"));
         assertTrue(errors.getGlobalErrors(Locale.FRENCH).contains("object lui aussi incorrect"));
         
         assertEquals(2, errors.getGlobalErrorCount());
         
-        MockCore.verify();
+        verify(mockmessageSource);
 
     }
 
     /**
      * test quand il n'y a pas d'erreurs
      */
-    public void testGetGlobalErrorsWithoutErrors() {
+    @Test public void testGetGlobalErrorsWithoutErrors() {
 
         assertEquals(0, errors.getGlobalErrors(Locale.FRENCH).size());
 
@@ -797,7 +812,7 @@ public class ErrorsTest extends TestCase {
     /**
      * test avec une erreur sur un champs
      */
-    public void testGetGlobalErrorsWithErrorOnField() {
+    @Test public void testGetGlobalErrorsWithErrorOnField() {
 
         errors.rejectValue("name", "1");
 
@@ -806,10 +821,10 @@ public class ErrorsTest extends TestCase {
     }
 
     /**
-     * test la méthode hasFieldErrors quand des erreurs
-     * sont détectées
+     * test la mÃ©thode hasFieldErrors quand des erreurs
+     * sont dÃ©tectÃ©es
      */
-    public void testHasFieldErrorsWithErrors() {
+    @Test public void testHasFieldErrorsWithErrors() {
 
         errors.rejectValue("name", "1");
         errors.rejectValue("name", "1");
@@ -819,10 +834,10 @@ public class ErrorsTest extends TestCase {
     }
 
     /**
-     * test la méthode hasFieldErrors quand des erreurs
-     * sont détectées
+     * test la mÃ©thode hasFieldErrors quand des erreurs
+     * sont dÃ©tectÃ©es
      */
-    public void testHasFieldErrorsWithErrorsOnDifferentField() {
+    @Test public void testHasFieldErrorsWithErrorsOnDifferentField() {
 
         errors.rejectValue("name", "1");
         errors.rejectValue("name", "1");
@@ -833,20 +848,20 @@ public class ErrorsTest extends TestCase {
     }
 
     /**
-     * test la méthode hasFieldErrors quand il
+     * test la mÃ©thode hasFieldErrors quand il
      * n'y a pas d'erreur
      */
-    public void testHasFieldErrorsWithoutErrors() {
+    @Test public void testHasFieldErrorsWithoutErrors() {
 
         assertFalse(errors.hasFieldErrors("email"));
 
     }
 
     /**
-     * test la méthode hasFieldErrors quand il
+     * test la mÃ©thode hasFieldErrors quand il
      * n'y a des erreurs globales
      */
-    public void testHasFieldErrorsWithGlobalErrors() {
+    @Test public void testHasFieldErrorsWithGlobalErrors() {
 
         errors.reject("1");
 
@@ -855,10 +870,10 @@ public class ErrorsTest extends TestCase {
     }
 
     /**
-     * test la méthode hasGlobalErrors quand des erreurs
-     * sont détectées
+     * test la mÃ©thode hasGlobalErrors quand des erreurs
+     * sont dÃ©tectÃ©es
      */
-    public void testHasGlobalErrorsWithErrors() {
+    @Test public void testHasGlobalErrorsWithErrors() {
 
         errors.reject("1");
         errors.reject("1");
@@ -868,20 +883,20 @@ public class ErrorsTest extends TestCase {
     }
 
     /**
-     * test la méthode hasFieldErrors quand il
+     * test la mÃ©thode hasFieldErrors quand il
      * n'y a pas d'erreur
      */
-    public void testHasGlobalErrorsWithoutErrors() {
+    @Test public void testHasGlobalErrorsWithoutErrors() {
 
         assertFalse(errors.hasGlobalErrors());
 
     }
 
     /**
-     * test la méthode hasGlobalErrors quand il
+     * test la mÃ©thode hasGlobalErrors quand il
      * n'y a des erreurs field
      */
-    public void testHasGlobalErrorsWithFieldErrors() {
+    @Test public void testHasGlobalErrorsWithFieldErrors() {
 
         errors.rejectValue("name", "1");
 
