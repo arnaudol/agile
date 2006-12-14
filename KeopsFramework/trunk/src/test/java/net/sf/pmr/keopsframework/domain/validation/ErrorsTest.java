@@ -36,21 +36,23 @@
 package net.sf.pmr.keopsframework.domain.validation;
 
 
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.reset;
+import static org.easymock.EasyMock.verify;
+
 import java.util.List;
 import java.util.Locale;
 
-import static org.easymock.EasyMock.*;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.context.MessageSource;
+import junit.framework.TestCase;
 
-import static org.junit.Assert.*;
+import org.springframework.context.MessageSource;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
  */
-public class ErrorsTest {
+public class ErrorsTest extends TestCase {
 
     private Errors errors;
     
@@ -59,15 +61,24 @@ public class ErrorsTest {
     /*
      * @see TestCase#setUp()
      */
-    @Before public void setUp() throws Exception {
+    protected void setUp() throws Exception {
+    	
+        super.setUp();
         
     	mockmessageSource = createMock(MessageSource.class);
         
         errors = new ErrorsImpl(mockmessageSource);
         
-        //MockCore.reset();
-        
     }
+    
+    /*
+     * @see TestCase#tearDown()
+     */
+    protected void tearDown() throws Exception {
+    	reset(mockmessageSource);
+        super.tearDown();
+    }
+    
 
     
     // TODO finir les tests !!
@@ -121,7 +132,7 @@ public class ErrorsTest {
      * Test la méthode GetAllErrorsMessageParameters
      * Avec des erreurs globales et de champs sans parametres  
      */
-    @Test public void testGetAllErrorsMessageParametersWithoutParameters() {
+    public void testGetAllErrorsMessageParametersWithoutParameters() {
         
         errors.reject("my.error");
         errors.reject("my.super.error");
@@ -143,7 +154,7 @@ public class ErrorsTest {
      * Test la méthode GetAllErrorsMessageParameters
      * Avec des erreurs globales et de champs avec parametres  
      */
-    @Test public void testGetAllErrorsMessageParametersWithParameters() {
+    public void testGetAllErrorsMessageParametersWithParameters() {
 
 
         Object[] errorParameters1 = new Object[] {"param1"};
@@ -195,7 +206,7 @@ public class ErrorsTest {
      * test la méthode getAllErrors
      * quand la la validation a trouvée une erreurs
      */
-    @Test public void testgetAllErrorsWithOneGlobalErrors() {
+    public void testgetAllErrorsWithOneGlobalErrors() {
         
         errors.reject("1");
         expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("L'object est incohérent");
@@ -213,7 +224,7 @@ public class ErrorsTest {
      * test la méthode getAllErrors
      * quand la la validation a trouvée des erreurs
      */
-    @Test public void testgetAllErrorsWithSeveralGlobalErrors() {
+    public void testgetAllErrorsWithSeveralGlobalErrors() {
 
         errors.reject("1");
         errors.reject("2");
@@ -239,7 +250,7 @@ public class ErrorsTest {
      * test la méthode getAllErrors
      * quand la la validation a trouvée une erreurs
      */
-    @Test public void testgetAllErrorsWithOneFieldErrors() {
+    public void testgetAllErrorsWithOneFieldErrors() {
 
         errors.rejectValue("name", "1");
 
@@ -257,7 +268,7 @@ public class ErrorsTest {
      * test la méthode getAllErrors
      * quand la la validation a trouvée des erreurs
      */
-    @Test public void testgetAllErrorsWithSeveralFieldErrors() {
+    public void testgetAllErrorsWithSeveralFieldErrors() {
 
         errors.rejectValue("name", "1");
         errors.rejectValue("e-mail", "2");
@@ -282,7 +293,7 @@ public class ErrorsTest {
      * test la méthode getAllErrors
      * Avec des erreurs globales et field
      */
-    @Test public void testgetAllErrorsWithGlobalAndFieldErrors() {
+    public void testgetAllErrorsWithGlobalAndFieldErrors() {
 
         errors.rejectValue("name", "1");
         errors.rejectValue("e-mail", "2");
@@ -316,7 +327,7 @@ public class ErrorsTest {
      * test la méthode getAllErrors
      * quand la la validation n'a pas trouvée d'erreurs
      */
-    @Test public void testgetAllErrorsWithoutErrors() {
+    public void testgetAllErrorsWithoutErrors() {
 
         assertEquals(0, errors.getErrorCount());
 
@@ -326,7 +337,7 @@ public class ErrorsTest {
      * test la méthode hasErrors quand des erreurs
      * sont détectés en field
      */
-    @Test public void testHasErrorswithFieldErrors() {
+    public void testHasErrorswithFieldErrors() {
 
         errors.rejectValue("nom", "1");
 
@@ -338,7 +349,7 @@ public class ErrorsTest {
      * test la méthode hasErrors quand des erreurs
      * sont détectées en Global
      */
-    @Test public void testHasErrorswithGlobaldErrors() {
+    public void testHasErrorswithGlobaldErrors() {
 
         errors.reject("1");
 
@@ -350,7 +361,7 @@ public class ErrorsTest {
      * test la méthode hasErrors quand des erreurs
      * sont détectées en global et Field
      */
-    @Test public void testHasErrorswithGlobaldAndFieldErrors() {
+    public void testHasErrorswithGlobaldAndFieldErrors() {
 
         errors.rejectValue("nom", "1");
         errors.reject("1");
@@ -363,7 +374,7 @@ public class ErrorsTest {
      * test la méthode hasErrors quand il
      * n'y a pas d'erreur
      */
-    @Test public void testHasErrorswithoutErrors() {
+    public void testHasErrorswithoutErrors() {
 
         assertFalse(errors.hasErrors());
 
@@ -373,7 +384,7 @@ public class ErrorsTest {
      * test de la méthode quand il y a une
      * erreur globale
      */
-    @Test public void testGetErrorCountWithOneGlobalError() {
+    public void testGetErrorCountWithOneGlobalError() {
 
         errors.reject("1");
 
@@ -385,7 +396,7 @@ public class ErrorsTest {
      * test de la méthode quand il n'y a des
      * erreurs globales
      */
-    @Test public void testGetErrorCountWithSeveralGlobalErrors() {
+    public void testGetErrorCountWithSeveralGlobalErrors() {
 
         errors.reject("1");
         errors.reject("2");
@@ -398,7 +409,7 @@ public class ErrorsTest {
      * test de la méthode quand il n'y a des
      * erreurs field
      */
-    @Test public void testGetErrorCountWithOneFieldError() {
+    public void testGetErrorCountWithOneFieldError() {
 
         errors.rejectValue("nom", "1");
 
@@ -410,7 +421,7 @@ public class ErrorsTest {
      * test de la méthode quand il n'y a des
      * erreurs field
      */
-    @Test public void testGetErrorCountWithSeveralFieldErrors() {
+    public void testGetErrorCountWithSeveralFieldErrors() {
 
         errors.rejectValue("nom", "1");
         errors.rejectValue("nom", "2");
@@ -423,7 +434,7 @@ public class ErrorsTest {
      * test de la méthode quand il n'y a des
      * erreurs globale et field
      */
-    @Test public void testGetErrorCountWithGlobalAndFieldErrors() {
+    public void testGetErrorCountWithGlobalAndFieldErrors() {
 
         errors.reject("1");
         errors.rejectValue("nom", "1");
@@ -437,7 +448,7 @@ public class ErrorsTest {
      * test de la méthode quand il n'y a pas
      * d'erreur
      */
-    @Test public void testGetErrorCountWithoutErrors() {
+    public void testGetErrorCountWithoutErrors() {
 
         assertEquals(0, errors.getErrorCount());
 
@@ -446,7 +457,7 @@ public class ErrorsTest {
     /**
      * test quand il y a une erreurs
      */
-    @Test public void testGetFieldErrorWithOneError() {
+    public void testGetFieldErrorWithOneError() {
 
         errors.rejectValue("name", "1");
         
@@ -463,7 +474,7 @@ public class ErrorsTest {
     /**
      * test quand il y a plusieurs erreurs
      */
-    @Test public void testGetFieldErrorWithSeveralErrors() {
+    public void testGetFieldErrorWithSeveralErrors() {
 
         errors.rejectValue("name", "1");
         errors.rejectValue("email", "1");
@@ -483,7 +494,7 @@ public class ErrorsTest {
     /**
      * test quand il y a une erreur globale
      */
-    @Test public void testGetFieldErrorWithGlobalError() {
+    public void testGetFieldErrorWithGlobalError() {
 
         errors.reject("1");
         
@@ -496,7 +507,7 @@ public class ErrorsTest {
      * test quand il n'y a pas d'erreurs correspondante pour le champs
      * 
      */
-    @Test public void testGetFieldErrorWithoutErrorForTheField() {
+    public void testGetFieldErrorWithoutErrorForTheField() {
 
         assertNull(errors.getFieldError("name", Locale.FRENCH));
 
@@ -505,7 +516,7 @@ public class ErrorsTest {
     /**
      * test quand il n'y a pas d'erreurs
      */
-    @Test public void testGetFieldErrorsWithoutErrors() {
+    public void testGetFieldErrorsWithoutErrors() {
 
         assertNull(errors.getFieldErrors("name", Locale.FRENCH));
 
@@ -514,7 +525,7 @@ public class ErrorsTest {
     /**
      * test avec une erreur sur le champs
      */
-    @Test public void testGetFieldErrorsWithOneErrorOnField() {
+    public void testGetFieldErrorsWithOneErrorOnField() {
 
         errors.rejectValue("name", "1");
         
@@ -531,7 +542,7 @@ public class ErrorsTest {
     /**
      * test avec plusieurs erreurs sur le champs
      */
-    @Test public void testGetFieldErrorsWithSeveralErrorsOnField() {
+    public void testGetFieldErrorsWithSeveralErrorsOnField() {
 
         errors.rejectValue("name", "1");
         errors .rejectValue("name", "2");
@@ -557,7 +568,7 @@ public class ErrorsTest {
     /**
      * test avec plusieurs erreurs sur le champs
      */
-    @Test public void testGetFieldErrorsWithSeveralErrorsOnDifferentField() {
+    public void testGetFieldErrorsWithSeveralErrorsOnDifferentField() {
 
         errors.rejectValue("name", "1");
         errors.rejectValue("name", "2");
@@ -583,7 +594,7 @@ public class ErrorsTest {
     /**
      * test sans erreurs sur le champs
      */
-    @Test public void testGetFieldErrorsWithoutErrorsOnField() {
+    public void testGetFieldErrorsWithoutErrorsOnField() {
 
         assertNull(errors.getFieldErrors("name", Locale.FRENCH));
 
@@ -592,7 +603,7 @@ public class ErrorsTest {
     /**
      * test sans erreurs sur le champs mais avec une erreur global
      */
-    @Test public void testGetFieldErrorsWithGlobalError() {
+    public void testGetFieldErrorsWithGlobalError() {
 
         errors.reject("1");
 
@@ -603,7 +614,7 @@ public class ErrorsTest {
     /**
      * test quand il y a une erreur
      */
-    @Test public void testGetFieldErrorCountWithOneError() {
+    public void testGetFieldErrorCountWithOneError() {
 
         errors.rejectValue("name", "1");
 
@@ -614,7 +625,7 @@ public class ErrorsTest {
     /**
      * test quand il y a plusieurs erreurs
      */
-    @Test public void testGetFieldErrorCountWithSeveralErrors() {
+    public void testGetFieldErrorCountWithSeveralErrors() {
 
         errors.rejectValue("name", "1");
         errors.rejectValue("name", "1");
@@ -626,7 +637,7 @@ public class ErrorsTest {
     /**
      * test quand il y a plusieurs erreurs sur des champs diff�rents
      */
-    @Test public void testGetFieldErrorCountWithSeveralErrorsOnDifferentField() {
+    public void testGetFieldErrorCountWithSeveralErrorsOnDifferentField() {
 
         errors.rejectValue("name", "1");
         errors.rejectValue("name", "1");
@@ -639,7 +650,7 @@ public class ErrorsTest {
     /**
      * test quand il n'y a pas d'erreurs
      */
-    @Test public void testGetFieldErrorCountWithoutErrors() {
+    public void testGetFieldErrorCountWithoutErrors() {
 
         assertEquals(0, errors.getFieldErrorCount("name"));
 
@@ -648,7 +659,7 @@ public class ErrorsTest {
     /**
      * test quand il n'y a pas aussi des erreurs globales
      */
-    @Test public void testGetFieldErrorCountWithGlobalErrors() {
+    public void testGetFieldErrorCountWithGlobalErrors() {
 
         errors.rejectValue("name", "1");
         errors.reject("3");
@@ -660,7 +671,7 @@ public class ErrorsTest {
     /**
      * test avec une erreur
      */
-    @Test public void testGetGlobalErrorWithOneError() {
+    public void testGetGlobalErrorWithOneError() {
 
         errors.reject("1");
         
@@ -675,7 +686,7 @@ public class ErrorsTest {
     }
 
     /**
-     * test avec plusieurs ne erreur
+     * test avec plusieurs erreurs
      */
     public void testGetGlobalErrorWithSeveralErrors() {
 
@@ -688,15 +699,14 @@ public class ErrorsTest {
         replay(mockmessageSource);
           
         assertEquals("object incorrect", errors.getGlobalError(Locale.FRENCH));
-        
-        verify(mockmessageSource);
+
 
     }
 
     /**
      * test sans erreurs
      */
-    @Test public void testGetGlobalErrorWithoutErrors() {
+    public void testGetGlobalErrorWithoutErrors() {
 
         assertNull(errors.getGlobalError(Locale.FRENCH));
 
@@ -705,7 +715,7 @@ public class ErrorsTest {
     /**
      * test sans erreurs globale mais avec des erreurs de champs
      */
-    @Test public void testGetGlobalErrorWithoutErrorsButWithFieldErrors() {
+    public void testGetGlobalErrorWithoutErrorsButWithFieldErrors() {
 
         errors.rejectValue("name", "1");
 
@@ -716,7 +726,7 @@ public class ErrorsTest {
     /**
      * test quand il y a une erreur
      */
-    @Test public void testGetGlobalErrorCountWithOneError() {
+    public void testGetGlobalErrorCountWithOneError() {
 
         errors.reject("1");
 
@@ -727,7 +737,7 @@ public class ErrorsTest {
     /**
      * test quand il y a plusieurs erreurs
      */
-    @Test public void testGetGlobalErrorCountWithSeveralErrors() {
+    public void testGetGlobalErrorCountWithSeveralErrors() {
 
         errors.reject("1");
         errors.reject("2");
@@ -739,7 +749,7 @@ public class ErrorsTest {
     /**
      * test quand il n'y a pas d'erreurs
      */
-    @Test public void testGetGlobalErrorCountWithoutErrors() {
+    public void testGetGlobalErrorCountWithoutErrors() {
 
         assertEquals(0, errors.getGlobalErrorCount());
 
@@ -748,7 +758,7 @@ public class ErrorsTest {
     /**
      * test quand il n'y a pas des erreurs globales et des erreurs field
      */
-    @Test public void testGetGlobalErrorCountWithFieldErrors() {
+    public void testGetGlobalErrorCountWithFieldErrors() {
 
         errors.reject("1");
         errors.reject("2");
@@ -761,7 +771,7 @@ public class ErrorsTest {
     /**
      * test quand il y a une seule erreur
      */
-    @Test public void testGetGlobalErrorsWithOneError() {
+    public void testGetGlobalErrorsWithOneError() {
 
         errors.reject("1");
 
@@ -778,7 +788,7 @@ public class ErrorsTest {
     /**
      * test quand il y a plusieurs erreurs
      */
-    @Test public void testGetGlobalErrorsWithSeveralErrors() {
+    public void testGetGlobalErrorsWithSeveralErrors() {
 
         errors.reject("1");
         errors.reject("2");
@@ -803,7 +813,7 @@ public class ErrorsTest {
     /**
      * test quand il n'y a pas d'erreurs
      */
-    @Test public void testGetGlobalErrorsWithoutErrors() {
+    public void testGetGlobalErrorsWithoutErrors() {
 
         assertEquals(0, errors.getGlobalErrors(Locale.FRENCH).size());
 
@@ -812,7 +822,7 @@ public class ErrorsTest {
     /**
      * test avec une erreur sur un champs
      */
-    @Test public void testGetGlobalErrorsWithErrorOnField() {
+    public void testGetGlobalErrorsWithErrorOnField() {
 
         errors.rejectValue("name", "1");
 
@@ -824,7 +834,7 @@ public class ErrorsTest {
      * test la méthode hasFieldErrors quand des erreurs
      * sont détectées
      */
-    @Test public void testHasFieldErrorsWithErrors() {
+    public void testHasFieldErrorsWithErrors() {
 
         errors.rejectValue("name", "1");
         errors.rejectValue("name", "1");
@@ -837,7 +847,7 @@ public class ErrorsTest {
      * test la méthode hasFieldErrors quand des erreurs
      * sont détectées
      */
-    @Test public void testHasFieldErrorsWithErrorsOnDifferentField() {
+    public void testHasFieldErrorsWithErrorsOnDifferentField() {
 
         errors.rejectValue("name", "1");
         errors.rejectValue("name", "1");
@@ -851,7 +861,7 @@ public class ErrorsTest {
      * test la méthode hasFieldErrors quand il
      * n'y a pas d'erreur
      */
-    @Test public void testHasFieldErrorsWithoutErrors() {
+    public void testHasFieldErrorsWithoutErrors() {
 
         assertFalse(errors.hasFieldErrors("email"));
 
@@ -861,7 +871,7 @@ public class ErrorsTest {
      * test la méthode hasFieldErrors quand il
      * n'y a des erreurs globales
      */
-    @Test public void testHasFieldErrorsWithGlobalErrors() {
+    public void testHasFieldErrorsWithGlobalErrors() {
 
         errors.reject("1");
 
@@ -873,7 +883,7 @@ public class ErrorsTest {
      * test la méthode hasGlobalErrors quand des erreurs
      * sont détectées
      */
-    @Test public void testHasGlobalErrorsWithErrors() {
+    public void testHasGlobalErrorsWithErrors() {
 
         errors.reject("1");
         errors.reject("1");
@@ -886,7 +896,7 @@ public class ErrorsTest {
      * test la méthode hasFieldErrors quand il
      * n'y a pas d'erreur
      */
-    @Test public void testHasGlobalErrorsWithoutErrors() {
+    public void testHasGlobalErrorsWithoutErrors() {
 
         assertFalse(errors.hasGlobalErrors());
 
@@ -896,7 +906,7 @@ public class ErrorsTest {
      * test la méthode hasGlobalErrors quand il
      * n'y a des erreurs field
      */
-    @Test public void testHasGlobalErrorsWithFieldErrors() {
+    public void testHasGlobalErrorsWithFieldErrors() {
 
         errors.rejectValue("name", "1");
 

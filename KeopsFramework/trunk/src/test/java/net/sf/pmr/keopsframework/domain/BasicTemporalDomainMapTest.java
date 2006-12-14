@@ -37,8 +37,7 @@
 package net.sf.pmr.keopsframework.domain;
 
 import static org.easymock.EasyMock.createMock;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.easymock.EasyMock.reset;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -46,12 +45,12 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.easymock.EasyMock;
+
+import junit.framework.TestCase;
 import net.sf.pmr.keopsframework.domain.collection.temporal.BasicTemporalDomainMapImpl;
 import net.sf.pmr.keopsframework.domain.collection.temporal.TemporalDomainMap;
 import net.sf.pmr.keopsframework.domain.object.DomainObject;
-
-import org.junit.Before;
-import org.junit.Test;
 
 /**
  * @author Arnaud
@@ -59,7 +58,7 @@ import org.junit.Test;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class BasicTemporalDomainMapTest {
+public class BasicTemporalDomainMapTest extends TestCase {
 
     private TemporalDomainMap temporalDomainMap;
     
@@ -70,7 +69,9 @@ public class BasicTemporalDomainMapTest {
     /*
      * @see TestCase#setUp()
      */
-    @Before public void setUp() throws Exception {
+    protected void setUp() throws Exception {
+    	
+        super.setUp();
         
         // initialized calendar
         calendar = GregorianCalendar.getInstance();
@@ -83,13 +84,22 @@ public class BasicTemporalDomainMapTest {
         
     }
 
- 
+    /*
+     * @see TestCase#tearDown()
+     */
+    protected void tearDown() throws Exception {
+    	reset(mockDomainObject);
+    	calendar = null;
+    	temporalDomainMap = null;
+        super.tearDown();
+    }
+    
     
     /**
      * test qu'un object positionné é la méme date (en miliseconde)
      * écrase le précédent object. 
      */
-    @Test public final void testPutVersionAtTheSameDate()  {
+    public final void testPutVersionAtTheSameDate()  {
 
         // date
         calendar.set(Calendar.MILLISECOND, calendar.get(Calendar.MILLISECOND) + 1);
@@ -110,9 +120,9 @@ public class BasicTemporalDomainMapTest {
     
     /**
      * test du put version avec des dates différentes
-     * l'object doit s'ajouter é la liste
+     * l'object doit s'ajouter à la liste
      */
-    @Test public final void testPutVersionWithDifferentDate() {
+    public final void testPutVersionWithDifferentDate() {
 
         //date
         calendar.set(Calendar.MILLISECOND, calendar.get(Calendar.MILLISECOND) + 1);
@@ -131,7 +141,7 @@ public class BasicTemporalDomainMapTest {
     /**
      * Test de la méthode getLatest aprés l'instanciation de la temporalMap
      */
-    @Test public final void testGetLatestAfterInstanciation() throws Exception {
+    public final void testGetLatestAfterInstanciation() throws Exception {
         
       // the object given to the constructor should be the latest object in history
         assertEquals("getLatest", mockDomainObject, temporalDomainMap.getLatest());
@@ -142,7 +152,7 @@ public class BasicTemporalDomainMapTest {
      * Test de la méthode get latest avec deux objects dans la map
      * @throws Exception
      */
-    @Test public final void testGetLatestWithTwoRecords() throws Exception {
+    public final void testGetLatestWithTwoRecords() throws Exception {
 
         calendar.set(Calendar.MILLISECOND, calendar.get(Calendar.MILLISECOND) + 1);
         
@@ -163,7 +173,7 @@ public class BasicTemporalDomainMapTest {
      * Test de la méthode get latest avec deux objects dans la map
      * @throws Exception
      */
-    @Test public final void testGetLatestWithThreeRecords() throws Exception {
+    public final void testGetLatestWithThreeRecords() throws Exception {
 
         calendar.set(Calendar.MILLISECOND, calendar.get(Calendar.MILLISECOND) + 1);
         Date date1 = calendar.getTime();
@@ -185,7 +195,7 @@ public class BasicTemporalDomainMapTest {
 	/**
 	 * test du get Version
 	 */
-    @Test public final void testGetVersion() {
+    public final void testGetVersion() {
 
         //date
         calendar.set(Calendar.MILLISECOND, calendar.get(Calendar.MILLISECOND) + 1);
@@ -200,7 +210,6 @@ public class BasicTemporalDomainMapTest {
         DomainObject mockDomainObject1 = createMock(DomainObject.class);
         DomainObject mockDomainObject2 = createMock(DomainObject.class);
         DomainObject mockDomainObject3 = createMock(DomainObject.class);
-        
         
         temporalDomainMap.putVersion(date1, mockDomainObject1);
         temporalDomainMap.putVersion(date2, mockDomainObject2);
@@ -219,7 +228,7 @@ public class BasicTemporalDomainMapTest {
      * sur le get map la list n'est pas modifiable. Elle est en read-only
      * car on utilise Collections.unmodifiableMap
      */
-    @Test public final void testGetMapAndModifyMap() {
+    public final void testGetMapAndModifyMap() {
         
         Map map = temporalDomainMap.getMap();
         
