@@ -36,9 +36,6 @@
 
 package net.sf.pmr.keopsframework.domain;
 
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.reset;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -77,7 +74,7 @@ public class BasicTemporalDomainMapTest extends TestCase {
         calendar = GregorianCalendar.getInstance();
         
         // mock domain object
-        mockDomainObject = createMock(DomainObject.class);
+        mockDomainObject = EasyMock.createMock(DomainObject.class);
         
         // instanciate temporal map
         temporalDomainMap = new BasicTemporalDomainMapImpl(new HashMap(), mockDomainObject);
@@ -88,9 +85,9 @@ public class BasicTemporalDomainMapTest extends TestCase {
      * @see TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
-    	reset(mockDomainObject);
-    	calendar = null;
-    	temporalDomainMap = null;
+
+    	EasyMock.reset(mockDomainObject);
+    	
         super.tearDown();
     }
     
@@ -105,8 +102,8 @@ public class BasicTemporalDomainMapTest extends TestCase {
         calendar.set(Calendar.MILLISECOND, calendar.get(Calendar.MILLISECOND) + 1);
         Date date = calendar.getTime();
         
-        DomainObject mockDomainObject1 = createMock(DomainObject.class);
-        DomainObject mockDomainObject2 = createMock(DomainObject.class);
+        DomainObject mockDomainObject1 = EasyMock.createMock(DomainObject.class);
+        DomainObject mockDomainObject2 = EasyMock.createMock(DomainObject.class);
 
         temporalDomainMap.putVersion(date, mockDomainObject1);
         
@@ -129,7 +126,7 @@ public class BasicTemporalDomainMapTest extends TestCase {
         Date date = calendar.getTime();
         
         // domainOject
-        DomainObject mockDomainObject = createMock(DomainObject.class);
+        DomainObject mockDomainObject = EasyMock.createMock(DomainObject.class);
         
         temporalDomainMap.putVersion(date,mockDomainObject);
         
@@ -158,7 +155,7 @@ public class BasicTemporalDomainMapTest extends TestCase {
         
         Date date = calendar.getTime();
         
-        DomainObject mockDomainObject = createMock(DomainObject.class);
+        DomainObject mockDomainObject = EasyMock.createMock(DomainObject.class);
         
         temporalDomainMap.putVersion(date, mockDomainObject);
         
@@ -181,8 +178,8 @@ public class BasicTemporalDomainMapTest extends TestCase {
         calendar.set(Calendar.MILLISECOND, calendar.get(Calendar.MILLISECOND) + 1);
         Date date2 = calendar.getTime();
         
-        DomainObject mockDomainObject1 = createMock(DomainObject.class);
-        DomainObject mockDomainObject2 = createMock(DomainObject.class);
+        DomainObject mockDomainObject1 = EasyMock.createMock(DomainObject.class);
+        DomainObject mockDomainObject2 = EasyMock.createMock(DomainObject.class);
         
         temporalDomainMap.putVersion(date1, mockDomainObject1);
         temporalDomainMap.putVersion(date2, mockDomainObject2);
@@ -207,9 +204,9 @@ public class BasicTemporalDomainMapTest extends TestCase {
         calendar.set(Calendar.MILLISECOND, calendar.get(Calendar.MILLISECOND) + 1);
         Date date3 = calendar.getTime();
         
-        DomainObject mockDomainObject1 = createMock(DomainObject.class);
-        DomainObject mockDomainObject2 = createMock(DomainObject.class);
-        DomainObject mockDomainObject3 = createMock(DomainObject.class);
+        DomainObject mockDomainObject1 = EasyMock.createMock(DomainObject.class);
+        DomainObject mockDomainObject2 = EasyMock.createMock(DomainObject.class);
+        DomainObject mockDomainObject3 = EasyMock.createMock(DomainObject.class);
         
         temporalDomainMap.putVersion(date1, mockDomainObject1);
         temporalDomainMap.putVersion(date2, mockDomainObject2);
@@ -233,12 +230,11 @@ public class BasicTemporalDomainMapTest extends TestCase {
         Map map = temporalDomainMap.getMap();
         
         try {
-            map.put(new Date(), createMock(DomainObject.class));
+            map.put(new Date(), EasyMock.createMock(DomainObject.class));
             fail("should throw a UnsupportedOperationException");
         } catch (UnsupportedOperationException e) {
         }
         
     }
-
 
 }
