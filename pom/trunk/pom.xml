@@ -1,4 +1,6 @@
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sf.pmr</groupId>
@@ -9,10 +11,14 @@
 
 	<!-- Subversion repository -->
 	<scm>
-	    <connection>scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/pom/trunk</connection>
-	    <developerConnection>scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/pom/trunk</developerConnection>
-	    <tag>HEAD</tag>
-	    <url>http://pmr.svn.sourceforge.net/svnroot/pmr/pom/trunk</url>
+		<connection>
+			scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/pom/trunk
+		</connection>
+		<developerConnection>
+			scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/pom/trunk
+		</developerConnection>
+		<tag>HEAD</tag>
+		<url>http://pmr.svn.sourceforge.net/svnroot/pmr/pom/trunk</url>
 	</scm>
 
 
@@ -65,7 +71,7 @@
 			</exclusions>
 
 		</dependency>
-		
+
 		<!-- project dependencies -->
 		<dependency>
 			<groupId>commons-validator</groupId>
@@ -73,7 +79,7 @@
 			<version>1.3.1</version>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<!-- oro : needed by commons-validator -->
 		<dependency>
 			<groupId>oro</groupId>
