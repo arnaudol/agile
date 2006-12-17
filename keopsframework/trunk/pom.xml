@@ -15,10 +15,10 @@
 	
 	<!-- Subversion repository -->
 	<scm>
-	    <connection>scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/KeopsFramework/trunk/</connection>
-	    <developerConnection>scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/KeopsFramework/trunk/</developerConnection>
+	    <connection>scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/keopsframework/trunk/</connection>
+	    <developerConnection>scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/keopsframework/trunk/</developerConnection>
 	    <tag>HEAD</tag>
-	    <url>http://pmr.svn.sourceforge.net/svnroot/pmr/KeopsFramework/trunk/</url>
+	    <url>http://pmr.svn.sourceforge.net/svnroot/pmr/keopsframework/trunk/</url>
 	</scm>
 
 	<!-- developpers -->
