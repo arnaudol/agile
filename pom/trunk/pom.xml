@@ -8,7 +8,12 @@
 	<version>0.3.3</version>
 	<artifactId>pmr</artifactId>
 	<packaging>pom</packaging>
-	<name>pom</name>
+	<name>Master pom</name>
+	<description>
+		This is a master POM that is meant to be used by the various
+		pmr modules. It contains information that is common to all
+		projects.
+	</description>
 
 	<!-- Subversion repository -->
 	<scm>
@@ -24,14 +29,14 @@
 
 
 	<!-- modules -->
-	<modules>
+	<!-- 
+		<modules>
 		<module>../core</module>
-		<!-- 
-			<module>../agileplanning</module>
-			<module>../todo</module>
-			<module>../web</module>
-			<module>../webfaces</module>
-		-->
+		<module>../agileplanning</module>
+		<module>../todo</module>
+		<module>../web</module>
+		<module>../webfaces</module>
+	-->
 	</modules>
 
 	<!-- jdk 1.5 -->
