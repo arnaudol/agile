@@ -20,7 +20,7 @@
 
 	<!-- modules -->
 	<modules>
-		<module>../Core</module>
+		<module>../core</module>
 		<!-- 
 			<module>../agileplanning</module>
 			<module>../todo</module>
