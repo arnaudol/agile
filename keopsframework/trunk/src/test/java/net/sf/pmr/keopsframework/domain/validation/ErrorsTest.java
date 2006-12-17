@@ -35,18 +35,12 @@
  */
 package net.sf.pmr.keopsframework.domain.validation;
 
-
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.reset;
-import static org.easymock.EasyMock.verify;
-
 import java.util.List;
 import java.util.Locale;
 
 import junit.framework.TestCase;
 
+import org.easymock.EasyMock;
 import org.springframework.context.MessageSource;
 
 /**
@@ -65,7 +59,7 @@ public class ErrorsTest extends TestCase {
     	
         super.setUp();
         
-    	mockmessageSource = createMock(MessageSource.class);
+    	mockmessageSource = EasyMock.createMock(MessageSource.class);
         
         errors = new ErrorsImpl(mockmessageSource);
         
@@ -75,7 +69,7 @@ public class ErrorsTest extends TestCase {
      * @see TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
-    	reset(mockmessageSource);
+    	EasyMock.reset(mockmessageSource);
         super.tearDown();
     }
     
@@ -209,14 +203,14 @@ public class ErrorsTest extends TestCase {
     public void testgetAllErrorsWithOneGlobalErrors() {
         
         errors.reject("1");
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("L'object est incohérent");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("L'object est incohérent");
         
-        replay(mockmessageSource);
+        EasyMock.replay(mockmessageSource);
         
         assertEquals("L'object est incohérent", errors.getAllErrors(Locale.FRENCH).get(0));
         assertEquals(1, errors.getGlobalErrorCount());
         
-        verify(mockmessageSource);
+        EasyMock.verify(mockmessageSource);
 
     }
 
@@ -229,19 +223,19 @@ public class ErrorsTest extends TestCase {
         errors.reject("1");
         errors.reject("2");
 
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("L'object est incohérent");
-        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'object est super incohérent");
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("L'object est incohérent");
-        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'object est super incohérent");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("L'object est incohérent");
+        EasyMock.expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'object est super incohérent");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("L'object est incohérent");
+        EasyMock.expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'object est super incohérent");
         
-        replay(mockmessageSource);
+        EasyMock.replay(mockmessageSource);
         
         assertTrue(errors.getAllErrors(Locale.FRENCH).contains("L'object est incohérent"));
         assertTrue(errors.getAllErrors(Locale.FRENCH).contains("L'object est super incohérent"));
         
         assertEquals(2, errors.getErrorCount());
         
-        verify(mockmessageSource);
+        EasyMock.verify(mockmessageSource);
 
 
     }
@@ -254,13 +248,13 @@ public class ErrorsTest extends TestCase {
 
         errors.rejectValue("name", "1");
 
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
         
-        replay(mockmessageSource);
+        EasyMock.replay(mockmessageSource);
         assertEquals("Le nom est incorrect", errors.getAllErrors(Locale.FRENCH).get(0));
         assertEquals(1, errors.getErrorCount());
         
-        verify(mockmessageSource);
+        EasyMock.verify(mockmessageSource);
 
     }
 
@@ -273,19 +267,19 @@ public class ErrorsTest extends TestCase {
         errors.rejectValue("name", "1");
         errors.rejectValue("e-mail", "2");
         
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
-        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'email est incorrect");
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
-        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'email est incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'email est incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'email est incorrect");
         
-        replay(mockmessageSource);
+        EasyMock.replay(mockmessageSource);
 
         assertTrue("", errors.getAllErrors(Locale.FRENCH).contains("Le nom est incorrect"));
         assertTrue("", errors.getAllErrors(Locale.FRENCH).contains("L'email est incorrect"));
         
         assertEquals(2, errors.getErrorCount());
         
-        verify(mockmessageSource);
+        EasyMock.verify(mockmessageSource);
 
     }
 
@@ -299,19 +293,19 @@ public class ErrorsTest extends TestCase {
         errors.rejectValue("e-mail", "2");
         errors.reject("3");
         
-        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'email est incorrect");
-        expect(mockmessageSource.getMessage("3", null, Locale.FRENCH)).andReturn("L'object est incohérent");
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'email est incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("3", null, Locale.FRENCH)).andReturn("L'object est incohérent");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
 
-        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'email est incorrect");
-        expect(mockmessageSource.getMessage("3", null, Locale.FRENCH)).andReturn("L'object est incohérent");
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'email est incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("3", null, Locale.FRENCH)).andReturn("L'object est incohérent");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
 
-        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'email est incorrect");
-        expect(mockmessageSource.getMessage("3", null, Locale.FRENCH)).andReturn("L'object est incohérent");
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("L'email est incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("3", null, Locale.FRENCH)).andReturn("L'object est incohérent");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("Le nom est incorrect");
         
-        replay(mockmessageSource);
+        EasyMock.replay(mockmessageSource);
       
         assertTrue("nom", errors.getAllErrors(Locale.FRENCH).contains("Le nom est incorrect"));
         assertTrue("email", errors.getAllErrors(Locale.FRENCH).contains("L'email est incorrect"));
@@ -319,7 +313,7 @@ public class ErrorsTest extends TestCase {
 
         assertEquals("nombre total d'erreur", 3, errors.getErrorCount());
         
-        verify(mockmessageSource);
+        EasyMock.verify(mockmessageSource);
         
     }
 
@@ -461,13 +455,13 @@ public class ErrorsTest extends TestCase {
 
         errors.rejectValue("name", "1");
         
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
         
-        replay(mockmessageSource);
+        EasyMock.replay(mockmessageSource);
         
         assertEquals("nom incorrect", errors.getFieldError("name", Locale.FRENCH));
        
-       verify(mockmessageSource);
+        EasyMock.verify(mockmessageSource);
 
     }
 
@@ -479,15 +473,15 @@ public class ErrorsTest extends TestCase {
         errors.rejectValue("name", "1");
         errors.rejectValue("email", "1");
         
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("email incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("email incorrect");
         
-        replay(mockmessageSource);
+        EasyMock.replay(mockmessageSource);
 
         assertEquals("nom incorrect", errors.getFieldError("name", Locale.FRENCH));
         assertEquals("email incorrect", errors.getFieldError("email", Locale.FRENCH));
         
-        verify(mockmessageSource);
+        EasyMock.verify(mockmessageSource);
 
     }
 
@@ -529,13 +523,13 @@ public class ErrorsTest extends TestCase {
 
         errors.rejectValue("name", "1");
         
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
         
-        replay(mockmessageSource);
+        EasyMock.replay(mockmessageSource);
 
         assertEquals("nom incorrect", errors.getFieldErrors("name", Locale.FRENCH).get(0));
         
-        verify(mockmessageSource);	
+        EasyMock.verify(mockmessageSource);	
 
     }
 
@@ -548,20 +542,20 @@ public class ErrorsTest extends TestCase {
         errors .rejectValue("name", "2");
         
         
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
-        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("mais alors pas du tout");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("mais alors pas du tout");
 
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
-        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("mais alors pas du tout");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("mais alors pas du tout");
         
-        replay(mockmessageSource);
+        EasyMock.replay(mockmessageSource);
         
         assertTrue(errors.getFieldErrors("name", Locale.FRENCH).contains("nom incorrect"));
         assertTrue(errors.getFieldErrors("name", Locale.FRENCH).contains("mais alors pas du tout"));
         
         assertEquals(2, errors.getFieldErrorCount("name"));
         
-        verify(mockmessageSource);
+        EasyMock.verify(mockmessageSource);
 
     }
 
@@ -574,20 +568,20 @@ public class ErrorsTest extends TestCase {
         errors.rejectValue("name", "2");
         errors.rejectValue("email", "3");
         
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
-        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("mais alors pas du tout");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("mais alors pas du tout");
 
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
-        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("mais alors pas du tout");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("nom incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("mais alors pas du tout");
         
-        replay(mockmessageSource);
+        EasyMock.replay(mockmessageSource);
         
         assertTrue(errors.getFieldErrors("name", Locale.FRENCH).contains("nom incorrect"));
         assertTrue(errors.getFieldErrors("name", Locale.FRENCH).contains("mais alors pas du tout"));
         
         assertEquals(2, errors.getFieldErrorCount("name"));
         
-        verify(mockmessageSource);
+        EasyMock.verify(mockmessageSource);
 
     }
 
@@ -675,13 +669,13 @@ public class ErrorsTest extends TestCase {
 
         errors.reject("1");
         
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("object incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("object incorrect");
         
-        replay(mockmessageSource);
+        EasyMock.replay(mockmessageSource);
        
         assertEquals("object incorrect", errors.getGlobalError(Locale.FRENCH));
        
-        verify(mockmessageSource);
+        EasyMock.verify(mockmessageSource);
 
     }
 
@@ -693,10 +687,10 @@ public class ErrorsTest extends TestCase {
         errors.reject("1");
         errors.reject("2");
         
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("object incorrect");
-        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("object super incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("object incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("object super incorrect");
         
-        replay(mockmessageSource);
+        EasyMock.replay(mockmessageSource);
           
         assertEquals("object incorrect", errors.getGlobalError(Locale.FRENCH));
 
@@ -775,13 +769,13 @@ public class ErrorsTest extends TestCase {
 
         errors.reject("1");
 
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("object incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("object incorrect");
         
-        replay(mockmessageSource);
+        EasyMock.replay(mockmessageSource);
         
         assertEquals("object incorrect", errors.getGlobalErrors(Locale.FRENCH).get(0));
         
-        verify(mockmessageSource);
+        EasyMock.verify(mockmessageSource);
 
     }
 
@@ -793,20 +787,20 @@ public class ErrorsTest extends TestCase {
         errors.reject("1");
         errors.reject("2");
         
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("object incorrect");
-        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("object lui aussi incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("object incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("object lui aussi incorrect");
         
-        expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("object incorrect");
-        expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("object lui aussi incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("1", null, Locale.FRENCH)).andReturn("object incorrect");
+        EasyMock.expect(mockmessageSource.getMessage("2", null, Locale.FRENCH)).andReturn("object lui aussi incorrect");
         
-        replay(mockmessageSource);
+        EasyMock.replay(mockmessageSource);
                 
         assertTrue(errors.getGlobalErrors(Locale.FRENCH).contains("object incorrect"));
         assertTrue(errors.getGlobalErrors(Locale.FRENCH).contains("object lui aussi incorrect"));
         
         assertEquals(2, errors.getGlobalErrorCount());
         
-        verify(mockmessageSource);
+        EasyMock.verify(mockmessageSource);
 
     }
 
