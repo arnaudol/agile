@@ -35,22 +35,20 @@
 
 package net.sf.pmr.core.domain.project;
 
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
 import net.sf.pmr.core.CoreObjectFactory;
-import net.sf.pmr.core.data.project.MockBasicProjectMapper;
-import net.sf.pmr.core.domain.project.Project;
-import net.sf.pmr.core.domain.project.ProjectImpl;
-import net.sf.pmr.core.domain.project.ProjectRepository;
-import net.sf.pmr.core.domain.project.ProjectRepositoryImpl;
+import net.sf.pmr.core.data.project.ProjectMapper;
 
+import org.easymock.EasyMock;
 import org.springframework.aop.TargetSource;
 import org.springframework.aop.framework.Advised;
 import org.springframework.aop.target.SingletonTargetSource;
-
-import de.abstrakt.mock.MockCore;
 
 
 /**
@@ -58,9 +56,9 @@ import de.abstrakt.mock.MockCore;
  */
 public class ProjectRepositoryTest extends TestCase {
 
-    private MockBasicProjectMapper mockBasicProjectMapper;
+    private ProjectMapper mockBasicProjectMapper;
     
-    private MockProjectProxyUtil mockBasicProjectProxyUtil;
+    private ProjectProxyUtil mockBasicProjectProxyUtil;
     
     private ProjectRepository basicProjectRepository;
     
@@ -73,10 +71,9 @@ public class ProjectRepositoryTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        // mock du mapper
-        mockBasicProjectMapper = new MockBasicProjectMapper();
-        
-        mockBasicProjectProxyUtil = new MockProjectProxyUtil();
+        // mock
+        mockBasicProjectMapper = EasyMock.createMock(ProjectMapper.class);
+        mockBasicProjectProxyUtil = EasyMock.createMock(ProjectProxyUtil.class);
         
         // instanciation de la repository
         basicProjectRepository = new ProjectRepositoryImpl(mockBasicProjectMapper, mockBasicProjectProxyUtil);
@@ -84,15 +81,16 @@ public class ProjectRepositoryTest extends TestCase {
         // instanciation d'un basicProject (un proxy)
         basicProject = CoreObjectFactory.getProject();
         
-        // reset du mockCore
-        MockCore.reset();
-        
     }
 
     /*
      * @see TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
+    	
+    	EasyMock.reset(mockBasicProjectMapper);
+    	EasyMock.reset(mockBasicProjectProxyUtil);
+    	
         super.tearDown();
     }
 
@@ -105,25 +103,26 @@ public class ProjectRepositoryTest extends TestCase {
     }
     
     /**
-     * Project est un proxy � cause du lazy load fait par
+     * Project est un proxy à cause du lazy load fait par
      * AOP pour la methode getMembers
      * Avant d'envoyer l'object au mapper pour ajout en base, 
-     * il faut r�cup�rer la target du proxy 
+     * il faut récupérer la target du proxy 
      */
     public void testRepositorySendTargetedObjectToTheMapperWhenAddingOrUpdating() {
         
-        // r�cup�ration de l'object target du proxy
+        // récupération de l'object target du proxy
         TargetSource targetSource = ((Advised) basicProject).getTargetSource();        
         Object target = ((SingletonTargetSource) targetSource).getTarget();
         Project basicProjectTarget = (Project) target;
         
-        mockBasicProjectProxyUtil.expectGetTarget(basicProject, basicProjectTarget);
+        expect(mockBasicProjectProxyUtil.getTarget(basicProject)).andReturn(basicProjectTarget);
+        mockBasicProjectMapper.addOrUpdate(basicProjectTarget);
         
-        mockBasicProjectMapper.expectAddOrUpdate(basicProjectTarget);
+        replay(mockBasicProjectProxyUtil);
         
         basicProjectRepository.addOrUpdate(basicProject);
-        
-        MockCore.verify();
+
+        EasyMock.verify(mockBasicProjectProxyUtil);
         
     }
     
@@ -132,18 +131,21 @@ public class ProjectRepositoryTest extends TestCase {
         Project basicProject1 = new ProjectImpl();
         Project basicProject2 = new ProjectImpl();
         
-        List listToReturn = new ArrayList();
+        List<Project> listToReturn = new ArrayList<Project>();
         listToReturn.add(basicProject1);
         listToReturn.add(basicProject2);
         
-        mockBasicProjectMapper.expectFindAll(listToReturn);
+        EasyMock.expect(mockBasicProjectMapper.findAll()).andReturn(listToReturn);
+        EasyMock.expect(mockBasicProjectProxyUtil.injectDependencies(basicProject1)).andReturn(new ProjectImpl());
+        EasyMock.expect(mockBasicProjectProxyUtil.injectDependencies(basicProject1)).andReturn(new ProjectImpl());
 
-        mockBasicProjectProxyUtil.expectInjectDependencies(basicProject1, new ProjectImpl());
-        mockBasicProjectProxyUtil.expectInjectDependencies(basicProject2, new ProjectImpl());
+        replay(mockBasicProjectMapper);
+        replay(mockBasicProjectProxyUtil);
+                
+        basicProjectRepository.findAll();
         
-        List list = basicProjectRepository.findAll();
-        
-        MockCore.verify();
+        EasyMock.verify(mockBasicProjectMapper);
+        EasyMock.verify(mockBasicProjectProxyUtil);
         
     }
     
@@ -153,13 +155,16 @@ public class ProjectRepositoryTest extends TestCase {
         
         Project basicProjectTarget =  new ProjectImpl();
         
-        mockBasicProjectMapper.expectFindById(1, basicProjectTarget);
+        expect(mockBasicProjectMapper.findById(1)).andReturn(basicProjectTarget);
+        expect(mockBasicProjectProxyUtil.injectDependencies(basicProject)).andReturn(basicProjectTarget);
         
-        mockBasicProjectProxyUtil.expectInjectDependencies(basicProject, basicProjectTarget);
+        replay(mockBasicProjectMapper);
+        replay(mockBasicProjectProxyUtil);
         
-        Project basicProjectToFind = basicProjectRepository.findByPersistanceId(1);
+        basicProjectRepository.findByPersistanceId(1);
         
-        MockCore.verify();
+        EasyMock.verify(mockBasicProjectMapper);
+        EasyMock.verify(mockBasicProjectProxyUtil);
         
     }
     

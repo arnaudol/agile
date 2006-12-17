@@ -36,151 +36,146 @@
 package net.sf.pmr.core.service;
 
 import junit.framework.TestCase;
-import net.sf.pmr.core.CoreObjectFactory;
-import net.sf.pmr.core.domain.user.MockUser;
-import net.sf.pmr.core.domain.user.MockUserRepository;
-import net.sf.pmr.core.domain.user.User;
-import de.abstrakt.mock.MockCore;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
  */
 public class SecurityServiceTest extends TestCase {
   
-    private MockUserRepository mockUserRepository ;
-    
-    private MockUser mockUser; 
-    
-	/*
-	 * @see TestCase#setUp()
-	 */
-	protected void setUp() throws Exception {
-		super.setUp();
-		mockUserRepository = new MockUserRepository();
-	    // Mock the user
-	    mockUser = new MockUser(); 
-	}
-
-	/*
-	 * @see TestCase#tearDown()
-	 */
-	protected void tearDown() throws Exception {
-		super.tearDown();
-	}
-	
-	
-	/**
-     * test if object is not a singleton
-     *
-     */
-    public final void testSingleton() {
-        
-        assertTrue("singleton", CoreObjectFactory.isSingleton("securityService"));
-
-    }
-	
-
-	/**
-	 * L'utilisateur est connu et le mot de passe est correct
-	 */
-	public final void testLoginWithoutUserFound() {
-	    
-	  
-	    
-	    // simulate no user found
-	    User user = null;
-	    mockUserRepository.setFindUserByLoginDummy(user);
-	    
-	    //get a security service
-	    SecurityService securityService = new SecurityServiceImpl(mockUserRepository);
-
-	    assertEquals("login with user not found", null, securityService.login("", ""));
-
-	}
-	
-	
-	/**
-	 * L'utilisateur est connu et le mot de passe est correct
-	 */
-	public final void testLoginWithUserFoundAndCorrectPassword() {
-	    
-	 
-	    // simulate user found
-	    
-	    mockUserRepository.expectFindUserByLogin("", mockUser);
-	    mockUser.setGetPasswordDummy("scooby");
-	    mockUser.expectSetPassword("password not show for security reason");    
-	    
-	    //get a security service
-	    SecurityService securityService = new SecurityServiceImpl(mockUserRepository);
-
-	    assertTrue("login with user found", securityService.login("", "scooby") instanceof User);   
-
-	}
-	
-	
-	/**
-	 * L'utilisateur est connu et le mot de passe est correct
-	 */
-	public final void testLoginWithUserFoundAndIncorrectPassword() {
-	    
-	     MockCore.reset();
-	    
-	    // simulate user found
-	    mockUserRepository.expectFindUserByLogin("", mockUser);
-	    mockUser.setGetPasswordDummy("doo");
-	    mockUser.expectSetPassword("password not show for security reason");    
-	    
-	    //get a security service
-	    SecurityService securityService = new SecurityServiceImpl(mockUserRepository);
-
-	    assertEquals("login with user found and incorrect password", null, securityService.login("", "scooby"));   
-
-	}
-	
-	
-	/**
-	 * L'utilisateur est connu et le mot de passe est correct mais ne respect pas la casse
-	 * (le mot de passe est case sensitive)
-	 */
-	public final void testLoginWithUserFoundAndCorrectPasswordButBadCase() {
-	
-	    // TODO trouver pourquoi avoir besoin de faire un reset !!
-	    
-	    // reset (for use in test suite)
-        MockCore.reset();
-	    
-	    //	  simulate user found
-	    
-	    mockUserRepository.expectFindUserByLogin("", mockUser);
-	    mockUser.setGetPasswordDummy("scOobY");
-	    mockUser.expectSetPassword("password not show for security reason");    
-	    
-	    //get a security service
-	    SecurityService securityService = new SecurityServiceImpl(mockUserRepository);
-
-	    assertEquals("login with user found and correct password but bad case", null, securityService.login("", "scooby"));  
-
-	}
-	
-	
-	 /**
-     * test the construction of the object in the ApplicationContext
-     *
-     */
-    public final void testObjectConstruction() {
-        
-        // get a member from the application context
-        SecurityService securityService = CoreObjectFactory.getSecurityService();
-
-        // the user repository should have been injected
-        try {
-            securityService.login("","");
-        } catch (NullPointerException e) {
-            fail("should not throw null pointer exception");
-        }
-        
-    }
-	
+//    private MockUserRepository mockUserRepository ;
+//    
+//    private MockUser mockUser; 
+//    
+//	/*
+//	 * @see TestCase#setUp()
+//	 */
+//	protected void setUp() throws Exception {
+//		super.setUp();
+//		mockUserRepository = new MockUserRepository();
+//	    // Mock the user
+//	    mockUser = new MockUser(); 
+//	}
+//
+//	/*
+//	 * @see TestCase#tearDown()
+//	 */
+//	protected void tearDown() throws Exception {
+//		super.tearDown();
+//	}
+//	
+//	
+//	/**
+//     * test if object is not a singleton
+//     *
+//     */
+//    public final void testSingleton() {
+//        
+//        assertTrue("singleton", CoreObjectFactory.isSingleton("securityService"));
+//
+//    }
+//	
+//
+//	/**
+//	 * L'utilisateur est connu et le mot de passe est correct
+//	 */
+//	public final void testLoginWithoutUserFound() {
+//	    
+//	  
+//	    
+//	    // simulate no user found
+//	    User user = null;
+//	    mockUserRepository.setFindUserByLoginDummy(user);
+//	    
+//	    //get a security service
+//	    SecurityService securityService = new SecurityServiceImpl(mockUserRepository);
+//
+//	    assertEquals("login with user not found", null, securityService.login("", ""));
+//
+//	}
+//	
+//	
+//	/**
+//	 * L'utilisateur est connu et le mot de passe est correct
+//	 */
+//	public final void testLoginWithUserFoundAndCorrectPassword() {
+//	    
+//	 
+//	    // simulate user found
+//	    
+//	    mockUserRepository.expectFindUserByLogin("", mockUser);
+//	    mockUser.setGetPasswordDummy("scooby");
+//	    mockUser.expectSetPassword("password not show for security reason");    
+//	    
+//	    //get a security service
+//	    SecurityService securityService = new SecurityServiceImpl(mockUserRepository);
+//
+//	    assertTrue("login with user found", securityService.login("", "scooby") instanceof User);   
+//
+//	}
+//	
+//	
+//	/**
+//	 * L'utilisateur est connu et le mot de passe est correct
+//	 */
+//	public final void testLoginWithUserFoundAndIncorrectPassword() {
+//	    
+//	     MockCore.reset();
+//	    
+//	    // simulate user found
+//	    mockUserRepository.expectFindUserByLogin("", mockUser);
+//	    mockUser.setGetPasswordDummy("doo");
+//	    mockUser.expectSetPassword("password not show for security reason");    
+//	    
+//	    //get a security service
+//	    SecurityService securityService = new SecurityServiceImpl(mockUserRepository);
+//
+//	    assertEquals("login with user found and incorrect password", null, securityService.login("", "scooby"));   
+//
+//	}
+//	
+//	
+//	/**
+//	 * L'utilisateur est connu et le mot de passe est correct mais ne respect pas la casse
+//	 * (le mot de passe est case sensitive)
+//	 */
+//	public final void testLoginWithUserFoundAndCorrectPasswordButBadCase() {
+//	
+//	    // TODO trouver pourquoi avoir besoin de faire un reset !!
+//	    
+//	    // reset (for use in test suite)
+//        MockCore.reset();
+//	    
+//	    //	  simulate user found
+//	    
+//	    mockUserRepository.expectFindUserByLogin("", mockUser);
+//	    mockUser.setGetPasswordDummy("scOobY");
+//	    mockUser.expectSetPassword("password not show for security reason");    
+//	    
+//	    //get a security service
+//	    SecurityService securityService = new SecurityServiceImpl(mockUserRepository);
+//
+//	    assertEquals("login with user found and correct password but bad case", null, securityService.login("", "scooby"));  
+//
+//	}
+//	
+//	
+//	 /**
+//     * test the construction of the object in the ApplicationContext
+//     *
+//     */
+//    public final void testObjectConstruction() {
+//        
+//        // get a member from the application context
+//        SecurityService securityService = CoreObjectFactory.getSecurityService();
+//
+//        // the user repository should have been injected
+//        try {
+//            securityService.login("","");
+//        } catch (NullPointerException e) {
+//            fail("should not throw null pointer exception");
+//        }
+//        
+//    }
+//	
 
 }

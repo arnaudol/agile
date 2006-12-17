@@ -36,193 +36,183 @@
 package net.sf.pmr.core.service;
 
 import junit.framework.TestCase;
-import net.sf.pmr.core.CoreObjectFactory;
-import net.sf.pmr.core.domain.user.company.Address;
-import net.sf.pmr.core.domain.user.company.AddressImpl;
-import net.sf.pmr.core.domain.user.company.Company;
-import net.sf.pmr.core.domain.user.company.CompanyImpl;
-import net.sf.pmr.core.domain.user.company.MockCompanyRepository;
-import net.sf.pmr.keopsframework.domain.validation.MockErrors;
-import net.sf.pmr.keopsframework.domain.validation.MockValidator;
-import de.abstrakt.mock.MockCore;
-import de.abstrakt.mock.expectable.Ignore;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
  */
 public class CompanyServiceTest extends TestCase {
 
-    private CompanyService companyService;
-    
-    private MockCompanyRepository mockCompanyRepository;
-    
-    private MockValidator mockCompanyValidator;
-    
-    private MockValidator mockAddressValidator;
-    
-    private MockErrors mockCompanyErrors;
-    
-    private MockErrors mockAddressErrors;
-
-    
-    /*
-     * @see TestCase#setUp()
-     */
-    protected void setUp() throws Exception {
-        super.setUp();
-        
-        mockCompanyRepository = new MockCompanyRepository();
-        
-        mockCompanyValidator = new MockValidator();
-        
-        mockAddressValidator = new MockValidator();
-        
-        companyService = new CompanyServiceImpl(mockCompanyRepository, mockCompanyValidator, mockAddressValidator);
-        
-        mockCompanyErrors = new MockErrors();
-        
-        mockAddressErrors = new MockErrors();
-        
-        MockCore.reset();
-
-    }
-
-    /*
-     * @see TestCase#tearDown()
-     */
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
-    
-    /**
-     * test qu'il s'agit d'un singleton
-     */
-    public void testIsASingleton() {
-        
-        assertTrue(CoreObjectFactory.isSingleton("companyService"));
-    }
-
-    /**
-     * Test de l'ajout d'une entreprise
-     * La validation de l'entreprise echoue :
-     * - la validation de l'adresse ne doit pas être faite
-     * - l'enregistrement n'est pas réalisée
-     */
-    public void testAddCompanyAndCompanyValidationFailed() {
-        
-        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
-        mockCompanyErrors.expectHasErrors(true);
-        
-        companyService.addOrUpdate(0, "world company", "1", "world street", "001", "world city", "world Country", 0);
-       
-        MockCore.verify();
-        
-    }
-    
-    /**
-     * Test de l'ajout d'une entreprise
-     * La validation de l'adresse echoue
-     * - l'enregistrement ne doit pas être fait
-     */
-    public void testAddCompanyAndAddressValidationFailed() {
-        
-        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
-        mockCompanyErrors.expectHasErrors(false);
-        mockAddressValidator.acceptValidate(new Ignore(), mockAddressErrors);
-        mockAddressErrors.expectHasErrors(true);
-        
-        companyService.addOrUpdate(0, "world company", "1", "world street", "001", "world city", "world Country", 0);
-       
-        MockCore.verify();
-        
-    }
-    
-    
-    /**
-     * Test de l'ajout d'une entreprise
-     * La validation réussie
-     * - l'enregistrement peut avoir lieu
-     */
-    public void testAddCompanyAndValidationSucceed() {
-        
-        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
-        mockCompanyErrors.expectHasErrors(false);
-        mockAddressValidator.acceptValidate(new Ignore(), mockAddressErrors);
-        mockAddressErrors.expectHasErrors(false);
-        mockCompanyRepository.acceptAddOrUpdate(new Ignore());
-        
-        companyService.addOrUpdate(0, "world company", "1", "world street", "001", "world city", "world Country", 0);
-       
-        MockCore.verify();
-        
-    }
-    
-    /**
-     * Test de la mise à jour d'une entreprise
-     * La validation de l'entreprise echoue
-     * - pas de validaton de l'adresse
-     * - pas de mise à jour
-     */
-    public void testUpdateCompanyAndCompanyValidationFailed() {
-
-        Company company =  new CompanyImpl();
-        Address address = new AddressImpl();
-        company.setAddress(address);
-        
-        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
-        mockCompanyErrors.expectHasErrors(true);
-        
-        companyService.addOrUpdate(1, "world company", "1", "world street", "001", "world city", "world Country", 0);
-       
-        MockCore.verify();
-        
-    }
-    
-    /**
-     * Test de la mise à jour d'une entreprise
-     * La validation de l'adresse echoue
-     * - pas de mise à jour
-     */
-    public void testUpdateCompanyAndAddressValidationFailed() {
-
-        Company company =  new CompanyImpl();
-        Address address = new AddressImpl();
-        company.setAddress(address);
-        
-        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
-        mockCompanyErrors.expectHasErrors(false);
-        mockAddressValidator.acceptValidate(new Ignore(), mockAddressErrors);
-        mockAddressErrors.expectHasErrors(true);
-        
-        companyService.addOrUpdate(1, "world company", "1", "world street", "001", "world city", "world Country", 0);
-       
-        MockCore.verify();
-        
-    }
-    
-    
-    /**
-     * Test de la mise à jour d'une entreprise
-     * La validation réussie
-     * - l'enregistrement peut avoir lieu
-     */
-    public void testUdapteCompanyAndValidationSucceed() {
-        
-        Company company =  new CompanyImpl();
-        Address address = new AddressImpl();
-        company.setAddress(address);
-        
-        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
-        mockCompanyErrors.expectHasErrors(false);
-        mockAddressValidator.acceptValidate(new Ignore(), mockAddressErrors);
-        mockAddressErrors.expectHasErrors(false);
-        mockCompanyRepository.acceptAddOrUpdate(new Ignore());
-        
-        companyService.addOrUpdate(1, "world company", "1", "world street", "001", "world city", "world Country", 0);
-       
-        MockCore.verify();
-        
-    }
+//    private CompanyService companyService;
+//    
+//    private MockCompanyRepository mockCompanyRepository;
+//    
+//    private MockValidator mockCompanyValidator;
+//    
+//    private MockValidator mockAddressValidator;
+//    
+//    private MockErrors mockCompanyErrors;
+//    
+//    private MockErrors mockAddressErrors;
+//
+//    
+//    /*
+//     * @see TestCase#setUp()
+//     */
+//    protected void setUp() throws Exception {
+//        super.setUp();
+//        
+//        mockCompanyRepository = new MockCompanyRepository();
+//        
+//        mockCompanyValidator = new MockValidator();
+//        
+//        mockAddressValidator = new MockValidator();
+//        
+//        companyService = new CompanyServiceImpl(mockCompanyRepository, mockCompanyValidator, mockAddressValidator);
+//        
+//        mockCompanyErrors = new MockErrors();
+//        
+//        mockAddressErrors = new MockErrors();
+//        
+//        MockCore.reset();
+//
+//    }
+//
+//    /*
+//     * @see TestCase#tearDown()
+//     */
+//    protected void tearDown() throws Exception {
+//        super.tearDown();
+//    }
+//    
+//    /**
+//     * test qu'il s'agit d'un singleton
+//     */
+//    public void testIsASingleton() {
+//        
+//        assertTrue(CoreObjectFactory.isSingleton("companyService"));
+//    }
+//
+//    /**
+//     * Test de l'ajout d'une entreprise
+//     * La validation de l'entreprise echoue :
+//     * - la validation de l'adresse ne doit pas ï¿½tre faite
+//     * - l'enregistrement n'est pas rï¿½alisï¿½e
+//     */
+//    public void testAddCompanyAndCompanyValidationFailed() {
+//        
+//        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
+//        mockCompanyErrors.expectHasErrors(true);
+//        
+//        companyService.addOrUpdate(0, "world company", "1", "world street", "001", "world city", "world Country", 0);
+//       
+//        MockCore.verify();
+//        
+//    }
+//    
+//    /**
+//     * Test de l'ajout d'une entreprise
+//     * La validation de l'adresse echoue
+//     * - l'enregistrement ne doit pas ï¿½tre fait
+//     */
+//    public void testAddCompanyAndAddressValidationFailed() {
+//        
+//        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
+//        mockCompanyErrors.expectHasErrors(false);
+//        mockAddressValidator.acceptValidate(new Ignore(), mockAddressErrors);
+//        mockAddressErrors.expectHasErrors(true);
+//        
+//        companyService.addOrUpdate(0, "world company", "1", "world street", "001", "world city", "world Country", 0);
+//       
+//        MockCore.verify();
+//        
+//    }
+//    
+//    
+//    /**
+//     * Test de l'ajout d'une entreprise
+//     * La validation rï¿½ussie
+//     * - l'enregistrement peut avoir lieu
+//     */
+//    public void testAddCompanyAndValidationSucceed() {
+//        
+//        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
+//        mockCompanyErrors.expectHasErrors(false);
+//        mockAddressValidator.acceptValidate(new Ignore(), mockAddressErrors);
+//        mockAddressErrors.expectHasErrors(false);
+//        mockCompanyRepository.acceptAddOrUpdate(new Ignore());
+//        
+//        companyService.addOrUpdate(0, "world company", "1", "world street", "001", "world city", "world Country", 0);
+//       
+//        MockCore.verify();
+//        
+//    }
+//    
+//    /**
+//     * Test de la mise ï¿½ jour d'une entreprise
+//     * La validation de l'entreprise echoue
+//     * - pas de validaton de l'adresse
+//     * - pas de mise ï¿½ jour
+//     */
+//    public void testUpdateCompanyAndCompanyValidationFailed() {
+//
+//        Company company =  new CompanyImpl();
+//        Address address = new AddressImpl();
+//        company.setAddress(address);
+//        
+//        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
+//        mockCompanyErrors.expectHasErrors(true);
+//        
+//        companyService.addOrUpdate(1, "world company", "1", "world street", "001", "world city", "world Country", 0);
+//       
+//        MockCore.verify();
+//        
+//    }
+//    
+//    /**
+//     * Test de la mise ï¿½ jour d'une entreprise
+//     * La validation de l'adresse echoue
+//     * - pas de mise ï¿½ jour
+//     */
+//    public void testUpdateCompanyAndAddressValidationFailed() {
+//
+//        Company company =  new CompanyImpl();
+//        Address address = new AddressImpl();
+//        company.setAddress(address);
+//        
+//        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
+//        mockCompanyErrors.expectHasErrors(false);
+//        mockAddressValidator.acceptValidate(new Ignore(), mockAddressErrors);
+//        mockAddressErrors.expectHasErrors(true);
+//        
+//        companyService.addOrUpdate(1, "world company", "1", "world street", "001", "world city", "world Country", 0);
+//       
+//        MockCore.verify();
+//        
+//    }
+//    
+//    
+//    /**
+//     * Test de la mise ï¿½ jour d'une entreprise
+//     * La validation rï¿½ussie
+//     * - l'enregistrement peut avoir lieu
+//     */
+//    public void testUdapteCompanyAndValidationSucceed() {
+//        
+//        Company company =  new CompanyImpl();
+//        Address address = new AddressImpl();
+//        company.setAddress(address);
+//        
+//        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
+//        mockCompanyErrors.expectHasErrors(false);
+//        mockAddressValidator.acceptValidate(new Ignore(), mockAddressErrors);
+//        mockAddressErrors.expectHasErrors(false);
+//        mockCompanyRepository.acceptAddOrUpdate(new Ignore());
+//        
+//        companyService.addOrUpdate(1, "world company", "1", "world street", "001", "world city", "world Country", 0);
+//       
+//        MockCore.verify();
+//        
+//    }
     
    
 }

@@ -152,7 +152,7 @@ public class ProjectServiceImpl implements ProjectService {
     /**
      * @see net.sf.pmr.core.service.ProjectService#countAll()
      */
-    public Integer countAll() {
+    public Long countAll() {
         return basicProjectRepository.countAll();
     }
     

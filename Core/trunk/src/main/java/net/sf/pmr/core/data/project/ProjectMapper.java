@@ -52,7 +52,7 @@ public interface ProjectMapper extends DomainObjectRootAggregateMapper {
      * count all project.
      * @return number of project
      */
-    Integer countAll();
+    Long countAll();
 
     /**
      * find all users.

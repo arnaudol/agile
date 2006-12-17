@@ -65,7 +65,7 @@ public class ProjectValidatorTest extends TestCase {
         basicProjectValidator = CoreObjectFactory.getProjectValidator();
         
         basicProject = new ProjectImpl();
-        basicProject.setMembers(new HashSet());
+        basicProject.setMembers(new HashSet<User>());
         
         super.setUp();
         
@@ -200,7 +200,7 @@ public class ProjectValidatorTest extends TestCase {
      */
     public void testValidateProjectMustHaveAtLeastOneNotNullMemberwithLocaleFrench() {
         
-        Set set = new HashSet();
+        Set<User> set = new HashSet<User>();
         set.add(null);
         basicProject.setMembers(set);
         
@@ -216,7 +216,7 @@ public class ProjectValidatorTest extends TestCase {
      */
     public void testValidateProjectMustHaveAtLeastOneNotNullMemberwithLocaleEnglish() {
 
-        Set set = new HashSet();
+        Set<User> set = new HashSet<User>();
         set.add(null);
         basicProject.setMembers(set);
         
@@ -234,7 +234,7 @@ public class ProjectValidatorTest extends TestCase {
     public void testValidateProjectMustHaveAtLeastOneMemberAndHaveOneMember() {
 
         User user = new UserImpl();
-        Set set = new HashSet();
+        Set<User> set = new HashSet<User>();
         set.add(user);
         
         basicProject.setMembers(set);
@@ -253,7 +253,7 @@ public class ProjectValidatorTest extends TestCase {
 
         User user1 = new UserImpl();
         User user2 = new UserImpl();
-        Set set = new HashSet();
+        Set<User> set = new HashSet<User>();
         set.add(user1);
         set.add(user2);
         

@@ -35,21 +35,22 @@
 
 package net.sf.pmr.core.domain.project;
 
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.reset;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import junit.framework.TestCase;
 import net.sf.pmr.core.CoreObjectFactory;
-import net.sf.pmr.core.data.user.MockUserMapper;
-import net.sf.pmr.core.domain.project.Project;
-import net.sf.pmr.core.domain.project.DomainCollectionLasyLoadingInterceptor;
+import net.sf.pmr.core.data.user.UserMapper;
 import net.sf.pmr.core.domain.user.UserImpl;
 
 import org.springframework.aop.TargetSource;
 import org.springframework.aop.framework.Advised;
 import org.springframework.aop.target.SingletonTargetSource;
-
-import de.abstrakt.mock.MockCore;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
@@ -60,7 +61,7 @@ public class GetMembersLasyLoadingInterceptorTest extends TestCase {
 
     private DomainCollectionLasyLoadingInterceptor domainCollectionLasyLoadingInterceptor;
 
-    private MockUserMapper mockUserMapper;
+    private UserMapper mockUserMapper;
 
     /*
      * @see TestCase#setUp()
@@ -75,11 +76,9 @@ public class GetMembersLasyLoadingInterceptorTest extends TestCase {
         domainCollectionLasyLoadingInterceptor = CoreObjectFactory.getMembersLasyLoadingAdvice();
 
         // mock the mapper
-        mockUserMapper = new MockUserMapper();
+        mockUserMapper = createMock(UserMapper.class);
+        
         domainCollectionLasyLoadingInterceptor.setDomainListMapper(mockUserMapper);
-
-        // reset (for use in test suite)
-        MockCore.reset();
         
     }
 
@@ -87,6 +86,9 @@ public class GetMembersLasyLoadingInterceptorTest extends TestCase {
      * @see TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
+    	
+    	reset(mockUserMapper);
+    	
         super.tearDown();
      
     }
@@ -95,9 +97,10 @@ public class GetMembersLasyLoadingInterceptorTest extends TestCase {
      * test le bon fonctionnement du lazy loading
      * quand la liste des membres est null :
      * <ul>
-     * <li>le lazy loading doit se d�clencher</li>
-     * <li>Une nouvelle liste doit �tre retourn�e</li>
-     * <li>Cette nouvelle liste doit �tre stock�e dans le l'object "targett�"</li>
+     * <li>le lazy loading doit se déclencher</li>
+     * <li>Une nouvelle liste doit être retournée</li>
+     * <li>Cette nouvelle liste doit être stockée dans le l'object "targetté"</li>
+     * </ul>
      */
     public void testLasyLoadingWhenCollectionOfMemberIsNull() {
 
@@ -105,11 +108,11 @@ public class GetMembersLasyLoadingInterceptorTest extends TestCase {
 
         Set set = new HashSet();
 
-        mockUserMapper.setFindCollectionForObjectDummy(set);
-
-        // un probable bug dans mock creator emp�che d'utiliser expect...
-        // TODO trouver la cause du bug, pb � cause du fait que la classe basiProject est wrapp� dans un proxy.
-        // mockUserMapper.expectFindCollectionForObject(basicProject, set);
+        //expect(mockUserMapper.findCollectionForObject(EasyMock.same(basicProject))).andReturn(set);
+        
+        expect(mockUserMapper.findCollectionForObject(basicProject)).andReturn(set);
+        
+        replay(mockUserMapper);
         
         // Test le retour de la liste
         assertEquals(set, basicProject.getMembers());
@@ -121,21 +124,21 @@ public class GetMembersLasyLoadingInterceptorTest extends TestCase {
         
         assertEquals(set, basicProjectTarget.getMembers());
 
-        MockCore.verify();
+        //verify(mockUserMapper);
 
     }
     
     /**
      * test le lazy loading quand la liste des membres est vite
      * (size = 0)
-     * Le Lazy loading ne doit pas se d�clancher
+     * Le Lazy loading ne doit pas se déclancher
      */
     public void testLasyLoadingWhenCollectionMemberIsEmpty() {
 
         Set set = new HashSet();
         Set set2 = new HashSet();
 
-        mockUserMapper.setFindCollectionForObjectDummy(set);
+        expect(mockUserMapper.findCollectionForObject(basicProject)).andReturn(set);
 
         basicProject.setMembers(set2);
 
@@ -163,7 +166,8 @@ public class GetMembersLasyLoadingInterceptorTest extends TestCase {
         Set set2 = new HashSet();
         set2.add(new UserImpl());
 
-        mockUserMapper.setFindCollectionForObjectDummy(set);
+        expect(mockUserMapper.findCollectionForObject(basicProject)).andReturn(set);
+
 
         basicProject.setMembers(set2);
 

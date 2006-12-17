@@ -56,7 +56,7 @@ public class DBUnitExtractDTDFromShema {
             Class driverClass = Class.forName("com.mysql.jdbc.Driver");
 
     		Connection jdbcConnection = DriverManager.getConnection(
-    				"jdbc:mysql://localhost:3306/pm", "pm", "pm");
+    				"jdbc:mysql://localhost:3306/pmtu", "pm", "pm");
             IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
 
             // write DTD file

@@ -40,7 +40,8 @@ import java.util.Locale;
 import junit.framework.TestCase;
 import net.sf.pmr.keopsframework.domain.validation.Errors;
 import net.sf.pmr.keopsframework.domain.validation.Validator;
-import de.abstrakt.mock.MockCore;
+
+import org.easymock.EasyMock;
 
 
 /**
@@ -52,7 +53,7 @@ public class UserValidatorTest extends TestCase {
     
     private Validator userValidator;
     
-    private MockUserRepository mockUserRepository;
+    private UserRepository mockUserRepository;
     
     /*
      * @see TestCase#setUp()
@@ -62,7 +63,8 @@ public class UserValidatorTest extends TestCase {
         
         user = new UserImpl();
         
-        mockUserRepository = new MockUserRepository();
+        mockUserRepository = EasyMock.createMock(UserRepository.class);
+        
         userValidator = new UserValidatorImpl(mockUserRepository);
         
        
@@ -73,6 +75,9 @@ public class UserValidatorTest extends TestCase {
      * @see TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
+    	
+    	EasyMock.reset(mockUserRepository);
+    	
         super.tearDown();
     }
 
@@ -98,10 +103,7 @@ public class UserValidatorTest extends TestCase {
     }
     
     public final void testValidateLoginPropertyLength() {
-        
-        
-        MockCore.reset();
-        
+                
         // first in french
         user.setLogin("AAAA");
         
@@ -115,7 +117,10 @@ public class UserValidatorTest extends TestCase {
         // set methods calls
         // first, call to findByLogin method
         User userToReturn = null;
-        mockUserRepository.expectFindUserByLogin("AAAAAA", userToReturn);
+        EasyMock.expect(mockUserRepository.findUserByLogin("AAAAAA")).andReturn(userToReturn);
+        EasyMock.expectLastCall().times(2);
+        
+        EasyMock.replay(mockUserRepository);
         
         user.setLogin("AAAAAA");
         errors = userValidator.validate(user);
@@ -133,14 +138,16 @@ public class UserValidatorTest extends TestCase {
 
         // set methods calls
         // first, call to findByLogin method
-        mockUserRepository.expectFindUserByLogin("AAAAAA", userToReturn);
+        //mockUserRepository.expectFindUserByLogin("AAAAAA", userToReturn);
+        
+    
 
         
         user.setLogin("AAAAAA");
         errors = userValidator.validate(user);
         assertFalse(errors.hasFieldErrors("login"));
         
-        MockCore.verify();
+        EasyMock.verify(mockUserRepository);
     
         
     }
@@ -204,12 +211,9 @@ public class UserValidatorTest extends TestCase {
     
     
     /*
-     * Le login de l'utilisateur doit �tre unique
+     * Le login de l'utilisateur doit être unique
      */
     public final void testValidateUserLoginMustBeUnique() {
-        
-        // reset (for use in test suite)
-        MockCore.reset();
         
         user.setLogin("batman");
         
@@ -220,7 +224,9 @@ public class UserValidatorTest extends TestCase {
         
         // set methods calls
         // first, call to findByLogin method
-        mockUserRepository.expectFindUserByLogin("batman", userToReturn);
+        EasyMock.expect(mockUserRepository.findUserByLogin("batman")).andReturn(userToReturn);
+        // In french and in English
+        EasyMock.expectLastCall().times(2);
         
         // In french
         Errors errors = userValidator.validate(user);
@@ -229,30 +235,29 @@ public class UserValidatorTest extends TestCase {
         
         // set methods calls
         // first, call to findByLogin method
-        mockUserRepository.expectFindUserByLogin("batman", userToReturn);
+        //mockUserRepository.expectFindUserByLogin("batman", userToReturn);
         
         // In English
         errors = userValidator.validate(user);
         assertEquals("a user with this login already exists", errors.getFieldError("login", Locale.ENGLISH));
 
         // verify
-        MockCore.verify();
+        EasyMock.verify(mockUserRepository);
         
     }
     
      
     public final void testValidateWhenUserIsOK() {
         
-        // reset (for use in test suite)
-        MockCore.reset();
-
 
         // create a new User
         User userToReturn = null;
         
         // set methods calls
         // first, call to findByLogin method
-        mockUserRepository.expectFindUserByLogin("scooby", userToReturn);
+        EasyMock.expect(mockUserRepository.findUserByLogin("scooby")).andReturn(userToReturn);
+        
+        EasyMock.replay(mockUserRepository);
         
         user.setEmail("scooby@doo.fr");
         user.setFirstName("scooby");
@@ -265,7 +270,7 @@ public class UserValidatorTest extends TestCase {
         assertFalse(errors.hasErrors());
        
         // verify
-        MockCore.verify();
+        EasyMock.verify(mockUserRepository);
         
     }
 

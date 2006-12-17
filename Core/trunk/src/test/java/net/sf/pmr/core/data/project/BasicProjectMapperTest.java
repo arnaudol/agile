@@ -40,12 +40,12 @@ import java.util.Set;
 
 import net.sf.pmr.core.CoreObjectFactory;
 import net.sf.pmr.core.MapperTestCase;
-import net.sf.pmr.core.data.project.ProjectMapper;
 import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.core.domain.user.UserImpl;
 
 import org.dbunit.dataset.ITable;
+import org.junit.Assert;
 import org.springframework.aop.TargetSource;
 import org.springframework.aop.framework.Advised;
 import org.springframework.aop.target.SingletonTargetSource;
@@ -63,13 +63,14 @@ public class BasicProjectMapperTest extends MapperTestCase {
      * @see TestCase#setUp()
      */
     protected void setUp() throws Exception {
+    	
         super.setUp();
         
         // getBasicProjectMapper        
         basicProjectMapper = CoreObjectFactory.getProjectMapper();
-
+        
     }
-
+    
     /*
      * @see TestCase#tearDown()
      */
@@ -77,13 +78,14 @@ public class BasicProjectMapperTest extends MapperTestCase {
         super.tearDown();
     }
     
+    
     /**
      * test if object is a singleton
      *
      */
     public final void testSingleton() {
         
-        assertTrue("singleton", CoreObjectFactory.isSingleton("projectMapper"));
+        Assert.assertTrue("singleton", CoreObjectFactory.isSingleton("projectMapper"));
 
     }
 
@@ -91,20 +93,19 @@ public class BasicProjectMapperTest extends MapperTestCase {
     	
     		Project basicProject = (Project) basicProjectMapper.findById(1);
     		
-    		assertEquals("id", new Integer(1), new Integer(basicProject.getPersistanceId()));
-    		assertEquals("code", "PR1", basicProject.getCode());
-    		assertEquals("name", "PM Project", basicProject.getName());
-    		assertEquals("members", 0, basicProject.getMembers().size());
-    		assertEquals("version", 1, basicProject.getPersistanceVersion());
+    		Assert.assertEquals("id", new Integer(1), new Integer(basicProject.getPersistanceId()));
+    		Assert.assertEquals("code", "PR1", basicProject.getCode());
+    		Assert.assertEquals("name", "PM Project", basicProject.getName());
+    		Assert.assertEquals("members", 0, basicProject.getMembers().size());
+    		Assert.assertEquals("version", new Long(1).longValue(), basicProject.getPersistanceVersion());
 
     	}
-    
     
     public final void testfindByIdWithoutBasicProjectFound() {
 
         Project basicProject = (Project) basicProjectMapper.findById(198);
 
-		assertEquals("basicProject", null, basicProject);
+        Assert.assertEquals("basicProject", null, basicProject);
 
 	}
     
@@ -118,11 +119,11 @@ public class BasicProjectMapperTest extends MapperTestCase {
         Set<Project> set = basicProjectMapper.findForAUser(2);
 
 		// un seul projet trouvé
-		assertEquals(1, set.size());
+        Assert.assertEquals(1, set.size());
 
 		// vérifie que c'est le bon
 		for (Project project : set) {
-			assertEquals(2, project.getPersistanceId());
+			Assert.assertEquals(2, project.getPersistanceId());
 		}
 
 	}
@@ -137,11 +138,10 @@ public class BasicProjectMapperTest extends MapperTestCase {
         Set<Project> set = basicProjectMapper.findForAUser(1);
 
 		// un seul projet trouvé
-		assertEquals(0, set.size());
+        Assert.assertEquals(0, set.size());
 
     }
 
-    
     
 	public final void testAddWithoutConcurrencyFailureException()
             throws Exception {
@@ -176,11 +176,11 @@ public class BasicProjectMapperTest extends MapperTestCase {
        
 	   ITable databaseData = getConnection().createQueryTable("ExpectedData", query);
 	
-	   assertEquals("number of row", 1, databaseData.getRowCount());
+	   Assert.assertEquals("number of row", 1, databaseData.getRowCount());
 
-       assertEquals("code", "SP", databaseData.getValue(0, "code"));
-       assertEquals("name", "Super Project", databaseData.getValue(0, "name"));
-       assertEquals("Version", new Long(0), (Long) databaseData.getValue(0, "Version"));
+	   Assert.assertEquals("code", "SP", databaseData.getValue(0, "code"));
+	   Assert.assertEquals("name", "Super Project", databaseData.getValue(0, "name"));
+	   Assert.assertEquals("Version", new Long(0), (Long) databaseData.getValue(0, "Version"));
        
        
 	   //check
@@ -188,7 +188,7 @@ public class BasicProjectMapperTest extends MapperTestCase {
 	
 	   ITable databaseData2 = getConnection().createQueryTable("ExpectedData", query2);
 	
-	   assertEquals("number of row", 1, databaseData2.getRowCount());
+	   Assert.assertEquals("number of row", 1, databaseData2.getRowCount());
 
 
     }
@@ -219,7 +219,7 @@ public class BasicProjectMapperTest extends MapperTestCase {
         try {
             basicProjectMapper.addOrUpdate((Project) target2);
         } catch (ConcurrencyFailureException e) {
-            fail("should not throw ConcurrencyFailureException");
+        	Assert.fail("should not throw ConcurrencyFailureException");
         }
         
       // check
@@ -227,7 +227,7 @@ public class BasicProjectMapperTest extends MapperTestCase {
 
       ITable databaseData = getConnection().createQueryTable("ExpectedData", query);
 
-      assertEquals("number of row", 2, databaseData.getRowCount());
+      Assert.assertEquals("number of row", 2, databaseData.getRowCount());
 
     }
     
@@ -255,14 +255,13 @@ public class BasicProjectMapperTest extends MapperTestCase {
 
         ITable databaseData = getConnection().createQueryTable("ExpectedData", query);
 
-        assertEquals("number of row", 1, databaseData.getRowCount());
+        Assert.assertEquals("number of row", 1, databaseData.getRowCount());
 
-        assertEquals("code", "PR1", databaseData.getValue(0, "code"));
-        assertEquals("name", "super PM Project", databaseData.getValue(0, "name"));
-        assertEquals("Version", new Long(2), (Long) databaseData.getValue(0, "Version"));
+        Assert.assertEquals("code", "PR1", databaseData.getValue(0, "code"));
+        Assert.assertEquals("name", "super PM Project", databaseData.getValue(0, "name"));
+        Assert.assertEquals("Version", new Long(2).longValue(), databaseData.getValue(0, "Version"));
         
     }
-    
     
     public final void testUpdateWithConcurrencyFailureException()
             throws Exception {
@@ -302,11 +301,11 @@ public class BasicProjectMapperTest extends MapperTestCase {
 
         ITable databaseData = getConnection().createQueryTable("ExpectedData", query);
 
-        assertEquals("number of row", 1, databaseData.getRowCount());
+        Assert.assertEquals("number of row", 1, databaseData.getRowCount());
 
-        assertEquals("code", "PR1", databaseData.getValue(0, "code"));
-        assertEquals("name", "super PM Project", databaseData.getValue(0, "name"));
-        assertEquals("Version", new Long(2), (Long) databaseData.getValue(0, "Version"));
+        Assert.assertEquals("code", "PR1", databaseData.getValue(0, "code"));
+        Assert.assertEquals("name", "super PM Project", databaseData.getValue(0, "name"));
+        Assert.assertEquals("Version", new Long(2).longValue(), databaseData.getValue(0, "Version"));
         
 
     }
@@ -333,12 +332,11 @@ public class BasicProjectMapperTest extends MapperTestCase {
 
         ITable databaseData = getConnection().createQueryTable("ExpectedData", query);
         
-        assertEquals("number of row", 0, databaseData.getRowCount());
+        Assert.assertEquals("number of row", 0, databaseData.getRowCount());
 
         
 
     }
-    
     
     public final void testDeleteWithConcurrencyFailureException()
             throws Exception {
@@ -369,7 +367,7 @@ public class BasicProjectMapperTest extends MapperTestCase {
         
         try {
             basicProjectMapper.delete((Project) target2);
-            fail("should throw ConcurrencyFailureException");
+            Assert.fail("should throw ConcurrencyFailureException");
         } catch (ConcurrencyFailureException e) {
         }
 
@@ -377,11 +375,11 @@ public class BasicProjectMapperTest extends MapperTestCase {
 
     public final void testCountAllWithBasicProjectFound() throws Exception {
 	    
-	    Integer numberOfProjects = basicProjectMapper.countAll();
+	    Long numberOfProjects = basicProjectMapper.countAll();
 	   
-		Integer rowCount = new Integer(getConnection().getRowCount("PROJECT"));
+		Long rowCount = new Long(getConnection().getRowCount("PROJECT"));
 
-	    assertEquals("Number of project found", numberOfProjects, rowCount);
+		Assert.assertEquals("Number of project found", numberOfProjects, rowCount);
 	    
 	}
     
@@ -389,10 +387,8 @@ public class BasicProjectMapperTest extends MapperTestCase {
         
         List list = basicProjectMapper.findAll();
         
-        assertEquals(2, list.size());
+        Assert.assertEquals(2, list.size());
         
     }
-    
-    
-    
+        
 }

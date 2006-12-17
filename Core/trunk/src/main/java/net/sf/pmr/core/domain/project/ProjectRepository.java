@@ -47,7 +47,7 @@ public interface ProjectRepository {
      * count all basic project.
      * @return number of project
      */
-    Integer countAll();
+    Long countAll();
 
     /**
      * Add or update a project in the repository.

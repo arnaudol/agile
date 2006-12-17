@@ -44,12 +44,12 @@ import net.sf.pmr.core.domain.project.ProjectImpl;
 import net.sf.pmr.keopsframework.domain.object.DomainObject;
 
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
  */
-public class ProjectMapperImpl extends
-        org.springframework.orm.hibernate3.support.HibernateDaoSupport
+public class ProjectMapperImpl extends HibernateDaoSupport
         implements ProjectMapper {
 
     /* (non-Javadoc)
@@ -83,12 +83,12 @@ public class ProjectMapperImpl extends
     /* (non-Javadoc)
      * @see net.sf.pmr.core.data.project.ProjectMapper#countAll()
      */
-    public final Integer countAll() {
+    public final Long countAll() {
 
         List list = getHibernateTemplate()
                 .find(
                         "select count(*) from net.sf.pmr.core.domain.project.ProjectImpl");
-        return (Integer) DataAccessUtils.uniqueResult(list);
+        return (Long) DataAccessUtils.uniqueResult(list);
 
     }
 

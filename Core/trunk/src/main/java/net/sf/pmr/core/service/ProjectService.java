@@ -70,7 +70,7 @@ public interface ProjectService {
      * Count all projects.
      * @return number of projects
      */
-    Integer countAll();
+    Long countAll();
     
     /**
      * find all project.

@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.sf.pmr.core</groupId>
+	<artifactId>core</artifactId>
+	<packaging>jar</packaging>
+	<version>0.3.3</version>
+	<name>Core (Agile)</name>
+	<url>http://sourceforge.net/projects/pmr/</url>
+
+	<description>commun fonctionnality</description>
+	<issueManagement>
+		<url>http://sourceforge.net/tracker/?group_id=120429</url>
+	</issueManagement>
+
+	<!-- Common POM (multi-module project)-->
+	<parent>
+		<groupId>net.sf.pmr</groupId>
+		<artifactId>pmr</artifactId>
+		<version>0.3.3</version>
+	</parent>
+
+	<licenses>
+		<license>
+			<name>CeCILL v2</name>
+			<url>http://www.cecill.fr</url>
+		</license>
+	</licenses>
+
+
+	<developers>
+		<developer>
+			<name>Arnaud Prost</name>
+			<id>aprost</id>
+			<email>arnaud.prost@gmail.com</email>
+		</developer>
+		<developer>
+			<name>Laurent PETIT</name>
+			<id>lpetit</id>
+			<email>lpetit@users.sourceforge.net</email>
+		</developer>
+	</developers>
+
+</project>

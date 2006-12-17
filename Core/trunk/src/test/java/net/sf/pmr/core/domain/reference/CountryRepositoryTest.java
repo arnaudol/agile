@@ -38,8 +38,9 @@ package net.sf.pmr.core.domain.reference;
 import java.util.ArrayList;
 
 import junit.framework.TestCase;
-import net.sf.pmr.core.data.reference.MockCountryMapper;
-import de.abstrakt.mock.MockCore;
+import net.sf.pmr.core.data.reference.CountryMapper;
+
+import org.easymock.EasyMock;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
@@ -62,13 +63,13 @@ public class CountryRepositoryTest extends TestCase {
 
     public final void testFindAll() {
 
-        // reset (for use in test suite)
-        MockCore.reset();
-        
         // Mock countryMapper
-        MockCountryMapper mockCountryMapper = new MockCountryMapper();
+        CountryMapper mockCountryMapper = EasyMock.createMock(CountryMapper.class);
+        
         // set expected call
-        mockCountryMapper.acceptFindAll(new ArrayList());
+        EasyMock.expect(mockCountryMapper.findAll()).andReturn(new ArrayList<Country>());
+
+        EasyMock.replay(mockCountryMapper);
         
         CountryRepository countryRepository = new CountryRepositoryImpl(mockCountryMapper);
 
@@ -76,9 +77,8 @@ public class CountryRepositoryTest extends TestCase {
         countryRepository.findAll();
         
         // verify
-        MockCore.verify();
+        EasyMock.verify(mockCountryMapper);
 
     }
 
 }
-
