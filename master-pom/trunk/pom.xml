@@ -18,13 +18,13 @@
 	<!-- Subversion repository -->
 	<scm>
 		<connection>
-			scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/master-pom/trunk
+			scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/master-pom/trunk/
 		</connection>
 		<developerConnection>
-			scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/master-pom/trunk
+			scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/master-pom/trunk/
 		</developerConnection>
 		<tag>HEAD</tag>
-		<url>http://pmr.svn.sourceforge.net/svnroot/pmr/master-pom/trunk</url>
+		<url>http://pmr.svn.sourceforge.net/svnroot/pmr/master-pom/trunk/</url>
 	</scm>
 
 	<!-- modules -->
