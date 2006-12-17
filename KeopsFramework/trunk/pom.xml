@@ -8,9 +8,18 @@
 	<version>0.9i</version>
 	<description>commun fonctionnality</description>
 	<url>http://sourceforge.net/projects/pmr/</url>
+	
 	<issueManagement>
 		<url>http://sourceforge.net/tracker/?group_id=120429</url>
 	</issueManagement>
+	
+	<!-- Subversion repository -->
+	<scm>
+	    <connection>scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/KeopsFramework/trunk/</connection>
+	    <developerConnection>scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/KeopsFramework/trunk/</developerConnection>
+	    <tag>HEAD</tag>
+	    <url>http://pmr.svn.sourceforge.net/svnroot/pmr/KeopsFramework/trunk/</url>
+	</scm>
 
 	<!-- developpers -->
 	<developers>
