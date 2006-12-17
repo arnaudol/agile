@@ -20,6 +20,20 @@
 	    <tag>HEAD</tag>
 	    <url>http://pmr.svn.sourceforge.net/svnroot/pmr/keopsframework/trunk/</url>
 	</scm>
+	
+	<!-- notifiers for continuous integration -->
+	<ciManagement>
+		<system>continuum</system>
+		<notifiers>
+			<notifier>
+				<type>mail</type>
+				<configuration>
+					<address>arnaud.prost@gmail.com</address>
+				</configuration>
+				</notifier>
+		</notifiers>
+	</ciManagement>
+
 
 	<!-- developpers -->
 	<developers>
