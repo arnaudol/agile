@@ -9,6 +9,15 @@
 	<packaging>pom</packaging>
 	<name>pom</name>
 
+	<!-- Subversion repository -->
+	<scm>
+	    <connection>scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/</connection>
+	    <developerConnection>scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/</developerConnection>
+	    <tag>HEAD</tag>
+	    <url>http://pmr.svn.sourceforge.net/svnroot/pmr/</url>
+	</scm>
+
+
 	<!-- modules -->
 	<modules>
 		<module>../Core</module>
