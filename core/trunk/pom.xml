@@ -17,10 +17,10 @@
 	
 	<!-- Subversion repository -->
 	<scm>
-	    <connection>scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/core/</connection>
-	    <developerConnection>scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/core/</developerConnection>
+	    <connection>scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/core/trunk/</connection>
+	    <developerConnection>scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/core/trunk/</developerConnection>
 	    <tag>HEAD</tag>
-	    <url>http://pmr.svn.sourceforge.net/svnroot/pmr/core/</url>
+	    <url>http://pmr.svn.sourceforge.net/svnroot/pmr/core/trunk/</url>
 	</scm>
 
 	<!-- Common POM (multi-module project)-->
