@@ -6,13 +6,21 @@
 	<artifactId>core</artifactId>
 	<packaging>jar</packaging>
 	<version>0.3.3</version>
-	<name>Core (Agile)</name>
+	<name>core (Agile)</name>
 	<url>http://sourceforge.net/projects/pmr/</url>
 
 	<description>commun fonctionnality</description>
 	<issueManagement>
 		<url>http://sourceforge.net/tracker/?group_id=120429</url>
 	</issueManagement>
+	
+	<!-- Subversion repository -->
+	<scm>
+	    <connection>scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/core</connection>
+	    <developerConnection>scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/core</developerConnection>
+	    <tag>HEAD</tag>
+	    <url>http://pmr.svn.sourceforge.net/svnroot/pmr/core</url>
+	</scm>
 
 	<!-- Common POM (multi-module project)-->
 	<parent>
