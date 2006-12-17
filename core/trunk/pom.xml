@@ -29,25 +29,120 @@
 		<version>0.3.3</version>
 	</parent>
 
-	<licenses>
-		<license>
-			<name>CeCILL v2</name>
-			<url>http://www.cecill.fr</url>
-		</license>
-	</licenses>
+	<dependencies>
 
+		<!-- hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>3.2.1.ga</version>
+			<scope>runtime</scope>
 
-	<developers>
-		<developer>
-			<name>Arnaud Prost</name>
-			<id>aprost</id>
-			<email>arnaud.prost@gmail.com</email>
-		</developer>
-		<developer>
-			<name>Laurent PETIT</name>
-			<id>lpetit</id>
-			<email>lpetit@users.sourceforge.net</email>
-		</developer>
-	</developers>
+			<exclusions>
+
+				<!-- inutile car fonctionnement dans un conteneur J2EE  -->
+				<exclusion>
+					<groupId>javax.transaction</groupId>
+					<artifactId>jta</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.sql</groupId>
+					<artifactId>jdbc-stdext</artifactId>
+				</exclusion>
+			</exclusions>
+
+		</dependency>
+
+		<!-- project dependencies -->
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+			<version>1.3.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- oro : needed by commons-validator -->
+		<dependency>
+			<groupId>oro</groupId>
+			<artifactId>oro</artifactId>
+			<version>2.0.8</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- KeopsFramework -->
+		<dependency>
+			<groupId>net.sf.pmr.keopsframework</groupId>
+			<artifactId>keopsframework</artifactId>
+			<version>0.9i</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!--  MYSQL driver -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>3.1.14</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-hibernate3</artifactId>
+			<version>2.0.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>2.0.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Tests -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+			<version>2.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>2.2</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.2.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.0.1B</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.sql</groupId>
+			<artifactId>jdbc-stdext</artifactId>
+			<version>2.0</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
 
 </project>
