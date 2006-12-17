@@ -11,10 +11,10 @@
 
 	<!-- Subversion repository -->
 	<scm>
-	    <connection>scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/</connection>
-	    <developerConnection>scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/</developerConnection>
+	    <connection>scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/pom</connection>
+	    <developerConnection>scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/pom</developerConnection>
 	    <tag>HEAD</tag>
-	    <url>http://pmr.svn.sourceforge.net/svnroot/pmr/</url>
+	    <url>http://pmr.svn.sourceforge.net/svnroot/pmr/pom</url>
 	</scm>
 
 
