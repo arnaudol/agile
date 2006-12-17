@@ -19,9 +19,10 @@
 
 
 	<!-- modules -->
+	<!-- 
 	<modules>
 		<module>../core</module>
-		<!-- 
+	
 			<module>../agileplanning</module>
 			<module>../todo</module>
 			<module>../web</module>
