@@ -2,6 +2,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
 	<groupId>net.sf.pmr.core</groupId>
 	<artifactId>core</artifactId>
 	<packaging>jar</packaging>
@@ -16,16 +17,16 @@
 	
 	<!-- Subversion repository -->
 	<scm>
-	    <connection>scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/core</connection>
-	    <developerConnection>scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/core</developerConnection>
+	    <connection>scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/core/</connection>
+	    <developerConnection>scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/core/</developerConnection>
 	    <tag>HEAD</tag>
-	    <url>http://pmr.svn.sourceforge.net/svnroot/pmr/core</url>
+	    <url>http://pmr.svn.sourceforge.net/svnroot/pmr/core/</url>
 	</scm>
 
 	<!-- Common POM (multi-module project)-->
 	<parent>
-		<groupId>net.sf.pmr</groupId>
-		<artifactId>pmr</artifactId>
+		<groupId>net.sf.pmr.maven</groupId>
+		<artifactId>pom-master</artifactId>
 		<version>0.3.3</version>
 	</parent>
 
