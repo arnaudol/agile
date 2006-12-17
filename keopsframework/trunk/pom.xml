@@ -1,5 +1,7 @@
-<?xml version="1.0"?>
-<project>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sf.pmr.keopsframework</groupId>
@@ -8,19 +10,25 @@
 	<version>0.9i</version>
 	<description>commun fonctionnality</description>
 	<url>http://sourceforge.net/projects/pmr/</url>
-	
+
 	<issueManagement>
 		<url>http://sourceforge.net/tracker/?group_id=120429</url>
 	</issueManagement>
-	
+
 	<!-- Subversion repository -->
 	<scm>
-	    <connection>scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/keopsframework/trunk/</connection>
-	    <developerConnection>scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/keopsframework/trunk/</developerConnection>
-	    <tag>HEAD</tag>
-	    <url>http://pmr.svn.sourceforge.net/svnroot/pmr/keopsframework/trunk/</url>
+		<connection>
+			scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/keopsframework/trunk/
+		</connection>
+		<developerConnection>
+			scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/keopsframework/trunk/
+		</developerConnection>
+		<tag>HEAD</tag>
+		<url>
+			http://pmr.svn.sourceforge.net/svnroot/pmr/keopsframework/trunk/
+		</url>
 	</scm>
-	
+
 	<!-- notifiers for continuous integration -->
 	<ciManagement>
 		<system>continuum</system>
@@ -30,7 +38,7 @@
 				<configuration>
 					<address>arnaud.prost@gmail.com</address>
 				</configuration>
-				</notifier>
+			</notifier>
 		</notifiers>
 	</ciManagement>
 
@@ -41,15 +49,15 @@
 			<id>arnaud</id>
 			<name>Arnaud Prost</name>
 			<email>arnaud.prost@gmail.com</email>
-			<url></url>
-			<organization></organization>
-			<organizationUrl></organizationUrl>
+			<url />
+			<organization />
+			<organizationUrl />
 			<roles>
 				<role>project lead</role>
 				<role>architect</role>
 				<role>developer</role>
 			</roles>
-			<timezone></timezone>
+			<timezone />
 		</developer>
 	</developers>
 
