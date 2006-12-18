@@ -36,61 +36,73 @@
 package net.sf.pmr.core.service;
 
 import junit.framework.TestCase;
+import net.sf.pmr.core.CoreObjectFactory;
+import net.sf.pmr.core.domain.user.company.CompanyRepository;
+import net.sf.pmr.keopsframework.domain.validation.Errors;
+import net.sf.pmr.keopsframework.domain.validation.Validator;
+
+import org.easymock.EasyMock;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
  */
 public class CompanyServiceTest extends TestCase {
 
-//    private CompanyService companyService;
-//    
-//    private MockCompanyRepository mockCompanyRepository;
-//    
-//    private MockValidator mockCompanyValidator;
-//    
-//    private MockValidator mockAddressValidator;
-//    
-//    private MockErrors mockCompanyErrors;
-//    
-//    private MockErrors mockAddressErrors;
-//
-//    
-//    /*
-//     * @see TestCase#setUp()
-//     */
-//    protected void setUp() throws Exception {
-//        super.setUp();
-//        
-//        mockCompanyRepository = new MockCompanyRepository();
-//        
-//        mockCompanyValidator = new MockValidator();
-//        
-//        mockAddressValidator = new MockValidator();
-//        
-//        companyService = new CompanyServiceImpl(mockCompanyRepository, mockCompanyValidator, mockAddressValidator);
-//        
-//        mockCompanyErrors = new MockErrors();
-//        
-//        mockAddressErrors = new MockErrors();
-//        
-//        MockCore.reset();
-//
-//    }
-//
-//    /*
-//     * @see TestCase#tearDown()
-//     */
-//    protected void tearDown() throws Exception {
-//        super.tearDown();
-//    }
-//    
-//    /**
-//     * test qu'il s'agit d'un singleton
-//     */
-//    public void testIsASingleton() {
-//        
-//        assertTrue(CoreObjectFactory.isSingleton("companyService"));
-//    }
+    private CompanyService companyService;
+    
+    private CompanyRepository mockCompanyRepository;
+    
+    private Validator mockCompanyValidator;
+    
+    private Validator mockAddressValidator;
+    
+    private Errors mockCompanyErrors;
+    
+    private Errors mockAddressErrors;
+
+    
+    /*
+     * @see TestCase#setUp()
+     */
+    protected void setUp() throws Exception {
+        super.setUp();
+        
+        mockCompanyRepository = EasyMock.createMock(CompanyRepository.class);
+        
+        mockCompanyValidator = EasyMock.createMock(Validator.class);
+        
+        mockAddressValidator = EasyMock.createMock(Validator.class);
+        
+        companyService = new CompanyServiceImpl(mockCompanyRepository, mockCompanyValidator, mockAddressValidator);
+        
+        mockCompanyErrors = EasyMock.createMock(Errors.class);
+        
+        mockAddressErrors = EasyMock.createMock(Errors.class);
+        
+
+    }
+
+    /*
+     * @see TestCase#tearDown()
+     */
+    protected void tearDown() throws Exception {
+    	
+    	EasyMock.reset(mockCompanyRepository);
+    	EasyMock.reset(mockCompanyValidator);
+    	EasyMock.reset(mockAddressValidator);
+    	EasyMock.reset(mockCompanyErrors);
+    	EasyMock.reset(mockAddressErrors);
+    	
+        super.tearDown();
+    }
+    
+    /**
+     * test qu'il s'agit d'un singleton
+     */
+    public void testIsASingleton() {
+        
+        assertTrue(CoreObjectFactory.isSingleton("companyService"));
+    }
 //
 //    /**
 //     * Test de l'ajout d'une entreprise

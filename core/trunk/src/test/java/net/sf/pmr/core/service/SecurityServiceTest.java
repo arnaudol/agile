@@ -36,43 +36,51 @@
 package net.sf.pmr.core.service;
 
 import junit.framework.TestCase;
+import net.sf.pmr.core.CoreObjectFactory;
+import net.sf.pmr.core.domain.user.User;
+import net.sf.pmr.core.domain.user.UserRepository;
+
+import org.easymock.EasyMock;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
  */
 public class SecurityServiceTest extends TestCase {
   
-//    private MockUserRepository mockUserRepository ;
-//    
-//    private MockUser mockUser; 
-//    
-//	/*
-//	 * @see TestCase#setUp()
-//	 */
-//	protected void setUp() throws Exception {
-//		super.setUp();
-//		mockUserRepository = new MockUserRepository();
-//	    // Mock the user
-//	    mockUser = new MockUser(); 
-//	}
-//
-//	/*
-//	 * @see TestCase#tearDown()
-//	 */
-//	protected void tearDown() throws Exception {
-//		super.tearDown();
-//	}
-//	
-//	
-//	/**
-//     * test if object is not a singleton
-//     *
-//     */
-//    public final void testSingleton() {
-//        
-//        assertTrue("singleton", CoreObjectFactory.isSingleton("securityService"));
-//
-//    }
+    private UserRepository mockUserRepository ;
+    
+    private User mockUser; 
+    
+	/*
+	 * @see TestCase#setUp()
+	 */
+	protected void setUp() throws Exception {
+		super.setUp();
+		mockUserRepository = EasyMock.createMock(UserRepository.class);
+	    // Mock the user
+	    mockUser = EasyMock.createMock(User.class); 
+	}
+
+	/*
+	 * @see TestCase#tearDown()
+	 */
+	protected void tearDown() throws Exception {
+		EasyMock.reset(mockUser);
+		EasyMock.reset(mockUserRepository);
+		
+		super.tearDown();
+	}
+	
+	
+	/**
+     * test if object is not a singleton
+     *
+     */
+    public final void testSingleton() {
+        
+        assertTrue("singleton", CoreObjectFactory.isSingleton("securityService"));
+
+    }
 //	
 //
 //	/**

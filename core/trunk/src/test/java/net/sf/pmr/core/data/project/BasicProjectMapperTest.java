@@ -38,6 +38,7 @@ package net.sf.pmr.core.data.project;
 import java.util.List;
 import java.util.Set;
 
+import junit.framework.Assert;
 import net.sf.pmr.core.CoreObjectFactory;
 import net.sf.pmr.core.MapperTestCase;
 import net.sf.pmr.core.domain.project.Project;
@@ -45,7 +46,6 @@ import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.core.domain.user.UserImpl;
 
 import org.dbunit.dataset.ITable;
-import org.junit.Assert;
 import org.springframework.aop.TargetSource;
 import org.springframework.aop.framework.Advised;
 import org.springframework.aop.target.SingletonTargetSource;

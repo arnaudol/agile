@@ -36,71 +36,86 @@
 package net.sf.pmr.core.service;
 
 import junit.framework.TestCase;
+import net.sf.pmr.core.CoreObjectFactory;
+import net.sf.pmr.core.domain.project.ProjectRepository;
+import net.sf.pmr.core.domain.user.UserRepository;
+import net.sf.pmr.core.domain.user.company.CompanyRepository;
+import net.sf.pmr.keopsframework.domain.validation.Errors;
+import net.sf.pmr.keopsframework.domain.validation.Validator;
+
+import org.easymock.EasyMock;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
  */
 public class UserServiceTest extends TestCase {
     
-//    private UserService userService;
-//    
-//    private MockUserRepository mockUserRepository;
-//    
-//    private MockValidator mockUserValidator;
-//    
-//    private MockCompanyRepository mockCompanyRepository;
-//    
-//    //private MockValidator mockcompanyValidator;
-//    
-//    private MockErrors mockUserErrors;
-//    
-//    private MockErrors mockCompanyErrors;
-//    
-//    private MockProjectRepository mockBasicProjectRepository;
-//
-//
-//    /*
-//     * @see TestCase#setUp()
-//     */
-//    protected void setUp() throws Exception {
-//        super.setUp();
-//        
-//        mockUserRepository = new MockUserRepository();
-//        
-//        mockUserValidator = new MockValidator();
-//        
-//        mockCompanyRepository = new MockCompanyRepository();
-//        
-//        // mockcompanyValidator = new MockValidator();
-//
-//        mockBasicProjectRepository = new MockProjectRepository();
-//        
-//        userService = new UserServiceImpl(mockUserRepository, mockUserValidator, mockCompanyRepository, mockBasicProjectRepository);
-//        
-//        mockCompanyErrors = new MockErrors();
-//        
-//        mockUserErrors = new MockErrors();
-//        
-//        
-//        MockCore.reset();
-//        
-//    }
-//
-//    /*
-//     * @see TestCase#tearDown()
-//     */
-//    protected void tearDown() throws Exception {
-//        super.tearDown();
-//    }
-//    
-//    
-//    /**
-//     * test qu'il s'agit d'un singleton
-//     */
-//    public void testIsASingleton() {
-//        
-//        assertTrue(CoreObjectFactory.isSingleton("userService"));
-//    }
+    private UserService userService;
+    
+    private UserRepository mockUserRepository;
+    
+    private Validator mockUserValidator;
+    
+    private CompanyRepository mockCompanyRepository;
+    
+    //private MockValidator mockcompanyValidator;
+    
+    private Errors mockUserErrors;
+    
+    private Errors mockCompanyErrors;
+    
+    private ProjectRepository mockBasicProjectRepository;
+
+
+    /*
+     * @see TestCase#setUp()
+     */
+    protected void setUp() throws Exception {
+        super.setUp();
+        
+        mockUserRepository = EasyMock.createMock(UserRepository.class);
+        
+        mockUserValidator = EasyMock.createMock(Validator.class);
+        
+        mockCompanyRepository = EasyMock.createMock(CompanyRepository.class);
+        
+        // mockcompanyValidator = new MockValidator();
+
+        mockBasicProjectRepository = EasyMock.createMock(ProjectRepository.class);
+        
+        userService = new UserServiceImpl(mockUserRepository, mockUserValidator, mockCompanyRepository, mockBasicProjectRepository);
+        
+        mockCompanyErrors = EasyMock.createMock(Errors.class);
+        
+        mockUserErrors = EasyMock.createMock(Errors.class);
+        
+    }
+
+    /*
+     * @see TestCase#tearDown()
+     */
+    protected void tearDown() throws Exception {
+    	
+    	// reset mocks  
+        EasyMock.reset(mockUserRepository);
+        EasyMock.reset(mockUserValidator);
+        EasyMock.reset(mockCompanyRepository);
+        EasyMock.reset(mockBasicProjectRepository);
+        EasyMock.reset(mockCompanyErrors);
+        EasyMock.reset(mockUserErrors);
+        
+    	
+        super.tearDown();
+    }
+    
+    
+    /**
+     * test qu'il s'agit d'un singleton
+     */
+    public void testIsASingleton() {
+        
+        assertTrue(CoreObjectFactory.isSingleton("userService"));
+    }
 //    
 //    
 //    /**
