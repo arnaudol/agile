@@ -102,11 +102,11 @@ public class UserMapperImpl extends
      * 
      * @return int number of user
      */
-    public final Integer countAll() {
+    public final Long countAll() {
 
         List list = getHibernateTemplate().find(
                 "select count(*) from net.sf.pmr.core.domain.user.UserImpl");
-        return (Integer) DataAccessUtils.uniqueResult(list);
+        return (Long) DataAccessUtils.uniqueResult(list);
 
     }
 

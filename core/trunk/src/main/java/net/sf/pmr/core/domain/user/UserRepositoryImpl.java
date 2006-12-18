@@ -102,7 +102,7 @@ public class UserRepositoryImpl implements UserRepository {
      * Count All User
      * @return int number of user
      */
-    public final Integer countAll() {
+    public final Long countAll() {
         return userMapper.countAll();
     }
 

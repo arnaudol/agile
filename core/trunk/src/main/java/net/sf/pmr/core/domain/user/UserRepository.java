@@ -68,7 +68,7 @@ public interface UserRepository {
       * Count All User
       * @return int number of user
       */
-     Integer countAll();
+     Long countAll();
 
     /**
      * Persist a new user in database

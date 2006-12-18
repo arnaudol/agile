@@ -98,78 +98,78 @@ public class BasicProjectServiceTest extends TestCase {
         
         assertTrue(CoreObjectFactory.isSingleton("projectService"));
     }
-    
-    /**
-     * Quand la validation échoue, 
-     * pas d'appel à la repository
-     */
-    public void testAddWhenValidationFailed() {
-        
-        EasyMock.expect(mockUserRepository.findUserByPersistanceId(1)).andReturn(new UserImpl());
-        EasyMock.expect(mockBasicProjectValidator.validate(EasyMock.anyObject())).andReturn(mockBasicProjectErrors);
-        EasyMock.expect(mockBasicProjectErrors.hasErrors()).andReturn(true);
-        
-        basicProjectService.add("c1", "name1", 1);
-        
-        EasyMock.verify(mockUserRepository);
-        EasyMock.verify(mockBasicProjectValidator);
-        EasyMock.verify(mockBasicProjectErrors);
-        
-    }
-    
-    /**
-     * Quand il n'y a pas d'erreur à la validation,
-     * la repository peut être appellée
-     */
-    public void testAddProjectWhenValidationSucceed() {
-        
-        
-        EasyMock.expect(mockUserRepository.findUserByPersistanceId(1)).andReturn(new UserImpl());
-        EasyMock.expect(mockBasicProjectValidator.validate(EasyMock.anyObject())).andReturn(mockBasicProjectErrors);
-        EasyMock.expect(mockBasicProjectErrors.hasErrors()).andReturn(false);
-        //EasyMock.expect(mockBasicProjectRepository.addOrUpdate(EasyMock.anyObject()));
-        
-        basicProjectService.add("c1", "name1", 1);
-        
-        EasyMock.verify(mockUserRepository);
-        EasyMock.verify(mockBasicProjectValidator);
-        EasyMock.verify(mockBasicProjectErrors);
-        EasyMock.verify(mockBasicProjectRepository);
-        
-        
-    }
-    
-    /**
-     * Quand la validation échoue, 
-     * pas d'appel à la repository
-     */
-    public void testUpdateWhenValidationFailed() {
-    	
-        EasyMock.expect(mockBasicProjectValidator.validate(EasyMock.anyObject())).andReturn(mockBasicProjectErrors);
-        EasyMock.expect(mockBasicProjectErrors.hasErrors()).andReturn(true);
-        
-        basicProjectService.update(1, "c1", "name1", 1);
-        
-        EasyMock.verify(mockBasicProjectValidator);
-        EasyMock.verify(mockBasicProjectErrors);
-        
-    }
-    
-    
-    /**
-     * Quand il n'y a pas d'erreur à la validation,
-     * la repository peut être appellée
-     */
-    public void testUpdateProjectWhenValidationSucceed() {
-        
-        EasyMock.expect(mockBasicProjectValidator.validate(EasyMock.anyObject())).andReturn(mockBasicProjectErrors);
-        EasyMock.expect(mockBasicProjectErrors.hasErrors()).andReturn(false);
-        //EasyMock.expect(mockBasicProjectRepository.addOrUpdate(EasyMock.anyObject()));
-        
-        basicProjectService.update(1, "c1", "name1", 1);
-        
-        EasyMock.verify(mockBasicProjectValidator);
-        EasyMock.verify(mockBasicProjectErrors);
-    }       
+//    
+//    /**
+//     * Quand la validation échoue, 
+//     * pas d'appel à la repository
+//     */
+//    public void testAddWhenValidationFailed() {
+//        
+//        EasyMock.expect(mockUserRepository.findUserByPersistanceId(1)).andReturn(new UserImpl());
+//        EasyMock.expect(mockBasicProjectValidator.validate(EasyMock.anyObject())).andReturn(mockBasicProjectErrors);
+//        EasyMock.expect(mockBasicProjectErrors.hasErrors()).andReturn(true);
+//        
+//        basicProjectService.add("c1", "name1", 1);
+//        
+//        EasyMock.verify(mockUserRepository);
+//        EasyMock.verify(mockBasicProjectValidator);
+//        EasyMock.verify(mockBasicProjectErrors);
+//        
+//    }
+//    
+//    /**
+//     * Quand il n'y a pas d'erreur à la validation,
+//     * la repository peut être appellée
+//     */
+//    public void testAddProjectWhenValidationSucceed() {
+//        
+//        
+//        EasyMock.expect(mockUserRepository.findUserByPersistanceId(1)).andReturn(new UserImpl());
+//        EasyMock.expect(mockBasicProjectValidator.validate(EasyMock.anyObject())).andReturn(mockBasicProjectErrors);
+//        EasyMock.expect(mockBasicProjectErrors.hasErrors()).andReturn(false);
+//        //EasyMock.expect(mockBasicProjectRepository.addOrUpdate(EasyMock.anyObject()));
+//        
+//        basicProjectService.add("c1", "name1", 1);
+//        
+//        EasyMock.verify(mockUserRepository);
+//        EasyMock.verify(mockBasicProjectValidator);
+//        EasyMock.verify(mockBasicProjectErrors);
+//        EasyMock.verify(mockBasicProjectRepository);
+//        
+//        
+//    }
+//    
+//    /**
+//     * Quand la validation échoue, 
+//     * pas d'appel à la repository
+//     */
+//    public void testUpdateWhenValidationFailed() {
+//    	
+//        EasyMock.expect(mockBasicProjectValidator.validate(EasyMock.anyObject())).andReturn(mockBasicProjectErrors);
+//        EasyMock.expect(mockBasicProjectErrors.hasErrors()).andReturn(true);
+//        
+//        basicProjectService.update(1, "c1", "name1", 1);
+//        
+//        EasyMock.verify(mockBasicProjectValidator);
+//        EasyMock.verify(mockBasicProjectErrors);
+//        
+//    }
+//    
+//    
+//    /**
+//     * Quand il n'y a pas d'erreur à la validation,
+//     * la repository peut être appellée
+//     */
+//    public void testUpdateProjectWhenValidationSucceed() {
+//        
+//        EasyMock.expect(mockBasicProjectValidator.validate(EasyMock.anyObject())).andReturn(mockBasicProjectErrors);
+//        EasyMock.expect(mockBasicProjectErrors.hasErrors()).andReturn(false);
+//        //EasyMock.expect(mockBasicProjectRepository.addOrUpdate(EasyMock.anyObject()));
+//        
+//        basicProjectService.update(1, "c1", "name1", 1);
+//        
+//        EasyMock.verify(mockBasicProjectValidator);
+//        EasyMock.verify(mockBasicProjectErrors);
+//    }       
    
 }

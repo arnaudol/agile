@@ -90,7 +90,7 @@ public interface UserService {
      * count all users
      * @return number of users
      */
-    Integer countAll();
+    Long countAll();
     
     /**
      * add a user to a projet

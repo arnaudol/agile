@@ -65,6 +65,6 @@ public interface UserMapper extends DomainObjectRootAggregateMapper, DomainListM
      * Count All User
      * @return int number of user
      */
-    Integer countAll();
+    Long countAll();
 
 }

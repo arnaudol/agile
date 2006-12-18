@@ -169,7 +169,7 @@ public class UserServiceImpl implements UserService {
     /**
      * @see net.sf.pmr.core.service.UserService#countAll()
      */
-    public Integer countAll() {
+    public Long countAll() {
         return userRepository.countAll();
     }
     

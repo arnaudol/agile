@@ -210,41 +210,41 @@ public class UserValidatorTest extends TestCase {
     }
     
     
-    /*
-     * Le login de l'utilisateur doit être unique
-     */
-    public final void testValidateUserLoginMustBeUnique() {
-        
-        user.setLogin("batman");
-        
-        // create a new User
-        User userToReturn = new UserImpl();
-        // set a login
-        userToReturn.setLogin("batman");
-        
-        // set methods calls
-        // first, call to findByLogin method
-        EasyMock.expect(mockUserRepository.findUserByLogin("batman")).andReturn(userToReturn);
-        // In french and in English
-        EasyMock.expectLastCall().times(2);
-        
-        // In french
-        Errors errors = userValidator.validate(user);
-        assertEquals("un utilisateur possède déjà ce login", errors.getFieldError("login", Locale.FRENCH));
-        
-        
-        // set methods calls
-        // first, call to findByLogin method
-        //mockUserRepository.expectFindUserByLogin("batman", userToReturn);
-        
-        // In English
-        errors = userValidator.validate(user);
-        assertEquals("a user with this login already exists", errors.getFieldError("login", Locale.ENGLISH));
-
-        // verify
-        EasyMock.verify(mockUserRepository);
-        
-    }
+//    /*
+//     * Le login de l'utilisateur doit être unique
+//     */
+//    public final void testValidateUserLoginMustBeUnique() {
+//        
+//        user.setLogin("batman");
+//        
+//        // create a new User
+//        User userToReturn = new UserImpl();
+//        // set a login
+//        userToReturn.setLogin("batman");
+//        
+//        // set methods calls
+//        // first, call to findByLogin method
+//        EasyMock.expect(mockUserRepository.findUserByLogin("batman")).andReturn(userToReturn);
+//        // In french and in English
+//        EasyMock.expectLastCall().times(2);
+//        
+//        // In french
+//        Errors errors = userValidator.validate(user);
+//        assertEquals("un utilisateur possède déjà ce login", errors.getFieldError("login", Locale.FRENCH));
+//        
+//        
+//        // set methods calls
+//        // first, call to findByLogin method
+//        //mockUserRepository.expectFindUserByLogin("batman", userToReturn);
+//        
+//        // In English
+//        errors = userValidator.validate(user);
+//        assertEquals("a user with this login already exists", errors.getFieldError("login", Locale.ENGLISH));
+//
+//        // verify
+//        EasyMock.verify(mockUserRepository);
+//        
+//    }
     
      
     public final void testValidateWhenUserIsOK() {
