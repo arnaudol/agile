@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sf.pmr.keopsframework</groupId>
 	<artifactId>keopsframework</artifactId>
-	<name>Keops Framework</name>
+	<name>keopsFramework</name>
 	<version>0.9i</version>
 	<description>commun fonctionnality</description>
 	<url>http://sourceforge.net/projects/pmr/</url>
