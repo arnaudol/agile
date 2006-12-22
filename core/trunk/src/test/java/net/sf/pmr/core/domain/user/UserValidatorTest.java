@@ -1,37 +1,37 @@
 /*
-* Copyright 2005 Arnaud Prost
-* 
-* Arnaud.prost@gmail.com
-* 
-* This software is a computer program whose purpose is to ease the 
-* management of software project.
-* 
-* This software is governed by the CeCILL  license under French law and
-* abiding by the rules of distribution of free software.  You can  use, 
-* modify and/ or redistribute the software under the terms of the CeCILL
-* license as circulated by CEA, CNRS and INRIA at the following URL
-* "http://www.cecill.info". 
-* 
-* As a counterpart to the access to the source code and  rights to copy,
-* modify and redistribute granted by the license, users are provided only
-* with a limited warranty  and the software's author,  the holder of the
-* economic rights,  and the successive licensors  have only  limited
-* liability. 
-* 
-* In this respect, the user's attention is drawn to the risks associated
-* with loading,  using,  modifying and/or developing or reproducing the
-* software by the user in light of its specific status of free software,
-* that may mean  that it is complicated to manipulate,  and  that  also
-* therefore means  that it is reserved for developers  and  experienced
-* professionals having in-depth computer knowledge. Users are therefore
-* encouraged to load and test the software's suitability as regards their
-* requirements in conditions enabling the security of their systems and/or 
-* data to be ensured and,  more generally, to use and operate it in the 
-* same conditions as regards security. 
-* 
-* The fact that you are presently reading this means that you have had
-* knowledge of the CeCILL license and that you accept its terms.
-*/
+ * Copyright 2005 Arnaud Prost
+ *
+ * Arnaud.prost@gmail.com
+ *
+ * This software is a computer program whose purpose is to ease the
+ * management of software project.
+ *
+ * This software is governed by the CeCILL  license under French law and
+ * abiding by the rules of distribution of free software.  You can  use,
+ * modify and/ or redistribute the software under the terms of the CeCILL
+ * license as circulated by CEA, CNRS and INRIA at the following URL
+ * "http://www.cecill.info".
+ *
+ * As a counterpart to the access to the source code and  rights to copy,
+ * modify and redistribute granted by the license, users are provided only
+ * with a limited warranty  and the software's author,  the holder of the
+ * economic rights,  and the successive licensors  have only  limited
+ * liability.
+ *
+ * In this respect, the user's attention is drawn to the risks associated
+ * with loading,  using,  modifying and/or developing or reproducing the
+ * software by the user in light of its specific status of free software,
+ * that may mean  that it is complicated to manipulate,  and  that  also
+ * therefore means  that it is reserved for developers  and  experienced
+ * professionals having in-depth computer knowledge. Users are therefore
+ * encouraged to load and test the software's suitability as regards their
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
+ *
+ * The fact that you are presently reading this means that you have had
+ * knowledge of the CeCILL license and that you accept its terms.
+ */
 
 package net.sf.pmr.core.domain.user;
 
@@ -48,7 +48,7 @@ import org.easymock.EasyMock;
  * @author Arnaud Prost (arnaud.prost@gmail.com)
  */
 public class UserValidatorTest extends TestCase {
-
+    
     private User user;
     
     private Validator userValidator;
@@ -67,22 +67,22 @@ public class UserValidatorTest extends TestCase {
         
         userValidator = new UserValidatorImpl(mockUserRepository);
         
-       
+        
         
     }
-
+    
     /*
      * @see TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
-    	
-    	EasyMock.reset(mockUserRepository);
-    	
+        
+        EasyMock.reset(mockUserRepository);
+        
         super.tearDown();
     }
-
+    
     public final void testValidateMandatoryProperties() {
-
+        
         // first in french
         Errors errors = userValidator.validate(user);
         
@@ -103,7 +103,7 @@ public class UserValidatorTest extends TestCase {
     }
     
     public final void testValidateLoginPropertyLength() {
-                
+        
         // first in french
         user.setLogin("AAAA");
         
@@ -125,30 +125,30 @@ public class UserValidatorTest extends TestCase {
         user.setLogin("AAAAAA");
         errors = userValidator.validate(user);
         assertFalse(errors.hasFieldErrors("login"));
-         
+        
         // then in english
-
-        user.setLogin("AAAA");        
+        
+        user.setLogin("AAAA");
         errors = userValidator.validate(user);
         assertEquals("login must be between 5 to 10 character long", errors.getFieldError("login", Locale.ENGLISH));
         
         user.setLogin("AAAAAAAAAAA");
         errors = userValidator.validate(user);
         assertEquals("login must be between 5 to 10 character long", errors.getFieldError("login", Locale.ENGLISH));
-
+        
         // set methods calls
         // first, call to findByLogin method
         //mockUserRepository.expectFindUserByLogin("AAAAAA", userToReturn);
         
-    
-
+        
+        
         
         user.setLogin("AAAAAA");
         errors = userValidator.validate(user);
         assertFalse(errors.hasFieldErrors("login"));
         
         EasyMock.verify(mockUserRepository);
-    
+        
         
     }
     
@@ -169,8 +169,8 @@ public class UserValidatorTest extends TestCase {
         assertFalse(errors.hasFieldErrors("password"));
         
         // then in english
-
-        user.setPassword("AAAA");        
+        
+        user.setPassword("AAAA");
         errors = userValidator.validate(user);
         assertEquals("password must be between 5 to 10 character long", errors.getFieldError("password", Locale.ENGLISH));
         
@@ -186,7 +186,7 @@ public class UserValidatorTest extends TestCase {
     
     
     /**
-     * 
+     *
      */
     public final void testValidateEmail() {
         
@@ -199,7 +199,7 @@ public class UserValidatorTest extends TestCase {
         // in english
         
         user.setEmail("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        errors = userValidator.validate(user);        
+        errors = userValidator.validate(user);
         assertEquals("email is incorrect", errors.getFieldError("email", Locale.ENGLISH));
         
         // Everything is OK
@@ -210,46 +210,48 @@ public class UserValidatorTest extends TestCase {
     }
     
     
-//    /*
-//     * Le login de l'utilisateur doit être unique
-//     */
-//    public final void testValidateUserLoginMustBeUnique() {
-//        
-//        user.setLogin("batman");
-//        
-//        // create a new User
-//        User userToReturn = new UserImpl();
-//        // set a login
-//        userToReturn.setLogin("batman");
-//        
-//        // set methods calls
-//        // first, call to findByLogin method
-//        EasyMock.expect(mockUserRepository.findUserByLogin("batman")).andReturn(userToReturn);
-//        // In french and in English
-//        EasyMock.expectLastCall().times(2);
-//        
-//        // In french
-//        Errors errors = userValidator.validate(user);
-//        assertEquals("un utilisateur possède déjà ce login", errors.getFieldError("login", Locale.FRENCH));
-//        
-//        
-//        // set methods calls
-//        // first, call to findByLogin method
-//        //mockUserRepository.expectFindUserByLogin("batman", userToReturn);
-//        
-//        // In English
-//        errors = userValidator.validate(user);
-//        assertEquals("a user with this login already exists", errors.getFieldError("login", Locale.ENGLISH));
-//
-//        // verify
-//        EasyMock.verify(mockUserRepository);
-//        
-//    }
+    /*
+     * Le login de l'utilisateur doit être unique
+     */
+    public final void testValidateUserLoginMustBeUnique() {
+        
+        user.setLogin("batman");
+        
+        // create a new User
+        User userToReturn = new UserImpl();
+        // set a login
+        userToReturn.setLogin("batman");
+        
+        // set methods calls
+        // first, call to findByLogin method
+        EasyMock.expect(mockUserRepository.findUserByLogin("batman")).andReturn(userToReturn);
+        // In french and in English
+        EasyMock.expectLastCall().times(2);
+        
+        EasyMock.replay(mockUserRepository);
+        
+        // In french
+        Errors errors = userValidator.validate(user);
+        assertEquals("un utilisateur possède déjà ce login", errors.getFieldError("login", Locale.FRENCH));
+        
+        
+        // set methods calls
+        // first, call to findByLogin method
+        //mockUserRepository.expectFindUserByLogin("batman", userToReturn);
+        
+        // In English
+        errors = userValidator.validate(user);
+        assertEquals("a user with this login already exists", errors.getFieldError("login", Locale.ENGLISH));
+        
+        // verify
+        EasyMock.verify(mockUserRepository);
+        
+    }
     
-     
+    
     public final void testValidateWhenUserIsOK() {
         
-
+        
         // create a new User
         User userToReturn = null;
         
@@ -264,14 +266,14 @@ public class UserValidatorTest extends TestCase {
         user.setLastName("doo");
         user.setLogin("scooby");
         user.setPassword("doodoo");
-      
+        
         Errors errors = userValidator.validate(user);
         
         assertFalse(errors.hasErrors());
-       
+        
         // verify
         EasyMock.verify(mockUserRepository);
         
     }
-
+    
 }
