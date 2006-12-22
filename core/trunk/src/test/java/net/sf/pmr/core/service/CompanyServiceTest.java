@@ -37,11 +37,15 @@ package net.sf.pmr.core.service;
 
 import junit.framework.TestCase;
 import net.sf.pmr.core.CoreObjectFactory;
+import net.sf.pmr.core.domain.user.company.AddressImpl;
+import net.sf.pmr.core.domain.user.company.Company;
+import net.sf.pmr.core.domain.user.company.CompanyImpl;
 import net.sf.pmr.core.domain.user.company.CompanyRepository;
 import net.sf.pmr.keopsframework.domain.validation.Errors;
 import net.sf.pmr.keopsframework.domain.validation.Validator;
 
 import org.easymock.EasyMock;
+import org.easymock.IMocksControl;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
@@ -59,6 +63,8 @@ public class CompanyServiceTest extends TestCase {
     private Errors mockCompanyErrors;
     
     private Errors mockAddressErrors;
+    
+    private IMocksControl mocksControl;
 
     
     /*
@@ -67,18 +73,18 @@ public class CompanyServiceTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        mockCompanyRepository = EasyMock.createMock(CompanyRepository.class);
+        // create mocks
+        mocksControl = EasyMock.createStrictControl();
         
-        mockCompanyValidator = EasyMock.createMock(Validator.class);
-        
-        mockAddressValidator = EasyMock.createMock(Validator.class);
+        mockCompanyRepository = mocksControl.createMock(CompanyRepository.class);
+        mockCompanyValidator = mocksControl.createMock(Validator.class);
+        mockAddressValidator = mocksControl.createMock(Validator.class);
         
         companyService = new CompanyServiceImpl(mockCompanyRepository, mockCompanyValidator, mockAddressValidator);
         
-        mockCompanyErrors = EasyMock.createMock(Errors.class);
-        
-        mockAddressErrors = EasyMock.createMock(Errors.class);
-        
+        // create error mocks
+        mockCompanyErrors = mocksControl.createMock(Errors.class);
+        mockAddressErrors = mocksControl.createMock(Errors.class);
 
     }
 
@@ -87,11 +93,7 @@ public class CompanyServiceTest extends TestCase {
      */
     protected void tearDown() throws Exception {
     	
-    	EasyMock.reset(mockCompanyRepository);
-    	EasyMock.reset(mockCompanyValidator);
-    	EasyMock.reset(mockAddressValidator);
-    	EasyMock.reset(mockCompanyErrors);
-    	EasyMock.reset(mockAddressErrors);
+    	mocksControl.reset();
     	
         super.tearDown();
     }
@@ -103,42 +105,54 @@ public class CompanyServiceTest extends TestCase {
         
         assertTrue(CoreObjectFactory.isSingleton("companyService"));
     }
-//
-//    /**
-//     * Test de l'ajout d'une entreprise
-//     * La validation de l'entreprise echoue :
-//     * - la validation de l'adresse ne doit pas �tre faite
-//     * - l'enregistrement n'est pas r�alis�e
-//     */
-//    public void testAddCompanyAndCompanyValidationFailed() {
-//        
-//        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
-//        mockCompanyErrors.expectHasErrors(true);
-//        
-//        companyService.addOrUpdate(0, "world company", "1", "world street", "001", "world city", "world Country", 0);
-//       
-//        MockCore.verify();
-//        
-//    }
-//    
-//    /**
-//     * Test de l'ajout d'une entreprise
-//     * La validation de l'adresse echoue
-//     * - l'enregistrement ne doit pas �tre fait
-//     */
-//    public void testAddCompanyAndAddressValidationFailed() {
-//        
-//        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
-//        mockCompanyErrors.expectHasErrors(false);
-//        mockAddressValidator.acceptValidate(new Ignore(), mockAddressErrors);
-//        mockAddressErrors.expectHasErrors(true);
-//        
-//        companyService.addOrUpdate(0, "world company", "1", "world street", "001", "world city", "world Country", 0);
-//       
-//        MockCore.verify();
-//        
-//    }
-//    
+
+    /**
+     * Test de l'ajout d'une entreprise
+     * La validation de l'entreprise echoue :
+     * - la validation de l'adresse ne doit pas être faite
+     * - l'enregistrement n'est pas réalisée
+     */
+    public void testAddCompanyAndCompanyValidationFailed() {  
+
+        // set expectation
+        EasyMock.expect(mockCompanyValidator.validate(EasyMock.isA(Company.class))).andReturn(mockCompanyErrors) ;
+        EasyMock.expect(mockCompanyErrors.hasErrors()).andReturn(true);
+        mocksControl.checkOrder(true);
+        
+        // set mock in replay mode
+        mocksControl.replay();
+        
+        // test 
+        companyService.addOrUpdate(0, "world company", "1", "world street", "001", "world city", "world Country", 0);
+       
+        // verify mock call
+        mocksControl.verify();
+        
+    }
+
+    /**
+     * Test de l'ajout d'une entreprise
+     * La validation de l'adresse echoue
+     * - l'enregistrement ne doit pas être fait
+     */
+    public void testAddCompanyAndAddressValidationFailed() {
+        
+        EasyMock.expect(mockCompanyValidator.validate(EasyMock.isA(Company.class))).andReturn(mockCompanyErrors);
+        EasyMock.expect(mockCompanyErrors.hasErrors()).andReturn(false);
+        
+        EasyMock.expect(mockAddressValidator.validate(EasyMock.isA(Company.class))).andReturn(mockAddressErrors);
+        EasyMock.expect(mockAddressErrors.hasErrors()).andReturn(true);
+        
+        mocksControl.checkOrder(true);
+
+        mocksControl.replay();
+        
+        companyService.addOrUpdate(0, "world company", "1", "world street", "001", "world city", "world Country", 0);
+
+        mocksControl.verify();
+        
+    }
+    
 //    
 //    /**
 //     * Test de l'ajout d'une entreprise
