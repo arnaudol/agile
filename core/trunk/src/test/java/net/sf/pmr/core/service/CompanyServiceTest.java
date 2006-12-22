@@ -37,6 +37,7 @@ package net.sf.pmr.core.service;
 
 import junit.framework.TestCase;
 import net.sf.pmr.core.CoreObjectFactory;
+import net.sf.pmr.core.domain.user.company.Address;
 import net.sf.pmr.core.domain.user.company.AddressImpl;
 import net.sf.pmr.core.domain.user.company.Company;
 import net.sf.pmr.core.domain.user.company.CompanyImpl;
@@ -114,7 +115,7 @@ public class CompanyServiceTest extends TestCase {
      */
     public void testAddCompanyAndCompanyValidationFailed() {  
 
-        // set expectation
+        // set expectations
         EasyMock.expect(mockCompanyValidator.validate(EasyMock.isA(Company.class))).andReturn(mockCompanyErrors) ;
         EasyMock.expect(mockCompanyErrors.hasErrors()).andReturn(true);
         mocksControl.checkOrder(true);
@@ -125,7 +126,7 @@ public class CompanyServiceTest extends TestCase {
         // test 
         companyService.addOrUpdate(0, "world company", "1", "world street", "001", "world city", "world Country", 0);
        
-        // verify mock call
+        // verify mock calls
         mocksControl.verify();
         
     }
@@ -137,108 +138,147 @@ public class CompanyServiceTest extends TestCase {
      */
     public void testAddCompanyAndAddressValidationFailed() {
         
+        // set expectations
         EasyMock.expect(mockCompanyValidator.validate(EasyMock.isA(Company.class))).andReturn(mockCompanyErrors);
         EasyMock.expect(mockCompanyErrors.hasErrors()).andReturn(false);
         
         EasyMock.expect(mockAddressValidator.validate(EasyMock.isA(Company.class))).andReturn(mockAddressErrors);
         EasyMock.expect(mockAddressErrors.hasErrors()).andReturn(true);
         
+        // check calls order
         mocksControl.checkOrder(true);
 
+        // set mock in replay mode
         mocksControl.replay();
-        
+
+        // test
         companyService.addOrUpdate(0, "world company", "1", "world street", "001", "world city", "world Country", 0);
 
+        // verify mock calls
         mocksControl.verify();
         
     }
     
-//    
-//    /**
-//     * Test de l'ajout d'une entreprise
-//     * La validation r�ussie
-//     * - l'enregistrement peut avoir lieu
-//     */
-//    public void testAddCompanyAndValidationSucceed() {
-//        
-//        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
-//        mockCompanyErrors.expectHasErrors(false);
-//        mockAddressValidator.acceptValidate(new Ignore(), mockAddressErrors);
-//        mockAddressErrors.expectHasErrors(false);
-//        mockCompanyRepository.acceptAddOrUpdate(new Ignore());
-//        
-//        companyService.addOrUpdate(0, "world company", "1", "world street", "001", "world city", "world Country", 0);
-//       
-//        MockCore.verify();
-//        
-//    }
-//    
-//    /**
-//     * Test de la mise � jour d'une entreprise
-//     * La validation de l'entreprise echoue
-//     * - pas de validaton de l'adresse
-//     * - pas de mise � jour
-//     */
-//    public void testUpdateCompanyAndCompanyValidationFailed() {
-//
-//        Company company =  new CompanyImpl();
-//        Address address = new AddressImpl();
-//        company.setAddress(address);
-//        
-//        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
-//        mockCompanyErrors.expectHasErrors(true);
-//        
-//        companyService.addOrUpdate(1, "world company", "1", "world street", "001", "world city", "world Country", 0);
-//       
-//        MockCore.verify();
-//        
-//    }
-//    
-//    /**
-//     * Test de la mise � jour d'une entreprise
-//     * La validation de l'adresse echoue
-//     * - pas de mise � jour
-//     */
-//    public void testUpdateCompanyAndAddressValidationFailed() {
-//
-//        Company company =  new CompanyImpl();
-//        Address address = new AddressImpl();
-//        company.setAddress(address);
-//        
-//        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
-//        mockCompanyErrors.expectHasErrors(false);
-//        mockAddressValidator.acceptValidate(new Ignore(), mockAddressErrors);
-//        mockAddressErrors.expectHasErrors(true);
-//        
-//        companyService.addOrUpdate(1, "world company", "1", "world street", "001", "world city", "world Country", 0);
-//       
-//        MockCore.verify();
-//        
-//    }
-//    
-//    
-//    /**
-//     * Test de la mise � jour d'une entreprise
-//     * La validation r�ussie
-//     * - l'enregistrement peut avoir lieu
-//     */
-//    public void testUdapteCompanyAndValidationSucceed() {
-//        
-//        Company company =  new CompanyImpl();
-//        Address address = new AddressImpl();
-//        company.setAddress(address);
-//        
-//        mockCompanyValidator.acceptValidate(new Ignore(), mockCompanyErrors);
-//        mockCompanyErrors.expectHasErrors(false);
-//        mockAddressValidator.acceptValidate(new Ignore(), mockAddressErrors);
-//        mockAddressErrors.expectHasErrors(false);
-//        mockCompanyRepository.acceptAddOrUpdate(new Ignore());
-//        
-//        companyService.addOrUpdate(1, "world company", "1", "world street", "001", "world city", "world Country", 0);
-//       
-//        MockCore.verify();
-//        
-//    }
+    /**
+     * Test de l'ajout d'une entreprise
+     * La validation réussie :
+     * - l'enregistrement peut avoir lieu
+     */
+    public void testAddCompanyAndValidationSucceed() {
+        
+        // set expectations
+        EasyMock.expect(mockCompanyValidator.validate(EasyMock.isA(Company.class))).andReturn(mockCompanyErrors);
+        EasyMock.expect(mockCompanyErrors.hasErrors()).andReturn(false);
+        
+        EasyMock.expect(mockAddressValidator.validate(EasyMock.isA(Company.class))).andReturn(mockAddressErrors);
+        EasyMock.expect(mockAddressErrors.hasErrors()).andReturn(false);
+        
+        mockCompanyRepository.addOrUpdate(EasyMock.isA(Company.class));
+
+        // check calls order
+        mocksControl.checkOrder(true);
+
+        // set mock in replay mode
+        mocksControl.replay();
+
+        // test
+        companyService.addOrUpdate(0, "world company", "1", "world street", "001", "world city", "world Country", 0);
+       
+        // verify mock calls
+        mocksControl.verify();
+        
+    }
+    
+    /**
+     * Test de la mise � jour d'une entreprise
+     * La validation de l'entreprise echoue
+     * - pas de validaton de l'adresse
+     * - pas de mise à jour
+     */
+    public void testUpdateCompanyAndCompanyValidationFailed() {
+
+        Company company =  new CompanyImpl();
+        Address address = new AddressImpl();
+        company.setAddress(address);
+        
+        EasyMock.expect(mockCompanyValidator.validate(EasyMock.isA(Company.class))).andReturn(mockCompanyErrors);
+        EasyMock.expect(mockCompanyErrors.hasErrors()).andReturn(true);
+        
+         // check calls order
+        mocksControl.checkOrder(true);
+
+        // set mock in replay mode
+        mocksControl.replay();
+        
+        companyService.addOrUpdate(1, "world company", "1", "world street", "001", "world city", "world Country", 0);
+       
+        // verify mock calls
+        mocksControl.verify();
+        
+    }
+    
+    /**
+     * Test de la mise � jour d'une entreprise
+     * La validation de l'adresse echoue
+     * - pas de mise � jour
+     */
+    public void testUpdateCompanyAndAddressValidationFailed() {
+
+        Company company =  new CompanyImpl();
+        Address address = new AddressImpl();
+        company.setAddress(address);
+        
+        // set expectations
+        EasyMock.expect(mockCompanyValidator.validate(EasyMock.isA(Company.class))).andReturn(mockCompanyErrors);
+        EasyMock.expect(mockCompanyErrors.hasErrors()).andReturn(false);
+        
+        EasyMock.expect(mockAddressValidator.validate(EasyMock.isA(Company.class))).andReturn(mockAddressErrors);
+        EasyMock.expect(mockAddressErrors.hasErrors()).andReturn(true);
+        
+         // check calls order
+        mocksControl.checkOrder(true);
+
+        // set mock in replay mode
+        mocksControl.replay();
+        
+        companyService.addOrUpdate(1, "world company", "1", "world street", "001", "world city", "world Country", 0);
+       
+        // verify mock calls
+        mocksControl.verify();
+        
+    }
+    
+    
+    /**
+     * Test de la mise à jour d'une entreprise
+     * La validation réussie
+     * - l'enregistrement peut avoir lieu
+     */
+    public void testUdapteCompanyAndValidationSucceed() {
+        
+        Company company =  new CompanyImpl();
+        Address address = new AddressImpl();
+        company.setAddress(address);
+        
+        // set expectations
+        EasyMock.expect(mockCompanyValidator.validate(EasyMock.isA(Company.class))).andReturn(mockCompanyErrors);
+        EasyMock.expect(mockCompanyErrors.hasErrors()).andReturn(false);
+        
+        EasyMock.expect(mockAddressValidator.validate(EasyMock.isA(Company.class))).andReturn(mockAddressErrors);
+        EasyMock.expect(mockAddressErrors.hasErrors()).andReturn(true);
+        
+        // check calls order
+        mocksControl.checkOrder(true);
+
+        // set mock in replay mode
+        mocksControl.replay();
+        
+        companyService.addOrUpdate(1, "world company", "1", "world street", "001", "world city", "world Country", 0);
+       
+        // verify mock calls
+        mocksControl.verify();
+        
+    }
     
    
 }
