@@ -97,12 +97,19 @@ public class SecurityServiceTest extends TestCase {
      */
     public final void testLoginWithoutUserFound() {
         
-        mockUserRepository.findUserByLogin(null);
+        EasyMock.expect(mockUserRepository.findUserByLogin(null));
+       
+        mocksControl.checkOrder(true);
+        
+         // set mock in replay mode
+        mocksControl.replay();
         
         //get a security service
         SecurityService securityService = new SecurityServiceImpl(mockUserRepository);
         
         assertEquals("login with user not found", null, securityService.login("", ""));
+        
+        mocksControl.verify();
         
     }
     
@@ -115,7 +122,10 @@ public class SecurityServiceTest extends TestCase {
         // simulate user found
         EasyMock.expect(mockUserRepository.findUserByLogin("")).andReturn(mockUser);
         mockUser.setPassword("scooby");
-        mockUser.setPassword("password not show for security reason");
+        EasyMock.expect(mockUser.getPassword()).andReturn("password not show for security reason");
+        
+         // set mock in replay mode
+        mocksControl.replay();
         
         //get a security service
         SecurityService securityService = new SecurityServiceImpl(mockUserRepository);
