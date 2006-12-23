@@ -8,7 +8,7 @@
 	<version>0.3.3</version>
 	<artifactId>pom-master</artifactId>
 	<packaging>pom</packaging>
-	<name>Master pom</name>
+	<name>master pom</name>
 	<description>
 		This is a master POM that is meant to be used by the various
 		pmr modules. It contains information that is common to all
