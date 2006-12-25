@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package tutorials.directlink.pages;
+package net.sf.pmr.web.pages;
 
 import org.apache.tapestry.annotations.Persist;
 import org.apache.tapestry.html.BasePage;
