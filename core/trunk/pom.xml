@@ -1,46 +1,46 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	
-	<groupId>net.sf.pmr.core</groupId>
-	<artifactId>core</artifactId>
-	<packaging>jar</packaging>
-	<version>0.3.4</version>
-	<name>core (Agile)</name>
-	<url>http://sourceforge.net/projects/pmr/</url>
-
-	<description>commun fonctionnality</description>
-	<issueManagement>
-		<url>http://sourceforge.net/tracker/?group_id=120429</url>
-	</issueManagement>
-	
-	<!-- Subversion repository -->
-	<scm>
-	    <connection>scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/core/trunk/</connection>
-	    <developerConnection>scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/core/trunk/</developerConnection>
-	    <tag>HEAD</tag>
-	    <url>http://pmr.svn.sourceforge.net/svnroot/pmr/core/trunk/</url>
-	</scm>
-
-	<!-- Common POM (multi-module project)-->
-	<parent>
-		<groupId>net.sf.pmr.maven</groupId>
-		<artifactId>pom-master</artifactId>
-		<version>0.3.3</version>
-	</parent>
-
-	<dependencies>
-
-		<!-- hibernate -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate</artifactId>
-			<version>3.2.1.ga</version>
-			<scope>runtime</scope>
-
-			<!-- inutile car fonctionnement dans un conteneur J2EE  -->
-			<!--
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>net.sf.pmr.core</groupId>
+    <artifactId>core</artifactId>
+    <packaging>jar</packaging>
+    <version>0.3.4</version>
+    <name>core (Agile)</name>
+    <url>http://sourceforge.net/projects/pmr/</url>
+    
+    <description>commun fonctionnality</description>
+    <issueManagement>
+        <url>http://sourceforge.net/tracker/?group_id=120429</url>
+    </issueManagement>
+    
+    <!-- Subversion repository -->
+    <scm>
+        <connection>scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/core/trunk/</connection>
+        <developerConnection>scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/core/trunk/</developerConnection>
+        <tag>HEAD</tag>
+        <url>http://pmr.svn.sourceforge.net/svnroot/pmr/core/trunk/</url>
+    </scm>
+    
+    <!-- Common POM (multi-module project)-->
+    <parent>
+        <groupId>net.sf.pmr.maven</groupId>
+        <artifactId>pom-master</artifactId>
+        <version>0.3.3</version>
+    </parent>
+    
+    <dependencies>
+        
+        <!-- hibernate -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate</artifactId>
+            <version>3.2.1.ga</version>
+            <scope>runtime</scope>
+            
+            <!-- inutile car fonctionnement dans un conteneur J2EE  -->
+            <!--
 			<exclusions>
 
 				<exclusion>
@@ -55,99 +55,100 @@
 			</exclusions>
 			 -->
 
-		</dependency>
-
-		<!-- project dependencies -->
-		<dependency>
-			<groupId>commons-validator</groupId>
-			<artifactId>commons-validator</artifactId>
-			<version>1.3.1</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- oro : needed by commons-validator -->
-		<dependency>
-			<groupId>oro</groupId>
-			<artifactId>oro</artifactId>
-			<version>2.0.8</version>
-			<scope>runtime</scope>
-		</dependency>
-
-		<!-- KeopsFramework -->
-		<dependency>
-			<groupId>net.sf.pmr.keopsframework</groupId>
-			<artifactId>keopsframework</artifactId>
-			<version>0.9i</version>
-			<scope>compile</scope>
-		</dependency>
+        </dependency>
+        
+        <!-- project dependencies -->
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.3.1</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <!-- oro : needed by commons-validator -->
+        <dependency>
+            <groupId>oro</groupId>
+            <artifactId>oro</artifactId>
+            <version>2.0.8</version>
+            <scope>runtime</scope>
+        </dependency>
+        
+        <!-- KeopsFramework -->
+        <dependency>
+            <groupId>net.sf.pmr.keopsframework</groupId>
+            <artifactId>keopsframework</artifactId>
+            <version>0.9i</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-hibernate3</artifactId>
+            <version>2.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>2.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <!-- Tests -->
                 
-                <!-- database pool (not always provided by J2EE container) -->
-                <dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>1.2.1</version>
-			<scope>runtime</scope>
-		</dependency>
-
-		<!--  MYSQL driver -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>3.1.14</version>
-			<scope>runtime</scope>
-		</dependency>
-
-		<!-- Spring -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-hibernate3</artifactId>
-			<version>2.0.1</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId>
-			<version>2.0.1</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- Tests -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>dbunit</groupId>
-			<artifactId>dbunit</artifactId>
-			<version>2.1</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymock</artifactId>
-			<version>2.2</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.transaction</groupId>
-			<artifactId>jta</artifactId>
-			<version>1.0.1B</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.sql</groupId>
-			<artifactId>jdbc-stdext</artifactId>
-			<version>2.0</version>
-			<scope>test</scope>
-		</dependency>
-
-	</dependencies>
-
+        <!-- database pool (not always provided by J2EE container) -->
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.2.1</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!--  MYSQL driver -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>3.1.14</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>1.0.1B</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>javax.sql</groupId>
+            <artifactId>jdbc-stdext</artifactId>
+            <version>2.0</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>2.1</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>2.2</version>
+            <scope>test</scope>
+        </dependency>
+        
+    </dependencies>
+    
 </project>
