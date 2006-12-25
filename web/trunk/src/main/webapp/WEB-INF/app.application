@@ -3,7 +3,7 @@
     "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
 <application name="Tapestry Application">
     
-    <meta key="org.apache.tapestry.page-class-packages" value="tutorials.directlink.pages"/>
+    <meta key="org.apache.tapestry.page-class-packages" value="net.sf.pmr.web.pages"/>
     
     <!--meta key="org.apache.tapestry.component-class-packages" value="my.component.package"/-->
 

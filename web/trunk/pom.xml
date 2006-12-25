@@ -27,7 +27,7 @@
         <dependency>
             <groupId>net.sf.pmr.core</groupId>
             <artifactId>core</artifactId>
-            <version>0.3.3</version>
+            <version>0.3.4</version>
         </dependency>
         
         <!--
@@ -74,12 +74,56 @@
             <type>jar</type>
         </dependency>
         
+        <!-- tapestry-spring and spring-web are used for tapestry-spring integration -->
+        <dependency>
+            <groupId>com.javaforge.tapestry</groupId>
+            <artifactId>tapestry-spring</artifactId>
+            <version>0.1.2</version>
+            <scope>runtime</scope>
+            <type>jar</type>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>2.0.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        
+        <!-- overriding scope given by core -->
+        
+        <!-- database pool (not always provided by J2EE container) -->
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.2.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        
+        <!--  MYSQL driver -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>3.1.14</version>
+            <scope>runtime</scope>
+        </dependency>
+        
     </dependencies>
-       
+    
+    
+    <repositories>
+        <repository>
+            <!-- REPOSITORY TAPESTRY-SPRING INTEGRATION -->
+            <id>tapestry-spring</id>
+            <name>tapestry-spring</name>
+            <url>http://howardlewisship.com/repository/</url>
+        </repository>
+    </repositories>
+    
     <build>
         <finalName>web</finalName>
     </build>
-       
+    
     <profiles>
         <profile>
             <id>netbeans-public</id>

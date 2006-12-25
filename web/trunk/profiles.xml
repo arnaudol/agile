@@ -10,7 +10,7 @@
                 </property>
             </activation>
             <properties>
-                <netbeans.deployment.server.id>tomcat55:home=$bundled_home:base=$bundled_base</netbeans.deployment.server.id>
+                <netbeans.deployment.server.id>tomcat55:home=/home/arnaud/Développement/apache-tomcat-5.5.20</netbeans.deployment.server.id>
             </properties>
         </profile>
     </profiles>
