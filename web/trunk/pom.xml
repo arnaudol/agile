@@ -74,12 +74,14 @@
             <type>jar</type>
         </dependency>
         
+        
         <!-- tapestry-spring and spring-web are used for tapestry-spring integration -->
+        <!--
         <dependency>
             <groupId>com.javaforge.tapestry</groupId>
             <artifactId>tapestry-spring</artifactId>
             <version>0.1.2</version>
-            <scope>runtime</scope>
+            <scope>compile</scope>
             <type>jar</type>
         </dependency>
         
@@ -89,6 +91,7 @@
             <version>2.0.1</version>
             <scope>runtime</scope>
         </dependency>
+        -->
         
         <!-- overriding scope given by core -->
         
