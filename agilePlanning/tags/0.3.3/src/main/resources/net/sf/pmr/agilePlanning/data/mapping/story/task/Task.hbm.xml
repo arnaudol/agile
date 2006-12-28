@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.sf.pmr.agilePlanning.data.mapping">
+
+	<class name="net.sf.pmr.agilePlanning.domain.story.task.TaskImpl" table="TASK">
+		
+		<id column="ID" name="PersistanceId" type="int" unsaved-value="0">
+			<generator class="native" />
+		</id>
+
+		<version column="VERSION" name="PersistanceVersion" type="long" />
+
+		<property column="SHORTDESCRIPTION" length="100" name="ShortDescription" not-null="false" type="string" />
+		
+		<property column="DAYSESTIMATED" name="DaysEstimated" not-null="false" type="double" />
+		    
+		<many-to-one class="net.sf.pmr.core.domain.user.UserImpl" name="Owner" 
+					 outer-join="true" cascade="none" update="false" insert="false">
+			<column name="PMU_ID" />
+		</many-to-one>
+		
+		<set name="Charges" cascade="all" lazy="false" table="CHARGE">
+            <key column="TAS_ID" not-null="true"/>
+            <one-to-many class="net.sf.pmr.agilePlanning.domain.story.task.charge.ChargeImpl"/>
+        </set>
+
+	</class>
+</hibernate-mapping>

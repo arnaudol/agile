@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+<!-- =============== BUSINESS OBJECT, BUSINESS SERVICE, REPOSITORIES AND MAPPER DEFINITIONS =============== --> 
+
+<!-- =============== services =============== -->
+
+    <!-- iteration -->
+
+        <bean id="iterationService" class="net.sf.pmr.agilePlanning.service.IterationServiceImpl" 
+              singleton="true" dependency-check="objects">
+              <constructor-arg index="0"><ref local="iterationValidator"/></constructor-arg>
+              <constructor-arg index="1"><ref local="iterationRepository"/></constructor-arg>
+              <constructor-arg index="2"><ref local="storyRepository"/></constructor-arg>
+        </bean>  
+        
+     <!-- release -->
+    
+        <bean id="releaseService" class="net.sf.pmr.agilePlanning.service.ReleaseServiceImpl" 
+              singleton="true" dependency-check="objects">
+              <constructor-arg index="0"><ref local="releaseValidator"/></constructor-arg>
+              <constructor-arg index="1"><ref local="releaseRepository"/></constructor-arg>
+              <constructor-arg index="2"><ref local="storyRepository"/></constructor-arg>
+        </bean>      
+        
+      <!-- story -->
+    
+        <bean id="storyService" class="net.sf.pmr.agilePlanning.service.StoryServiceImpl" 
+              singleton="true" dependency-check="objects">
+              <constructor-arg index="0"><ref local="taskValidator"/></constructor-arg>
+              <constructor-arg index="1"><ref local="storyRepository"/></constructor-arg>
+              <constructor-arg index="2"><ref local="storyValidator"/></constructor-arg>
+			  <constructor-arg index="3"><ref bean="projectRepository"/></constructor-arg>
+			  <constructor-arg index="4"><ref local="businessValueRepository"/></constructor-arg>
+			  <constructor-arg index="5"><ref local="riskLevelRepository"/></constructor-arg>
+			  <constructor-arg index="6"><ref bean="userRepository"/></constructor-arg>
+        </bean>      
+
+
+<!-- =============== domain objects =============== -->
+    
+    <!-- Aggregate -->
+
+       <!-- iteration -->
+                 
+           <!-- Root aggregate -->
+                 
+             <bean id="iteration" class="net.sf.pmr.agilePlanning.domain.iteration.IterationImpl" 
+                  singleton="false" dependency-check="objects">
+                <property name="project"><ref bean="project"/></property>
+                <property name="stories"><list></list></property>
+                <property name="startDate"><ref bean="date"/></property>
+                <property name="endDate"><ref bean="date"/></property>
+                <property name="persistanceId"><value>0</value></property>
+                <property name="persistanceVersion"><value>0</value></property>
+             </bean>
+
+        <!-- release -->
+                 
+            <!-- Root aggregate -->
+			 
+             <bean id="release" class="net.sf.pmr.agilePlanning.domain.release.ReleaseImpl" 
+                  singleton="false" dependency-check="objects">
+                <property name="project"><ref bean="project"/></property>
+                <property name="stories"><list></list></property>
+                <property name="number"><value></value></property>
+                <property name="date"><ref bean="date"/></property>
+                <property name="persistanceId"><value>0</value></property>
+                <property name="persistanceVersion"><value>0</value></property>			
+             </bean>
+     
+        <!-- story -->
+                 
+            <!-- Root aggregate -->
+
+            <bean id="story" class="net.sf.pmr.agilePlanning.domain.story.StoryImpl" 
+                  singleton="false" dependency-check="objects">
+                <property name="tasks"><list></list></property>
+                <property name="project"><ref bean="project"/></property>
+                <property name="riskLevel"><ref local="riskLevel"/></property>
+                <property name="businessValue"><ref local="businessValue"/></property>
+                <property name="persistanceId"><value>0</value></property>
+                <property name="persistanceVersion"><value>0</value></property>
+             </bean>
+                             
+            <!-- Aggregate members-->
+            
+            	<!-- Risk Level -->
+        
+                <bean id="riskLevel" class="net.sf.pmr.agilePlanning.domain.story.RiskLevelImpl" 
+                      singleton="false" dependency-check="objects">
+                 </bean>
+                
+                
+                 <!-- Business Value -->
+                 
+                <bean id="businessValue" class="net.sf.pmr.agilePlanning.domain.story.BusinessValueImpl" 
+                      singleton="false" dependency-check="objects">
+                 </bean>
+
+                <!-- task -->
+    
+                <bean id="task" class="net.sf.pmr.agilePlanning.domain.story.task.TaskImpl" 
+                      singleton="false" dependency-check="objects">
+                    <property name="owner"><ref bean="user"/></property>
+                    <property name="daysEstimated"><value>0</value></property>
+                    <property name="charges"><list></list></property>
+                    <property name="persistanceId"><value>0</value></property>
+                    <property name="persistanceVersion"><value>0</value></property>
+                 </bean>
+                 
+               <!-- charge -->
+               
+               <bean id="charge" class="net.sf.pmr.agilePlanning.domain.story.task.charge.ChargeImpl" 
+                      singleton="false" dependency-check="objects">
+                    <property name="user"><ref bean="user"/></property>
+                    <property name="day"><ref bean="date"/></property>
+                    <property name="persistanceId"><value>0</value></property>
+                    <property name="persistanceVersion"><value>0</value></property>
+                 </bean>
+    
+<!-- =============== Validators =============== -->
+
+<!-- validators --> 
+
+	<!-- message -->
+
+	<bean id="agilePlanningMessageSource" 
+            class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+				<value>net.sf.pmr.agilePlanning.resource.validator</value>
+            </list>
+        </property>
+        <property name="parentMessageSource"><ref bean="coreMessageSource"/></property>
+	</bean>
+	
+	<!-- general Errors structure -->
+
+	<bean id="agilePlanningErrors" class="net.sf.pmr.keopsframework.domain.validation.ErrorsImpl"
+		  singleton="false" dependency-check="objects">
+		<constructor-arg index="0"><ref bean="agilePlanningMessageSource"/></constructor-arg>
+	</bean>
+	
+
+    <!-- release Validator -->
+
+	<bean id="releaseValidator" class="net.sf.pmr.agilePlanning.domain.release.ReleaseValidatorImpl"
+		  singleton="true" 	dependency-check="none"/>
+			    
+	<!-- iteration Validator -->
+
+	<bean id="iterationValidator" class="net.sf.pmr.agilePlanning.domain.iteration.IterationValidatorImpl"
+		  singleton="true" 	dependency-check="none"/>			    
+
+	<!-- story Validator -->
+
+	<bean id="storyValidator" class="net.sf.pmr.agilePlanning.domain.story.StoryValidatorImpl"
+		  singleton="true" 	dependency-check="none"/>			    		  
+		  
+	<!-- task Validator -->
+
+	<bean id="taskValidator" class="net.sf.pmr.agilePlanning.domain.story.task.TaskValidatorImpl"
+		  singleton="true" 	dependency-check="none"/>			    		  
+
+<!-- =============== repositories =============== -->
+
+	<!-- story -->
+
+     <bean id="storyRepository" class="net.sf.pmr.agilePlanning.domain.story.StoryRepositoryImpl"
+          singleton="true" dependency-check="objects">
+	    <constructor-arg index="0"><ref local="storyMapper"/></constructor-arg>
+   	    <constructor-arg index="1"><ref local="taskMapper"/></constructor-arg>
+   	    <constructor-arg index="2"><ref local="chargeMapper"/></constructor-arg>
+  	    <constructor-arg index="3"><ref bean="projectProxyUtil"/></constructor-arg>
+    </bean>   
+
+	<!-- business value -->
+
+     <bean id="businessValueRepository" class="net.sf.pmr.agilePlanning.domain.story.BusinessValueRepositoryImpl"
+          singleton="true" dependency-check="objects">
+	    <constructor-arg index="0"><ref local="businessValueMapper"/></constructor-arg>
+    </bean>   
+        
+
+	<!-- risk level -->
+
+     <bean id="riskLevelRepository" class="net.sf.pmr.agilePlanning.domain.story.RiskLevelRepositoryImpl"
+          singleton="true" dependency-check="objects">
+	    <constructor-arg index="0"><ref local="riskLevelMapper"/></constructor-arg>
+    </bean>   
+
+    
+	<!-- iteration -->
+
+	 <bean id="iterationRepository" class="net.sf.pmr.agilePlanning.domain.iteration.IterationRepositoryImpl"
+          singleton="true" dependency-check="objects">
+	    <constructor-arg index="0"><ref local="iterationMapper"/></constructor-arg>
+  	    <constructor-arg index="1"><ref bean="projectProxyUtil"/></constructor-arg>
+    </bean>   
+
+	<!-- release -->
+    
+    <bean id="releaseRepository" class="net.sf.pmr.agilePlanning.domain.release.ReleaseRepositoryImpl"
+          singleton="true" dependency-check="objects">
+	    <constructor-arg index="0"><ref local="releaseMapper"/></constructor-arg>
+   	    <constructor-arg index="1"><ref bean="projectProxyUtil"/></constructor-arg>
+    </bean>   
+    
+<!-- =============== mappers =============== -->
+
+	<!-- TODO vérifier l'utilité de depends-on avec dependency-check=none -->
+
+	<!-- story -->
+
+    <bean id="storyMapper" class="net.sf.pmr.agilePlanning.data.story.StoryMapperImpl"
+    	  singleton="true" dependency-check="none">
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property>
+	</bean>
+
+    <!-- businessValue -->
+
+    <bean id="businessValueMapper" class="net.sf.pmr.agilePlanning.data.story.BusinessValueMapperImpl"
+    	  singleton="true" dependency-check="none">
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property>
+	</bean>
+
+	<!-- riskLevel -->
+
+    <bean id="riskLevelMapper" class="net.sf.pmr.agilePlanning.data.story.RiskLevelMapperImpl"
+    	  singleton="true" dependency-check="none">
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property>
+	</bean>
+
+	
+	<!-- task -->
+
+   <bean id="taskMapper" class="net.sf.pmr.agilePlanning.data.story.task.TaskMapperImpl"
+    	  singleton="true" dependency-check="none">
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property>
+	</bean>
+	
+
+	<!-- charge -->
+
+   <bean id="chargeMapper" class="net.sf.pmr.agilePlanning.data.story.task.charge.ChargeMapperImpl"
+    	  singleton="true" dependency-check="none">
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property>
+	</bean>
+
+	
+   <!-- iteration -->
+
+   <bean id="iterationMapper" class="net.sf.pmr.agilePlanning.data.iteration.IterationMapperImpl"
+    	  singleton="true" dependency-check="none">
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property>
+	</bean>
+	
+	<!-- release -->
+	
+	<bean id="releaseMapper" class="net.sf.pmr.agilePlanning.data.release.ReleaseMapperImpl"
+    	  singleton="true" dependency-check="none">
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property>
+	</bean>
+
+	   
+</beans>

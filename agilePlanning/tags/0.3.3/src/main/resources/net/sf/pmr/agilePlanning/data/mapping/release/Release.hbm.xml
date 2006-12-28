@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.sf.pmr.agilePlanning.data.mapping">
+
+	<class name="net.sf.pmr.agilePlanning.domain.release.ReleaseImpl" table="RELEASE">
+		
+		<id column="ID" name="PersistanceId" type="int" unsaved-value="0">
+			<generator class="native" />
+		</id>
+
+		<version column="VERSION" name="PersistanceVersion" type="long" />
+
+  	    <property column="NUMBER" name="Number" not-null="true" type="string" />
+		<property column="DATE" name="Date" not-null="true" type="java.util.Date" />
+
+		<set name="Stories" cascade="none" lazy="false" table="STORY">
+            <key column="REL_ID" not-null="false"/>
+            <one-to-many class="net.sf.pmr.agilePlanning.domain.story.StoryImpl"/>
+        </set>
+        
+   		<many-to-one class="net.sf.pmr.core.domain.project.ProjectImpl" name="Project" 
+					 lazy="no-proxy" outer-join="false" cascade="none" update="true" insert="true" not-found="exception">
+			<column name="PRO_ID" />
+		</many-to-one>
+		    
+	</class>
+</hibernate-mapping>
