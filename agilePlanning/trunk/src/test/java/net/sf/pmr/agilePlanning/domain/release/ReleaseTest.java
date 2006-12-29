@@ -41,11 +41,12 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
-import net.sf.pmr.agilePlanning.domain.story.MockStory;
 import net.sf.pmr.agilePlanning.domain.story.Story;
 import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.project.ProjectImpl;
-import de.abstrakt.mock.MockCore;
+
+import org.easymock.EasyMock;
+import org.easymock.IMocksControl;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
@@ -78,7 +79,7 @@ public class ReleaseTest extends TestCase {
      * l'égalité de l'object est faite sur :
      * <ul>
      * <li>le projet</li>
-     * <li>le num�ro (number)</li>
+     * <li>le numéro (number)</li>
      * </ul>
      * Test avec le même projet et le même numêro
      */
@@ -329,35 +330,35 @@ public class ReleaseTest extends TestCase {
      * la méthode doit retourner true.
      */
     public void testIsWarningWhenSetOfStoriesIsNotEmptyAndHasNotAStoryInWarning() {
-    	
-    	MockCore.reset();
+
+    	// l'ordre n'est pas important
+    	IMocksControl mocksControl = EasyMock.createControl();
     	
     	Release release = new ReleaseImpl();
     
     	// création de la liste de story
-    	Set stories = new HashSet<Story>();
+    	Set<Story> stories = new HashSet<Story>();
     	
-    	MockStory mockStory1 = new MockStory();
-    	MockStory mockStory2 = new MockStory();
+    	Story mockStory1 = mocksControl.createMock(Story.class);
+    	Story mockStory2 = mocksControl.createMock(Story.class);
 
-    	// l'ordre n'est pas important
-    	MockCore.startBlock();
- 
-    	mockStory1.expectWarning(false);
-    	mockStory2.expectWarning(false);
-    	
-    	MockCore.endBlock();
+    	EasyMock.expect(mockStory1.warning()).andReturn(false);
+    	EasyMock.expect(mockStory2.warning()).andReturn(false);
     	
     	stories.add(mockStory1);
     	stories.add(mockStory2);
-
+        
+        // set mock in replay mode
+        mocksControl.replay();
+    	
     	release.setStories(stories);
     	
     	// la méthode doit retourner true
     	assertFalse(release.warning());
     	
     	// contrôle des appels
-    	MockCore.verify();
+    	mocksControl.verify();
+    	mocksControl.reset();
     	
     }
 

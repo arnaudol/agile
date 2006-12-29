@@ -40,11 +40,13 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
-import net.sf.pmr.agilePlanning.data.iteration.MockIterationMapper;
-import net.sf.pmr.core.domain.project.MockProjectProxyUtil;
+import net.sf.pmr.agilePlanning.data.iteration.IterationMapper;
 import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.project.ProjectImpl;
-import de.abstrakt.mock.MockCore;
+import net.sf.pmr.core.domain.project.ProjectProxyUtil;
+
+import org.easymock.EasyMock;
+import org.easymock.IMocksControl;
 
 /**
  * @author arnaud.prost@gmail.com
@@ -52,15 +54,17 @@ import de.abstrakt.mock.MockCore;
 public class IterationRepositoryTest extends TestCase {
 
     // MockMapper
-    private MockIterationMapper mockIterationMapper;
+    private IterationMapper mockIterationMapper;
 
-    private MockProjectProxyUtil mockBasicProjectProxyUtil;
+    private ProjectProxyUtil mockBasicProjectProxyUtil;
     
     private Iteration iteration;
     
     private Project project;
     
     private IterationRepository iterationRepository;
+    
+    private IMocksControl mocksControl;
     
 
     
@@ -70,10 +74,13 @@ public class IterationRepositoryTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        mockIterationMapper = new MockIterationMapper();
+        // create mocks
+        mocksControl = EasyMock.createStrictControl();
         
-        mockBasicProjectProxyUtil = new MockProjectProxyUtil();
+        mockIterationMapper = mocksControl.createMock(IterationMapper.class);
         
+        mockBasicProjectProxyUtil = mocksControl.createMock(ProjectProxyUtil.class);
+
         iteration = new IterationImpl();
         
         project = new ProjectImpl();
@@ -81,8 +88,6 @@ public class IterationRepositoryTest extends TestCase {
         // create iterationRepository
         iterationRepository = new IterationRepositoryImpl(mockIterationMapper, mockBasicProjectProxyUtil);
         
-        MockCore.reset();
-       
 
     }
 
@@ -90,6 +95,9 @@ public class IterationRepositoryTest extends TestCase {
      * @see TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
+    	
+    	mocksControl.reset();
+    	
         super.tearDown();
     }
 
@@ -107,23 +115,29 @@ public class IterationRepositoryTest extends TestCase {
      * methode getMembers Avant d'envoyer l'object au mapper pour ajout en base.
      */
     public void testAddOrUpdate() {
-
+    	
         iteration.setProject(project);
-        
         Project basicProjectTarget = new ProjectImpl();
         
-        mockBasicProjectProxyUtil.expectGetTarget(project, basicProjectTarget);
+        // set expectations
+        EasyMock.expect(mockBasicProjectProxyUtil.getTarget(project)).andReturn(basicProjectTarget);
+        mockIterationMapper.addOrUpdate(iteration);
+        // check order
+        mocksControl.checkOrder(true);
         
-        mockIterationMapper.expectAddOrUpdate(iteration);
+        // set mock in replay mode
+        mocksControl.replay();
         
         // add or update iteration
         iterationRepository.addOrUpdate(iteration);
-
-         MockCore.verify();
+        
+        // verify calls
+        mocksControl.verify();
         
         // check the the basic poject is replaced by the target
         assertSame(iteration.getProject(), basicProjectTarget);
-    
+        
+        
     }
     
     /**
@@ -147,20 +161,24 @@ public class IterationRepositoryTest extends TestCase {
        set.add(iteration1);
        set.add(iteration2);
        
-       mockIterationMapper.expectFindByProjectPersistanceId(1, set);
+       // set expectation
+       EasyMock.expect(mockIterationMapper.findByProjectPersistanceId(1)).andReturn(set);
        
        Project basicProjectToReturn = new ProjectImpl();
 
-       MockCore.startBlock();
+       EasyMock.expect(mockBasicProjectProxyUtil.injectDependencies(basicProject2)).andReturn(basicProjectToReturn);
+       EasyMock.expect(mockBasicProjectProxyUtil.injectDependencies(basicProject1)).andReturn(basicProjectToReturn);
+       // check order
+       mocksControl.checkOrder(true);
        
-       mockBasicProjectProxyUtil.expectInjectDependencies(basicProject2, basicProjectToReturn);
-       mockBasicProjectProxyUtil.expectInjectDependencies(basicProject1, basicProjectToReturn);
+       // set mock in replay mode
+       mocksControl.replay();
        
-       MockCore.endBlock();
-       
+       // test
        iterationRepository.findByProjectPersistanceId(1);
        
-       MockCore.verify();
+       // verify mock calls
+       mocksControl.verify();
        
        assertSame(iteration1.getProject(), basicProjectToReturn);
        assertSame(iteration2.getProject(), basicProjectToReturn);
@@ -178,13 +196,19 @@ public class IterationRepositoryTest extends TestCase {
         
         Project basicProjectToReturn = new ProjectImpl();
         
-        mockIterationMapper.expectFindById(1, iteration);
+        // set expectation
+        EasyMock.expect(mockIterationMapper.findById(1)).andReturn(iteration);
+        EasyMock.expect(mockBasicProjectProxyUtil.injectDependencies(basicProject)).andReturn(basicProjectToReturn);
+        // check order
+        mocksControl.checkOrder(true);
         
-        mockBasicProjectProxyUtil.expectInjectDependencies(basicProject, basicProjectToReturn);
+        // set mock in replay mode
+        mocksControl.replay();
         
         iterationRepository.findByPersistanceId(1);
         
-        MockCore.verify();
+        // verify mock calls
+        mocksControl.verify();
         
         assertSame(iteration.getProject(), basicProjectToReturn);
         
@@ -203,13 +227,18 @@ public class IterationRepositoryTest extends TestCase {
         
         Date date = new Date();
         
-        mockIterationMapper.expectFindByProjectPersistanceIdAndByDate(1, date, iteration);
+        EasyMock.expect(mockIterationMapper.findByProjectPersistanceIdAndByDate(1, date)).andReturn(iteration);
+        EasyMock.expect(mockBasicProjectProxyUtil.injectDependencies(basicProject)).andReturn(basicProjectToReturn);
+        // check order
+        mocksControl.checkOrder(true);
         
-        mockBasicProjectProxyUtil.expectInjectDependencies(basicProject, basicProjectToReturn);
+        // set mock in replay mode
+        mocksControl.replay();
         
         iterationRepository.findByProjectPersistanceIdAndByDate(1, date);
         
-        MockCore.verify();
+        // verify mock calls
+        mocksControl.verify();
         
         assertSame(iteration.getProject(), basicProjectToReturn); 
         
@@ -227,11 +256,17 @@ public class IterationRepositoryTest extends TestCase {
         
         Date date = new Date();
         
-        mockIterationMapper.expectFindByProjectPersistanceIdAndByDate(1, date, iteration);
+        EasyMock.expect(mockIterationMapper.findByProjectPersistanceIdAndByDate(1, date)).andReturn(iteration);
+        // check order
+        mocksControl.checkOrder(true);
+        
+        // set mock in replay mode
+        mocksControl.replay();
                 
         iterationRepository.findByProjectPersistanceIdAndByDate(1, date);
         
-        MockCore.verify();
+        // verify mock calls
+        mocksControl.verify();
         
         assertNull(iteration); 
         

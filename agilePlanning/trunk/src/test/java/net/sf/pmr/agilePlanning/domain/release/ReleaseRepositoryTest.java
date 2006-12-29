@@ -39,11 +39,13 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
-import net.sf.pmr.agilePlanning.data.release.MockReleaseMapper;
-import net.sf.pmr.core.domain.project.MockProjectProxyUtil;
+import net.sf.pmr.agilePlanning.data.release.ReleaseMapper;
 import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.project.ProjectImpl;
-import de.abstrakt.mock.MockCore;
+import net.sf.pmr.core.domain.project.ProjectProxyUtil;
+
+import org.easymock.EasyMock;
+import org.easymock.IMocksControl;
 
 /**
  * @author arnaud.prosts@gmail.com
@@ -51,26 +53,31 @@ import de.abstrakt.mock.MockCore;
  */
 public class ReleaseRepositoryTest extends TestCase {
     
+    private ReleaseMapper mockReleaseMapper;
     
-    private MockReleaseMapper mockReleaseMapper;
-    
-    private MockProjectProxyUtil mockBasicProjectProxyUtil;
+    private ProjectProxyUtil mockBasicProjectProxyUtil;
     
     private Release release;
     
     private Project basicProject = new ProjectImpl();
     
     private ReleaseRepository releaseRepository;
+    
+    private IMocksControl mocksControl;
+
 
     /*
      * @see TestCase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
+
+        // create mocks
+        mocksControl = EasyMock.createStrictControl();
         
-        mockReleaseMapper = new MockReleaseMapper();
+        mockReleaseMapper = mocksControl.createMock(ReleaseMapper.class);
         
-        mockBasicProjectProxyUtil = new MockProjectProxyUtil();
+        mockBasicProjectProxyUtil = mocksControl.createMock(ProjectProxyUtil.class);
         
         release = new ReleaseImpl();
         
@@ -78,14 +85,15 @@ public class ReleaseRepositoryTest extends TestCase {
         
         releaseRepository = new ReleaseRepositoryImpl(mockReleaseMapper, mockBasicProjectProxyUtil);
         
-        MockCore.reset();
-        
     }
 
     /*
      * @see TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
+    	
+    	mocksControl.reset();
+    	
         super.tearDown();
     }
 
@@ -110,17 +118,21 @@ public class ReleaseRepositoryTest extends TestCase {
         
         Project basicProjectTarget = new ProjectImpl();
         
-        mockBasicProjectProxyUtil.expectGetTarget(basicProject, basicProjectTarget);
+        EasyMock.expect(mockBasicProjectProxyUtil.getTarget(basicProject)).andReturn(basicProjectTarget);
+        mockReleaseMapper.addOrUpdate(release);
+        // check order
+        mocksControl.checkOrder(true);
         
-        mockReleaseMapper.expectAddOrUpdate(release);
+        // set mock in replay mode
+        mocksControl.replay();
         
         // add or update iteration
         releaseRepository.addOrUpdate(release);
-
-         MockCore.verify();
         
         // check the the basic poject is replaced by the target
         assertSame(release.getProject(), basicProjectTarget);
+        
+        mocksControl.verify();
     
     }
     
@@ -133,18 +145,22 @@ public class ReleaseRepositoryTest extends TestCase {
         release.setProject(basicProject);
         
         Project basicProjectTarget = new ProjectImpl();
+
+        EasyMock.expect(mockBasicProjectProxyUtil.getTarget(basicProject)).andReturn(basicProjectTarget);
+        mockReleaseMapper.delete(release);
+        // check order
+        mocksControl.checkOrder(true);
         
-        mockBasicProjectProxyUtil.expectGetTarget(basicProject, basicProjectTarget);
-        
-        mockReleaseMapper.expectDelete(release);
+        // set mock in replay mode
+        mocksControl.replay();
         
         // add or update iteration
         releaseRepository.delete(release);
-
-         MockCore.verify();
         
         // check the the basic poject is replaced by the target
         assertSame(release.getProject(), basicProjectTarget);
+        
+        mocksControl.verify();
     
     }
 
@@ -154,7 +170,7 @@ public class ReleaseRepositoryTest extends TestCase {
      */
     public void testFindByProjectPersistanceId() {
         
-       Set set = new HashSet();
+       Set<Release> set = new HashSet<Release>();
        
        Release release1 = new ReleaseImpl();
        Project basicProject1 = new ProjectImpl();
@@ -169,24 +185,28 @@ public class ReleaseRepositoryTest extends TestCase {
        set.add(release1);
        set.add(release2);
        
-       mockReleaseMapper.expectFindByProjectPersistanceId(1, set);
+       // set mocks
+       EasyMock.expect(mockReleaseMapper.findByProjectPersistanceId(1)).andReturn(set);
        
        Project basicProjectToReturn1 = new ProjectImpl();
        Project basicProjectToReturn2 = new ProjectImpl();
 
-       MockCore.startBlock();
+       EasyMock.expect(mockBasicProjectProxyUtil.injectDependencies(basicProject2)).andReturn(basicProjectToReturn2);
+       EasyMock.expect(mockBasicProjectProxyUtil.injectDependencies(basicProject1)).andReturn(basicProjectToReturn1);
        
-       mockBasicProjectProxyUtil.expectInjectDependencies(basicProject2, basicProjectToReturn2);
-       mockBasicProjectProxyUtil.expectInjectDependencies(basicProject1, basicProjectToReturn1);
+       // check order
+       mocksControl.checkOrder(true);
        
-       MockCore.endBlock();
+       // set mock in replay mode
+       mocksControl.replay();
+      
        
        releaseRepository.findByProjectPersistanceId(1);
        
-       MockCore.verify();
-       
        assertSame(release1.getProject(), basicProjectToReturn1);
        assertSame(release2.getProject(), basicProjectToReturn2);
+       
+       mocksControl.verify();
        
        
     }
@@ -200,16 +220,20 @@ public class ReleaseRepositoryTest extends TestCase {
         release.setProject(basicProject);
         
         Project basicProjectToReturn = new ProjectImpl();
+      
+        EasyMock.expect(mockReleaseMapper.findById(1)).andReturn(release);
+        EasyMock.expect(mockBasicProjectProxyUtil.injectDependencies(basicProject)).andReturn(basicProjectToReturn);
+        // check order
+        mocksControl.checkOrder(true);
         
-        mockReleaseMapper.expectFindById(1, release);
-        
-        mockBasicProjectProxyUtil.expectInjectDependencies(basicProject, basicProjectToReturn);
+        // set mock in replay mode
+        mocksControl.replay();
         
         releaseRepository.findByPersistanceId(1);
         
-        MockCore.verify();
-        
         assertSame(release.getProject(), basicProjectToReturn);
+        
+        mocksControl.verify();
         
     }
     

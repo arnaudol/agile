@@ -40,11 +40,12 @@ import java.util.HashSet;
 
 import junit.framework.TestCase;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
-import net.sf.pmr.agilePlanning.domain.story.MockStory;
 import net.sf.pmr.agilePlanning.domain.story.Story;
 import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.project.ProjectImpl;
-import de.abstrakt.mock.MockCore;
+
+import org.easymock.EasyMock;
+import org.easymock.IMocksControl;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
@@ -80,6 +81,7 @@ public class IterationTest extends TestCase {
      * @see TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
+
         super.tearDown();
     }
 
@@ -386,35 +388,33 @@ public class IterationTest extends TestCase {
      * La méthode doit retourner 5.0
      */
     public void testDaysCompletedWhenStoriesIsNotEmpty() {
-    
-    	MockCore.reset();
+    	
+        //create mocks
+        IMocksControl mocksControl = EasyMock.createControl();
     	
     	Iteration iteration = new IterationImpl();
     	
     	iteration.setStories(new HashSet<Story>());
     	
     	// mock de story
-    	MockStory mockStory1 = new MockStory();
-    	MockStory mockStory2 = new MockStory();
+    	Story mockStory1 = mocksControl.createMock(Story.class);
+    	Story mockStory2 = mocksControl.createMock(Story.class);
     	
-    	// l'ordre d'appel n'est pas important
-    	MockCore.startBlock();
-    	
-    	mockStory1.expectDaysCompleted(2);
+    	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(2));
     	iteration.getStories().add(mockStory1);
-    	mockStory2.expectDaysCompleted(3);
+    	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(3));
     	iteration.getStories().add(mockStory2);
+   
+        
+        // set mock in replay mode
+        mocksControl.replay();
     	
-    	MockCore.endBlock();
-    	
-    	// appel de la méthode
-    	double daysCompleted = iteration.daysCompleted();
-    	
-    	// et contrôle du résultat
-    	assertEquals(5.0, daysCompleted);
+    	// contrôle du résultat
+    	assertEquals(5.0, iteration.daysCompleted());
     	
     	// puis contrôle des appels
-    	MockCore.verify();
+    	mocksControl.verify();
+    	mocksControl.reset();
     	
     }
 
@@ -446,25 +446,24 @@ public class IterationTest extends TestCase {
      */
     public void testDaysRemainingWhenStoriesIsNotEmpty() {
     
-    	MockCore.reset();
+        //create mocks
+        IMocksControl mocksControl = EasyMock.createControl();
     	
     	Iteration iteration = new IterationImpl();
     	
     	iteration.setStories(new HashSet<Story>());
     	
     	// mock de story
-    	MockStory mockStory1 = new MockStory();
-    	MockStory mockStory2 = new MockStory();
+    	Story mockStory1 = mocksControl.createMock(Story.class);
+    	Story mockStory2 = mocksControl.createMock(Story.class);
     	
-    	// l'ordre d'appel n'est pas important
-    	MockCore.startBlock();
-    	
-    	mockStory1.expectDaysRemaining(1);
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(1));
     	iteration.getStories().add(mockStory1);
-    	mockStory2.expectDaysRemaining(2);
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(2));
     	iteration.getStories().add(mockStory2);
-    	
-    	MockCore.endBlock();
+        
+        // set mock in replay mode
+        mocksControl.replay();
     	
     	// appel de la méthode
     	double daysRemaining = iteration.daysRemaining();
@@ -473,7 +472,8 @@ public class IterationTest extends TestCase {
     	assertEquals(3.0, daysRemaining);
     	
     	// puis contrôle des appels
-    	MockCore.verify();
+       	mocksControl.verify();
+       	mocksControl.reset();
     	
     }
 
@@ -505,28 +505,30 @@ public class IterationTest extends TestCase {
      * La méthode doit retourner 0
      */
     public void testPercentCompletedWhenStoriesIsNotEmpty() {
-    
-    	MockCore.reset();
+    	
+        //create mocks
+        IMocksControl mocksControl = EasyMock.createControl();
     	
     	Iteration iteration = new IterationImpl();
     	
     	iteration.setStories(new HashSet<Story>());
     	
     	// mock de story
-    	MockStory mockStory1 = new MockStory();
-    	MockStory mockStory2 = new MockStory();
+    	Story mockStory1 = mocksControl.createMock(Story.class);
+    	Story mockStory2 = mocksControl.createMock(Story.class);
     	
-    	// l'ordre d'appel n'est pas important
-    	MockCore.startBlock();
-    	
-    	mockStory1.expectDaysRemaining(1);
-    	mockStory1.expectDaysCompleted(1);
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(1));
+    	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(1));
     	iteration.getStories().add(mockStory1);
-    	mockStory2.expectDaysRemaining(5);
-    	mockStory2.expectDaysCompleted(1);
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(5));
+    	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(1));
     	iteration.getStories().add(mockStory2);
     	
-    	MockCore.endBlock();
+    	// l'ordre d'appel n'est pas important
+   	 	mocksControl.checkOrder(false);
+        
+        // set mock in replay mode
+        mocksControl.replay();
     	
     	
     	// appel de la méthode
@@ -536,7 +538,8 @@ public class IterationTest extends TestCase {
     	assertEquals(25.0, percentCompleted);
     	
     	// puis contrôle des appels
-    	MockCore.verify();
+      	mocksControl.verify();
+      	mocksControl.reset();
     	
     }
 
@@ -569,23 +572,35 @@ public class IterationTest extends TestCase {
      */
     public void testPercentRemainingWhenStoriesIsNotEmpty() {
     
+        //create mocks
+        IMocksControl mocksControl = EasyMock.createControl();
+    	
     	Iteration iteration = new IterationImpl();
     	
     	iteration.setStories(new HashSet<Story>());
     	
     	// mock de story
-    	MockStory mockStory1 = new MockStory();
-    	MockStory mockStory2 = new MockStory();
+    	Story mockStory1 = mocksControl.createMock(Story.class);
+    	Story mockStory2 = mocksControl.createMock(Story.class);
     	
-    	mockStory1.setDaysRemainingDummy(1);
-    	mockStory1.setDaysCompletedDummy(1);
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(1));
+    	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(1));
     	iteration.getStories().add(mockStory1);
-    	mockStory2.setDaysRemainingDummy(5);
-    	mockStory2.setDaysCompletedDummy(1);
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(5));
+    	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(1));
+    	
+    	//  l'ordre d'appel n'est pas important
+   	 	mocksControl.checkOrder(false);
+        
+        // set mock in replay mode
+        mocksControl.replay();
+    	
     	iteration.getStories().add(mockStory2);    	
     	
     	// appel de la méthode et contrôle du résultat
     	assertEquals(75.0, iteration.percentRemaining());
+    	
+    	mocksControl.reset();
     	
     }
 
@@ -637,29 +652,37 @@ public class IterationTest extends TestCase {
      * La méthode doit retourner 0, cad pas de différence.
      */
     public void testDifferenceOfDaysBetweenIterationAndStoriesWithNoDifference() {
+    	
+        //create mocks
+        IMocksControl mocksControl = EasyMock.createControl();
     
     	Iteration iteration = new IterationImpl();
     	iteration.setDays(45);
     	iteration.setStories(new HashSet<Story>());
     	
     	// mock de story
-    	MockStory mockStory1 = new MockStory();
-    	MockStory mockStory2 = new MockStory();
-    	MockStory mockStory3 = new MockStory();
+    	Story mockStory1 = mocksControl.createMock(Story.class);
+    	Story mockStory2 = mocksControl.createMock(Story.class);
+    	Story mockStory3 = mocksControl.createMock(Story.class);
     	
-    	mockStory1.setDaysCompletedDummy(6);
-    	mockStory1.setDaysRemainingDummy(4);
+    	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(6));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(4));
     	iteration.getStories().add(mockStory1);
     	
-    	mockStory2.setDaysCompletedDummy(4);
-    	mockStory2.setDaysRemainingDummy(6);
+    	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(4));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(6));
     	iteration.getStories().add(mockStory2);
     	
-    	mockStory3.setDaysCompletedDummy(20);
-    	mockStory3.setDaysRemainingDummy(5);
+    	EasyMock.expect(mockStory3.daysCompleted()).andReturn(new Double(20));
+    	EasyMock.expect(mockStory3.daysRemaining()).andReturn(new Double(5));
     	iteration.getStories().add(mockStory3);
+        
+        // set mock in replay mode
+        mocksControl.replay();
     	
     	assertEquals(0.0, iteration.differenceOfDaysBetweenIterationAndStories());
+    	
+    	mocksControl.reset();
     	
     }
     
@@ -670,28 +693,37 @@ public class IterationTest extends TestCase {
      */
     public void testDifferenceInPercentBetweenIterationAndStoriesWithNoDifference() {
     
+        //create mocks
+        IMocksControl mocksControl = EasyMock.createControl();
+    	
     	Iteration iteration = new IterationImpl();
     	iteration.setDays(45);
     	iteration.setStories(new HashSet<Story>());
     	
     	// mock de story
-    	MockStory mockStory1 = new MockStory();
-    	MockStory mockStory2 = new MockStory();
-    	MockStory mockStory3 = new MockStory();
+    	Story mockStory1 = mocksControl.createMock(Story.class);
+    	Story mockStory2 = mocksControl.createMock(Story.class);
+    	Story mockStory3 = mocksControl.createMock(Story.class);
     	
-    	mockStory1.setDaysCompletedDummy(6);
-    	mockStory1.setDaysRemainingDummy(4);
+    	
+    	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(6));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(4));
     	iteration.getStories().add(mockStory1);
     	
-    	mockStory2.setDaysCompletedDummy(4);
-    	mockStory2.setDaysRemainingDummy(6);
+    	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(4));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(6));
     	iteration.getStories().add(mockStory2);
     	
-    	mockStory3.setDaysCompletedDummy(20);
-    	mockStory3.setDaysRemainingDummy(5);
+    	EasyMock.expect(mockStory3.daysCompleted()).andReturn(new Double(20));
+    	EasyMock.expect(mockStory3.daysRemaining()).andReturn(new Double(5));
     	iteration.getStories().add(mockStory3);
+
+        // set mock in replay mode
+        mocksControl.replay();    	
     	
     	assertEquals(0.0, iteration.differenceInPercentBetweenIterationAndStories());
+    	
+    	mocksControl.reset();
     	
     }
 
@@ -702,28 +734,37 @@ public class IterationTest extends TestCase {
      */
     public void testDifferenceOfDaysBetweenIterationAndStoriesWithNegativeDifference() {
     
+        //create mocks
+        IMocksControl mocksControl = EasyMock.createControl();
+    	
     	Iteration iteration = new IterationImpl();
     	iteration.setDays(45);
     	iteration.setStories(new HashSet<Story>());
     	
     	// mock de story
-    	MockStory mockStory1 = new MockStory();
-    	MockStory mockStory2 = new MockStory();
-    	MockStory mockStory3 = new MockStory();
+    	Story mockStory1 = mocksControl.createMock(Story.class);
+    	Story mockStory2 = mocksControl.createMock(Story.class);
+    	Story mockStory3 = mocksControl.createMock(Story.class);
     	
-    	mockStory1.setDaysCompletedDummy(6);
-    	mockStory1.setDaysRemainingDummy(4);
+       	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(6));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(4));
     	iteration.getStories().add(mockStory1);
     	
-    	mockStory2.setDaysCompletedDummy(4);
-    	mockStory2.setDaysRemainingDummy(6);
+       	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(4));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(6));
     	iteration.getStories().add(mockStory2);
     	
-    	mockStory3.setDaysCompletedDummy(20);
-    	mockStory3.setDaysRemainingDummy(10);
+       	EasyMock.expect(mockStory3.daysCompleted()).andReturn(new Double(20));
+    	EasyMock.expect(mockStory3.daysRemaining()).andReturn(new Double(10));
     	iteration.getStories().add(mockStory3);
+
+        
+        // set mock in replay mode
+        mocksControl.replay();    
     	
     	assertEquals(-5.0, iteration.differenceOfDaysBetweenIterationAndStories());
+    	
+    	mocksControl.reset();
     	
     }
     
@@ -733,28 +774,37 @@ public class IterationTest extends TestCase {
      */
     public void testDifferenceInPercentBetweenIterationAndStoriesWithNegativeDifference() {
     
+        //create mocks
+        IMocksControl mocksControl = EasyMock.createControl();
+    	
     	Iteration iteration = new IterationImpl();
     	iteration.setDays(100);
     	iteration.setStories(new HashSet<Story>());
     	
     	// mock de story
-    	MockStory mockStory1 = new MockStory();
-    	MockStory mockStory2 = new MockStory();
-    	MockStory mockStory3 = new MockStory();
+    	Story mockStory1 = mocksControl.createMock(Story.class);
+    	Story mockStory2 = mocksControl.createMock(Story.class);
+    	Story mockStory3 = mocksControl.createMock(Story.class);
     	
-    	mockStory1.setDaysCompletedDummy(40);
-    	mockStory1.setDaysRemainingDummy(10);
+       	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(40));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(10));
     	iteration.getStories().add(mockStory1);
     	
-    	mockStory2.setDaysCompletedDummy(10);
-    	mockStory2.setDaysRemainingDummy(40);
+       	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(10));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(40));
     	iteration.getStories().add(mockStory2);
     	
-    	mockStory3.setDaysCompletedDummy(5);
-    	mockStory3.setDaysRemainingDummy(5);
+       	EasyMock.expect(mockStory3.daysCompleted()).andReturn(new Double(5));
+    	EasyMock.expect(mockStory3.daysRemaining()).andReturn(new Double(5));
     	iteration.getStories().add(mockStory3);
+
+        
+        // set mock in replay mode
+        mocksControl.replay();    
     	
     	assertEquals(10.0, iteration.differenceInPercentBetweenIterationAndStories());
+    	
+    	mocksControl.reset();
     	
     }
 
@@ -764,28 +814,37 @@ public class IterationTest extends TestCase {
      */
     public void testDifferenceOfDaysBetweenIterationAndStoriesWithPositiveDifference() {
     
+        //create mocks
+        IMocksControl mocksControl = EasyMock.createControl();
+    	
     	Iteration iteration = new IterationImpl();
     	iteration.setDays(45);
     	iteration.setStories(new HashSet<Story>());
     	
     	// mock de story
-    	MockStory mockStory1 = new MockStory();
-    	MockStory mockStory2 = new MockStory();
-    	MockStory mockStory3 = new MockStory();
+    	Story mockStory1 = mocksControl.createMock(Story.class);
+    	Story mockStory2 = mocksControl.createMock(Story.class);
+    	Story mockStory3 = mocksControl.createMock(Story.class);
     	
-    	mockStory1.setDaysCompletedDummy(6);
-    	mockStory1.setDaysRemainingDummy(4);
+       	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(6));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(4));
     	iteration.getStories().add(mockStory1);
     	
-    	mockStory2.setDaysCompletedDummy(4);
-    	mockStory2.setDaysRemainingDummy(6);
+       	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(4));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(6));
     	iteration.getStories().add(mockStory2);
     	
-    	mockStory3.setDaysCompletedDummy(10);
-    	mockStory3.setDaysRemainingDummy(5);
+       	EasyMock.expect(mockStory3.daysCompleted()).andReturn(new Double(10));
+    	EasyMock.expect(mockStory3.daysRemaining()).andReturn(new Double(5));
     	iteration.getStories().add(mockStory3);
+
+        
+        // set mock in replay mode
+        mocksControl.replay();    
     	
     	assertEquals(10.0, iteration.differenceOfDaysBetweenIterationAndStories());
+    	
+    	mocksControl.reset();
     	
     }
  
@@ -794,28 +853,37 @@ public class IterationTest extends TestCase {
      */
     public void testDifferenceInPercentBetweenIterationAndStoriesWithPositiveDifference() {
     
+        //create mocks
+        IMocksControl mocksControl = EasyMock.createControl();
+    	
     	Iteration iteration = new IterationImpl();
     	iteration.setDays(100);
     	iteration.setStories(new HashSet<Story>());
     	
     	// mock de story
-    	MockStory mockStory1 = new MockStory();
-    	MockStory mockStory2 = new MockStory();
-    	MockStory mockStory3 = new MockStory();
+    	Story mockStory1 = mocksControl.createMock(Story.class);
+    	Story mockStory2 = mocksControl.createMock(Story.class);
+    	Story mockStory3 = mocksControl.createMock(Story.class);
     	
-    	mockStory1.setDaysCompletedDummy(40);
-    	mockStory1.setDaysRemainingDummy(10);
+       	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(40));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(10));
     	iteration.getStories().add(mockStory1);
     	
-    	mockStory2.setDaysCompletedDummy(10);
-    	mockStory2.setDaysRemainingDummy(10);
+       	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(10));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(10));
     	iteration.getStories().add(mockStory2);
     	
-    	mockStory3.setDaysCompletedDummy(5);
-    	mockStory3.setDaysRemainingDummy(5);
+       	EasyMock.expect(mockStory3.daysCompleted()).andReturn(new Double(5));
+    	EasyMock.expect(mockStory3.daysRemaining()).andReturn(new Double(5));
     	iteration.getStories().add(mockStory3);
+
+        
+        // set mock in replay mode
+        mocksControl.replay();    
     	
     	assertEquals(-20.0, iteration.differenceInPercentBetweenIterationAndStories());
+    	
+    	mocksControl.reset();
     	
     }
     
@@ -825,23 +893,32 @@ public class IterationTest extends TestCase {
      */
     public void testWarningWithMoreDaysInIterationThanInStories() {
     	
+        //create mocks
+        IMocksControl mocksControl = EasyMock.createControl();
+    	
     	Iteration iteration = new IterationImpl();
     	iteration.setDays(40);
     	iteration.setStories(new HashSet<Story>());
     	
     	// mock de story
-    	MockStory mockStory1 = new MockStory();
-    	MockStory mockStory2 = new MockStory();
+    	Story mockStory1 = mocksControl.createMock(Story.class);
+    	Story mockStory2 = mocksControl.createMock(Story.class);
     	
-    	mockStory1.setDaysCompletedDummy(10);
-    	mockStory1.setDaysRemainingDummy(10);
+       	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(10));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(10));
     	iteration.getStories().add(mockStory1);
     	
-    	mockStory2.setDaysCompletedDummy(5);
-    	mockStory2.setDaysRemainingDummy(5);
+       	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(5));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(5));
     	iteration.getStories().add(mockStory2);
+
+        
+        // set mock in replay mode
+        mocksControl.replay();    
     	
     	assertFalse(iteration.warning());
+    	
+    	mocksControl.reset();
 
     	
     }
@@ -852,23 +929,31 @@ public class IterationTest extends TestCase {
      */
     public void testWarningWithMoreDaysStoriesThanInIteration() {
 
+        //create mocks
+        IMocksControl mocksControl = EasyMock.createControl();
+    	
     	Iteration iteration = new IterationImpl();
     	iteration.setDays(40);
     	iteration.setStories(new HashSet<Story>());
     	
     	// mock de story
-    	MockStory mockStory1 = new MockStory();
-    	MockStory mockStory2 = new MockStory();
+    	Story mockStory1 = mocksControl.createMock(Story.class);
+    	Story mockStory2 = mocksControl.createMock(Story.class);
     	
-    	mockStory1.setDaysCompletedDummy(10);
-    	mockStory1.setDaysRemainingDummy(10);
+       	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(10));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(10));
     	iteration.getStories().add(mockStory1);
     	
-    	mockStory2.setDaysCompletedDummy(20);
-    	mockStory2.setDaysRemainingDummy(10);
+       	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(20));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(10));
     	iteration.getStories().add(mockStory2);
+        
+        // set mock in replay mode
+        mocksControl.replay();   
     	
     	assertTrue(iteration.warning());
+    	
+    	mocksControl.reset();
 
     	
     }
@@ -879,24 +964,33 @@ public class IterationTest extends TestCase {
      * warning doit retourner true
      */
     public void testWarningWithTheSameNumberOfDaysInStoriesAndInIteration() {
+    	
+        //create mocks
+        IMocksControl mocksControl = EasyMock.createControl();
 
     	Iteration iteration = new IterationImpl();
     	iteration.setDays(40);
     	iteration.setStories(new HashSet<Story>());
     	
     	// mock de story
-    	MockStory mockStory1 = new MockStory();
-    	MockStory mockStory2 = new MockStory();
+    	Story mockStory1 = mocksControl.createMock(Story.class);
+    	Story mockStory2 = mocksControl.createMock(Story.class);
     	
-    	mockStory1.setDaysCompletedDummy(10);
-    	mockStory1.setDaysRemainingDummy(10);
+       	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(10));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(10));
     	iteration.getStories().add(mockStory1);
     	
-    	mockStory2.setDaysCompletedDummy(10);
-    	mockStory2.setDaysRemainingDummy(10);
+       	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(10));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(10));
+    	
+//    	 set mock in replay mode
+        mocksControl.replay();  
+    	
     	iteration.getStories().add(mockStory2);
     	
     	assertFalse(iteration.warning());
+    	
+    	mocksControl.reset();
 
     	
     }

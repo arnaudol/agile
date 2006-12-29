@@ -39,13 +39,15 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
-import net.sf.pmr.agilePlanning.data.story.MockStoryMapper;
-import net.sf.pmr.agilePlanning.data.story.task.MockTaskMapper;
-import net.sf.pmr.agilePlanning.data.story.task.charge.MockChargeMapper;
-import net.sf.pmr.core.domain.project.MockProjectProxyUtil;
+import net.sf.pmr.agilePlanning.data.story.StoryMapper;
+import net.sf.pmr.agilePlanning.data.story.task.TaskMapper;
+import net.sf.pmr.agilePlanning.data.story.task.charge.ChargeMapper;
 import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.project.ProjectImpl;
-import de.abstrakt.mock.MockCore;
+import net.sf.pmr.core.domain.project.ProjectProxyUtil;
+
+import org.easymock.EasyMock;
+import org.easymock.IMocksControl;
 
 /**
  * Définition :
@@ -65,15 +67,18 @@ public class StoryRepositoryTest extends TestCase {
 
     private Set<Story> setOfStories;
 
-    private MockStoryMapper mockStoryMapper;
+    private StoryMapper mockStoryMapper;
     
-    private MockChargeMapper mockChargeMapper;
+    private ChargeMapper mockChargeMapper;
 
-    private MockProjectProxyUtil mockBasicProjectProxyUtil;
+    private ProjectProxyUtil mockBasicProjectProxyUtil;
 
     private Project basicProject;
 
     private StoryRepository storyRepository;
+    
+    private IMocksControl mocksControl;
+
 
     /*
      * @see TestCase#setUp()
@@ -81,16 +86,18 @@ public class StoryRepositoryTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        mockStoryMapper = new MockStoryMapper();
+        // create mocks
+        mocksControl = EasyMock.createStrictControl();
+
+        mockStoryMapper = mocksControl.createMock(StoryMapper.class);
+        mockChargeMapper = mocksControl.createMock(ChargeMapper.class);
+        mockBasicProjectProxyUtil = mocksControl.createMock(ProjectProxyUtil.class);
+        TaskMapper mockTaskMapper = mocksControl.createMock(TaskMapper.class);
         
-        mockChargeMapper = new MockChargeMapper();
-
-        mockBasicProjectProxyUtil = new MockProjectProxyUtil();
-
         basicProject = new ProjectImpl();
 
         storyRepository = new StoryRepositoryImpl(mockStoryMapper,
-                new MockTaskMapper(),mockChargeMapper,  mockBasicProjectProxyUtil);
+                mockTaskMapper,mockChargeMapper,  mockBasicProjectProxyUtil);
 
         story1 = new StoryImpl();
         basicProject1 = new ProjectImpl();
@@ -105,8 +112,6 @@ public class StoryRepositoryTest extends TestCase {
         setOfStories = new HashSet<Story>();
         setOfStories.add(story1);
         setOfStories.add(story2);
-        
-        MockCore.reset();
 
     }
 
@@ -114,6 +119,9 @@ public class StoryRepositoryTest extends TestCase {
      * @see TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
+    	
+    	mocksControl.reset();
+    	
         super.tearDown();
     }
 
@@ -128,7 +136,7 @@ public class StoryRepositoryTest extends TestCase {
     }
 
     /**
-     * BasicProject est un proxy � cause du lazy load fait par AOP pour la
+     * BasicProject est un proxy à cause du lazy load fait par AOP pour la
      * methode getMembers Avant d'envoyer l'object au mapper pour ajout en base,
      */
     public void testAddOrUpdate() {
@@ -137,18 +145,21 @@ public class StoryRepositoryTest extends TestCase {
 
         Project basicProjectTarget = new ProjectImpl();
 
-        mockBasicProjectProxyUtil.expectGetTarget(basicProject,
-                basicProjectTarget);
-
-        mockStoryMapper.expectAddOrUpdate(story1);
+        EasyMock.expect(mockBasicProjectProxyUtil.getTarget(basicProject)).andReturn(basicProjectTarget);
+        mockStoryMapper.addOrUpdate(story1);
+        // check order
+        mocksControl.checkOrder(true);
+        
+        // set mock in replay mode
+        mocksControl.replay();
 
         // add or update iteration
         storyRepository.addOrUpdate(story1);
 
-        MockCore.verify();
-
         // check the the basic poject is replaced by the target
         assertSame(story1.getProject(), basicProjectTarget);
+        
+        mocksControl.verify();
 
     }
 
@@ -162,18 +173,21 @@ public class StoryRepositoryTest extends TestCase {
 
         Project basicProjectTarget = new ProjectImpl();
 
-        mockBasicProjectProxyUtil.expectGetTarget(basicProject,
-                basicProjectTarget);
-
-        mockStoryMapper.expectDelete(story1);
-
+        EasyMock.expect(mockBasicProjectProxyUtil.getTarget(basicProject)).andReturn(basicProjectTarget);
+        mockStoryMapper.delete(story1);
+        // check order
+        mocksControl.checkOrder(true);
+        
+        // set mock in replay mode
+        mocksControl.replay();
+        
         // delete the story
         storyRepository.delete(story1);
 
-        MockCore.verify();
-
         // check the the basic poject is replaced by the target
         assertSame(story1.getProject(), basicProjectTarget);
+        
+        mocksControl.verify();
 
     }
 
@@ -182,28 +196,24 @@ public class StoryRepositoryTest extends TestCase {
      * Test que la repository renvoit un Basic Project "Advised".
      */
     public void testFindByProjectPersistanceId() {
-
-        mockStoryMapper.expectFindByProjectPersistanceId(1, setOfStories);
+    	
+    	EasyMock.expect(mockStoryMapper.findByProjectPersistanceId(1)).andReturn(setOfStories);
 
         Project basicProjectToReturn1 = new ProjectImpl();
         Project basicProjectToReturn2 = new ProjectImpl();
 
-        MockCore.startBlock();
-
-        mockBasicProjectProxyUtil.expectInjectDependencies(basicProject1,
-                basicProjectToReturn1);
-        mockBasicProjectProxyUtil.expectInjectDependencies(basicProject2,
-                basicProjectToReturn2);
-
-
-        MockCore.endBlock();
+        EasyMock.expect(mockBasicProjectProxyUtil.injectDependencies(basicProject1)).andReturn(basicProjectToReturn1);
+        EasyMock.expect(mockBasicProjectProxyUtil.injectDependencies(basicProject2)).andReturn(basicProjectToReturn2);
+        
+        // set mock in replay mode
+        mocksControl.replay();
 
         storyRepository.findByProjectPersistanceId(1);
 
-        MockCore.verify();
-
         assertSame(story1.getProject(), basicProjectToReturn1);
         assertSame(story2.getProject(), basicProjectToReturn2);
+        
+       mocksControl.verify();
 
     }
 
@@ -212,27 +222,27 @@ public class StoryRepositoryTest extends TestCase {
      */
     public void testFindByReleasePersistanceId() {
 
-        mockStoryMapper.expectFindByReleasePersistanceId(1, setOfStories);
-
+    	EasyMock.expect(mockStoryMapper.findByReleasePersistanceId(1)).andReturn(setOfStories);
+    	
         Project basicProjectToReturn1 = new ProjectImpl();
         Project basicProjectToReturn2 = new ProjectImpl();
 
-        MockCore.startBlock();
+//        EasyMock.expect(mockBasicProjectProxyUtil.getTarget(basicProject1)).andReturn(basicProjectToReturn1);
+//        EasyMock.expect(mockBasicProjectProxyUtil.getTarget(basicProject2)).andReturn(basicProjectToReturn2);
+        
+        EasyMock.expect(mockBasicProjectProxyUtil.injectDependencies(basicProject1)).andReturn(basicProjectToReturn1);
+        EasyMock.expect(mockBasicProjectProxyUtil.injectDependencies(basicProject2)).andReturn(basicProjectToReturn2);
 
-        mockBasicProjectProxyUtil.expectInjectDependencies(basicProject1,
-                basicProjectToReturn1);
-        mockBasicProjectProxyUtil.expectInjectDependencies(basicProject2,
-                basicProjectToReturn2);
-
-
-        MockCore.endBlock();
+        
+        // set mock in replay mode
+        mocksControl.replay();
 
         storyRepository.findByReleasePersistanceId(1);
 
-        MockCore.verify();
-
         assertSame(story1.getProject(), basicProjectToReturn1);
         assertSame(story2.getProject(), basicProjectToReturn2);
+        
+        mocksControl.verify();
 
     }
 
@@ -241,27 +251,27 @@ public class StoryRepositoryTest extends TestCase {
      */
     public void testFindByIterationPersistanceId() {
 
-        mockStoryMapper.expectFindByIterationPersistanceId(1, setOfStories);
+    	EasyMock.expect(mockStoryMapper.findByIterationPersistanceId(1)).andReturn(setOfStories);
 
         Project basicProjectToReturn1 = new ProjectImpl();
         Project basicProjectToReturn2 = new ProjectImpl();
+        
+//        EasyMock.expect(mockBasicProjectProxyUtil.getTarget(basicProject1)).andReturn(basicProjectToReturn1);
+//        EasyMock.expect(mockBasicProjectProxyUtil.getTarget(basicProject2)).andReturn(basicProjectToReturn2);
 
-        MockCore.startBlock();
+        EasyMock.expect(mockBasicProjectProxyUtil.injectDependencies(basicProject1)).andReturn(basicProjectToReturn1);
+        EasyMock.expect(mockBasicProjectProxyUtil.injectDependencies(basicProject2)).andReturn(basicProjectToReturn2);
 
-        mockBasicProjectProxyUtil.expectInjectDependencies(basicProject1,
-                basicProjectToReturn1);
-        mockBasicProjectProxyUtil.expectInjectDependencies(basicProject2,
-                basicProjectToReturn2);
-
-
-        MockCore.endBlock();
+        
+        // set mock in replay mode
+        mocksControl.replay();
 
         storyRepository.findByIterationPersistanceId(1);
 
-        MockCore.verify();
-
         assertSame(story1.getProject(), basicProjectToReturn1);
         assertSame(story2.getProject(), basicProjectToReturn2);
+        
+        mocksControl.verify();
 
     }
 
@@ -274,16 +284,19 @@ public class StoryRepositoryTest extends TestCase {
 
         Project basicProjectToReturn = new ProjectImpl();
 
-        mockStoryMapper.expectFindById(1, story1);
-
-        mockBasicProjectProxyUtil.expectInjectDependencies(basicProject,
-                basicProjectToReturn);
-
+        EasyMock.expect(mockStoryMapper.findById(1)).andReturn(story1);
+        //EasyMock.expect(mockBasicProjectProxyUtil.getTarget(basicProject)).andReturn(basicProjectToReturn);
+        
+        EasyMock.expect(mockBasicProjectProxyUtil.injectDependencies(basicProject)).andReturn(basicProjectToReturn);
+        
+        // set mock in replay mode
+        mocksControl.replay();
+        
         storyRepository.findByPersistanceId(1);
 
-        MockCore.verify();
-
         assertSame(story1.getProject(), basicProjectToReturn);
+        
+        mocksControl.verify();
 
     }
     
@@ -293,8 +306,13 @@ public class StoryRepositoryTest extends TestCase {
      */
     public void testFindByPersistanceIdWhenStoryIsNotFound() {
  
-        mockStoryMapper.expectFindById(1, null);
-
+    	EasyMock.expect(mockStoryMapper.findById(1)).andReturn(null);
+        // don't check order
+        mocksControl.checkOrder(false);
+        
+        // set mock in replay mode
+        mocksControl.replay();
+    	
         Story story = storyRepository.findByPersistanceId(1);
 
         assertNull(story);
