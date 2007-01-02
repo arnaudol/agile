@@ -45,28 +45,29 @@ import junit.framework.TestCase;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
 import net.sf.pmr.agilePlanning.domain.story.BusinessValue;
 import net.sf.pmr.agilePlanning.domain.story.BusinessValueImpl;
-import net.sf.pmr.agilePlanning.domain.story.MockBusinessValueRepository;
-import net.sf.pmr.agilePlanning.domain.story.MockRiskLevelRepository;
-import net.sf.pmr.agilePlanning.domain.story.MockStoryRepository;
-import net.sf.pmr.agilePlanning.domain.story.MockStoryValidator;
+import net.sf.pmr.agilePlanning.domain.story.BusinessValueRepository;
 import net.sf.pmr.agilePlanning.domain.story.RiskLevel;
 import net.sf.pmr.agilePlanning.domain.story.RiskLevelImpl;
+import net.sf.pmr.agilePlanning.domain.story.RiskLevelRepository;
 import net.sf.pmr.agilePlanning.domain.story.Story;
 import net.sf.pmr.agilePlanning.domain.story.StoryImpl;
-import net.sf.pmr.agilePlanning.domain.story.task.MockTaskValidator;
+import net.sf.pmr.agilePlanning.domain.story.StoryRepository;
+import net.sf.pmr.agilePlanning.domain.story.StoryValidator;
 import net.sf.pmr.agilePlanning.domain.story.task.Task;
 import net.sf.pmr.agilePlanning.domain.story.task.TaskImpl;
+import net.sf.pmr.agilePlanning.domain.story.task.TaskValidator;
 import net.sf.pmr.agilePlanning.domain.story.task.charge.Charge;
 import net.sf.pmr.agilePlanning.domain.story.task.charge.ChargeImpl;
-import net.sf.pmr.core.domain.project.MockProjectRepository;
 import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.project.ProjectImpl;
-import net.sf.pmr.core.domain.user.MockUserRepository;
+import net.sf.pmr.core.domain.project.ProjectRepository;
 import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.core.domain.user.UserImpl;
+import net.sf.pmr.core.domain.user.UserRepository;
 import net.sf.pmr.keopsframework.domain.validation.Errors;
-import de.abstrakt.mock.MockCore;
-import de.abstrakt.mock.expectable.Ignore;
+
+import org.easymock.EasyMock;
+import org.easymock.IMocksControl;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
@@ -75,49 +76,52 @@ import de.abstrakt.mock.expectable.Ignore;
  */
 public class StoryServiceTest extends TestCase {
 
-    private MockTaskValidator mockTaskValidator;
+    private TaskValidator mockTaskValidator;
 
-    private MockStoryRepository mockStoryRepository;
+    private StoryRepository mockStoryRepository;
 
     private StoryService storyService;
     
-    private MockStoryValidator mockStoryValidator;
+    private StoryValidator mockStoryValidator;
     
-    private MockBusinessValueRepository mockBusinessValueRepository;
+    private BusinessValueRepository mockBusinessValueRepository;
     
-    private MockRiskLevelRepository mockRiskLevelRepository;
+    private RiskLevelRepository mockRiskLevelRepository;
     
-    private MockProjectRepository mockProjectRepository;
+    private ProjectRepository mockProjectRepository;
     
-    private MockUserRepository mockUserRepository; 
+    private UserRepository mockUserRepository; 
     
     private Errors errors;
+    
+    private IMocksControl mocksControl;
 
     /*
      * @see TestCase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
+        
+        // create mocks
+        mocksControl = EasyMock.createStrictControl();
 
-        mockTaskValidator = new MockTaskValidator();
+        mockTaskValidator = mocksControl.createMock(TaskValidator.class);
 
-        mockStoryRepository = new MockStoryRepository();
+        mockStoryRepository = mocksControl.createMock(StoryRepository.class);
         
-        mockStoryValidator = new MockStoryValidator();
+        mockStoryValidator = mocksControl.createMock(StoryValidator.class);
         
-        mockBusinessValueRepository = new MockBusinessValueRepository();
+        mockBusinessValueRepository = mocksControl.createMock(BusinessValueRepository.class);
         
-        mockRiskLevelRepository = new MockRiskLevelRepository();
+        mockRiskLevelRepository = mocksControl.createMock(RiskLevelRepository.class);
         
-        mockProjectRepository = new MockProjectRepository();
+        mockProjectRepository = mocksControl.createMock(ProjectRepository.class);
         
-        mockUserRepository = new MockUserRepository();
+        mockUserRepository = mocksControl.createMock(UserRepository.class);
         
         errors = AgilePlanningObjectFactory.getErrors();
 
         storyService = new StoryServiceImpl(mockTaskValidator, mockStoryRepository, mockStoryValidator, mockProjectRepository, mockBusinessValueRepository, mockRiskLevelRepository, mockUserRepository);
-
-        MockCore.reset();
 
     }
 
@@ -125,6 +129,9 @@ public class StoryServiceTest extends TestCase {
      * @see TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
+    	
+    	mocksControl.reset();
+    	
         super.tearDown();
     }
 
@@ -147,69 +154,6 @@ public class StoryServiceTest extends TestCase {
      */
     public void testAdd() {
 
-        // Comment tester la construction � l'aide de la factory ??
-        // et la construction de l'objet
-        
-        Story story = new StoryImpl();
-        
-        BusinessValue businessValue = new BusinessValueImpl();
-        businessValue.setId(1);
-        
-        RiskLevel riskLevel = new RiskLevelImpl();
-        riskLevel.setId(2);
-
-        story.setPersistanceId(1);
-        story.setBusinessValue(businessValue);
-        story.setRiskLevel(riskLevel);
-        
-        Project project = new ProjectImpl();
-        project.setPersistanceId(5);
-        story.setProject(project);
-        
-        story.setShortDescription("titi");
-        story.setDescription("toto");
-        story.setDaysEstimated(2);
-        
-        MockCore.startBlock();
-        
-        // recherche bu basicProject
-        mockProjectRepository.expectFindByPersistanceId(story.getProject().getPersistanceId(), project);
-        
-        // recherche des business value et risk level
-        mockBusinessValueRepository.expectFindById(story.getBusinessValue().getId(), businessValue);
-        
-        mockRiskLevelRepository.expectFindById(story.getRiskLevel().getId(), riskLevel);
-        
-       
-        MockCore.endBlock();
-        
-        // validation
-        mockStoryValidator.acceptValidate(new Ignore(), errors);
-
-        // ajout
-        mockStoryRepository.acceptAddOrUpdate_Story(new Ignore());
-        
-        storyService.add(story.getProject().getPersistanceId(), story.getShortDescription(), story.getDescription(), story.getDaysEstimated(), story.getBusinessValue().getId(), story.getRiskLevel().getId());
-
-        // V�rifie les appels
-        MockCore.verify();
-
-    }
-    
-    
-    /**
-     * Test le service d'ajout d'une story quand la validation échoue <br>
-     * Les étapes sont:
-     * <ul>
-     * <li>construction de l'objet à l'aide de la factory</li>
-     * <li>recherche du basicProject, BusinessValue et RiskLevel<li>
-     * <li>Validation</li>
-     * </ul>
-     */
-    public void testAddWhenValidationFails() {
-
-        // TODO comment tester unitairement la construction de l'objet à l'aide de la factory ???
-        
         // Comment tester la construction à l'aide de la factory ??
         // et la construction de l'objet
         
@@ -233,28 +177,94 @@ public class StoryServiceTest extends TestCase {
         story.setDescription("toto");
         story.setDaysEstimated(2);
         
-        MockCore.startBlock();
+        //MockCore.startBlock();
         
         // recherche bu basicProject
-        mockProjectRepository.expectFindByPersistanceId(story.getProject().getPersistanceId(), project);
+        EasyMock.expect(mockProjectRepository.findByPersistanceId(story.getProject().getPersistanceId())).andReturn(project);
         
         // recherche des business value et risk level
-        mockBusinessValueRepository.expectFindById(story.getBusinessValue().getId(), businessValue);
-        
-        mockRiskLevelRepository.expectFindById(story.getRiskLevel().getId(), riskLevel);
+        EasyMock.expect(mockBusinessValueRepository.findById(story.getBusinessValue().getId())).andReturn(businessValue);
+
+        EasyMock.expect(mockRiskLevelRepository.findById(story.getRiskLevel().getId())).andReturn(riskLevel);
        
-        MockCore.endBlock();
+        //MockCore.endBlock();
+        
+        // validation
+        EasyMock.expect(mockStoryValidator.validate(EasyMock.anyObject())).andReturn(errors);
+        
+        // ajout
+        mockStoryRepository.addOrUpdate(EasyMock.isA(Story.class));
+
+        // set mock in replay mode
+        mocksControl.replay();
+        
+        storyService.add(story.getProject().getPersistanceId(), story.getShortDescription(), story.getDescription(), story.getDaysEstimated(), story.getBusinessValue().getId(), story.getRiskLevel().getId());
+
+        // Vérifie les appels
+        mocksControl.verify();
+
+    }
+    
+    
+    /**
+     * Test le service d'ajout d'une story quand la validation échoue <br>
+     * Les étapes sont:
+     * <ul>
+     * <li>construction de l'objet à l'aide de la factory</li>
+     * <li>recherche du basicProject, BusinessValue et RiskLevel<li>
+     * <li>Validation</li>
+     * </ul>
+     */
+    public void testAddWhenValidationFails() {
+
+        // TODO comment tester unitairement la construction de l'objet à l'aide de la factory ???
+
+        
+        Story story = new StoryImpl();
+        
+        BusinessValue businessValue = new BusinessValueImpl();
+        businessValue.setId(1);
+        
+        RiskLevel riskLevel = new RiskLevelImpl();
+        riskLevel.setId(2);
+
+        story.setPersistanceId(1);
+        story.setBusinessValue(businessValue);
+        story.setRiskLevel(riskLevel);
+        
+        Project project = new ProjectImpl();
+        project.setPersistanceId(5);
+        story.setProject(project);
+        
+        story.setShortDescription("titi");
+        story.setDescription("toto");
+        story.setDaysEstimated(2);
+        
+        //MockCore.startBlock();
+        
+        // recherche bu basicProject
+        EasyMock.expect(mockProjectRepository.findByPersistanceId(story.getProject().getPersistanceId())).andReturn(project);
+        
+        // recherche des business value et risk level
+        EasyMock.expect(mockBusinessValueRepository.findById(story.getBusinessValue().getId())).andReturn(businessValue);
+
+        EasyMock.expect(mockRiskLevelRepository.findById(story.getRiskLevel().getId())).andReturn(riskLevel);
+       
+        //MockCore.endBlock();
 
         // validation
         errors.reject("code");
-        mockStoryValidator.expectValidate(new Ignore(), errors);
+        EasyMock.expect(mockStoryValidator.validate(EasyMock.isA(Story.class))).andReturn(errors);
+        
+        // set mock in replay mode
+        mocksControl.replay();
 
         Errors errorsFromService = storyService.add(story.getProject().getPersistanceId(), story.getShortDescription(), story.getDescription(), story.getDaysEstimated(), story.getBusinessValue().getId(), story.getRiskLevel().getId());
 
-        // V�rifie les appels
-        MockCore.verify();
+        // Vérification des appels
+        mocksControl.verify();
         
-        // les erreurs sont retourn�es
+        // les erreurs sont retournées
         assertTrue(errorsFromService.hasGlobalErrors());
 
     }
@@ -279,19 +289,22 @@ public class StoryServiceTest extends TestCase {
         // recherche de la story
         Story story =  new StoryImpl();
         story.setTasks(new HashSet<Task>());
-        mockStoryRepository.expectFindByPersistanceId(1, story);
+        
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(1)).andReturn(story);
     	
         // validation (sans erreurs)
-        mockTaskValidator.expectValidate(new Ignore(), AgilePlanningObjectFactory.getErrors());
-        
+        EasyMock.expect(mockTaskValidator.validate(EasyMock.isA(Task.class))).andReturn(AgilePlanningObjectFactory.getErrors());
         
         // ajout
-        mockStoryRepository.acceptAddOrUpdate_Story(story);
+        mockStoryRepository.addOrUpdate(story);
+        
+        // set mock in replay mode
+        mocksControl.replay();
 
         Errors errorsFromService = storyService.addTask(1, 2, "toto", 2);
 
         // Vérifie les appels
-        MockCore.verify();
+        mocksControl.verify();
 
         // aucune erreur n'est retournée (car pas de validation)
         assertFalse(errorsFromService.hasErrors());
@@ -323,7 +336,10 @@ public class StoryServiceTest extends TestCase {
     	
         // recherche de la story
         Story story =  null;
-        mockStoryRepository.expectFindByPersistanceId(1, story);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(1)).andReturn(story);
+        
+        // set mock in replay mode
+        mocksControl.replay();
         
         // Appel au service
         Errors errorsFromService = storyService.addTask(1, 2, "toto", 2);
@@ -336,7 +352,7 @@ public class StoryServiceTest extends TestCase {
         assertEquals("This story doesn't exists in database", errorsFromService.getGlobalError(Locale.ENGLISH));
 
         // contrôle des appels
-        MockCore.verify();
+        mocksControl.verify();
     	
     }
 
@@ -355,20 +371,22 @@ public class StoryServiceTest extends TestCase {
         // recherche de la story
         Story story =  new StoryImpl();
         story.setTasks(new HashSet<Task>());
-        mockStoryRepository.expectFindByPersistanceId(1, story);
-
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(1)).andReturn(story);
     	
         // validation (avec erreurs)
         Errors errors = AgilePlanningObjectFactory.getErrors();
         errors.reject("erreur");
-        mockTaskValidator.expectValidate(new Ignore(), errors);        
+        EasyMock.expect(mockTaskValidator.validate(EasyMock.isA(Task.class))).andReturn(errors);
+        
+        // set mock in replay mode
+        mocksControl.replay();
         
         Errors errorsFromService = storyService.addTask(1, 2, "toto", 2);
         
         // Vérifie les appels
-        MockCore.verify();
+        mocksControl.verify();
         
-        // une erreur est retourn�e.
+        // une erreur est retournée.
         assertTrue(errorsFromService.hasErrors());        
         
     }
@@ -376,10 +394,10 @@ public class StoryServiceTest extends TestCase {
 
     /**
      * Test le service de modification d'une story quand tout est ok <br>
-     * Les �tapes sont:
+     * Les étapes sont:
      * <ul>
      * <li>recherche de la story dans la repository</li>
-     * <li>mise � jour de cette story avec les informations pass�es en param�tre</li>
+     * <li>mise à jour de cette story avec les informations passées en paramètre</li>
      * <li>Validation</li>
      * <li>enregistrement de la story dans la repository</li>
      * </ul>
@@ -393,43 +411,47 @@ public class StoryServiceTest extends TestCase {
         double daysestimated = 2;
         int persistanceId = 1;
         int persistanceVersion = 5;
+        
+        //mocksControl.checkOrder(false);
 
         // recherche de la story dans la repository
-        mockStoryRepository.expectFindByPersistanceId(persistanceId, storyToUpdate);
-
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(persistanceId)).andReturn(storyToUpdate);
         
-        MockCore.startBlock();
+        //MockCore.startBlock();
         
         // recherche des business value et risk level
         BusinessValue businessValueOfTheStory = new BusinessValueImpl();
         businessValueOfTheStory.setId(1);
-        mockBusinessValueRepository.expectFindById(1, businessValueOfTheStory);
+        EasyMock.expect(mockBusinessValueRepository.findById(1)).andReturn(businessValueOfTheStory);
 
         RiskLevel riskLevelOfTheStory = new RiskLevelImpl();
         riskLevelOfTheStory.setId(2);
-        mockRiskLevelRepository.expectFindById(2, riskLevelOfTheStory);       
-        MockCore.endBlock();
+        EasyMock.expect(mockRiskLevelRepository.findById(2)).andReturn(riskLevelOfTheStory);
+
+        //MockCore.endBlock();
         
         storyToUpdate.setBusinessValue(businessValueOfTheStory);
         storyToUpdate.setRiskLevel(riskLevelOfTheStory);
-        
 
         // validation
-        mockStoryValidator.expectValidate(new Ignore(), errors);
-
+        EasyMock.expect(mockStoryValidator.validate(EasyMock.isA(Story.class))).andReturn(errors);
+        
         // enregistrement de la story dans la repository
-        mockStoryRepository.expectAddOrUpdate(storyToUpdate);
+        mockStoryRepository.addOrUpdate(storyToUpdate);
+        
+        // set mock in replay mode
+        mocksControl.replay();
 
-        // appel de la m�thode de mise � jour
+        // appel de la méthode de mise à jour
         Errors errorsFromService = storyService.update(shortDescription, description, daysestimated, businessValueOfTheStory.getId(), riskLevelOfTheStory.getId(),persistanceId, persistanceVersion);
 
-        // V�rifie les appels
-        MockCore.verify();
+        // Vérifie les appels
+        mocksControl.verify();
 
-        // aucune erreur n'est retourn�e (car pas de validation)
+        // aucune erreur n'est retournée (car pas de validation)
         assertFalse(errorsFromService.hasErrors());
         
-        // v�rification des mise � jour de cette story avec les informations pass�es en param�tre
+        // vérification des mise à jour de cette story avec les informations passées en paramètre
         assertEquals("shorDescription", shortDescription, storyToUpdate.getShortDescription());
         assertEquals("description", description, storyToUpdate.getDescription());
         assertEquals("daysestimates", daysestimated, storyToUpdate.getDaysEstimated());
@@ -451,7 +473,6 @@ public class StoryServiceTest extends TestCase {
      */
     public void testUpdateWhenStoryIsNotFound() {
 
-        Story storyToUpdate = new StoryImpl();
         String shortDescription = "scooby";
         String description = "doo";
         double daysestimated = 2;
@@ -463,11 +484,14 @@ public class StoryServiceTest extends TestCase {
 
         RiskLevel riskLevelOfTheStory = new RiskLevelImpl();
         riskLevelOfTheStory.setId(2);
-
     	
         // recherche de la story
         Story story =  null;
-        mockStoryRepository.expectFindByPersistanceId(1, story);
+        
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(1)).andReturn(story);
+        
+        // set mock in replay mode
+        mocksControl.replay();
         
         // Appel au service
         Errors errorsFromService = storyService.update(shortDescription, description, daysestimated, businessValueOfTheStory.getId(), riskLevelOfTheStory.getId(),persistanceId, persistanceVersion);
@@ -480,7 +504,7 @@ public class StoryServiceTest extends TestCase {
         assertEquals("This story doesn't exists in database", errorsFromService.getGlobalError(Locale.ENGLISH));
 
         // contrôle des appels
-        MockCore.verify();
+        mocksControl.verify();
     	
     }
 
@@ -503,33 +527,36 @@ public class StoryServiceTest extends TestCase {
         int persistanceId = 1;
         int persistanceVersion = 5;
 
-        MockCore.startBlock();
+        //MockCore.startBlock();
         
         // recherche de la story dans la repository
-        mockStoryRepository.expectFindByPersistanceId(persistanceId, storyToUpdate);        
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(persistanceId)).andReturn(storyToUpdate);
         
         // recherche des business value et risk level
         BusinessValue businessValueOfTheStory = new BusinessValueImpl();
         businessValueOfTheStory.setId(1);
-        mockBusinessValueRepository.expectFindById(1, businessValueOfTheStory);
+        EasyMock.expect(mockBusinessValueRepository.findById(1)).andReturn(businessValueOfTheStory);
 
         RiskLevel riskLevelOfTheStory = new RiskLevelImpl();
         riskLevelOfTheStory.setId(2);
-        mockRiskLevelRepository.expectFindById(2, riskLevelOfTheStory);       
-        MockCore.endBlock();
-
+        EasyMock.expect(mockRiskLevelRepository.findById(2)).andReturn(riskLevelOfTheStory);
+        
+        //MockCore.endBlock();
 
         // validation
         errors.reject("code");
-        mockStoryValidator.expectValidate(new Ignore(), errors);
+        EasyMock.expect(mockStoryValidator.validate(EasyMock.isA(Story.class))).andReturn(errors);
 
-        // appel de la m�thode de mise � jour
+        // set mock in replay mode
+        mocksControl.replay();
+        
+        // appel de la méthode de mise à jour
         Errors errorsFromService = storyService.update(shortDescription, description, estimate, businessValueOfTheStory.getId(), riskLevelOfTheStory.getId(), persistanceId, persistanceVersion);
 
-        // V�rifie les appels
-        MockCore.verify();
+        // Vérifie les appels
+        mocksControl.verify();
 
-        // aucune erreur n'est retourn�e (car pas de validation)
+        // aucune erreur n'est retournée (car pas de validation)
         assertFalse(errorsFromService.hasGlobalErrors());
 
     }
@@ -557,23 +584,26 @@ public class StoryServiceTest extends TestCase {
         task.setPersistanceVersion(3);
         story.getTasks().add(task);
         
-        mockStoryRepository.expectFindByPersistanceId(1, story);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(1)).andReturn(story);
     	
         // validation (sans erreurs)
-        mockTaskValidator.expectValidate(new Ignore(), AgilePlanningObjectFactory.getErrors());
+        EasyMock.expect(mockTaskValidator.validate(EasyMock.isA(Task.class))).andReturn(AgilePlanningObjectFactory.getErrors());
         
         // modification
-        mockStoryRepository.acceptAddOrUpdate_Story(story);
+        mockStoryRepository.addOrUpdate(story);
+        
+        // set mock in replay mode
+        mocksControl.replay();
         
         Errors errorsFromService = storyService.updateTask(1,5,"doo", 4, 1, 7);
         
-        // V�rifie les appels
-        MockCore.verify();
+        // Vérifie les appels
+        mocksControl.verify();
         
-        // aucune erreur n'est retourn�e
+        // aucune erreur n'est retournée
         assertFalse(errorsFromService.hasErrors());
         
-        // test de l'ajout de la t�che dans le liste de la story
+        // test de l'ajout de la tâche dans le liste de la story
         for (Iterator iterator = story.getTasks().iterator(); iterator.hasNext();) {
             Task taskUpdated = (Task) iterator.next();
             
@@ -582,7 +612,7 @@ public class StoryServiceTest extends TestCase {
             assertEquals(1, taskUpdated.getPersistanceId());
             assertEquals(7, taskUpdated.getPersistanceVersion());
             
-            // une seule t�che dans la liste
+            // une seule tâche dans la liste
             break;
             
         }
@@ -602,7 +632,10 @@ public class StoryServiceTest extends TestCase {
 
         // recherche de la story
         Story story =  null;
-        mockStoryRepository.expectFindByPersistanceId(1, story);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(1)).andReturn(story);
+        
+        // set mock in replay mode
+        mocksControl.replay();
         
         // Appel au service
         Errors errorsFromService = storyService.updateTask(1,5,"doo", 4, 1, 7);
@@ -615,7 +648,7 @@ public class StoryServiceTest extends TestCase {
         assertEquals("This story doesn't exists in database", errorsFromService.getGlobalError(Locale.ENGLISH));
 
         // contrôle des appels
-        MockCore.verify();
+        mocksControl.verify();
     	
     }
 
@@ -635,20 +668,23 @@ public class StoryServiceTest extends TestCase {
         Story storyToUpdate = new StoryImpl();
         int persistanceId = 1;
 
-        MockCore.startBlock();
+        //MockCore.startBlock();
         
         // recherche de la story dans la repository
-        mockStoryRepository.expectFindByPersistanceId(persistanceId, storyToUpdate);        
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(persistanceId)).andReturn(storyToUpdate);
         
         Errors errors = AgilePlanningObjectFactory.getErrors();
         errors.reject("erreur");
+
+        EasyMock.expect(mockTaskValidator.validate(EasyMock.isA(Task.class))).andReturn(errors);
         
-        mockTaskValidator.expectValidate(new Ignore(), errors);        
+        // set mock in replay mode
+        mocksControl.replay();
         
         Errors errorsFromService = storyService.updateTask(1,2,"scooby", 3, 1, 3);
         
         // Vérifie les appels
-        MockCore.verify();
+        mocksControl.verify();
         
         // une erreur est retournée.
         assertTrue(errorsFromService.hasErrors());        
@@ -695,18 +731,21 @@ public class StoryServiceTest extends TestCase {
         task2.setPersistanceVersion(4);
         story.getTasks().add(task2);
         
-        mockStoryRepository.expectFindByPersistanceId(storyPersistanceId, story);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(storyPersistanceId)).andReturn(story);
     	
         // validation (sans erreurs)
-        mockTaskValidator.expectValidateForDelete(task, AgilePlanningObjectFactory.getErrors());
+        EasyMock.expect(mockTaskValidator.validateForDelete(task)).andReturn(AgilePlanningObjectFactory.getErrors());
         
         // suppression
-        mockStoryRepository.expectAddOrUpdate(story);
+        mockStoryRepository.addOrUpdate(story);
+        
+        // set mock in replay mode
+        mocksControl.replay();
         
         Errors errorsFromService = storyService.deleteTask(storyPersistanceId, persistanceId, persistanceVersion);
         
         // Vérification les appels
-        MockCore.verify();
+        mocksControl.verify();
         
         // aucune erreur n'est retournée
         assertFalse(errorsFromService.hasErrors());
@@ -729,7 +768,10 @@ public class StoryServiceTest extends TestCase {
 
         // recherche de la story
         Story story =  null;
-        mockStoryRepository.expectFindByPersistanceId(1, story);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(1)).andReturn(story);
+        
+        // set mock in replay mode
+        mocksControl.replay();
         
         // Appel au service
         Errors errorsFromService = storyService.deleteTask(1, 2, 2);
@@ -742,7 +784,7 @@ public class StoryServiceTest extends TestCase {
         assertEquals("This story doesn't exists in database", errorsFromService.getGlobalError(Locale.ENGLISH));
 
         // contrôle des appels
-        MockCore.verify();
+        mocksControl.verify();
         
         
     	
@@ -775,7 +817,10 @@ public class StoryServiceTest extends TestCase {
         task.setPersistanceVersion(3);
         story.getTasks().add(task);
 
-        mockStoryRepository.expectFindByPersistanceId(storyPersistanceId, story);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(storyPersistanceId)).andReturn(story);
+        
+        // set mock in replay mode
+        mocksControl.replay();
         
         // Appel au service
         Errors errorsFromService = storyService.deleteTask(storyPersistanceId, persistanceId, persistanceVersion);
@@ -788,7 +833,7 @@ public class StoryServiceTest extends TestCase {
         assertEquals("This task doesn't exists in database", errorsFromService.getGlobalError(Locale.ENGLISH));
 
         // contrôle des appels
-        MockCore.verify();
+        mocksControl.verify();
     	
     }
 
@@ -829,20 +874,23 @@ public class StoryServiceTest extends TestCase {
         task2.setPersistanceVersion(4);
         story.getTasks().add(task2);
 
-        MockCore.startBlock();
+        //MockCore.startBlock();
         
         // recherche de la story dans la repository
-        mockStoryRepository.expectFindByPersistanceId(storyPersistanceId, story);        
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(storyPersistanceId)).andReturn(story);
         
         Errors errors = AgilePlanningObjectFactory.getErrors();
         errors.reject("erreur");
+
+        EasyMock.expect(mockTaskValidator.validateForDelete(task)).andReturn(errors);
         
-        mockTaskValidator.expectValidateForDelete(task, errors);        
+        // set mock in replay mode
+        mocksControl.replay();
         
         Errors errorsFromService = storyService.deleteTask(storyPersistanceId, persistanceId, persistanceVersion);
         
         // Vérifie les appels
-        MockCore.verify();
+        mocksControl.verify();
         
         // une erreur est retournée.
         assertTrue(errorsFromService.hasErrors());
@@ -866,11 +914,14 @@ public class StoryServiceTest extends TestCase {
         int persistanceId = 1;
         Story story = new StoryImpl();
 
-        mockStoryRepository.expectFindByPersistanceId(persistanceId, story);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(persistanceId)).andReturn(story);
+        
+        // set mock in replay mode
+        mocksControl.replay();
 
         Story storyFromService = storyService.findByPersistanceId(persistanceId);
 
-        MockCore.verify();
+        mocksControl.verify();
 
         assertEquals(story, storyFromService);
 
@@ -891,11 +942,14 @@ public class StoryServiceTest extends TestCase {
         int persistanceId = 1;
         Task task = new TaskImpl();
 
-        mockStoryRepository.expectFindTaskByPersistanceId(persistanceId, task);
+        EasyMock.expect(mockStoryRepository.findTaskByPersistanceId(persistanceId)).andReturn(task);
 
+        // set mock in replay mode
+        mocksControl.replay();
+        
         Task taskFromService = storyService.findTaskByPersistanceId(persistanceId);
 
-        MockCore.verify();
+        mocksControl.verify();
 
         assertEquals(task, taskFromService);
 
@@ -903,7 +957,7 @@ public class StoryServiceTest extends TestCase {
     
     
     /**
-     * Test la recherche par persistance id quand une task n'est pas trouvée <br>
+     * Test la recherche par persistance id quand une task n'est pas trouvée<br>
      * Les étapes sont:
      * <ul>
      * <li>appel au repository</li>
@@ -915,11 +969,14 @@ public class StoryServiceTest extends TestCase {
         int persistanceId = 1;
         Task task = null;
 
-        mockStoryRepository.expectFindTaskByPersistanceId(persistanceId, task);
+        EasyMock.expect(mockStoryRepository.findTaskByPersistanceId(persistanceId)).andReturn(task);
+        
+        // set mock in replay mode
+        mocksControl.replay();
 
         Task taskFromService = storyService.findTaskByPersistanceId(persistanceId);
 
-        MockCore.verify();
+        mocksControl.verify();
 
         assertNull(taskFromService);
 
@@ -939,11 +996,14 @@ public class StoryServiceTest extends TestCase {
         int persistanceId = 1;
         Story story = null;
 
-        mockStoryRepository.expectFindByPersistanceId(persistanceId, story);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(persistanceId)).andReturn(story);
 
+        // set mock in replay mode
+        mocksControl.replay();
+        
         Story storyFromService = storyService.findByPersistanceId(persistanceId);
 
-        MockCore.verify();
+        mocksControl.verify();
 
         assertNull(storyFromService);
 
@@ -961,15 +1021,18 @@ public class StoryServiceTest extends TestCase {
     public void testFindByProjectPersistanceIdWhenStoriesAreFound() {
 
         int projetPersistanceId = 1;
-        Set set = new HashSet();
+        Set<Story> set = new HashSet<Story>();
         Story story = new StoryImpl();
         set.add(story);
 
-        mockStoryRepository.expectFindByProjectPersistanceId(projetPersistanceId, set);
+        EasyMock.expect(mockStoryRepository.findByProjectPersistanceId(projetPersistanceId)).andReturn(set);
+
+        // set mock in replay mode
+        mocksControl.replay();
 
         Set setFromService = storyService.findByProjectPersistanceId(projetPersistanceId);
 
-        MockCore.verify();
+        mocksControl.verify();
 
         assertEquals(set, setFromService);
 
@@ -986,13 +1049,16 @@ public class StoryServiceTest extends TestCase {
     public void testFindByProjectPersistanceIdWhenStoriesAreNotFound() {
 
         int projetPersistanceId = 1;
-        Set set = new HashSet();
+        Set<Story> set = new HashSet<Story>();
 
-        mockStoryRepository.expectFindByProjectPersistanceId(projetPersistanceId, set);
+        EasyMock.expect(mockStoryRepository.findByProjectPersistanceId(projetPersistanceId)).andReturn(set);
+
+        // set mock in replay mode
+        mocksControl.replay();
 
         Set setFromService = storyService.findByProjectPersistanceId(projetPersistanceId);
 
-        MockCore.verify();
+        mocksControl.verify();
 
         assertEquals(set, setFromService);
 
@@ -1025,13 +1091,13 @@ public class StoryServiceTest extends TestCase {
         user.setPersistanceId(1);
         
         // appel de la recherche de la story
-        mockStoryRepository.expectFindByPersistanceId(1, story);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(1)).andReturn(story);
         
         // appel de la recherche du user
-        mockUserRepository.expectFindUserById(1, user);
+        EasyMock.expect(mockUserRepository.findUserByPersistanceId(1)).andReturn(user);
         
         // appel de la mise à jour de la story
-        mockStoryRepository.expectAddOrUpdate(story);
+        mockStoryRepository.addOrUpdate(story);
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, 2005);
@@ -1042,11 +1108,14 @@ public class StoryServiceTest extends TestCase {
         calendar.set(Calendar.SECOND, 0);
         Date day = calendar.getTime();
         
+        // set mock in replay mode
+        mocksControl.replay();
+        
         // appel du service
         storyService.addCharge(1, 1, 1, day, 1, 3);
 
         // Vérifie les appels
-        MockCore.verify();
+        mocksControl.verify();
         
         // test de l'ajout de la charge dans la liste
         
@@ -1099,7 +1168,10 @@ public class StoryServiceTest extends TestCase {
 
         // recherche de la story
         Story story =  null;
-        mockStoryRepository.expectFindByPersistanceId(1, story);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(1)).andReturn(story);
+        
+        // set mock in replay mode
+        mocksControl.replay();
         
         // Appel au service
         Errors errorsFromService = storyService.addCharge(1, 1, 1, Calendar.getInstance().getTime(), 1, 3);
@@ -1112,7 +1184,7 @@ public class StoryServiceTest extends TestCase {
         assertEquals("This story doesn't exists in database", errorsFromService.getGlobalError(Locale.ENGLISH));
 
         // contrôle des appels
-        MockCore.verify();
+        mocksControl.verify();
     	
     }
 
@@ -1154,10 +1226,10 @@ public class StoryServiceTest extends TestCase {
         task.getCharges().add(charge);
         
         // appel de la recherche de la story
-        mockStoryRepository.expectFindByPersistanceId(1, story);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(1)).andReturn(story);
         
-        // appel de la mise � jour de la story
-        mockStoryRepository.expectAddOrUpdate(story);
+        // appel de la mise à jour de la story
+        mockStoryRepository.addOrUpdate(story);
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, 2005);
@@ -1168,12 +1240,14 @@ public class StoryServiceTest extends TestCase {
         calendar.set(Calendar.SECOND, 0);
         Date day = calendar.getTime();
         
+        // set mock in replay mode
+        mocksControl.replay();
+        
         // appel du service
         storyService.updateCharge(day, 1, 3,1, 1, 1, 2);
-        
 
-        // V�rifie les appels
-        MockCore.verify();
+        // Vérifie les appels
+        mocksControl.verify();
         
         // test de l'ajout de la charge dans la liste
         
@@ -1230,7 +1304,12 @@ public class StoryServiceTest extends TestCase {
 
         // recherche de la story
         Story story =  null;
-        mockStoryRepository.expectFindByPersistanceId(1, story);
+        
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(1)).andReturn(story);
+        
+        // set mock in replay mode
+        mocksControl.replay();
+        
         
         // Appel au service
         Errors errorsFromService = storyService.updateCharge(Calendar.getInstance().getTime(), 1, 3,1, 1, 1, 2);
@@ -1243,7 +1322,7 @@ public class StoryServiceTest extends TestCase {
         assertEquals("This story doesn't exists in database", errorsFromService.getGlobalError(Locale.ENGLISH));
 
         // contrôle des appels
-        MockCore.verify();
+        mocksControl.verify();
     	
     }
 
@@ -1269,19 +1348,22 @@ public class StoryServiceTest extends TestCase {
         long persistanceVersion = 4;
 
         // recherche de la story dans la repository
-        mockStoryRepository.expectFindByPersistanceId(persistanceId, storyToDelete);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(persistanceId)).andReturn(storyToDelete);
         
         // validation
-        mockStoryValidator.expectValidateForDelete(storyToDelete, errors);
+        EasyMock.expect(mockStoryValidator.validateForDelete(storyToDelete)).andReturn(errors);
 
         // enregistrement de la story dans la repository
-        mockStoryRepository.expectDelete(storyToDelete);
+        mockStoryRepository.delete(storyToDelete);
+        
+        // set in replay mod
+        mocksControl.replay();
 
         // appel de la méthode de mise à jour
         Errors errorsFromService = storyService.delete(persistanceId, persistanceVersion);
 
         // Vérification les appels
-        MockCore.verify();
+        mocksControl.verify();
 
         // aucune erreur n'est retournée car pas d'erreur de validation
         assertFalse(errorsFromService.hasErrors());
@@ -1310,19 +1392,23 @@ public class StoryServiceTest extends TestCase {
         
         int persistanceId = 1;
         long persistanceVersion = 4;
-
+        
         // recherche de la story dans la repository
-        mockStoryRepository.expectFindByPersistanceId(persistanceId, storyToDelete);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(persistanceId)).andReturn(storyToDelete);
         
         // validation
         errors.reject("code");
-        mockStoryValidator.expectValidateForDelete(storyToDelete, errors);
+        EasyMock.expect(mockStoryValidator.validateForDelete(storyToDelete)).andReturn(errors);
+
+        
+        // set in replay mod
+        mocksControl.replay();
 
         // appel de la méthode de mise à jour
         Errors errorsFromService = storyService.delete(persistanceId, persistanceVersion);
 
         // Vérification les appels
-        MockCore.verify();
+        mocksControl.verify();
 
         // une erreur est retournée
         assertTrue(errorsFromService.hasErrors());
