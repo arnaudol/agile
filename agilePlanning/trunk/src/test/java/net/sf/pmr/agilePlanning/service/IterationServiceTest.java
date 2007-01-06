@@ -43,31 +43,32 @@ import junit.framework.TestCase;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
 import net.sf.pmr.agilePlanning.domain.iteration.Iteration;
 import net.sf.pmr.agilePlanning.domain.iteration.IterationImpl;
-import net.sf.pmr.agilePlanning.domain.iteration.MockIterationRepository;
-import net.sf.pmr.agilePlanning.domain.iteration.MockIterationValidator;
-import net.sf.pmr.agilePlanning.domain.story.MockStoryRepository;
+import net.sf.pmr.agilePlanning.domain.iteration.IterationRepository;
+import net.sf.pmr.agilePlanning.domain.iteration.IterationValidator;
 import net.sf.pmr.agilePlanning.domain.story.Story;
 import net.sf.pmr.agilePlanning.domain.story.StoryImpl;
+import net.sf.pmr.agilePlanning.domain.story.StoryRepository;
 import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.project.ProjectImpl;
 import net.sf.pmr.keopsframework.domain.validation.Errors;
-import de.abstrakt.mock.MockCore;
-import de.abstrakt.mock.expectable.Ignore;
+
+import org.easymock.EasyMock;
+import org.easymock.IMocksControl;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
  */
 public class IterationServiceTest extends TestCase {
 
-    private MockIterationValidator mockIterationValidator;
+    private IterationValidator mockIterationValidator;
 
-    private MockIterationRepository mockIterationRepository;
+    private IterationRepository mockIterationRepository;
 
     //private MockReleaseRepository mockReleaseRepository;
 
     private IterationService iterationService;
 
-    private MockStoryRepository mockStoryRepository;
+    private StoryRepository mockStoryRepository;
 
 //    private MockStoryValidator mockStoryValidator;
     
@@ -76,12 +77,18 @@ public class IterationServiceTest extends TestCase {
     private Project project;
 
     private Errors errors;
+    
+    private IMocksControl mocksControl;
+    
 
     /* (non-Javadoc)
      * @see TestCase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
+    
+        // create mocks
+        mocksControl = EasyMock.createStrictControl();
         
         // iteration to add or update
         iterationToAddOrUpdate = new IterationImpl();
@@ -89,13 +96,13 @@ public class IterationServiceTest extends TestCase {
         iterationToAddOrUpdate.setProject(project);
         iterationToAddOrUpdate.setPersistanceId(1);
 
-        mockIterationValidator = new MockIterationValidator();
-
-        mockIterationRepository = new MockIterationRepository();
+        mockIterationValidator = mocksControl.createMock(IterationValidator.class);
+        
+        mockIterationRepository = mocksControl.createMock(IterationRepository.class);
 
         //mockReleaseRepository = new MockReleaseRepository();
         
-        mockStoryRepository = new MockStoryRepository();
+        mockStoryRepository = mocksControl.createMock(StoryRepository.class);
 
         errors = AgilePlanningObjectFactory.getErrors();
 
@@ -104,14 +111,15 @@ public class IterationServiceTest extends TestCase {
         iterationService = new IterationServiceImpl(mockIterationValidator, mockIterationRepository,
                 mockStoryRepository);
 
-        MockCore.reset();
-
     }
 
     /* (non-Javadoc)
      * @see TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
+    	
+    	mocksControl.reset();
+    	
         super.tearDown();
     }
 
@@ -136,17 +144,21 @@ public class IterationServiceTest extends TestCase {
         // TODO comment tester unitairement la construction de l'objet à l'aide de la factory ???
 
         // validation (sans erreurs)
-        mockIterationValidator.expectValidate(new Ignore(), AgilePlanningObjectFactory.getErrors());
+    	EasyMock.expect(mockIterationValidator.validate(EasyMock.anyObject())).andReturn(AgilePlanningObjectFactory.getErrors());
         // ajout
-        mockIterationRepository.acceptAddOrUpdate(new Ignore());
-
+        mockIterationRepository.addOrUpdate(EasyMock.isA(Iteration.class));
+        // check order
+        mocksControl.checkOrder(true);
+        
+        // set mock in replay mode
+        mocksControl.replay();
+        
         Errors errorsFromService = iterationService.add(1, new Date(), new Date());
 
-        // Vérifie les appels
-        MockCore.verify();
-
-        // aucune erreur n'est retourn�e
+        // aucune erreur n'est retournée
         assertFalse(errorsFromService.hasErrors());
+        
+        mocksControl.verify();
 
     }
 
@@ -164,12 +176,15 @@ public class IterationServiceTest extends TestCase {
 
         Errors errors = AgilePlanningObjectFactory.getErrors();
         errors.reject("erreur");
-        mockIterationValidator.expectValidate(new Ignore(), errors);
+        
+        EasyMock.expect(mockIterationValidator.validate(EasyMock.isA(Iteration.class))).andReturn(errors);
+        // set mock in replay mode
+        mocksControl.replay();
 
         Errors errorsFromService = iterationService.add(1, new Date(), new Date());
 
         // Vérification des appels
-        MockCore.verify();
+        mocksControl.verify();
 
         // une erreur est retournée.
         assertTrue(errorsFromService.hasErrors());
@@ -195,13 +210,16 @@ public class IterationServiceTest extends TestCase {
 
 
         // recherche de l'iteration
-        mockIterationRepository.expectFindByPersistanceId(persistanceId, iterationToAddOrUpdate);
-
+        EasyMock.expect(mockIterationRepository.findByPersistanceId(persistanceId)).andReturn(iterationToAddOrUpdate);
+        
         // validation (sans erreurs)
-        mockIterationValidator.expectValidate(new Ignore(), AgilePlanningObjectFactory.getErrors());
+        EasyMock.expect(mockIterationValidator.validate(EasyMock.isA(Iteration.class))).andReturn(AgilePlanningObjectFactory.getErrors());
 
         // enregistrement
-        mockIterationRepository.expectAddOrUpdate(iterationToAddOrUpdate);
+        mockIterationRepository.addOrUpdate(iterationToAddOrUpdate);
+        
+        // set mock in replay mode
+        mocksControl.replay();
 
         // appel au service
         Errors errorsFromService = iterationService.update(start, end, persistanceId, persistanceVersion);
@@ -215,8 +233,8 @@ public class IterationServiceTest extends TestCase {
         //        assertEquals("start", iterationToUpdate.getStart(), start);
 
         // Vérifie les appels
-        MockCore.verify();
-
+        mocksControl.verify();
+        
         // aucune erreur n'est retournée
         assertFalse(errorsFromService.hasErrors());
 
@@ -235,20 +253,21 @@ public class IterationServiceTest extends TestCase {
         Date end = new Date();
         int persistanceId = 2;
         int persistanceVersion = 3;
-        int releasePersistanceId = 4;
 
         Iteration iterationToUpdate = null;
 
         // recherche de l'iteration
-        mockIterationRepository.expectFindByPersistanceId(persistanceId, iterationToUpdate);
+        EasyMock.expect(mockIterationRepository.findByPersistanceId(persistanceId)).andReturn(iterationToUpdate);
 
+        mocksControl.replay();
+        
         // appel au service
         Errors errorsFromService = iterationService.update(start, end, persistanceId, persistanceVersion);
 
         assertFalse(errorsFromService.hasErrors());
 
         // Vérifie les appels
-        MockCore.verify();
+       mocksControl.verify();
 
         // aucune erreur n'est retournée
         assertFalse(errorsFromService.hasErrors());
@@ -274,17 +293,19 @@ public class IterationServiceTest extends TestCase {
         iterationToUpdate.setProject(project);
 
         // recherche de l'iteration
-        mockIterationRepository.expectFindByPersistanceId(persistanceId, iterationToUpdate);
-
+        EasyMock.expect(mockIterationRepository.findByPersistanceId(persistanceId)).andReturn(iterationToUpdate);
+        
         // mock de l'erreur
         Errors errors = AgilePlanningObjectFactory.getErrors();
         errors.reject("erreur");
-        mockIterationValidator.expectValidate(new Ignore(), errors);
+        EasyMock.expect(mockIterationValidator.validate(EasyMock.isA(Iteration.class))).andReturn(errors);
 
+        mocksControl.replay();
+        
         Errors errorsFromService = iterationService.update(new Date(), new Date(), persistanceId, 3);
 
         // Vérifie les appels
-        MockCore.verify();
+        mocksControl.verify();
 
         // une erreur est retournée.
         assertTrue(errorsFromService.hasErrors());
@@ -304,11 +325,13 @@ public class IterationServiceTest extends TestCase {
         int persistanceId = 1;
         Iteration iteration = new IterationImpl();
 
-        mockIterationRepository.expectFindByPersistanceId(persistanceId, iteration);
+        EasyMock.expect(mockIterationRepository.findByPersistanceId(persistanceId)).andReturn(iteration);
 
+        mocksControl.replay();
+        
         Iteration iterationFromService = iterationService.findByPersistanceId(persistanceId);
 
-        MockCore.verify();
+        mocksControl.verify();
 
         assertEquals(iteration, iterationFromService);
 
@@ -327,11 +350,13 @@ public class IterationServiceTest extends TestCase {
         int persistanceId = 1;
         Iteration iteration = null;
 
-        mockIterationRepository.expectFindByPersistanceId(persistanceId, iteration);
+        EasyMock.expect(mockIterationRepository.findByPersistanceId(persistanceId)).andReturn(iteration);
 
+        mocksControl.replay();
+        
         Iteration iterationFromService = iterationService.findByPersistanceId(persistanceId);
 
-        MockCore.verify();
+        mocksControl.verify();
 
         assertNull(iterationFromService);
 
@@ -352,11 +377,13 @@ public class IterationServiceTest extends TestCase {
         Iteration iteration = new IterationImpl();
         set.add(iteration);
 
-        mockIterationRepository.expectFindByProjectPersistanceId(projetPersistanceId, set);
+        EasyMock.expect(mockIterationRepository.findByProjectPersistanceId(projetPersistanceId)).andReturn(set);
 
+        mocksControl.replay();
+        
         Set setFromService = iterationService.findByProjectPersistanceId(projetPersistanceId);
 
-        MockCore.verify();
+        mocksControl.verify();
 
         assertEquals(set, setFromService);
 
@@ -375,11 +402,13 @@ public class IterationServiceTest extends TestCase {
         int projetPersistanceId = 1;
         Set set = new HashSet();
 
-        mockIterationRepository.expectFindByProjectPersistanceId(projetPersistanceId, set);
+        EasyMock.expect(mockIterationRepository.findByProjectPersistanceId(projetPersistanceId)).andReturn(set);
+
+        mocksControl.replay();
 
         Set setFromService = iterationService.findByProjectPersistanceId(projetPersistanceId);
 
-        MockCore.verify();
+        mocksControl.verify();
 
         assertEquals(set, setFromService);
 
@@ -425,27 +454,37 @@ public class IterationServiceTest extends TestCase {
         storyIds.add(story2PersistanceId);
 
         // les appels peuvent être réalisés dans n'importe quel ordre
-        MockCore.startBlock();
+        //MockCore.startBlock();
+        
+        mocksControl.checkOrder(false);
         
         // recherche de l'itération
-        mockIterationRepository.expectFindByPersistanceId(iterationPersistanceId, iteration);
+        EasyMock.expect(mockIterationRepository.findByPersistanceId(iterationPersistanceId)).andReturn(iteration);
+        //mockIterationRepository.expectFindByPersistanceId(iterationPersistanceId, iteration);
         
         // Recherche des stories
-        mockStoryRepository.expectFindByPersistanceId(story1PersistanceId, story1);
-        mockStoryRepository.expectFindByPersistanceId(story2PersistanceId, story2);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(story1PersistanceId)).andReturn(story1);
+        //mockStoryRepository.expectFindByPersistanceId(story1PersistanceId, story1);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(story2PersistanceId)).andReturn(story2);
+        //mockStoryRepository.expectFindByPersistanceId(story2PersistanceId, story2);
 
-        MockCore.endBlock();
+        //MockCore.endBlock();
         
         // vérification que le numéro de version est mis à jour 
         
         // validation de l'iteration
-        mockIterationValidator.expectValidate(iteration, errors);
+        EasyMock.expect(mockIterationValidator.validate(iteration)).andReturn(errors);
+        //mockIterationValidator.expectValidate(iteration, errors);
         
         // enregistrement
-        mockIterationRepository.expectAddOrUpdate(iteration);
+        mockIterationRepository.addOrUpdate(iteration);
 
+        mocksControl.replay();
+        
         // service
         Errors errors = iterationService.addStories(storyIds, iterationPersistanceId, iterationPersistanceVersion);
+        
+        mocksControl.verify();
         
         // vérification qu'aucune erreur n'est retournée
         assertFalse(errors.hasErrors());
@@ -479,7 +518,9 @@ public class IterationServiceTest extends TestCase {
         Iteration iteration = null;
     	
         // recherche de l'iteration
-        mockIterationRepository.expectFindByPersistanceId(iterationToAddOrUpdate.getPersistanceId(), iteration);
+        EasyMock.expect(mockIterationRepository.findByPersistanceId(iterationToAddOrUpdate.getPersistanceId())).andReturn(iteration);
+
+        mocksControl.replay();
         
         // Appel au service
         Errors errorsFromService = iterationService.addStories(storyIds, iterationToAddOrUpdate.getPersistanceId(), 2);
@@ -492,7 +533,7 @@ public class IterationServiceTest extends TestCase {
         assertEquals("This iteration doesn't exists in database", errorsFromService.getGlobalError(Locale.ENGLISH));
 
         // contrôle des appels
-        MockCore.verify();
+        mocksControl.verify();
     	
     }
 
@@ -538,27 +579,28 @@ public class IterationServiceTest extends TestCase {
         storyIds.add(story2PersistanceId);
 
         // les appels peuvent être réalisés dans n'importe quel ordre
-        MockCore.startBlock();
+        mocksControl.checkOrder(false);
         
         // recherche de l'itération
-        mockIterationRepository.expectFindByPersistanceId(iterationPersistanceId, iteration);
+        EasyMock.expect(mockIterationRepository.findByPersistanceId(iterationPersistanceId)).andReturn(iteration);
         
         // Recherche des stories
-        mockStoryRepository.expectFindByPersistanceId(story1PersistanceId, story1);
-        mockStoryRepository.expectFindByPersistanceId(story2PersistanceId, story2);
-
-        MockCore.endBlock();
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(story1PersistanceId)).andReturn(story1);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(story2PersistanceId)).andReturn(story2);
         
         // vérification que le numéro de version est mis à jour 
         
         // validation de l'iteration, avec une erreur 
         errors.reject("erreur !!");
-        mockIterationValidator.expectValidate(iteration, errors);
+        EasyMock.expect(mockIterationValidator.validate(iteration)).andReturn(errors);
         
         // l'enregistrement n'est pas appellé
+        mocksControl.replay();
         
         // service
         Errors errors = iterationService.addStories(storyIds, iterationPersistanceId, iterationPersistanceVersion);
+        
+        mocksControl.verify();
         
         // vérification que les erreurs sont retournées
         assertTrue(errors.hasErrors());
@@ -611,27 +653,29 @@ public class IterationServiceTest extends TestCase {
         storyIds.add(story2PersistanceId);
 
         // les appels peuvent être réalisés dans n'importe quel ordre
-        MockCore.startBlock();
+        mocksControl.checkOrder(false);
         
         // recherche de l'itération
-        mockIterationRepository.expectFindByPersistanceId(iterationPersistanceId, iteration);
+        EasyMock.expect(mockIterationRepository.findByPersistanceId(iterationPersistanceId)).andReturn(iteration);
         
         // Recherche des stories
-        mockStoryRepository.expectFindByPersistanceId(story1PersistanceId, story1);
-        mockStoryRepository.expectFindByPersistanceId(story2PersistanceId, story2);
-
-        MockCore.endBlock();
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(story1PersistanceId)).andReturn(story1);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(story2PersistanceId)).andReturn(story2);
         
         // vérification que le numéro de version est mis à jour 
         
         // validation de l'iteration
-        mockIterationValidator.expectValidate(iteration, errors);
+        EasyMock.expect(mockIterationValidator.validate(iteration)).andReturn(errors);
         
         // enregistrement
-        mockIterationRepository.expectAddOrUpdate(iteration);
+        mockIterationRepository.addOrUpdate(iteration);
 
+        mocksControl.replay();
+        
         // service
         Errors errors = iterationService.removeStories(storyIds, iterationPersistanceId, iterationPersistanceVersion);
+        
+        mocksControl.verify();
         
         // vérification qu'aucune erreur n'est retournée
         assertFalse(errors.hasErrors());
@@ -666,7 +710,9 @@ public class IterationServiceTest extends TestCase {
         Iteration iteration = null;
     	
         // recherche de l'iteration
-        mockIterationRepository.expectFindByPersistanceId(iterationToAddOrUpdate.getPersistanceId(), iteration);
+        EasyMock.expect(mockIterationRepository.findByPersistanceId(iterationToAddOrUpdate.getPersistanceId())).andReturn(iteration);
+
+        mocksControl.replay();
         
         // Appel au service
         Errors errorsFromService = iterationService.removeStories(storyIds, iterationToAddOrUpdate.getPersistanceId(), 2);
@@ -679,7 +725,7 @@ public class IterationServiceTest extends TestCase {
         assertEquals("This iteration doesn't exists in database", errorsFromService.getGlobalError(Locale.ENGLISH));
 
         // contrôle des appels
-        MockCore.verify();
+        mocksControl.verify();
     	
     }
 
@@ -723,28 +769,31 @@ public class IterationServiceTest extends TestCase {
         storyIds.add(story2PersistanceId);
 
         // les appels peuvent être réalisés dans n'importe quel ordre
-        MockCore.startBlock();
+        //MockCore.startBlock();
+        
+        mocksControl.checkOrder(false);
         
         // recherche de l'itération
-        mockIterationRepository.expectFindByPersistanceId(iterationPersistanceId, iteration);
+        EasyMock.expect(mockIterationRepository.findByPersistanceId(iterationPersistanceId)).andReturn(iteration);
         
         // Recherche des stories
-        mockStoryRepository.expectFindByPersistanceId(story1PersistanceId, story1);
-        mockStoryRepository.expectFindByPersistanceId(story2PersistanceId, story2);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(story1PersistanceId)).andReturn(story1);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(story2PersistanceId)).andReturn(story2);
 
-        MockCore.endBlock();
-        
         // vérification que le numéro de version est mis à jour 
         
         // validation de l'iteration
         errors.reject("une erreur");
-        mockIterationValidator.expectValidate(iteration, errors);
-        
-        // enregistrement
-        mockIterationRepository.expectAddOrUpdate(iteration);
+        EasyMock.expect(mockIterationValidator.validate(iteration)).andReturn(errors);
 
+        // pas d'enregistrement
+
+        mocksControl.replay();
+        
         // service
         Errors errors = iterationService.removeStories(storyIds, iterationPersistanceId, iterationPersistanceVersion);
+        
+        mocksControl.verify();
         
         // vérification qu'aucune erreur n'est retournée
         assertTrue(errors.hasErrors());
