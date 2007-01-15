@@ -41,29 +41,30 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
-import net.sf.pmr.agilePlanning.domain.release.MockReleaseRepository;
-import net.sf.pmr.agilePlanning.domain.release.MockReleaseValidator;
 import net.sf.pmr.agilePlanning.domain.release.Release;
 import net.sf.pmr.agilePlanning.domain.release.ReleaseImpl;
-import net.sf.pmr.agilePlanning.domain.story.MockStoryRepository;
+import net.sf.pmr.agilePlanning.domain.release.ReleaseRepository;
+import net.sf.pmr.agilePlanning.domain.release.ReleaseValidator;
 import net.sf.pmr.agilePlanning.domain.story.Story;
 import net.sf.pmr.agilePlanning.domain.story.StoryImpl;
+import net.sf.pmr.agilePlanning.domain.story.StoryRepository;
 import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.project.ProjectImpl;
 import net.sf.pmr.keopsframework.domain.validation.Errors;
-import de.abstrakt.mock.MockCore;
-import de.abstrakt.mock.expectable.Ignore;
+
+import org.easymock.EasyMock;
+import org.easymock.IMocksControl;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
  */
 public class ReleaseServiceTest extends TestCase {
 
-    private MockReleaseValidator mockReleaseValidator;
+    private ReleaseValidator mockReleaseValidator;
 
-    private MockReleaseRepository mockReleaseRepository;
+    private ReleaseRepository mockReleaseRepository;
     
-    private MockStoryRepository mockStoryRepository;
+    private StoryRepository mockStoryRepository;
 
     private Errors errors;
 
@@ -86,18 +87,23 @@ public class ReleaseServiceTest extends TestCase {
     private Story existingStory;
     
     private Set<Story> storiesToAdd;
+    
+    private IMocksControl mocksControl;
 
     /* (non-Javadoc)
      * @see TestCase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
-
-        mockReleaseValidator = new MockReleaseValidator();
-
-        mockReleaseRepository = new MockReleaseRepository();
         
-        mockStoryRepository = new MockStoryRepository();
+        // create mocks
+        mocksControl = EasyMock.createStrictControl();
+
+        mockReleaseValidator = mocksControl.createMock(ReleaseValidator.class);
+        
+        mockReleaseRepository = mocksControl.createMock(ReleaseRepository.class);
+        
+        mockStoryRepository = mocksControl.createMock(StoryRepository.class);
 
         errors = AgilePlanningObjectFactory.getErrors();
 
@@ -135,15 +141,16 @@ public class ReleaseServiceTest extends TestCase {
         releaseToDelete = new ReleaseImpl();
         releaseToDelete.setPersistanceVersion(1);
         releaseToDelete.setPersistanceVersion(5);
-
-        MockCore.reset();
-
+        
     }
 
     /* (non-Javadoc)
      * @see TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
+    	
+    	mocksControl.reset();
+    	
         super.tearDown();
     }
 
@@ -167,15 +174,17 @@ public class ReleaseServiceTest extends TestCase {
     public void testAdd() {
 
         // validation (sans erreurs)
-        mockReleaseValidator.expectValidate(new Ignore(), errors);
+    	EasyMock.expect(mockReleaseValidator.validate(EasyMock.isA(Release.class))).andReturn(errors);
 
         // ajout
-        mockReleaseRepository.acceptAddOrUpdate(new Ignore());
+    	mockReleaseRepository.addOrUpdate(EasyMock.isA(Release.class));
 
+    	mocksControl.replay();
+    	
         Errors errorsFromService = releaseService.add(1, "1", new Date());
 
         // Vérifie les appels
-        MockCore.verify();
+        mocksControl.verify();
 
         // aucune erreur n'est retournée
         assertFalse(errorsFromService.hasErrors());
@@ -195,12 +204,14 @@ public class ReleaseServiceTest extends TestCase {
         // validation (avec erreurs)
 
         errors.reject("erreur");
-        mockReleaseValidator.expectValidate(new Ignore(), errors);
+        EasyMock.expect(mockReleaseValidator.validate(EasyMock.isA(Release.class))).andReturn(errors);
+
+        mocksControl.replay();
 
         Errors errorsFromService = releaseService.add(1, "1", new Date());
 
         // Vérifie les appels
-        MockCore.verify();
+        mocksControl.verify();
 
         // une erreur est retournée.
         assertTrue(errorsFromService.hasErrors());
@@ -230,18 +241,20 @@ public class ReleaseServiceTest extends TestCase {
         release.setProject(project);
 
         // recherche
-        mockReleaseRepository.expectFindByPersistanceId(persistanceId, release);
-
+        EasyMock.expect(mockReleaseRepository.findByPersistanceId(persistanceId)).andReturn(release);
+        
         // validation (sans erreurs)
-        mockReleaseValidator.expectValidate(release, AgilePlanningObjectFactory.getErrors());
+        EasyMock.expect(mockReleaseValidator.validate(release)).andReturn(AgilePlanningObjectFactory.getErrors());
 
         // modification
-        mockReleaseRepository.acceptAddOrUpdate(release);
+        mockReleaseRepository.addOrUpdate(release);
 
+        mocksControl.replay();
+        
         Errors errorsFromService = releaseService.update(number, date, persistanceId, persistanceVersion);
 
         // Vérifie les appels
-        MockCore.verify();
+        mocksControl.verify();
 
         // aucune erreur n'est retournée
         assertFalse(errorsFromService.hasErrors());
@@ -279,15 +292,17 @@ public class ReleaseServiceTest extends TestCase {
         errors.reject("erreur");
 
         // recherche
-        mockReleaseRepository.expectFindByPersistanceId(persistanceId, release);
-
+        EasyMock.expect(mockReleaseRepository.findByPersistanceId(persistanceId)).andReturn(release);
+        
         // validation
-        mockReleaseValidator.expectValidate(release, errors);
+        EasyMock.expect(mockReleaseValidator.validate(release)).andReturn(errors);
 
+        mocksControl.replay();
+        
         Errors errorsFromService = releaseService.update(number, date, persistanceId, persistanceVersion);
 
         // Vérifie les appels
-        MockCore.verify();
+        mocksControl.verify();
 
         // une erreur est retournée.
         assertTrue(errorsFromService.hasErrors());
@@ -319,7 +334,9 @@ public class ReleaseServiceTest extends TestCase {
         Release release = null;
     	
         // recherche de la release
-        mockReleaseRepository.expectFindByPersistanceId(releaseToAddOrUpdate.getPersistanceId(), release);
+        EasyMock.expect(mockReleaseRepository.findByPersistanceId(releaseToAddOrUpdate.getPersistanceId())).andReturn(release);
+
+        mocksControl.replay();
         
         // Appel au service
         Errors errorsFromService = releaseService.update(releaseToAddOrUpdate.getNumber(), releaseToAddOrUpdate.getDate(), releaseToAddOrUpdate.getPersistanceId(), 2);
@@ -332,7 +349,7 @@ public class ReleaseServiceTest extends TestCase {
         assertEquals("This release doesn't exists in database", errorsFromService.getGlobalError(Locale.ENGLISH));
 
         // contrôle des appels
-        MockCore.verify();
+        mocksControl.verify();
     	
     }
 
@@ -350,11 +367,13 @@ public class ReleaseServiceTest extends TestCase {
         int persistanceId = 1;
         Release release = new ReleaseImpl();
 
-        mockReleaseRepository.expectFindByPersistanceId(persistanceId, release);
-
+        EasyMock.expect(mockReleaseRepository.findByPersistanceId(persistanceId)).andReturn(release);
+        
+        mocksControl.replay();
+        
         Release releaseFromService = releaseService.findByPersistanceId(persistanceId);
 
-        MockCore.verify();
+        mocksControl.verify();
 
         assertEquals(release, releaseFromService);
 
@@ -373,11 +392,13 @@ public class ReleaseServiceTest extends TestCase {
         int persistanceId = 1;
         Release release = null;
 
-        mockReleaseRepository.expectFindByPersistanceId(persistanceId, release);
+        EasyMock.expect(mockReleaseRepository.findByPersistanceId(persistanceId)).andReturn(release);
 
+        mocksControl.replay();
+        
         Release releaseFromService = releaseService.findByPersistanceId(persistanceId);
 
-        MockCore.verify();
+        mocksControl.verify();
 
         assertNull(releaseFromService);
 
@@ -398,11 +419,13 @@ public class ReleaseServiceTest extends TestCase {
         Release release = new ReleaseImpl();
         set.add(release);
 
-        mockReleaseRepository.expectFindByProjectPersistanceId(projetPersistanceId, set);
+        EasyMock.expect(mockReleaseRepository.findByProjectPersistanceId(projetPersistanceId)).andReturn(set);
 
+        mocksControl.replay();
+        
         Set setFromService = releaseService.findByProjectPersistanceId(projetPersistanceId);
 
-        MockCore.verify();
+        mocksControl.verify();
 
         assertEquals(set, setFromService);
 
@@ -421,11 +444,13 @@ public class ReleaseServiceTest extends TestCase {
         int projetPersistanceId = 1;
         Set set = new HashSet();
 
-        mockReleaseRepository.expectFindByProjectPersistanceId(projetPersistanceId, set);
+        EasyMock.expect(mockReleaseRepository.findByProjectPersistanceId(projetPersistanceId)).andReturn(set);
+
+        mocksControl.replay();
 
         Set setFromService = releaseService.findByProjectPersistanceId(projetPersistanceId);
 
-        MockCore.verify();
+        mocksControl.verify();
 
         assertEquals(set, setFromService);
 
@@ -449,22 +474,26 @@ public class ReleaseServiceTest extends TestCase {
         storyIds.add(storyToAdd2PersistanceId);
 
         // les appels peuvent être réalisés dans n'importe quel ordre
-        MockCore.startBlock();
+        //MockCore.startBlock();
 
+        mocksControl.checkOrder(false);
+        
         // recherche de la release
-        mockReleaseRepository.expectFindByPersistanceId(releaseToAddOrUpdate.getPersistanceId(), releaseToAddOrUpdate);
+        EasyMock.expect(mockReleaseRepository.findByPersistanceId(releaseToAddOrUpdate.getPersistanceId())).andReturn(releaseToAddOrUpdate);
 
         // Recherche des story
-        mockStoryRepository.expectFindByPersistanceId(storyToAdd1PersistanceId, storyToAdd1);
-        mockStoryRepository.expectFindByPersistanceId(storyToAdd2PersistanceId, storyToAdd2);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(storyToAdd1PersistanceId)).andReturn(storyToAdd1);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(storyToAdd2PersistanceId)).andReturn(storyToAdd2);
 
-        MockCore.endBlock();
+        //MockCore.endBlock();
 
-        // validation de la release 
-        mockReleaseValidator.expectValidate(releaseToAddOrUpdate, errors);
-
+        // validation de la release
+        EasyMock.expect(mockReleaseValidator.validate(releaseToAddOrUpdate)).andReturn(errors);
+        
         // enregistrement
-        mockReleaseRepository.expectAddOrUpdate(releaseToAddOrUpdate);
+        mockReleaseRepository.addOrUpdate(releaseToAddOrUpdate);
+        
+        EasyMock.replay();
 
         // Appel au service
         long releasePersistanceVersion = 2;
@@ -482,7 +511,7 @@ public class ReleaseServiceTest extends TestCase {
         assertEquals(releaseToAddOrUpdate.getPersistanceVersion(), releasePersistanceVersion);
         
         // contrôle des appels
-        MockCore.verify();
+        mocksControl.verify();
 
     }
 
@@ -503,21 +532,26 @@ public class ReleaseServiceTest extends TestCase {
         storyIds.add(storyToAdd2PersistanceId);
 
         // les appels peuvent être réalisés dans n'importe quel ordre
-        MockCore.startBlock();
+        //MockCore.startBlock();
+        
+        mocksControl.checkOrder(false);
 
         // recherche de la release
-        mockReleaseRepository.expectFindByPersistanceId(releaseToAddOrUpdate.getPersistanceId(), releaseToAddOrUpdate);
+        EasyMock.expect(mockReleaseRepository.findByPersistanceId(releaseToAddOrUpdate.getPersistanceId())).andReturn(releaseToAddOrUpdate);
 
         // Recherche des story
-        mockStoryRepository.expectFindByPersistanceId(storyToAdd1PersistanceId, storyToAdd1);
-        mockStoryRepository.expectFindByPersistanceId(storyToAdd2PersistanceId, storyToAdd2);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(storyToAdd1PersistanceId)).andReturn(storyToAdd1);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(storyToAdd2PersistanceId)).andReturn(storyToAdd2);
 
-        MockCore.endBlock();
+        //MockCore.endBlock();
 
         // validation de la release
         errors.reject("belle erreur");
-        mockReleaseValidator.expectValidate(releaseToAddOrUpdate, errors);
+        // validation de la release
+        EasyMock.expect(mockReleaseValidator.validate(releaseToAddOrUpdate)).andReturn(errors);
 
+        mocksControl.replay();
+        
         // Appel au service
         long releasePersistanceVersion = 2;
         Errors errorsFromService = releaseService.addStories(storyIds, releaseToAddOrUpdate.getPersistanceId(), releasePersistanceVersion);
@@ -534,7 +568,7 @@ public class ReleaseServiceTest extends TestCase {
         assertEquals(releaseToAddOrUpdate.getPersistanceVersion(), releasePersistanceVersion);
         
         // contrôle des appels
-        MockCore.verify();
+        mocksControl.verify();
 
 
     }
@@ -556,7 +590,9 @@ public class ReleaseServiceTest extends TestCase {
         Release release = null;
     	
         // recherche de la release
-        mockReleaseRepository.expectFindByPersistanceId(releaseToAddOrUpdate.getPersistanceId(), release);
+        EasyMock.expect(mockReleaseRepository.findByPersistanceId(releaseToAddOrUpdate.getPersistanceId())).andReturn(release);
+        
+        mocksControl.replay();
         
         // Appel au service
         Errors errorsFromService = releaseService.addStories(storyIds, releaseToAddOrUpdate.getPersistanceId(), 2);
@@ -569,7 +605,7 @@ public class ReleaseServiceTest extends TestCase {
         assertEquals("This release doesn't exists in database", errorsFromService.getGlobalError(Locale.ENGLISH));
 
         // contrôle des appels
-        MockCore.verify();
+        mocksControl.verify();
     	
     }
 
@@ -590,22 +626,26 @@ public class ReleaseServiceTest extends TestCase {
         storyIds.add(existingStoryPersistanceId);
 
         // les appels peuvent être réalisés dans n'importe quel ordre
-        MockCore.startBlock();
+        //MockCore.startBlock();
+        
+        mocksControl.checkOrder(false);
 
         // recherche de la release
-        mockReleaseRepository.expectFindByPersistanceId(releaseToAddOrUpdate.getPersistanceId(), releaseToAddOrUpdate);
+        EasyMock.expect(mockReleaseRepository.findByPersistanceId(releaseToAddOrUpdate.getPersistanceId())).andReturn(releaseToAddOrUpdate);
 
         // Recherche des story
-        mockStoryRepository.expectFindByPersistanceId(existingStoryPersistanceId, existingStory);
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(existingStoryPersistanceId)).andReturn(existingStory);
 
-        MockCore.endBlock();
+        //MockCore.endBlock();
 
-        // validation de la release 
-        mockReleaseValidator.expectValidate(releaseToAddOrUpdate, errors);
+        // validation de la release
+        EasyMock.expect(mockReleaseValidator.validate(releaseToAddOrUpdate)).andReturn(errors);
 
         // enregistrement
-        mockReleaseRepository.expectAddOrUpdate(releaseToAddOrUpdate);
+        mockReleaseRepository.addOrUpdate(releaseToAddOrUpdate);
 
+        mocksControl.replay();
+        
         // Appel au service
         long releasePersistanceVersion = 2;
         Errors errorsFromService = releaseService.removeStories(storyIds, releaseToAddOrUpdate.getPersistanceId(), releasePersistanceVersion);
@@ -618,11 +658,10 @@ public class ReleaseServiceTest extends TestCase {
         
         // vérification que le numéro de version de la release a été mis à jour
         assertEquals(releaseToAddOrUpdate.getPersistanceVersion(), releasePersistanceVersion);
-
         
         // contrôle des appels
-        MockCore.verify();
-
+        EasyMock.verify();
+        
     }
     
     /**
@@ -642,7 +681,9 @@ public class ReleaseServiceTest extends TestCase {
         Release release = null;
     	
         // recherche de la release
-        mockReleaseRepository.expectFindByPersistanceId(releaseToAddOrUpdate.getPersistanceId(), release);
+        EasyMock.expect(mockReleaseRepository.findByPersistanceId(releaseToAddOrUpdate.getPersistanceId())).andReturn(release);
+
+        mocksControl.replay();
         
         // Appel au service
         Errors errorsFromService = releaseService.removeStories(storyIds, releaseToAddOrUpdate.getPersistanceId(), 2);
@@ -655,7 +696,7 @@ public class ReleaseServiceTest extends TestCase {
         assertEquals("This release doesn't exists in database", errorsFromService.getGlobalError(Locale.ENGLISH));
 
         // contrôle des appels
-        MockCore.verify();
+        mocksControl.verify();
     	
     }
 
@@ -675,19 +716,21 @@ public class ReleaseServiceTest extends TestCase {
         long persistanceVersion = 4;
 
         // recherche de la release dans la repository
-        mockReleaseRepository.expectFindByPersistanceId(persistanceId, releaseToDelete);
+        EasyMock.expect(mockReleaseRepository.findByPersistanceId(persistanceId)).andReturn(releaseToDelete);
         
         // validation
-        mockReleaseValidator.expectValidateForDelete(releaseToDelete, errors);
+        EasyMock.expect(mockReleaseValidator.validateForDelete(releaseToDelete)).andReturn(errors);
 
         // suppression de la story dans la repository
-        mockReleaseRepository.expectDelete(releaseToDelete);
+        mockReleaseRepository.delete(releaseToDelete);
 
+        mocksControl.replay();
+        
         // appel de la méthode de suppression
         Errors errorsFromService = releaseService.delete(persistanceId, persistanceVersion);
 
         // Vérification les appels
-        MockCore.verify();
+        mocksControl.verify();
 
         // aucune erreur n'est retournée car pas d'erreur de validation
         assertFalse(errorsFromService.hasErrors());
@@ -714,17 +757,19 @@ public class ReleaseServiceTest extends TestCase {
         long persistanceVersion = 4;
 
         // recherche de la release dans la repository
-        mockReleaseRepository.expectFindByPersistanceId(persistanceId, releaseToDelete);
+        EasyMock.expect(mockReleaseRepository.findByPersistanceId(persistanceId)).andReturn(releaseToDelete);
         
         // validation
         errors.reject("code");
-        mockReleaseValidator.expectValidateForDelete(releaseToDelete, errors);
+        EasyMock.expect(mockReleaseValidator.validateForDelete(releaseToDelete)).andReturn(errors);
 
+        mocksControl.replay();
+        
         // appel de la méthode de mise à jour
         Errors errorsFromService = releaseService.delete(persistanceId, persistanceVersion);
 
         // Vérification les appels
-        MockCore.verify();
+        mocksControl.verify();
 
         // une erreur est retournée
         assertTrue(errorsFromService.hasErrors());
@@ -750,13 +795,15 @@ public class ReleaseServiceTest extends TestCase {
         long persistanceVersion = 4;
 
         // recherche de la release dans la repository
-        mockReleaseRepository.expectFindByPersistanceId(persistanceId, releaseToDelete);
+        EasyMock.expect(mockReleaseRepository.findByPersistanceId(persistanceId)).andReturn(releaseToDelete);
 
+        mocksControl.replay();
+        
         // appel de la méthode de mise à jour
         Errors errorsFromService = releaseService.delete(persistanceId, persistanceVersion);
 
         // Vérification les appels
-        MockCore.verify();
+        mocksControl.verify();
         
         // contrôle de l'erreur retournée
         assertTrue(errorsFromService.hasGlobalErrors());
@@ -765,9 +812,7 @@ public class ReleaseServiceTest extends TestCase {
         // message en anglais
         assertEquals("This release doesn't exists in database", errorsFromService.getGlobalError(Locale.ENGLISH));
 
-        // contrôle des appels
-        MockCore.verify();
-    	
+        
     }
 
 }
