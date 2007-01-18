@@ -228,7 +228,7 @@ public class StoryTest extends TestCase {
         // set mock in replay mode
         mocksControl.replay();
         
-        assertEquals(0.5, story.getDaysCompleted());
+        assertEquals(0.5, story.daysCompleted());
         
     }
     
@@ -241,7 +241,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(new HashSet<Task>());
         
-        assertEquals(0.0, story.getDaysCompleted());
+        assertEquals(0.0, story.daysCompleted());
         
     }
     
@@ -255,7 +255,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(null);
         
-        assertEquals(0.0, story.getDaysCompleted());
+        assertEquals(0.0, story.daysCompleted());
         
     }
     
@@ -370,7 +370,7 @@ public class StoryTest extends TestCase {
         
        mocksControl.replay();
         
-        assertEquals(1.0, story.getDaysRemaining());
+        assertEquals(1.0, story.daysRemaining());
         
     }
     
@@ -384,7 +384,7 @@ public class StoryTest extends TestCase {
         story.setTasks(new HashSet<Task>());
         story.setDaysEstimated(4.5);
         
-        assertEquals(4.5, story.getDaysRemaining());
+        assertEquals(4.5, story.daysRemaining());
         
     }
     
@@ -399,7 +399,7 @@ public class StoryTest extends TestCase {
         story.setTasks(null);
         story.setDaysEstimated(2.5);
         
-        assertEquals(2.5, story.getDaysRemaining());
+        assertEquals(2.5, story.daysRemaining());
         
     }
     
@@ -430,7 +430,7 @@ public class StoryTest extends TestCase {
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(20.0, story.getPercentCompleted());
+        assertEquals(20.0, story.percentCompleted());
         
         mocksControl.verify();
 
@@ -445,7 +445,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(new HashSet<Task>());
         
-        assertEquals(0.0, story.getPercentCompleted());
+        assertEquals(0.0, story.percentCompleted());
         
     }
     
@@ -459,7 +459,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(null);
         
-        assertEquals(0.0, story.getPercentCompleted());
+        assertEquals(0.0, story.percentCompleted());
         
     }
 
@@ -490,7 +490,7 @@ public class StoryTest extends TestCase {
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(80.0, story.getPercentRemaining());
+        assertEquals(80.0, story.percentRemaining());
         
         mocksControl.verify();
         
@@ -505,7 +505,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(new HashSet<Task>());
         
-        assertEquals(100.0, story.getPercentRemaining());
+        assertEquals(100.0, story.percentRemaining());
         
     }
     
@@ -519,7 +519,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(null);
         
-        assertEquals(100.0, story.getPercentRemaining());
+        assertEquals(100.0, story.percentRemaining());
         
     }
 
@@ -552,7 +552,7 @@ public class StoryTest extends TestCase {
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(1.5, story.getDifferenceOfDaysBetweenEstimateAndTaskCharge());
+        assertEquals(1.5, story.differenceOfDaysBetweenEstimateAndTaskCharge());
         
         mocksControl.verify();
         
@@ -587,7 +587,7 @@ public class StoryTest extends TestCase {
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(-0.5, story.getDifferenceOfDaysBetweenEstimateAndTaskCharge());
+        assertEquals(-0.5, story.differenceOfDaysBetweenEstimateAndTaskCharge());
         
         mocksControl.verify();
         
@@ -604,7 +604,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(new HashSet<Task>());
         
-        assertEquals(0.0, story.getDifferenceOfDaysBetweenEstimateAndTaskCharge());
+        assertEquals(0.0, story.differenceOfDaysBetweenEstimateAndTaskCharge());
         
     }
     
@@ -618,7 +618,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(null);
         
-        assertEquals(0.0, story.getDifferenceOfDaysBetweenEstimateAndTaskCharge());
+        assertEquals(0.0, story.differenceOfDaysBetweenEstimateAndTaskCharge());
         
     }
     
@@ -652,7 +652,7 @@ public class StoryTest extends TestCase {
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(40.0, story.getDifferenceInPercentBetweenEstimateAndTaskCharge());
+        assertEquals(40.0, story.differenceInPercentBetweenEstimateAndTaskCharge());
 
         mocksControl.verify();
         
@@ -688,7 +688,7 @@ public class StoryTest extends TestCase {
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(120.0, story.getDifferenceInPercentBetweenEstimateAndTaskCharge());
+        assertEquals(120.0, story.differenceInPercentBetweenEstimateAndTaskCharge());
 
         
         mocksControl.verify();
@@ -704,7 +704,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(new HashSet<Task>());
         
-        assertEquals(0.0, story.getDifferenceInPercentBetweenEstimateAndTaskCharge());
+        assertEquals(0.0, story.differenceInPercentBetweenEstimateAndTaskCharge());
         
     }
     
@@ -717,7 +717,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(null);
         
-        assertEquals(0.0, story.getDifferenceInPercentBetweenEstimateAndTaskCharge());
+        assertEquals(0.0, story.differenceInPercentBetweenEstimateAndTaskCharge());
         
     }
 
@@ -743,7 +743,7 @@ public class StoryTest extends TestCase {
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(0.5, story.getDifferenceOfDaysBetweenEstimateAndTaskEstimate());
+        assertEquals(0.5, story.differenceOfDaysBetweenEstimateAndTaskEstimate());
 
         mocksControl.verify();
         
@@ -769,7 +769,7 @@ public class StoryTest extends TestCase {
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(-1.5, story.getDifferenceOfDaysBetweenEstimateAndTaskEstimate());
+        assertEquals(-1.5, story.differenceOfDaysBetweenEstimateAndTaskEstimate());
 
         mocksControl.verify();
         
@@ -787,7 +787,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(new HashSet<Task>());
         
-        assertEquals(0.0, story.getDifferenceOfDaysBetweenEstimateAndTaskEstimate());
+        assertEquals(0.0, story.differenceOfDaysBetweenEstimateAndTaskEstimate());
         
     }
     
@@ -802,7 +802,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(null);
         
-        assertEquals(0.0, story.getDifferenceOfDaysBetweenEstimateAndTaskEstimate());
+        assertEquals(0.0, story.differenceOfDaysBetweenEstimateAndTaskEstimate());
         
     }
 
@@ -826,7 +826,7 @@ public class StoryTest extends TestCase {
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(125.0, story.getDifferenceInPercentBetweenEstimateAndTaskEstimate());
+        assertEquals(125.0, story.differenceInPercentBetweenEstimateAndTaskEstimate());
         
         mocksControl.verify();
         
@@ -851,7 +851,7 @@ public class StoryTest extends TestCase {
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(62.5, story.getDifferenceInPercentBetweenEstimateAndTaskEstimate());
+        assertEquals(62.5, story.differenceInPercentBetweenEstimateAndTaskEstimate());
         
         mocksControl.verify();
         
@@ -867,7 +867,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(new HashSet<Task>());
         
-        assertEquals(0.0, story.getDifferenceInPercentBetweenEstimateAndTaskEstimate());
+        assertEquals(0.0, story.differenceInPercentBetweenEstimateAndTaskEstimate());
         
     }
     
@@ -880,7 +880,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(null);
         
-        assertEquals(0.0, story.getDifferenceInPercentBetweenEstimateAndTaskEstimate());
+        assertEquals(0.0, story.differenceInPercentBetweenEstimateAndTaskEstimate());
         
     }
 
@@ -903,7 +903,7 @@ public class StoryTest extends TestCase {
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(0.0, story.getDifferenceInPercentBetweenEstimateAndTaskEstimate());
+        assertEquals(0.0, story.differenceInPercentBetweenEstimateAndTaskEstimate());
         
         mocksControl.verify();
         
