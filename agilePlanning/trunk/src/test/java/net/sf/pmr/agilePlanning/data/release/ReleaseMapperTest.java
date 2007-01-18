@@ -81,11 +81,11 @@ public class ReleaseMapperTest extends MapperTestCase {
     private Story story2;
     
     
-    private final static String SELECT_FOR_UPDATE = "select * from RELEASE where number = '1A'";
+    private final static String SELECT_FOR_UPDATE = "select * from PMRELEASE where number = '1A'";
     
-    private final static String SELECT_FOR_DELETE = "select * from RELEASE where id = '4'";
+    private final static String SELECT_FOR_DELETE = "select * from PMRELEASE where id = '4'";
     
-    private final static String SELECT_FOR_ADD = "select * from RELEASE where number = '2B'";
+    private final static String SELECT_FOR_ADD = "select * from PMRELEASE where number = '2B'";
     
     private final static String SELECT_BASICPROJECT= "select * from PROJECT where id = 2";
     

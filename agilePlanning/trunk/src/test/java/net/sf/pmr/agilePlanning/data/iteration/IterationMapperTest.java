@@ -76,7 +76,7 @@ public class IterationMapperTest extends MapperTestCase {
     
     private static final String SELECT_BASICPROJECT= "select * from PROJECT where id = 2";
     
-    private static final String SELECT_RELEASE= "select * from RELEASE where id = 3";
+    private static final String SELECT_RELEASE= "select * from PMRELEASE where id = 3";
     
     private final static String SELECT_STORY1 = "select * from STORY where id = '1'";
     
@@ -108,13 +108,13 @@ public class IterationMapperTest extends MapperTestCase {
         calendar.set(Calendar.MONTH, Calendar.FEBRUARY);
         calendar.set(Calendar.DAY_OF_MONTH, 2);
         
-        iterationToAdd.setEndDate(calendar.getTime());
+        iterationToAdd.setEnd(calendar.getTime());
         iterationToAdd.setPersistanceId(0);
         iterationToAdd.setPersistanceVersion(0);
         
         calendar.set(Calendar.DAY_OF_MONTH, 22);
         
-        iterationToAdd.setStartDate(calendar.getTime());
+        iterationToAdd.setStart(calendar.getTime());
         
         
 
@@ -126,13 +126,13 @@ public class IterationMapperTest extends MapperTestCase {
         calendar.set(Calendar.MONTH, Calendar.MARCH);
         calendar.set(Calendar.DAY_OF_MONTH, 12);
         
-        iterationToUpdate.setEndDate(calendar.getTime());
+        iterationToUpdate.setEnd(calendar.getTime());
         iterationToUpdate.setPersistanceId(1);
         iterationToUpdate.setPersistanceVersion(2);
         
         calendar.set(Calendar.DAY_OF_MONTH, 26);
         
-        iterationToUpdate.setStartDate(calendar.getTime());
+        iterationToUpdate.setStart(calendar.getTime());
         
         // Build IterationToDelete
         iterationToDelete = new IterationImpl();
@@ -143,14 +143,14 @@ public class IterationMapperTest extends MapperTestCase {
         calendar.set(Calendar.MONTH, Calendar.APRIL);
         calendar.set(Calendar.DAY_OF_MONTH, 20);
         
-        iterationToDelete.setEndDate(calendar.getTime());
+        iterationToDelete.setEnd(calendar.getTime());
         iterationToDelete.setPersistanceId(2);
         iterationToDelete.setPersistanceVersion(2);
         
         calendar.set(Calendar.MONTH, Calendar.MAY);
         calendar.set(Calendar.DAY_OF_MONTH, 10);
         
-        iterationToDelete.setStartDate(calendar.getTime());
+        iterationToDelete.setStart(calendar.getTime());
         
         
         story1 = new StoryImpl();

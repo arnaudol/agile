@@ -61,7 +61,7 @@ public class IterationValidatorImpl implements IterationValidator {
         Errors errors = AgilePlanningObjectFactory.getErrors();
 
         // la date de d�but est obligatoire
-        if (iteration.getStartDate() == null) {
+        if (iteration.getStart() == null) {
 
             errors.rejectValue(IterationValidator.FIELD_START,
                     "iteration.startMandatory");
@@ -69,19 +69,19 @@ public class IterationValidatorImpl implements IterationValidator {
         }
 
         // la date de fin est obligatoire
-        if (iteration.getEndDate() == null) {
+        if (iteration.getEnd() == null) {
 
             errors.rejectValue(IterationValidator.FIELD_END,
                     "iteration.endMandatory");
 
         }
 
-        if (iteration.getStartDate() != null && iteration.getEndDate() != null) {
+        if (iteration.getStart() != null && iteration.getEnd() != null) {
 
             Calendar start = Calendar.getInstance();
-            start.setTime(iteration.getStartDate());
+            start.setTime(iteration.getStart());
             Calendar end = Calendar.getInstance();
-            end.setTime(iteration.getEndDate());
+            end.setTime(iteration.getEnd());
 
             if (end.compareTo(start) < 0) {
 

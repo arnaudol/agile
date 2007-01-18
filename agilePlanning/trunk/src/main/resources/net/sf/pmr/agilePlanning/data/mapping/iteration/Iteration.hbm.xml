@@ -11,8 +11,8 @@
 
 		<version column="VERSION" name="PersistanceVersion" type="long" />
 
-		<property column="STARTDATE" name="StartDate" not-null="true" type="java.util.Date" />
-  	    <property column="ENDDATE" name="EndDate" not-null="true" type="java.util.Date" />
+		<property column="START" name="Start" not-null="true" type="java.util.Date" />
+  	    <property column="END" name="End" not-null="true" type="java.util.Date" />
 
 		<set name="Stories" cascade="none" lazy="false" table="STORY">
             <key column="ITE_ID" not-null="false"/>

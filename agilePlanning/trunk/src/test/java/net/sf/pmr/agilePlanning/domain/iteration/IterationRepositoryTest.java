@@ -150,13 +150,13 @@ public class IterationRepositoryTest extends TestCase {
        Iteration iteration1 = new IterationImpl();
        Project basicProject1 = new ProjectImpl();
        iteration1.setProject(basicProject1);
-       iteration1.setStartDate(new Date());
+       iteration1.setStart(new Date());
 
        Iteration iteration2 = new IterationImpl();
        Project basicProject2 = new ProjectImpl();
        iteration2.setProject(basicProject2);
-       iteration2.setStartDate(new Date());
-       iteration2.setEndDate(new Date());
+       iteration2.setStart(new Date());
+       iteration2.setEnd(new Date());
        
        set.add(iteration1);
        set.add(iteration2);

@@ -89,8 +89,8 @@ public class IterationServiceImpl implements IterationService {
         // Buid the object to persist
         Iteration iteration = AgilePlanningObjectFactory.getIteration();
         iteration.getProject().setPersistanceId(projetPersistanceId);
-        iteration.setEndDate(end);
-        iteration.setStartDate(start);
+        iteration.setEnd(end);
+        iteration.setStart(start);
 
         // validate
         Errors errors = iterationValidator.validate(iteration);
@@ -143,10 +143,10 @@ public class IterationServiceImpl implements IterationService {
         if (iteration != null) {
 
             // update the iteration object
-            iteration.setEndDate(end);
+            iteration.setEnd(end);
             iteration.setPersistanceId(iterationPersistanceId);
             iteration.setPersistanceVersion(iterationPersistanceVersion);
-            iteration.setStartDate(start);
+            iteration.setStart(start);
 
             // validate
             Errors errors = iterationValidator.validate(iteration);

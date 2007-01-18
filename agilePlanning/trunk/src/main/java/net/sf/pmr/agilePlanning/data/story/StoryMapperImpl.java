@@ -157,11 +157,11 @@ public class StoryMapperImpl extends HibernateDaoSupport implements StoryMapper 
                 // ... recherche de la release de l'iteration
                 + " and iteration.Project.PersistanceId = :projectPersistanceId"
                 + " and iteration.PersistanceId = :iterationPersistanceId"
-                + " and iteration.EndDate <= release.Date"
+                + " and iteration.End <= release.Date"
                 + " and release.Date = ( select min(release2.Date) from net.sf.pmr.agilePlanning.domain.release.ReleaseImpl as release2, "
                 + "                 							     	net.sf.pmr.agilePlanning.domain.iteration.IterationImpl as iteration2 "
                 + " 												where iteration2.PersistanceId = :iterationPersistanceId"
-                + " 												and iteration2.EndDate <= release2.Date )"
+                + " 												and iteration2.End <= release2.Date )"
                 // ... recherche des stories de la release
                 + " and story.PersistanceId in (release.Stories.PersistanceId)",
                 new String[] {"iterationPersistanceId", "projectPersistanceId"},

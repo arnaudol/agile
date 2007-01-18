@@ -62,25 +62,25 @@ public interface Iteration extends DomainObject {
      * début de l'iteration.
      * @return start date
      */
-    Date getStartDate();
+    Date getStart();
 
     /**
      * début de l'iteration.
      * @param start date to set
      */
-    void setStartDate(final Date start);
+    void setStart(final Date start);
 
     /**
      * date de fin de l'iteration.
      * @return end date
      */
-    Date getEndDate();
+    Date getEnd();
 
     /**
      * date de fin de l'iteration.
      * @param end date to set
      */
-    void setEndDate(final Date end);
+    void setEnd(final Date end);
     
     /**
      * nombre de jours (idéaux) disponibles dans l'iteration.

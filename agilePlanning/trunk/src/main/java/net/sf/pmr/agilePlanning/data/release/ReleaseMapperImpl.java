@@ -112,12 +112,12 @@ public class ReleaseMapperImpl extends HibernateDaoSupport implements
                 + " from net.sf.pmr.agilePlanning.domain.release.ReleaseImpl as release,"
                 + " 	 net.sf.pmr.agilePlanning.domain.iteration.IterationImpl as iteration"
                 + " where iteration.PersistanceId = :iterationPersistanceId"
-                + " and iteration.EndDate <= release.Date"
+                + " and iteration.End <= release.Date"
                 + " and iteration.Project.PersistanceId = :projectPersistanceId"                
                 + " and release.Date = ( select min(release2.Date) from net.sf.pmr.agilePlanning.domain.release.ReleaseImpl as release2, "
                 + "                 							     	net.sf.pmr.agilePlanning.domain.iteration.IterationImpl as iteration2 "
                 + " 												where iteration2.PersistanceId = :iterationPersistanceId"
-                + " 												and iteration2.EndDate <= release2.Date "
+                + " 												and iteration2.End <= release2.Date "
                 + " 											    and iteration2.Project.PersistanceId = :projectPersistanceId)",
                 new String[] {"iterationPersistanceId", "projectPersistanceId"},
                 new Object[] {new Integer(iterationPersistanceId), new Integer(projectPersistanceId) });

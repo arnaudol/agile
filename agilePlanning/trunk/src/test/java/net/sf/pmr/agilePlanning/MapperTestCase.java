@@ -91,7 +91,7 @@ public abstract class MapperTestCase extends DatabaseTestCase {
 		Class driverClass = Class.forName("com.mysql.jdbc.Driver");
 
 		Connection jdbcConnection = DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/pmtu", "pm", "pm");
+				"jdbc:mysql://localhost:3306/pm_tu", "pm", "pm");
 
 		// connection (+ schema � utiliser �ventuellement)
 		return new DatabaseConnection(jdbcConnection);

@@ -93,14 +93,14 @@ public class IterationImpl extends AbstractDomainObject implements Iteration {
 	/* (non-Javadoc)
      * @see net.sf.pmr.agilePlanning.domain.iteration#getStartDate()
      */
-    public Date getStartDate() {
+    public Date getStart() {
         return start;
     }
 
 	/* (non-Javadoc)
      * @see net.sf.pmr.agilePlanning.domain.iteration#setStartDate(java.util.Date)
      */
-    public void setStartDate(final Date start) {
+    public void setStart(final Date start) {
 
         this.start = roundDateToDay(start);
 
@@ -109,14 +109,14 @@ public class IterationImpl extends AbstractDomainObject implements Iteration {
 	/* (non-Javadoc)
      * @see net.sf.pmr.agilePlanning.domain.iteration#getEndDate()
      */
-    public Date getEndDate() {
+    public Date getEnd() {
         return end;
     }
 
 	/* (non-Javadoc)
 	 * @see net.sf.pmr.agilePlanning.domain.iteration#setEndDate(java.util.Date)
      */
-    public void setEndDate(final Date end) {
+    public void setEnd(final Date end) {
 
         this.end = roundDateToDay(end);
 

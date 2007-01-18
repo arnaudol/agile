@@ -89,7 +89,7 @@ public class IterationValidatorTest extends TestCase {
      */
     public void testWithStartDateIsNull() {
         
-        iteration.setStartDate(null);
+        iteration.setStart(null);
         
         Errors errors = validator.validate(iteration);
         
@@ -107,7 +107,7 @@ public class IterationValidatorTest extends TestCase {
      */
     public void testWithStartDateIsNotNull() {
         
-        iteration.setStartDate(new Date());
+        iteration.setStart(new Date());
         
         Errors errors = validator.validate(iteration);
         
@@ -120,7 +120,7 @@ public class IterationValidatorTest extends TestCase {
      */
     public void testWithEndDateIsNull() {
         
-        iteration.setEndDate(null);
+        iteration.setEnd(null);
         
         Errors errors = validator.validate(iteration);
         
@@ -138,7 +138,7 @@ public class IterationValidatorTest extends TestCase {
      */
     public void testWithEndDateIsNotNull() {
         
-        iteration.setEndDate(new Date());
+        iteration.setEnd(new Date());
         
         Errors errors = validator.validate(iteration);
         
@@ -157,8 +157,8 @@ public class IterationValidatorTest extends TestCase {
         end.setLenient(true);
         end.set(Calendar.DAY_OF_YEAR, start.get(Calendar.DAY_OF_YEAR)-1);
         
-        iteration.setStartDate(start.getTime());
-        iteration.setEndDate(end.getTime());
+        iteration.setStart(start.getTime());
+        iteration.setEnd(end.getTime());
         
         Errors errors = validator.validate(iteration);
         
@@ -176,8 +176,8 @@ public class IterationValidatorTest extends TestCase {
      */
     public void testWithEndDateHisTheSameThanStartDate() {
         
-        iteration.setStartDate(new Date());
-        iteration.setEndDate(new Date());
+        iteration.setStart(new Date());
+        iteration.setEnd(new Date());
         
         Errors errors = validator.validate(iteration);
         
@@ -197,8 +197,8 @@ public class IterationValidatorTest extends TestCase {
         end.set(Calendar.DAY_OF_YEAR, start.get(Calendar.DAY_OF_YEAR)+1);
 
         
-        iteration.setStartDate(start.getTime());
-        iteration.setEndDate(end.getTime());
+        iteration.setStart(start.getTime());
+        iteration.setEnd(end.getTime());
         
         Errors errors = validator.validate(iteration);
         

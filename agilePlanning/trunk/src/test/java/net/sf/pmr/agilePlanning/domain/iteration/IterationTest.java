@@ -120,14 +120,14 @@ public class IterationTest extends TestCase {
         Project basicProject = new ProjectImpl();
 
         iteration1.setProject(basicProject);
-        iteration1.setStartDate(calendar1.getTime());
-        iteration1.setEndDate(calendar3.getTime());
+        iteration1.setStart(calendar1.getTime());
+        iteration1.setEnd(calendar3.getTime());
         iteration1.setPersistanceVersion(1);
         iteration1.setPersistanceId(1);
 
         iteration2.setProject(basicProject);
-        iteration2.setStartDate(calendar2.getTime());
-        iteration2.setEndDate(calendar3.getTime());
+        iteration2.setStart(calendar2.getTime());
+        iteration2.setEnd(calendar3.getTime());
         iteration2.setPersistanceVersion(2);
         iteration2.setPersistanceId(2);
 
@@ -163,14 +163,14 @@ public class IterationTest extends TestCase {
         Project basicProject = new ProjectImpl();
 
         iteration1.setProject(basicProject);
-        iteration1.setStartDate(calendar3.getTime());
-        iteration1.setEndDate(calendar1.getTime());
+        iteration1.setStart(calendar3.getTime());
+        iteration1.setEnd(calendar1.getTime());
         iteration1.setPersistanceVersion(1);
         iteration1.setPersistanceId(1);
 
         iteration2.setProject(basicProject);
-        iteration2.setStartDate(calendar3.getTime());
-        iteration2.setEndDate(calendar2.getTime());
+        iteration2.setStart(calendar3.getTime());
+        iteration2.setEnd(calendar2.getTime());
         iteration2.setPersistanceVersion(2);
         iteration2.setPersistanceId(2);
 
@@ -209,14 +209,14 @@ public class IterationTest extends TestCase {
         Calendar calendar2 = Calendar.getInstance();
 
         iteration1.setProject(basicProject1);
-        iteration1.setStartDate(calendar1.getTime());
-        iteration1.setEndDate(calendar2.getTime());
+        iteration1.setStart(calendar1.getTime());
+        iteration1.setEnd(calendar2.getTime());
         iteration1.setPersistanceVersion(1);
         iteration1.setPersistanceId(1);
 
         iteration2.setProject(basicProject2);
-        iteration2.setStartDate(calendar1.getTime());
-        iteration2.setEndDate(calendar2.getTime());
+        iteration2.setStart(calendar1.getTime());
+        iteration2.setEnd(calendar2.getTime());
         iteration2.setPersistanceVersion(2);
         iteration2.setPersistanceId(2);
 
@@ -255,14 +255,14 @@ public class IterationTest extends TestCase {
         Calendar calendar2 = Calendar.getInstance();
 
         iteration1.setProject(basicProject1);
-        iteration1.setStartDate(calendar1.getTime());
-        iteration1.setEndDate(calendar2.getTime());
+        iteration1.setStart(calendar1.getTime());
+        iteration1.setEnd(calendar2.getTime());
         iteration1.setPersistanceVersion(1);
         iteration1.setPersistanceId(1);
 
         iteration2.setProject(basicProject2);
-        iteration2.setStartDate(calendar1.getTime());
-        iteration2.setEndDate(calendar2.getTime());
+        iteration2.setStart(calendar1.getTime());
+        iteration2.setEnd(calendar2.getTime());
         iteration2.setPersistanceVersion(2);
         iteration2.setPersistanceId(2);
 
@@ -286,9 +286,9 @@ public class IterationTest extends TestCase {
         calendar.set(Calendar.SECOND, 1);
         calendar.set(Calendar.MILLISECOND, 1);
 
-        iteration.setStartDate(calendar.getTime());
+        iteration.setStart(calendar.getTime());
 
-        Date returnedStart = iteration.getStartDate();
+        Date returnedStart = iteration.getStart();
 
         Calendar returnedCalendar = Calendar.getInstance();
         returnedCalendar.setTime(returnedStart);
@@ -310,9 +310,9 @@ public class IterationTest extends TestCase {
 
         Iteration iteration = new IterationImpl();
 
-        iteration.setStartDate(null);
+        iteration.setStart(null);
 
-        assertNull(iteration.getStartDate());
+        assertNull(iteration.getStart());
 
     }
 
@@ -331,9 +331,9 @@ public class IterationTest extends TestCase {
         calendar.set(Calendar.SECOND, 1);
         calendar.set(Calendar.MILLISECOND, 1);
 
-        iteration.setEndDate(calendar.getTime());
+        iteration.setEnd(calendar.getTime());
 
-        Date returnedStart = iteration.getEndDate();
+        Date returnedStart = iteration.getEnd();
 
         Calendar returnedCalendar = Calendar.getInstance();
         returnedCalendar.setTime(returnedStart);
@@ -355,9 +355,9 @@ public class IterationTest extends TestCase {
 
         Iteration iteration = new IterationImpl();
 
-        iteration.setEndDate(null);
+        iteration.setEnd(null);
 
-        assertNull(iteration.getEndDate());
+        assertNull(iteration.getEnd());
 
     }
     

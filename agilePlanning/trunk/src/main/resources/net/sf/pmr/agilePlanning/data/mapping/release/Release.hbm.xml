@@ -3,7 +3,7 @@
 
 <hibernate-mapping package="net.sf.pmr.agilePlanning.data.mapping">
 
-	<class name="net.sf.pmr.agilePlanning.domain.release.ReleaseImpl" table="RELEASE">
+	<class name="net.sf.pmr.agilePlanning.domain.release.ReleaseImpl" table="PMRELEASE">
 		
 		<id column="ID" name="PersistanceId" type="int" unsaved-value="0">
 			<generator class="native" />
