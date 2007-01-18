@@ -400,9 +400,9 @@ public class IterationTest extends TestCase {
     	Story mockStory1 = mocksControl.createMock(Story.class);
     	Story mockStory2 = mocksControl.createMock(Story.class);
     	
-    	EasyMock.expect(mockStory1.getDaysCompleted()).andReturn(new Double(2));
+    	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(2));
     	iteration.getStories().add(mockStory1);
-    	EasyMock.expect(mockStory2.getDaysCompleted()).andReturn(new Double(3));
+    	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(3));
     	iteration.getStories().add(mockStory2);
    
         
@@ -457,9 +457,9 @@ public class IterationTest extends TestCase {
     	Story mockStory1 = mocksControl.createMock(Story.class);
     	Story mockStory2 = mocksControl.createMock(Story.class);
     	
-    	EasyMock.expect(mockStory1.getDaysRemaining()).andReturn(new Double(1));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(1));
     	iteration.getStories().add(mockStory1);
-    	EasyMock.expect(mockStory2.getDaysRemaining()).andReturn(new Double(2));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(2));
     	iteration.getStories().add(mockStory2);
         
         // set mock in replay mode
@@ -517,11 +517,11 @@ public class IterationTest extends TestCase {
     	Story mockStory1 = mocksControl.createMock(Story.class);
     	Story mockStory2 = mocksControl.createMock(Story.class);
     	
-    	EasyMock.expect(mockStory1.getDaysRemaining()).andReturn(new Double(1));
-    	EasyMock.expect(mockStory1.getDaysCompleted()).andReturn(new Double(1));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(1));
+    	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(1));
     	iteration.getStories().add(mockStory1);
-    	EasyMock.expect(mockStory2.getDaysRemaining()).andReturn(new Double(5));
-    	EasyMock.expect(mockStory2.getDaysCompleted()).andReturn(new Double(1));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(5));
+    	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(1));
     	iteration.getStories().add(mockStory2);
     	
     	// l'ordre d'appel n'est pas important
@@ -583,11 +583,11 @@ public class IterationTest extends TestCase {
     	Story mockStory1 = mocksControl.createMock(Story.class);
     	Story mockStory2 = mocksControl.createMock(Story.class);
     	
-    	EasyMock.expect(mockStory1.getDaysRemaining()).andReturn(new Double(1));
-    	EasyMock.expect(mockStory1.getDaysCompleted()).andReturn(new Double(1));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(1));
+    	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(1));
     	iteration.getStories().add(mockStory1);
-    	EasyMock.expect(mockStory2.getDaysRemaining()).andReturn(new Double(5));
-    	EasyMock.expect(mockStory2.getDaysCompleted()).andReturn(new Double(1));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(5));
+    	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(1));
     	
     	//  l'ordre d'appel n'est pas important
    	 	mocksControl.checkOrder(false);
@@ -665,16 +665,16 @@ public class IterationTest extends TestCase {
     	Story mockStory2 = mocksControl.createMock(Story.class);
     	Story mockStory3 = mocksControl.createMock(Story.class);
     	
-    	EasyMock.expect(mockStory1.getDaysCompleted()).andReturn(new Double(6));
-    	EasyMock.expect(mockStory1.getDaysRemaining()).andReturn(new Double(4));
+    	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(6));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(4));
     	iteration.getStories().add(mockStory1);
     	
-    	EasyMock.expect(mockStory2.getDaysCompleted()).andReturn(new Double(4));
-    	EasyMock.expect(mockStory2.getDaysRemaining()).andReturn(new Double(6));
+    	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(4));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(6));
     	iteration.getStories().add(mockStory2);
     	
-    	EasyMock.expect(mockStory3.getDaysCompleted()).andReturn(new Double(20));
-    	EasyMock.expect(mockStory3.getDaysRemaining()).andReturn(new Double(5));
+    	EasyMock.expect(mockStory3.daysCompleted()).andReturn(new Double(20));
+    	EasyMock.expect(mockStory3.daysRemaining()).andReturn(new Double(5));
     	iteration.getStories().add(mockStory3);
         
         // set mock in replay mode
@@ -706,16 +706,16 @@ public class IterationTest extends TestCase {
     	Story mockStory3 = mocksControl.createMock(Story.class);
     	
     	
-    	EasyMock.expect(mockStory1.getDaysCompleted()).andReturn(new Double(6));
-    	EasyMock.expect(mockStory1.getDaysRemaining()).andReturn(new Double(4));
+    	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(6));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(4));
     	iteration.getStories().add(mockStory1);
     	
-    	EasyMock.expect(mockStory2.getDaysCompleted()).andReturn(new Double(4));
-    	EasyMock.expect(mockStory2.getDaysRemaining()).andReturn(new Double(6));
+    	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(4));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(6));
     	iteration.getStories().add(mockStory2);
     	
-    	EasyMock.expect(mockStory3.getDaysCompleted()).andReturn(new Double(20));
-    	EasyMock.expect(mockStory3.getDaysRemaining()).andReturn(new Double(5));
+    	EasyMock.expect(mockStory3.daysCompleted()).andReturn(new Double(20));
+    	EasyMock.expect(mockStory3.daysRemaining()).andReturn(new Double(5));
     	iteration.getStories().add(mockStory3);
 
         // set mock in replay mode
@@ -746,16 +746,16 @@ public class IterationTest extends TestCase {
     	Story mockStory2 = mocksControl.createMock(Story.class);
     	Story mockStory3 = mocksControl.createMock(Story.class);
     	
-       	EasyMock.expect(mockStory1.getDaysCompleted()).andReturn(new Double(6));
-    	EasyMock.expect(mockStory1.getDaysRemaining()).andReturn(new Double(4));
+       	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(6));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(4));
     	iteration.getStories().add(mockStory1);
     	
-       	EasyMock.expect(mockStory2.getDaysCompleted()).andReturn(new Double(4));
-    	EasyMock.expect(mockStory2.getDaysRemaining()).andReturn(new Double(6));
+       	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(4));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(6));
     	iteration.getStories().add(mockStory2);
     	
-       	EasyMock.expect(mockStory3.getDaysCompleted()).andReturn(new Double(20));
-    	EasyMock.expect(mockStory3.getDaysRemaining()).andReturn(new Double(10));
+       	EasyMock.expect(mockStory3.daysCompleted()).andReturn(new Double(20));
+    	EasyMock.expect(mockStory3.daysRemaining()).andReturn(new Double(10));
     	iteration.getStories().add(mockStory3);
 
         
@@ -786,16 +786,16 @@ public class IterationTest extends TestCase {
     	Story mockStory2 = mocksControl.createMock(Story.class);
     	Story mockStory3 = mocksControl.createMock(Story.class);
     	
-       	EasyMock.expect(mockStory1.getDaysCompleted()).andReturn(new Double(40));
-    	EasyMock.expect(mockStory1.getDaysRemaining()).andReturn(new Double(10));
+       	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(40));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(10));
     	iteration.getStories().add(mockStory1);
     	
-       	EasyMock.expect(mockStory2.getDaysCompleted()).andReturn(new Double(10));
-    	EasyMock.expect(mockStory2.getDaysRemaining()).andReturn(new Double(40));
+       	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(10));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(40));
     	iteration.getStories().add(mockStory2);
     	
-       	EasyMock.expect(mockStory3.getDaysCompleted()).andReturn(new Double(5));
-    	EasyMock.expect(mockStory3.getDaysRemaining()).andReturn(new Double(5));
+       	EasyMock.expect(mockStory3.daysCompleted()).andReturn(new Double(5));
+    	EasyMock.expect(mockStory3.daysRemaining()).andReturn(new Double(5));
     	iteration.getStories().add(mockStory3);
 
         
@@ -826,16 +826,16 @@ public class IterationTest extends TestCase {
     	Story mockStory2 = mocksControl.createMock(Story.class);
     	Story mockStory3 = mocksControl.createMock(Story.class);
     	
-       	EasyMock.expect(mockStory1.getDaysCompleted()).andReturn(new Double(6));
-    	EasyMock.expect(mockStory1.getDaysRemaining()).andReturn(new Double(4));
+       	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(6));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(4));
     	iteration.getStories().add(mockStory1);
     	
-       	EasyMock.expect(mockStory2.getDaysCompleted()).andReturn(new Double(4));
-    	EasyMock.expect(mockStory2.getDaysRemaining()).andReturn(new Double(6));
+       	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(4));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(6));
     	iteration.getStories().add(mockStory2);
     	
-       	EasyMock.expect(mockStory3.getDaysCompleted()).andReturn(new Double(10));
-    	EasyMock.expect(mockStory3.getDaysRemaining()).andReturn(new Double(5));
+       	EasyMock.expect(mockStory3.daysCompleted()).andReturn(new Double(10));
+    	EasyMock.expect(mockStory3.daysRemaining()).andReturn(new Double(5));
     	iteration.getStories().add(mockStory3);
 
         
@@ -865,16 +865,16 @@ public class IterationTest extends TestCase {
     	Story mockStory2 = mocksControl.createMock(Story.class);
     	Story mockStory3 = mocksControl.createMock(Story.class);
     	
-       	EasyMock.expect(mockStory1.getDaysCompleted()).andReturn(new Double(40));
-    	EasyMock.expect(mockStory1.getDaysRemaining()).andReturn(new Double(10));
+       	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(40));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(10));
     	iteration.getStories().add(mockStory1);
     	
-       	EasyMock.expect(mockStory2.getDaysCompleted()).andReturn(new Double(10));
-    	EasyMock.expect(mockStory2.getDaysRemaining()).andReturn(new Double(10));
+       	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(10));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(10));
     	iteration.getStories().add(mockStory2);
     	
-       	EasyMock.expect(mockStory3.getDaysCompleted()).andReturn(new Double(5));
-    	EasyMock.expect(mockStory3.getDaysRemaining()).andReturn(new Double(5));
+       	EasyMock.expect(mockStory3.daysCompleted()).andReturn(new Double(5));
+    	EasyMock.expect(mockStory3.daysRemaining()).andReturn(new Double(5));
     	iteration.getStories().add(mockStory3);
 
         
@@ -904,12 +904,12 @@ public class IterationTest extends TestCase {
     	Story mockStory1 = mocksControl.createMock(Story.class);
     	Story mockStory2 = mocksControl.createMock(Story.class);
     	
-       	EasyMock.expect(mockStory1.getDaysCompleted()).andReturn(new Double(10));
-    	EasyMock.expect(mockStory1.getDaysRemaining()).andReturn(new Double(10));
+       	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(10));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(10));
     	iteration.getStories().add(mockStory1);
     	
-       	EasyMock.expect(mockStory2.getDaysCompleted()).andReturn(new Double(5));
-    	EasyMock.expect(mockStory2.getDaysRemaining()).andReturn(new Double(5));
+       	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(5));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(5));
     	iteration.getStories().add(mockStory2);
 
         
@@ -940,12 +940,12 @@ public class IterationTest extends TestCase {
     	Story mockStory1 = mocksControl.createMock(Story.class);
     	Story mockStory2 = mocksControl.createMock(Story.class);
     	
-       	EasyMock.expect(mockStory1.getDaysCompleted()).andReturn(new Double(10));
-    	EasyMock.expect(mockStory1.getDaysRemaining()).andReturn(new Double(10));
+       	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(10));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(10));
     	iteration.getStories().add(mockStory1);
     	
-       	EasyMock.expect(mockStory2.getDaysCompleted()).andReturn(new Double(20));
-    	EasyMock.expect(mockStory2.getDaysRemaining()).andReturn(new Double(10));
+       	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(20));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(10));
     	iteration.getStories().add(mockStory2);
         
         // set mock in replay mode
@@ -976,12 +976,12 @@ public class IterationTest extends TestCase {
     	Story mockStory1 = mocksControl.createMock(Story.class);
     	Story mockStory2 = mocksControl.createMock(Story.class);
     	
-       	EasyMock.expect(mockStory1.getDaysCompleted()).andReturn(new Double(10));
-    	EasyMock.expect(mockStory1.getDaysRemaining()).andReturn(new Double(10));
+       	EasyMock.expect(mockStory1.daysCompleted()).andReturn(new Double(10));
+    	EasyMock.expect(mockStory1.daysRemaining()).andReturn(new Double(10));
     	iteration.getStories().add(mockStory1);
     	
-       	EasyMock.expect(mockStory2.getDaysCompleted()).andReturn(new Double(10));
-    	EasyMock.expect(mockStory2.getDaysRemaining()).andReturn(new Double(10));
+       	EasyMock.expect(mockStory2.daysCompleted()).andReturn(new Double(10));
+    	EasyMock.expect(mockStory2.daysRemaining()).andReturn(new Double(10));
     	
 //    	 set mock in replay mode
         mocksControl.replay();  
