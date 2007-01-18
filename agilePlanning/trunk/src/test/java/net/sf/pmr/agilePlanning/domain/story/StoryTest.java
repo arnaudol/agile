@@ -39,11 +39,12 @@ import java.util.HashSet;
 
 import junit.framework.TestCase;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
-import net.sf.pmr.agilePlanning.domain.story.task.MockTask;
 import net.sf.pmr.agilePlanning.domain.story.task.Task;
 import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.project.ProjectImpl;
-import de.abstrakt.mock.MockCore;
+
+import org.easymock.EasyMock;
+import org.easymock.IMocksControl;
 
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
@@ -52,9 +53,12 @@ public class StoryTest extends TestCase {
 
     private Story story;
     
-    private MockTask mockTask1;
+    private Task mockTask1;
     
-    private MockTask mockTask2;
+    private Task mockTask2;
+    
+    private IMocksControl mocksControl;
+
     
     /*
      * @see TestCase#setUp()
@@ -62,13 +66,13 @@ public class StoryTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
+        // create mocks
+        mocksControl = EasyMock.createStrictControl();
+        
         story = new StoryImpl();
 
-        mockTask1 = new MockTask();
-        mockTask2 = new MockTask();
-        
-        // reset Mock
-        MockCore.reset();
+        mockTask1 = mocksControl.createMock(Task.class);
+        mockTask2 = mocksControl.createMock(Task.class);
         
     }
 
@@ -76,6 +80,9 @@ public class StoryTest extends TestCase {
      * @see TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
+    	
+    	mocksControl.reset();
+    	
         super.tearDown();
     }
     
@@ -95,7 +102,7 @@ public class StoryTest extends TestCase {
      * <li>le project</li>
      * </ul>
      * 
-     * Test avec des descriptions diff�rentes
+     * Test avec des descriptions différentes
      */
     public void testIsEqualsAndHashcodeWithDifferentShortDescriptions() {
         
@@ -105,7 +112,7 @@ public class StoryTest extends TestCase {
         Project basicProject1 = new ProjectImpl();
         Project basicProject2 = new ProjectImpl();
         
-        // les descriptions sont diff�rentes
+        // les descriptions sont différentes
         story1.setShortDescription("aa");
         story1.setDescription("super");
         story1.setDaysEstimated(3);
@@ -169,7 +176,7 @@ public class StoryTest extends TestCase {
          * <li>le project</li>
          * </ul>
          *
-         * Test avec des descriptions identiques et des it�rations identiques
+         * Test avec des descriptions identiques et des itérations identiques
          */
         public void testIsEqualsAndHashcodeWithTheSameShortDescriptionAndTheSameBasicProject() {
 
@@ -200,57 +207,61 @@ public class StoryTest extends TestCase {
 
         
     /**
-     * nombre de jour consomm�
+     * nombre de jour consommés
      * 
      * Test quand il y a des tasks
      */    
     public void testDaysCompleted() {
         
         // l'ordre d'appel n'est pas important
-        MockCore.startBlock();
-        mockTask1.expectDaysCompleted(0.25);
-        mockTask2.expectDaysCompleted(0.25);
-        MockCore.endBlock();
-        
+        EasyMock.expect(mockTask1.daysCompleted()).andReturn(0.25);
+        EasyMock.expect(mockTask2.daysCompleted()).andReturn(0.25);
+    	
         story.setTasks(new HashSet<Task>());
         
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(0.5, story.daysCompleted());
+        // check order
+        mocksControl.checkOrder(true);
+        
+        // set mock in replay mode
+        mocksControl.replay();
+        
+        assertEquals(0.5, story.getDaysCompleted());
         
     }
     
     /**
-     * nombre de jour consomm�s
+     * nombre de jour consommés
      * 
-     * Test quand la liste des t�che est vide. doit retourner 0.
+     * Test quand la liste des tâche est vide. doit retourner 0.
      */    
     public void testDaysCompletedWhenTaskSetIsEmpty() {
         
         story.setTasks(new HashSet<Task>());
         
-        assertEquals(0.0, story.daysCompleted());
+        assertEquals(0.0, story.getDaysCompleted());
         
     }
     
     
     /**
-     * nombre de jour consomm�
+     * nombre de jour consommé
      * 
-     * Test quand la liste des t�che est null. doit retourner 0.
+     * Test quand la liste des tâche est null. doit retourner 0.
      */    
     public void testDaysCompletedWhenTaskSetIsNull() {
         
         story.setTasks(null);
         
-        assertEquals(0.0, story.daysCompleted());
+        assertEquals(0.0, story.getDaysCompleted());
         
     }
     
     
     /**
-     * Test de l'�tat de la story quand elle n'a pas d�marr� car aucun jour de r�alis�.
+     * Test de l'état de la story quand elle n'a pas démarré car aucun jour de réalisé.
      * <ul> 
      * <li>isInProgress doit retourner false</li>
      * <li>isCompleted doit retourner false</li>
@@ -259,7 +270,7 @@ public class StoryTest extends TestCase {
      */
     public void testWhenWorkOnStoryHaventStart() {
     	
-    	// t�ches mise � nulles pour que daysCompleted renvoit 0
+    	// tâches mise à nulles pour que daysCompleted renvoit 0
     	story.setTasks(null);
     	
     	assertEquals(false, story.isInProgress());
@@ -279,15 +290,21 @@ public class StoryTest extends TestCase {
      */
     public void testWhenWorkOnStoryIsCompleted() {
     	
-        mockTask1.setDaysCompletedDummy(0.25);
-        mockTask1.setDaysRemainingDummy(0);
-        mockTask2.setDaysCompletedDummy(0.25);
-        mockTask2.setDaysRemainingDummy(0);
+    	EasyMock.expect(mockTask1.daysCompleted()).andReturn(0.25);
+    	EasyMock.expect(mockTask1.daysRemaining()).andReturn(0.0);
+    	EasyMock.expect(mockTask2.daysCompleted()).andReturn(0.25);
+    	EasyMock.expect(mockTask2.daysRemaining()).andReturn(0.0);
         
         story.setTasks(new HashSet<Task>());
         
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
+        
+        // check order
+        mocksControl.checkOrder(true);
+        
+        // set mock in replay mode
+        mocksControl.replay();
     	
     	assertEquals(false, story.isInProgress());
     	assertEquals(true, story.isCompleted());
@@ -297,7 +314,7 @@ public class StoryTest extends TestCase {
 
     
     /**
-     * Test de l'�tat de la story quand elle est en cours de r�alisation. Les jours compl�t�s sont > � 0 et des jours sont restant.
+     * Test de l'état de la story quand elle est en cours de réalisation. Les jours complétés sont > à 0 et des jours sont restant.
      * <ul> 
      * <li>isInProgress doit retourner true</li>
      * <li>isCompleted doit retourner false</li>
@@ -306,11 +323,21 @@ public class StoryTest extends TestCase {
      */
     public void testWhenWorkOnStoryIsInProgress() {
     	
-        mockTask1.setDaysCompletedDummy(0.25);
-        mockTask1.setDaysRemainingDummy(0);
-        mockTask2.setDaysCompletedDummy(0.25);
-        mockTask2.setDaysRemainingDummy(1);
-        
+    	
+    	EasyMock.expect(mockTask1.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expect(mockTask1.daysRemaining()).andReturn(new Double(0.00));
+    	EasyMock.expect(mockTask2.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expect(mockTask2.daysRemaining()).andReturn(new Double(1.00));
+    	
+    	
+    	mocksControl.replay();
+
+    	
+//        mockTask1.setDaysCompletedDummy(0.25);
+//        mockTask1.setDaysRemainingDummy(0);
+//        mockTask2.setDaysCompletedDummy(0.25);
+//        mockTask2.setDaysRemainingDummy(1);
+//        
         story.setTasks(new HashSet<Task>());
         
         story.getTasks().add(mockTask1);
@@ -325,22 +352,25 @@ public class StoryTest extends TestCase {
     /**
      * nombre de jour restant
      * 
-     * Test quand il y a des t�ches
+     * Test quand il y a des tâches
      */    
     public void testDaysRemaining() {
         
         // l'ordre d'appel n'est pas important
-        MockCore.startBlock();
-        mockTask1.expectDaysRemaining(0.5);
-        mockTask2.expectDaysRemaining(0.5);
-        MockCore.endBlock();
+        //MockCore.startBlock();
+    	mocksControl.checkOrder(false);
+    	EasyMock.expect(mockTask1.daysRemaining()).andReturn(new Double(0.5));
+    	EasyMock.expect(mockTask2.daysRemaining()).andReturn(new Double(0.5));
+        //MockCore.endBlock();
         
         story.setTasks(new HashSet<Task>());
         
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(1.0, story.daysRemaining());
+       mocksControl.replay();
+        
+        assertEquals(1.0, story.getDaysRemaining());
         
     }
     
@@ -354,7 +384,7 @@ public class StoryTest extends TestCase {
         story.setTasks(new HashSet<Task>());
         story.setDaysEstimated(4.5);
         
-        assertEquals(4.5, story.daysRemaining());
+        assertEquals(4.5, story.getDaysRemaining());
         
     }
     
@@ -369,28 +399,40 @@ public class StoryTest extends TestCase {
         story.setTasks(null);
         story.setDaysEstimated(2.5);
         
-        assertEquals(2.5, story.daysRemaining());
+        assertEquals(2.5, story.getDaysRemaining());
         
     }
     
     /**
-     * pourcentage de jours consomm�s 
+     * pourcentage de jours consommés 
      */    
     public void testPercentCompleted() {
         
         // l'ordre d'appel n'est pas important
-        
-        mockTask1.setDaysCompletedDummy(0.25);
-        mockTask1.setDaysRemainingDummy(1);
-        mockTask2.setDaysCompletedDummy(0.25);
-        mockTask2.setDaysRemainingDummy(1);
-        
+    	
+    	mocksControl.checkOrder(false);
+    	
+    	EasyMock.expect(mockTask1.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expect(mockTask1.daysRemaining()).andReturn(new Double(1.0));
+    	EasyMock.expect(mockTask2.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expect(mockTask2.daysRemaining()).andReturn(new Double(1.0));
+    	
+//    	
+//        mockTask1.setDaysCompletedDummy(0.25);
+//        mockTask1.setDaysRemainingDummy(1);
+//        mockTask2.setDaysCompletedDummy(0.25);
+//        mockTask2.setDaysRemainingDummy(1);
+//        
+    	mocksControl.replay();
+    	
         story.setTasks(new HashSet<Task>());
         
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(20.0, story.percentCompleted());
+        assertEquals(20.0, story.getPercentCompleted());
+        
+        mocksControl.verify();
 
     }
     
@@ -403,7 +445,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(new HashSet<Task>());
         
-        assertEquals(0.0, story.percentCompleted());
+        assertEquals(0.0, story.getPercentCompleted());
         
     }
     
@@ -417,7 +459,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(null);
         
-        assertEquals(0.0, story.percentCompleted());
+        assertEquals(0.0, story.getPercentCompleted());
         
     }
 
@@ -427,18 +469,30 @@ public class StoryTest extends TestCase {
      */    
     public void testPercentRemaining() {
         
-        mockTask1.setDaysCompletedDummy(0.25);
-        mockTask1.setDaysRemainingDummy(1);
-        mockTask2.setDaysCompletedDummy(0.25);
-        mockTask2.setDaysRemainingDummy(1);
-        
+    	
+    	mocksControl.checkOrder(false);
+    	
+    	EasyMock.expect(mockTask1.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expect(mockTask1.daysRemaining()).andReturn(new Double(1.0));
+    	EasyMock.expect(mockTask2.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expect(mockTask2.daysRemaining()).andReturn(new Double(1.0));
+    	
+//        mockTask1.setDaysCompletedDummy(0.25);
+//        mockTask1.setDaysRemainingDummy(1);
+//        mockTask2.setDaysCompletedDummy(0.25);
+//        mockTask2.setDaysRemainingDummy(1);
+//        
+    	
+    	mocksControl.replay();
+    	
         story.setTasks(new HashSet<Task>());
         
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(80.0, story.percentRemaining());
+        assertEquals(80.0, story.getPercentRemaining());
         
+        mocksControl.verify();
         
     }
     
@@ -451,7 +505,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(new HashSet<Task>());
         
-        assertEquals(100.0, story.percentRemaining());
+        assertEquals(100.0, story.getPercentRemaining());
         
     }
     
@@ -465,7 +519,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(null);
         
-        assertEquals(100.0, story.percentRemaining());
+        assertEquals(100.0, story.getPercentRemaining());
         
     }
 
@@ -478,18 +532,29 @@ public class StoryTest extends TestCase {
     public void testDifferenceOfDaysBetweenEstimateAndTaskChargeWhenDifferenceIsPositive() {
         
         story.setDaysEstimated(1);
+
+        mocksControl.checkOrder(false);
+    	
+    	EasyMock.expect(mockTask1.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expect(mockTask1.daysRemaining()).andReturn(new Double(1.0));
+    	EasyMock.expect(mockTask2.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expect(mockTask2.daysRemaining()).andReturn(new Double(1.0));
         
-        mockTask1.setDaysCompletedDummy(0.25);
-        mockTask1.setDaysRemainingDummy(1);
-        mockTask2.setDaysCompletedDummy(0.25);
-        mockTask2.setDaysRemainingDummy(1);
+//        mockTask1.setDaysCompletedDummy(0.25);
+//        mockTask1.setDaysRemainingDummy(1);
+//        mockTask2.setDaysCompletedDummy(0.25);
+//        mockTask2.setDaysRemainingDummy(1);
         
+    	mocksControl.replay();
+    	
         story.setTasks(new HashSet<Task>());
         
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(1.5, story.differenceOfDaysBetweenEstimateAndTaskCharge());
+        assertEquals(1.5, story.getDifferenceOfDaysBetweenEstimateAndTaskCharge());
+        
+        mocksControl.verify();
         
     }
     
@@ -502,17 +567,29 @@ public class StoryTest extends TestCase {
         
         story.setDaysEstimated(3);
         
-        mockTask1.setDaysCompletedDummy(0.25);
-        mockTask1.setDaysRemainingDummy(1);
-        mockTask2.setDaysCompletedDummy(0.25);
-        mockTask2.setDaysRemainingDummy(1);
         
+        mocksControl.checkOrder(false);
+    	
+    	EasyMock.expect(mockTask1.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expect(mockTask1.daysRemaining()).andReturn(new Double(1.0));
+    	EasyMock.expect(mockTask2.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expect(mockTask2.daysRemaining()).andReturn(new Double(1.0));
+        
+//        mockTask1.setDaysCompletedDummy(0.25);
+//        mockTask1.setDaysRemainingDummy(1);
+//        mockTask2.setDaysCompletedDummy(0.25);
+//        mockTask2.setDaysRemainingDummy(1);
+        
+    	mocksControl.replay();
+    	
         story.setTasks(new HashSet<Task>());
         
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(-0.5, story.differenceOfDaysBetweenEstimateAndTaskCharge());
+        assertEquals(-0.5, story.getDifferenceOfDaysBetweenEstimateAndTaskCharge());
+        
+        mocksControl.verify();
         
     }
     
@@ -527,7 +604,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(new HashSet<Task>());
         
-        assertEquals(0.0, story.differenceOfDaysBetweenEstimateAndTaskCharge());
+        assertEquals(0.0, story.getDifferenceOfDaysBetweenEstimateAndTaskCharge());
         
     }
     
@@ -541,7 +618,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(null);
         
-        assertEquals(0.0, story.differenceOfDaysBetweenEstimateAndTaskCharge());
+        assertEquals(0.0, story.getDifferenceOfDaysBetweenEstimateAndTaskCharge());
         
     }
     
@@ -555,18 +632,29 @@ public class StoryTest extends TestCase {
         
         story.setDaysEstimated(1);
         
-        mockTask1.setDaysCompletedDummy(0.25);
-        mockTask1.setDaysRemainingDummy(1);
-        mockTask2.setDaysCompletedDummy(0.25);
-        mockTask2.setDaysRemainingDummy(1);
+       mocksControl.checkOrder(false);
+    	
+    	EasyMock.expect(mockTask1.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expect(mockTask1.daysRemaining()).andReturn(new Double(1.0));
+    	EasyMock.expect(mockTask2.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expect(mockTask2.daysRemaining()).andReturn(new Double(1.0));
         
+//        mockTask1.setDaysCompletedDummy(0.25);
+//        mockTask1.setDaysRemainingDummy(1);
+//        mockTask2.setDaysCompletedDummy(0.25);
+//        mockTask2.setDaysRemainingDummy(1);
+//        
+    	
+    	mocksControl.replay();
+    	
         story.setTasks(new HashSet<Task>());
         
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(40.0, story.differenceInPercentBetweenEstimateAndTaskCharge());
+        assertEquals(40.0, story.getDifferenceInPercentBetweenEstimateAndTaskCharge());
 
+        mocksControl.verify();
         
     }
     
@@ -580,18 +668,30 @@ public class StoryTest extends TestCase {
         
         story.setDaysEstimated(3);
         
-        mockTask1.setDaysCompletedDummy(0.25);
-        mockTask1.setDaysRemainingDummy(1);
-        mockTask2.setDaysCompletedDummy(0.25);
-        mockTask2.setDaysRemainingDummy(1);
+        mocksControl.checkOrder(false);
+    	
+    	EasyMock.expect(mockTask1.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expect(mockTask1.daysRemaining()).andReturn(new Double(1.0));
+    	EasyMock.expect(mockTask2.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expect(mockTask2.daysRemaining()).andReturn(new Double(1.0));
         
+//        mockTask1.setDaysCompletedDummy(0.25);
+//        mockTask1.setDaysRemainingDummy(1);
+//        mockTask2.setDaysCompletedDummy(0.25);
+//        mockTask2.setDaysRemainingDummy(1);
+//        
+    	
+    	mocksControl.replay();
+    	
         story.setTasks(new HashSet<Task>());
         
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(120.0, story.differenceInPercentBetweenEstimateAndTaskCharge());
+        assertEquals(120.0, story.getDifferenceInPercentBetweenEstimateAndTaskCharge());
 
+        
+        mocksControl.verify();
         
     }
     
@@ -604,7 +704,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(new HashSet<Task>());
         
-        assertEquals(0.0, story.differenceInPercentBetweenEstimateAndTaskCharge());
+        assertEquals(0.0, story.getDifferenceInPercentBetweenEstimateAndTaskCharge());
         
     }
     
@@ -617,7 +717,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(null);
         
-        assertEquals(0.0, story.differenceInPercentBetweenEstimateAndTaskCharge());
+        assertEquals(0.0, story.getDifferenceInPercentBetweenEstimateAndTaskCharge());
         
     }
 
@@ -630,16 +730,23 @@ public class StoryTest extends TestCase {
         
         story.setDaysEstimated(2);
         
-        mockTask1.setGetDaysEstimatedDummy(1.25);
-        mockTask2.setGetDaysEstimatedDummy(1.25);
+        EasyMock.expect(mockTask1.getDaysEstimated()).andReturn(1.25);
+        EasyMock.expect(mockTask2.getDaysEstimated()).andReturn(1.25);
+        
+//        mockTask1.setGetDaysEstimatedDummy(1.25);
+//        mockTask2.setGetDaysEstimatedDummy(1.25);
+//        
+        mocksControl.replay();
         
         story.setTasks(new HashSet<Task>());
         
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(0.5, story.differenceOfDaysBetweenEstimateAndTaskEstimate());
+        assertEquals(0.5, story.getDifferenceOfDaysBetweenEstimateAndTaskEstimate());
 
+        mocksControl.verify();
+        
     }
     
     
@@ -652,16 +759,20 @@ public class StoryTest extends TestCase {
         
         story.setDaysEstimated(4);
         
-        mockTask1.setGetDaysEstimatedDummy(1.25);
-        mockTask2.setGetDaysEstimatedDummy(1.25);
+        EasyMock.expect(mockTask1.getDaysEstimated()).andReturn(1.25);
+        EasyMock.expect(mockTask2.getDaysEstimated()).andReturn(1.25);
+
+        mocksControl.replay();
         
         story.setTasks(new HashSet<Task>());
         
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(-1.5, story.differenceOfDaysBetweenEstimateAndTaskEstimate());
+        assertEquals(-1.5, story.getDifferenceOfDaysBetweenEstimateAndTaskEstimate());
 
+        mocksControl.verify();
+        
     }
 
     
@@ -676,7 +787,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(new HashSet<Task>());
         
-        assertEquals(0.0, story.differenceOfDaysBetweenEstimateAndTaskEstimate());
+        assertEquals(0.0, story.getDifferenceOfDaysBetweenEstimateAndTaskEstimate());
         
     }
     
@@ -691,7 +802,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(null);
         
-        assertEquals(0.0, story.differenceOfDaysBetweenEstimateAndTaskEstimate());
+        assertEquals(0.0, story.getDifferenceOfDaysBetweenEstimateAndTaskEstimate());
         
     }
 
@@ -705,15 +816,19 @@ public class StoryTest extends TestCase {
         
         story.setDaysEstimated(2);
         
-        mockTask1.setGetDaysEstimatedDummy(1.25);
-        mockTask2.setGetDaysEstimatedDummy(1.25);
+        EasyMock.expect(mockTask1.getDaysEstimated()).andReturn(1.25);
+        EasyMock.expect(mockTask2.getDaysEstimated()).andReturn(1.25);
+        
+        mocksControl.replay();
         
         story.setTasks(new HashSet<Task>());
         
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(125.0, story.differenceInPercentBetweenEstimateAndTaskEstimate());
+        assertEquals(125.0, story.getDifferenceInPercentBetweenEstimateAndTaskEstimate());
+        
+        mocksControl.verify();
         
     }
     
@@ -726,15 +841,19 @@ public class StoryTest extends TestCase {
         
         story.setDaysEstimated(4);
         
-        mockTask1.setGetDaysEstimatedDummy(1.25);
-        mockTask2.setGetDaysEstimatedDummy(1.25);
+        EasyMock.expect(mockTask1.getDaysEstimated()).andReturn(1.25);
+        EasyMock.expect(mockTask2.getDaysEstimated()).andReturn(1.25);
+        
+        mocksControl.replay();
         
         story.setTasks(new HashSet<Task>());
         
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(62.5, story.differenceInPercentBetweenEstimateAndTaskEstimate());
+        assertEquals(62.5, story.getDifferenceInPercentBetweenEstimateAndTaskEstimate());
+        
+        mocksControl.verify();
         
     }
 
@@ -748,7 +867,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(new HashSet<Task>());
         
-        assertEquals(0.0, story.differenceInPercentBetweenEstimateAndTaskEstimate());
+        assertEquals(0.0, story.getDifferenceInPercentBetweenEstimateAndTaskEstimate());
         
     }
     
@@ -761,7 +880,7 @@ public class StoryTest extends TestCase {
         
         story.setTasks(null);
         
-        assertEquals(0.0, story.differenceInPercentBetweenEstimateAndTaskEstimate());
+        assertEquals(0.0, story.getDifferenceInPercentBetweenEstimateAndTaskEstimate());
         
     }
 
@@ -774,15 +893,19 @@ public class StoryTest extends TestCase {
         
         story.setDaysEstimated(0);
         
-        mockTask1.setGetDaysEstimatedDummy(1.25);
-        mockTask2.setGetDaysEstimatedDummy(1.25);
+        EasyMock.expect(mockTask1.getDaysEstimated()).andReturn(1.25);
+        EasyMock.expect(mockTask2.getDaysEstimated()).andReturn(1.25);
+        
+        mocksControl.replay();
         
         story.setTasks(new HashSet<Task>());
         
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
-        assertEquals(0.0, story.differenceInPercentBetweenEstimateAndTaskEstimate());
+        assertEquals(0.0, story.getDifferenceInPercentBetweenEstimateAndTaskEstimate());
+        
+        mocksControl.verify();
         
     }
     
@@ -802,18 +925,20 @@ public class StoryTest extends TestCase {
      */
     public void testWarningWhenDifferenceBetweenEstimateAndTaskEstimateIsPositive() {
     	
-    	   
-        story.setDaysEstimated(2);
-        
-        mockTask1.setGetDaysEstimatedDummy(1.25);
-        mockTask2.setGetDaysEstimatedDummy(1.25);
+        story.setDaysEstimated(2); 
+    	
+        EasyMock.expect(mockTask1.getDaysEstimated()).andReturn(new Double(1.25));
+        EasyMock.expect(mockTask2.getDaysEstimated()).andReturn(new Double(1.25));
         
         story.setTasks(new HashSet<Task>());
         
         story.getTasks().add(mockTask1);
         story.getTasks().add(mockTask2);
         
+        mocksControl.replay();
+        
         assertTrue(story.warning());
+        
      	
     }
     
@@ -825,18 +950,22 @@ public class StoryTest extends TestCase {
     	
     	   story.setDaysEstimated(1);
            
-           mockTask1.setDaysCompletedDummy(0.25);
-           mockTask1.setDaysRemainingDummy(1);
-           mockTask1.setGetDaysEstimatedDummy(1.25);
-           
-           mockTask2.setDaysCompletedDummy(0.25);
-           mockTask2.setDaysRemainingDummy(1);
-           mockTask2.setGetDaysEstimatedDummy(1.25);
+    	   mocksControl.checkOrder(false);
+    	   
+    	   EasyMock.expect(mockTask1.daysCompleted()).andReturn(0.25);
+    	   EasyMock.expect(mockTask1.daysRemaining()).andReturn(1.0);
+    	   EasyMock.expect(mockTask1.getDaysEstimated()).andReturn(1.25);
+
+    	   EasyMock.expect(mockTask2.daysCompleted()).andReturn(0.25);
+    	   EasyMock.expect(mockTask2.daysRemaining()).andReturn(1.0);
+    	   EasyMock.expect(mockTask2.getDaysEstimated()).andReturn(1.25);
            
            story.setTasks(new HashSet<Task>());
            
            story.getTasks().add(mockTask1);
            story.getTasks().add(mockTask2);
+           
+           mocksControl.replay();
            
            assertTrue(story.warning());
     	
