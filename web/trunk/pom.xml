@@ -25,7 +25,7 @@
     
     <dependencies>
         <dependency>
-            <groupId>net.sf.pmr.core</groupId>
+            <groupId>net.sf.pmr</groupId>
             <artifactId>core</artifactId>
             <version>0.3.4</version>
         </dependency>
