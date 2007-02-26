@@ -51,7 +51,11 @@
         <!-- end header -->
         
         <!-- begin tabs -->
-        <div id="Tabs">
+        
+        <span jwcid="@Tabs"/>
+        
+        <div id="Tabs" jwcid="$remove$">
+        <!-- $remove$ : remove div Tabs when rendered with tapestry. Tapestry Component Tabs is used instead -->    
             <table cellpadding="0" cellspacing="0" border="0" bgcolor="#003366" width="100%" summary="tabs">
                 <tr>
                     <td width="10" height="30" class="empty"><img alt="" src="images/vide.gif" border="0" width="10"/></td>
