@@ -11,7 +11,7 @@ package net.sf.pmr.web.pages;
 
 import org.apache.tapestry.html.BasePage;
 
-public abstract class Template extends BasePage
-{
+public abstract class Template extends BasePage {
     
+      
 }

@@ -1,16 +1,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head><meta content="text/html;"/>
+    <head>
+	<meta content="text/html;"/>
         <title>PMR</title>
         <!-- begin style -->
         <link rev="stylesheet" rel="stylesheet" type="text/css" href="styles/styles.css" />
         <!-- end style -->
     </head>
     
-    <body>
-        
+    <body jwcid="@Body">
+            
         <!-- begin header -->
-        <div id="Header">
+        
+        <span jwcid="@Header"/>
+        
+        <div id="Header" jwcid="$remove$">
+        <!-- $remove$ : remove div Header when rendered with tapestry. Tapestry Component Header is used instead -->
             <table cellpadding="0" cellspacing="0" border="0" width="100%" summary="header">
                 <tr>
                     <td width="10" height="3"></td>
@@ -119,7 +124,11 @@
 
         
         <!-- begin copyright -->
-        <table summary="copyright">
+        
+        <span jwcid="@Copyright"/>
+        
+        <table summary="copyright" jwcid="$remove$">
+        <!-- $remove$ : remove copyright table when rendered with tapestry. Tapestry Component Copyright is used instead -->   
             <tr>
                 <td width="5" height="2">
                     <img alt="" src="images/vide.gif" border="0" height="2" width="5" />
