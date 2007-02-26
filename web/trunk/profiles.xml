@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<profilesXml>
+    <profiles>
+        <profile>
+            <id>netbeans-private</id>
+            <activation>
+                <property>
+                    <name>netbeans.execution</name>
+                    <value>true</value>
+                </property>
+            </activation>
+        </profile>
+    </profiles>
+</profilesXml>
