@@ -10,10 +10,6 @@
 package net.sf.pmr.web.components;
 
 import org.apache.tapestry.BaseComponent;
-import org.apache.tapestry.IAsset;
-import org.apache.tapestry.IPage;
-import org.apache.tapestry.annotations.Asset;
-import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.annotations.ComponentClass;
 
 @ComponentClass(allowBody=false)

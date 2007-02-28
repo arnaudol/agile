@@ -12,7 +12,7 @@ package net.sf.pmr.web.components;
 import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.annotations.ComponentClass;
 
-@ComponentClass(allowBody=false)
-public abstract class Tabs extends BaseComponent {
+@ComponentClass(allowBody=true)
+public abstract class BodyWithSummary extends BaseComponent {
 
 }

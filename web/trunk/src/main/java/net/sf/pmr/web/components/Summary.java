@@ -13,6 +13,6 @@ import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.annotations.ComponentClass;
 
 @ComponentClass(allowBody=false)
-public abstract class Tabs extends BaseComponent {
+public abstract class Summary extends BaseComponent {
 
 }
