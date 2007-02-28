@@ -54,8 +54,10 @@
         
        
                 <!-- begin body -->
+
+                <span jwcid="@BodyWithoutSummary"/>
         
-                <div id="Body">
+                <div id="Body" jwcid="$remove$">
                     <table cellpadding="0" cellspacing="0" border="0" bgcolor="#E5E5E5" width="100%">
                         
                         <tr>
@@ -110,9 +112,11 @@
                 <!-- end body -->
 
         
-                <!-- begin copyright -->
-                <table summary="copyright">
-                    <tr>
+		        <!-- begin copyright -->
+        
+    		    <span jwcid="@Copyright"/>
+        
+	 	       	<table summary="copyright" jwcid="$remove$">                    <tr>
                         <td width="5" height="2">
                             <img alt="" src="images/vide.gif" border="0" height="2" width="5" />
                         </td>
