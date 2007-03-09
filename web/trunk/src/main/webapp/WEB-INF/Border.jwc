@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE component-specification
+      PUBLIC "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+      "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<component-specification class="org.apache.tapestry.BaseComponent" allow-body="yes" allow-informal-parameters="no">
+
+	<parameter name="title" required="yes"/>
+    <asset name="main" path="/styles/styles.css"/>
+    
+    <component id="shell" type="Shell">
+      	<binding name="title" value="title"/>  
+		<binding name="stylesheet" value="asset:main"/>
+        <binding name="doctype">literal:html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+            </binding> 
+    </component>
+    
+</component-specification>
