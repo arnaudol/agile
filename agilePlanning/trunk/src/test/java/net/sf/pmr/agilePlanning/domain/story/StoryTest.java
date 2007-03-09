@@ -214,8 +214,12 @@ public class StoryTest extends TestCase {
     public void testDaysCompleted() {
         
         // l'ordre d'appel n'est pas important
+    	mocksControl.checkOrder(false);
+    	
         EasyMock.expect(mockTask1.daysCompleted()).andReturn(0.25);
+    	EasyMock.expectLastCall().anyTimes();
         EasyMock.expect(mockTask2.daysCompleted()).andReturn(0.25);
+    	EasyMock.expectLastCall().anyTimes();
     	
         story.setTasks(new HashSet<Task>());
         
@@ -281,7 +285,7 @@ public class StoryTest extends TestCase {
     }
 
     /**
-     * Test de l'�tat de la story quand elle est termin�e. Les jours compl�t�s sont > � 0 et aucun jours restant.
+     * Test de l'état de la story quand elle est terminée. Les jours complétés sont > à 0 et aucun jours restant.
      * <ul> 
      * <li>isInProgress doit retourner false</li>
      * <li>isCompleted doit retourner true</li>
@@ -290,10 +294,18 @@ public class StoryTest extends TestCase {
      */
     public void testWhenWorkOnStoryIsCompleted() {
     	
+    	// l'ordre d'appel n'est pas important
+    	mocksControl.checkOrder(false);
+    	
     	EasyMock.expect(mockTask1.daysCompleted()).andReturn(0.25);
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask1.daysRemaining()).andReturn(0.0);
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask2.daysCompleted()).andReturn(0.25);
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask2.daysRemaining()).andReturn(0.0);
+    	EasyMock.expectLastCall().anyTimes();
+
         
         story.setTasks(new HashSet<Task>());
         
@@ -323,21 +335,20 @@ public class StoryTest extends TestCase {
      */
     public void testWhenWorkOnStoryIsInProgress() {
     	
+      	// l'ordre d'appel n'est pas important
+    	mocksControl.checkOrder(false);
     	
     	EasyMock.expect(mockTask1.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask1.daysRemaining()).andReturn(new Double(0.00));
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask2.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask2.daysRemaining()).andReturn(new Double(1.00));
-    	
+    	EasyMock.expectLastCall().anyTimes();
     	
     	mocksControl.replay();
-
     	
-//        mockTask1.setDaysCompletedDummy(0.25);
-//        mockTask1.setDaysRemainingDummy(0);
-//        mockTask2.setDaysCompletedDummy(0.25);
-//        mockTask2.setDaysRemainingDummy(1);
-//        
         story.setTasks(new HashSet<Task>());
         
         story.getTasks().add(mockTask1);
@@ -413,16 +424,14 @@ public class StoryTest extends TestCase {
     	mocksControl.checkOrder(false);
     	
     	EasyMock.expect(mockTask1.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask1.daysRemaining()).andReturn(new Double(1.0));
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask2.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask2.daysRemaining()).andReturn(new Double(1.0));
-    	
-//    	
-//        mockTask1.setDaysCompletedDummy(0.25);
-//        mockTask1.setDaysRemainingDummy(1);
-//        mockTask2.setDaysCompletedDummy(0.25);
-//        mockTask2.setDaysRemainingDummy(1);
-//        
+    	EasyMock.expectLastCall().anyTimes();
+
     	mocksControl.replay();
     	
         story.setTasks(new HashSet<Task>());
@@ -432,7 +441,7 @@ public class StoryTest extends TestCase {
         
         assertEquals(20.0, story.percentCompleted());
         
-        mocksControl.verify();
+      //  mocksControl.verify();
 
     }
     
@@ -473,15 +482,13 @@ public class StoryTest extends TestCase {
     	mocksControl.checkOrder(false);
     	
     	EasyMock.expect(mockTask1.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask1.daysRemaining()).andReturn(new Double(1.0));
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask2.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask2.daysRemaining()).andReturn(new Double(1.0));
-    	
-//        mockTask1.setDaysCompletedDummy(0.25);
-//        mockTask1.setDaysRemainingDummy(1);
-//        mockTask2.setDaysCompletedDummy(0.25);
-//        mockTask2.setDaysRemainingDummy(1);
-//        
+    	EasyMock.expectLastCall().anyTimes();
     	
     	mocksControl.replay();
     	
@@ -635,15 +642,13 @@ public class StoryTest extends TestCase {
        mocksControl.checkOrder(false);
     	
     	EasyMock.expect(mockTask1.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask1.daysRemaining()).andReturn(new Double(1.0));
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask2.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask2.daysRemaining()).andReturn(new Double(1.0));
-        
-//        mockTask1.setDaysCompletedDummy(0.25);
-//        mockTask1.setDaysRemainingDummy(1);
-//        mockTask2.setDaysCompletedDummy(0.25);
-//        mockTask2.setDaysRemainingDummy(1);
-//        
+    	EasyMock.expectLastCall().anyTimes();
     	
     	mocksControl.replay();
     	
@@ -671,16 +676,14 @@ public class StoryTest extends TestCase {
         mocksControl.checkOrder(false);
     	
     	EasyMock.expect(mockTask1.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask1.daysRemaining()).andReturn(new Double(1.0));
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask2.daysCompleted()).andReturn(new Double(0.25));
+    	EasyMock.expectLastCall().anyTimes();
     	EasyMock.expect(mockTask2.daysRemaining()).andReturn(new Double(1.0));
+    	EasyMock.expectLastCall().anyTimes();
         
-//        mockTask1.setDaysCompletedDummy(0.25);
-//        mockTask1.setDaysRemainingDummy(1);
-//        mockTask2.setDaysCompletedDummy(0.25);
-//        mockTask2.setDaysRemainingDummy(1);
-//        
-    	
     	mocksControl.replay();
     	
         story.setTasks(new HashSet<Task>());
@@ -816,8 +819,13 @@ public class StoryTest extends TestCase {
         
         story.setDaysEstimated(2);
         
+      	// l'ordre d'appel n'est pas important
+        mocksControl.checkOrder(false);
+        
         EasyMock.expect(mockTask1.getDaysEstimated()).andReturn(1.25);
+    	EasyMock.expectLastCall().anyTimes();
         EasyMock.expect(mockTask2.getDaysEstimated()).andReturn(1.25);
+    	EasyMock.expectLastCall().anyTimes();
         
         mocksControl.replay();
         
@@ -833,16 +841,21 @@ public class StoryTest extends TestCase {
     }
     
     /**
-     * Test le calcul de diff�rence entre l'estimation de la story et l'estimation des tasks.
+     * Test le calcul de différence entre l'estimation de la story et l'estimation des tasks.
      * 
-     * Test quand la diff�rence est n�gative
+     * Test quand la différence est négative
      */
     public void testDifferenceInPercentBetweenEstimateAndTaskEstimateWhenDifferenceIsNegative() {
         
         story.setDaysEstimated(4);
         
+     	// l'ordre d'appel n'est pas important
+        mocksControl.checkOrder(false);
+        
         EasyMock.expect(mockTask1.getDaysEstimated()).andReturn(1.25);
+    	EasyMock.expectLastCall().anyTimes();
         EasyMock.expect(mockTask2.getDaysEstimated()).andReturn(1.25);
+    	EasyMock.expectLastCall().anyTimes();
         
         mocksControl.replay();
         
@@ -893,8 +906,13 @@ public class StoryTest extends TestCase {
         
         story.setDaysEstimated(0);
         
+    	// l'ordre d'appel n'est pas important
+        mocksControl.checkOrder(false);
+        
         EasyMock.expect(mockTask1.getDaysEstimated()).andReturn(1.25);
+    	EasyMock.expectLastCall().anyTimes();
         EasyMock.expect(mockTask2.getDaysEstimated()).andReturn(1.25);
+    	EasyMock.expectLastCall().anyTimes();
         
         mocksControl.replay();
         
@@ -927,8 +945,14 @@ public class StoryTest extends TestCase {
     	
         story.setDaysEstimated(2); 
     	
+    	// l'ordre d'appel n'est pas important
+        mocksControl.checkOrder(false);
+                
         EasyMock.expect(mockTask1.getDaysEstimated()).andReturn(new Double(1.25));
+    	EasyMock.expectLastCall().anyTimes();
         EasyMock.expect(mockTask2.getDaysEstimated()).andReturn(new Double(1.25));
+    	EasyMock.expectLastCall().anyTimes();
+
         
         story.setTasks(new HashSet<Task>());
         
