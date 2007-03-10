@@ -53,6 +53,7 @@ import net.sf.pmr.core.domain.project.ProjectImpl;
 import org.dbunit.dataset.ITable;
 import org.springframework.dao.ConcurrencyFailureException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.hibernate3.HibernateJdbcException;
 import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
 /**
@@ -436,7 +437,7 @@ public class ReleaseMapperTest extends MapperTestCase {
         try {
             releaseMapper.addOrUpdate(release);
             fail("should throw a DataIntegrityViolationException");
-        } catch (DataIntegrityViolationException dataIntegrityViolationException) {
+        } catch (HibernateJdbcException hibernateJdbcException) {
            
         }
         
