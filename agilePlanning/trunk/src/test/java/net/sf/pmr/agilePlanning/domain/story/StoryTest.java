@@ -733,12 +733,13 @@ public class StoryTest extends TestCase {
         
         story.setDaysEstimated(2);
         
-        EasyMock.expect(mockTask1.getDaysEstimated()).andReturn(1.25);
-        EasyMock.expect(mockTask2.getDaysEstimated()).andReturn(1.25);
+        mocksControl.checkOrder(false);
         
-//        mockTask1.setGetDaysEstimatedDummy(1.25);
-//        mockTask2.setGetDaysEstimatedDummy(1.25);
-//        
+        EasyMock.expect(mockTask1.getDaysEstimated()).andReturn(1.25);
+    	EasyMock.expectLastCall().anyTimes();
+        EasyMock.expect(mockTask2.getDaysEstimated()).andReturn(1.25);
+    	EasyMock.expectLastCall().anyTimes();
+        
         mocksControl.replay();
         
         story.setTasks(new HashSet<Task>());
@@ -761,9 +762,13 @@ public class StoryTest extends TestCase {
     public void testDifferenceOfDaysBetweenEstimateAndTaskEstimateWhenDifferenceIsNegative() {
         
         story.setDaysEstimated(4);
+  
+        mocksControl.checkOrder(false);
         
         EasyMock.expect(mockTask1.getDaysEstimated()).andReturn(1.25);
+    	EasyMock.expectLastCall().anyTimes();
         EasyMock.expect(mockTask2.getDaysEstimated()).andReturn(1.25);
+    	EasyMock.expectLastCall().anyTimes();
 
         mocksControl.replay();
         
