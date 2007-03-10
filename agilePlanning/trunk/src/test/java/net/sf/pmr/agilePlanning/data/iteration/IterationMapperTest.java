@@ -474,12 +474,13 @@ public class IterationMapperTest extends MapperTestCase {
     
 
     /**
-     * test le delete quand l'iteration n'est pas en base: concurrence d'acc�s
+     * test le delete quand l'iteration n'est pas en base: concurrence d'accés
      */
     public void testDeleteWhenIterationDoesNotExists() {
         
         //delete
         try {
+        	iterationToAdd.setPersistanceId(23);
             iterationMapper.delete(iterationToAdd);
             fail("should throw a concurrencyFailureException");
         } catch (ConcurrencyFailureException concurrencyFailureException) {
