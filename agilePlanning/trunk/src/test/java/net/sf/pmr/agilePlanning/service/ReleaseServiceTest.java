@@ -474,18 +474,20 @@ public class ReleaseServiceTest extends TestCase {
         storyIds.add(storyToAdd2PersistanceId);
 
         // les appels peuvent être réalisés dans n'importe quel ordre
-        //MockCore.startBlock();
-
         mocksControl.checkOrder(false);
         
         // recherche de la release
         EasyMock.expect(mockReleaseRepository.findByPersistanceId(releaseToAddOrUpdate.getPersistanceId())).andReturn(releaseToAddOrUpdate);
+        EasyMock.expectLastCall().anyTimes();
 
         // Recherche des story
         EasyMock.expect(mockStoryRepository.findByPersistanceId(storyToAdd1PersistanceId)).andReturn(storyToAdd1);
+        EasyMock.expectLastCall().anyTimes();
         EasyMock.expect(mockStoryRepository.findByPersistanceId(storyToAdd2PersistanceId)).andReturn(storyToAdd2);
+        EasyMock.expectLastCall().anyTimes();
 
-        //MockCore.endBlock();
+        // les appels doivent ensuite être réalisé dans le bon ordre
+        mocksControl.checkOrder(true);
 
         // validation de la release
         EasyMock.expect(mockReleaseValidator.validate(releaseToAddOrUpdate)).andReturn(errors);
@@ -493,7 +495,7 @@ public class ReleaseServiceTest extends TestCase {
         // enregistrement
         mockReleaseRepository.addOrUpdate(releaseToAddOrUpdate);
         
-        EasyMock.replay();
+        mocksControl.replay();
 
         // Appel au service
         long releasePersistanceVersion = 2;
