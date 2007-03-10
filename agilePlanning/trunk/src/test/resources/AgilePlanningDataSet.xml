@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<dataset>
+
+	<table name="PMUSER">
+        <column>id</column>
+        <column>login</column>
+        <column>pwd</column>
+        <column>firstname</column>
+        <column>lastname</column>
+        <column>email</column>
+        <column>com_id</column>
+        <column>version</column>
+        <row>
+            <value>1</value>
+            <value>ponfel</value>
+            <value>password</value>
+            <value>Pon</value>
+            <value>Fel</value>
+            <value>ponfel@worldcompany.com</value>
+            <null/>
+            <value>2</value>
+        </row>
+         <row>
+            <value>2</value>
+            <value>aprost</value>
+            <value>password</value>
+            <value>Arnaud</value>
+            <value>Prost</value>
+            <value>aprost@worldcompany.com</value>
+            <null/>
+            <value>1</value>
+        </row>    
+      </table>
+
+    <table name="PROJECT">
+        <column>id</column>
+        <column>code</column>
+        <column>name</column>
+        <column>version</column>
+        <row>
+            <value>2</value>
+            <value>A</value>
+            <value>Super A</value>
+            <value>3</value>
+        </row>
+	</table>
+
+    <table name="PMRELEASE">
+        <column>id</column>
+        <column>pro_id</column>
+        <column>number</column>
+        <column>date</column>
+        <column>version</column>
+        <row>
+            <value>3</value>
+            <value>2</value>
+            <value>1</value>
+            <value>2001-12-01</value>
+            <value>4</value>
+        </row>
+        <row>
+            <value>4</value>
+            <value>2</value>
+            <value>2</value>
+            <value>2002-02-02</value>
+            <value>5</value>
+        </row>
+	</table>	
+	
+	<table name="ITERATION">
+        <column>id</column>
+        <column>pro_id</column>
+        <column>rel_id</column>
+        <column>start</column>
+        <column>end</column>
+        <column>version</column>
+        <row>
+            <value>1</value>
+            <value>2</value>
+            <value>3</value>
+            <value>2001-03-13</value>
+            <value>2001-03-27</value>
+            <value>2</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>2</value>
+            <value>3</value>
+            <value>2002-04-20</value>
+            <value>2002-05-10</value>
+            <value>2</value>
+        </row>
+	</table>
+    
+    
+    
+ 	<table name="STORY">
+        <column>id</column>
+        <column>ris_id</column>
+        <column>bus_id</column>
+        <column>ite_id</column>
+        <column>pro_id</column>
+        <column>rel_id</column>
+        <column>shortdescription</column>
+        <column>description</column>
+        <column>daysestimated</column>
+        <column>version</column>
+        <row>
+            <value>1</value>
+            <value>2</value>
+            <value>1</value>
+            <null/>
+            <value>2</value>
+            <null/>
+            <value>avancement des tâches à modifier</value>
+            <value>faire un report d'avancement des tâches à modifier</value>
+            <value>10</value>
+            <value>2</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>2</value>
+            <value>1</value>
+            <null/>
+            <value>2</value>
+            <null/>
+            <value>revue de code</value>
+            <value>faire une revue de code de l'iteration courant</value>
+            <value>1</value>
+            <value>3</value>
+        </row>
+         <row>
+            <value>3</value>
+            <value>2</value>
+            <value>1</value>
+            <null/>
+            <value>2</value>
+            <value>3</value>
+            <value>améliorer le design</value>
+            <value>rendre le design plus design!</value>
+            <value>1</value>
+            <value>4</value>
+        </row>
+         <row>
+            <value>4</value>
+            <value>2</value>
+            <value>1</value>
+            <value>2</value>
+            <value>2</value>
+            <value>3</value>
+            <value>API pour les plugin</value>
+            <value>permetre d'ajouter des éléments sous forme de plugin</value>
+            <value>1</value>
+            <value>4</value>
+        </row>
+	</table>
+
+  	<table name="TASK">
+        <column>id</column>
+        <column>pmu_id</column>
+        <column>shortdescription</column>
+        <column>daysestimated</column>
+        <column>version</column>
+        <row>
+            <value>1</value>
+            <null/>
+            <value>première tâche à modifier</value>
+            <value>80</value>
+            <value>2</value>
+        </row>
+         <row>
+            <value>2</value>
+            <null/>
+            <value>seconde tâche à modifier</value>
+            <value>20</value>
+            <value>3</value>
+        </row>
+	</table>
+	
+	
+	<table name="CHARGE">
+		<column>id</column>
+		<column>tas_id</column>
+		<column>pmu_id</column>
+		<column>day</column>
+		<column>timeused</column>
+		<column>daysneededtofinish</column>
+		<column>version</column>
+		<row>
+			<value>1</value>
+			<value>1</value>
+			<value>1</value>
+			<value>2005-11-03</value>
+			<value>1</value>
+			<value>2</value>
+			<value>2</value>
+		</row>
+		<row>
+			<value>2</value>
+			<value>1</value>
+			<value>1</value>
+			<value>2005-11-04</value>
+			<value>0.5</value>
+			<value>1</value>
+			<value>2</value>
+		</row>		
+	</table>
+    
+    <table name="STORY_HAS_TASKS">
+        <column>id</column>
+        <column>sto_id</column>
+        <row>
+            <value>1</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>1</value>
+        </row>
+	</table>
+
+</dataset>
