@@ -780,6 +780,7 @@ public class StoryMapperTest extends MapperTestCase {
         
         //delete
         try {
+        	storyToAdd.setPersistanceId(178);
             storyMapper.delete(storyToAdd);
             fail("should throw a concurrencyFailureException");
         } catch (ConcurrencyFailureException concurrencyFailureException) {
