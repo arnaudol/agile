@@ -774,7 +774,7 @@ public class StoryMapperTest extends MapperTestCase {
     }
     
     /**
-     * test le delete quand la story n'est pas en base: concurrence d'acc�s
+     * test le delete quand la story n'est pas en base: concurrence d'accés
      */
     public void testDeleteWhenStoryDoesNotExists() {
         
@@ -788,7 +788,7 @@ public class StoryMapperTest extends MapperTestCase {
     }
     
     /**
-     * test le delete quand la story a �t� modifi�e entre temps
+     * test le delete quand la story a été modifiée entre temps
      */
     public void testDeleteWhenStoryHaveBeenModified() {
         
@@ -804,7 +804,7 @@ public class StoryMapperTest extends MapperTestCase {
     }
     
     /**
-     * test le delete quand la task a �t� modifi�e entre temps
+     * test le delete quand la task a été modifiée entre temps
      */
     public void testDeleteWhenTaskHaveBeenModified() {
         
