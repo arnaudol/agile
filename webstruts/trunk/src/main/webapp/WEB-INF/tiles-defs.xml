@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+
+    
+<!-- =============== BASE =============== -->    
+    
+    <definition name=".base" path="/layouts/base.jsp" >
+	      <put name="title"  value="base layout" />
+	      <!-- <put name="tabMenu"  value="/pages/common/blankTabMenu.jsp" />  -->
+   	      <!-- <put name="pageSummary"  value="/pages/common/blankSummary.jsp" />  -->
+   	      <put name="body"  value="/pages/common/blankBody.jsp" />
+    </definition>
+    
+    
+<!-- =============== MyWORKSPACE =============== -->
+    
+     <definition name=".base.myWorkspace" path="/layouts/base.jsp" extends=".base">
+     	      <put name="title"  value="PM - Workspace" />
+   	          <put name="body"  value="/pages/myWorkspace/myWorkspaceBody.jsp" />
+    </definition>
+
+
+<!-- =============== ADMINISTRATION =============== -->
+
+    <definition name=".base.administration" extends=".base">
+	      <put name="title"  value="PM - Administration" />
+	      <put name="pageSummary"  value="/pages/administration/summary.jsp" />
+    </definition>
+    
+<!-- =============== ADMINISTRATION > CORE > USER =============== -->
+	
+	<!-- user -->
+
+    <definition name=".base.administration.core.user" extends=".base.administration">
+	      <put name="tabMenu"  value="/pages/administration/core/user/tabMenu.jsp" />
+    </definition>
+
+    <!-- user list -->
+    
+    <definition name=".base.administration.core.userList" extends=".base.administration.core.user">
+   	      <put name="navigationBar"  value="/pages/administration/core/user/userList/navigationBar.jsp" />   	      
+   	      <put name="body"  value="/pages/administration/core/user/userList/body.jsp" />
+    </definition>
+
+    <!-- user detail -->
+    
+    <definition name=".base.administration.core.userDetail" extends=".base.administration.core.user">
+  	      <put name="pageSummary"  value="/pages/administration/core/user/userDetail/summary.jsp" />
+   	      <put name="navigationBar"  value="/pages/administration/core/user/userDetail/navigationBar.jsp" />  	      
+   	      <put name="body"  value="/pages/administration/core/user/userDetail/body.jsp" />
+    </definition>
+    
+    <!-- user project detail -->
+    
+    <definition name=".base.administration.core.userDetail.userProjectDetail" extends=".base.administration.core.userDetail">
+   	      <put name="body"  value="/pages/administration/core/user/userDetail/userProjectDetail/body.jsp" />
+    </definition>
+    
+<!-- =============== ADMINISTRATION > CORE > PROJECT =============== -->
+    
+    <!-- project -->
+    
+    <definition name=".base.administration.core.basicProject" extends=".base.administration">
+	      <put name="tabMenu"  value="/pages/administration/core/basicProject/tabMenu.jsp" />
+    </definition>
+
+    <!-- project list -->
+    
+    <definition name=".base.administration.core.basicProject.basicProjectList" extends=".base.administration.core.basicProject">
+   	      <put name="navigationBar"  value="/pages/administration/core/basicProject/projectList/navigationBar.jsp" />    
+   	      <put name="body"  value="/pages/administration/core/basicProject/projectList/body.jsp" />
+    </definition>
+    
+    <!-- project detail -->
+    
+    <definition name=".base.administration.core.basicProject.basicProjectDetail" extends=".base.administration.core.basicProject">
+   	      <put name="navigationBar"  value="/pages/administration/core/basicProject/projectDetail/navigationBar.jsp" />    
+   	      <put name="body"  value="/pages/administration/core/basicProject/projectDetail/body.jsp" />
+    </definition>
+    
+    <!-- member List -->
+    
+    <definition name=".base.administration.core.basicProject.basicProjectDetail.memberList" extends=".base.administration.core.basicProject">
+   	      <put name="navigationBar"  value="/pages/administration/core/basicProject/projectDetail/memberList/navigationBar.jsp" />    
+   	      <put name="body"  value="/pages/administration/core/basicProject/projectDetail/memberList/body.jsp" />
+    </definition>
+    
+    
+<!-- ===============  ADMINISTRATION > PROJECT MANAGER =============== -->
+
+  
+
+<!-- =============== PROJECT MANAGER =============== -->
+<!-- 
+
+    <definition name=".base.projectManager" extends=".base">
+	      <put name="title"  value="PM - Project Management" />
+	      <put name="tabMenu"  value="/pages/projectManager/common/projectTabMenu.jsp" />
+   	      <put name="pageSummary"  value="/pages/projectManager/common/projectSummary.jsp" />
+   	      <put name="body"  value="/pages/common/blankBody.jsp" />
+    </definition>
+ -->    
+    
+<!-- =============== AGILEPLANNING =============== -->
+
+    <definition name=".base.agilePlanning" extends=".base">
+	      <put name="title"  value="PMR - Agile Planning" />
+	      <put name="pageSummary"  value="/pages/agilePlanning/summary.jsp" />
+    </definition>
+
+
+<!-- =============== AGILEPLANNING > STORY =============== -->
+
+    <definition name=".base.agilePlanning.story" extends=".base.agilePlanning">
+	      <put name="tabMenu"  value="/pages/agilePlanning/story/tabMenu.jsp" />
+    </definition>
+
+<!-- =============== AGILEPLANNING > STORY > STORYLIST =============== -->    
+
+    <definition name=".base.agilePlanning.story.storyList" extends=".base.agilePlanning.story">
+   	      <put name="navigationBar"  value="/pages/agilePlanning/story/storyList/navigationBar.jsp" />    
+   	      <put name="body"  value="/pages/agilePlanning/story/storyList/body.jsp" />
+    </definition>
+
+<!-- =============== AGILEPLANNING > STORY > STORYDETAIL =============== -->    
+
+    <definition name=".base.agilePlanning.story.storyDetail" extends=".base.agilePlanning.story">
+		   <put name="pageSummary"  value="/pages/agilePlanning/story/storyDetail/summary.jsp" />
+   	      <put name="navigationBar"  value="/pages/agilePlanning/story/storyDetail/navigationBar.jsp" />		   
+   	      <put name="body"  value="/pages/agilePlanning/story/storyDetail/body.jsp" />
+    </definition>
+    
+    
+<!-- =============== AGILEPLANNING > TASK =============== -->
+
+    <definition name=".base.agilePlanning.task" extends=".base.agilePlanning.story">
+    	  <!-- override page sumary -->
+		  <put name="pageSummary"  value="/pages/agilePlanning/task/summary.jsp" />
+    </definition>
+
+<!-- =============== AGILEPLANNING > TASK > TASKLIST =============== -->    
+
+    <definition name=".base.agilePlanning.task.taskList" extends=".base.agilePlanning.task">
+   	      <put name="navigationBar"  value="/pages/agilePlanning/task/taskList/navigationBar.jsp" />    
+   	      <put name="body"  value="/pages/agilePlanning/task/taskList/body.jsp" />
+    </definition>
+
+<!-- =============== AGILEPLANNING > TASK > TASKDETAIL =============== -->    
+
+    <definition name=".base.agilePlanning.task.taskDetail" extends=".base.agilePlanning.task">
+  		  <put name="pageSummary"  value="/pages/agilePlanning/task/taskDetail/summary.jsp" />
+   	      <put name="navigationBar"  value="/pages/agilePlanning/task/taskDetail/navigationBar.jsp" />  		  
+   	      <put name="body"  value="/pages/agilePlanning/task/taskDetail/body.jsp" />
+    </definition>    
+    
+<!-- =============== AGILEPLANNING > CHARGE =============== -->
+
+    <definition name=".base.agilePlanning.charge" extends=".base.agilePlanning">
+    	  <!-- override page sumary -->
+		  <put name="pageSummary"  value="/pages/agilePlanning/charge/summary.jsp" />
+	      <put name="tabMenu"  value="/pages/agilePlanning/task/tabMenu.jsp" />
+    </definition>    
+    
+ <!-- =============== AGILEPLANNING > CHARGE > CHARGELIST =============== -->    
+
+    <definition name=".base.agilePlanning.charge.chargeList" extends=".base.agilePlanning.charge">
+   	      <put name="navigationBar"  value="/pages/agilePlanning/charge/chargeList/navigationBar.jsp" />    
+   	      <put name="body"  value="/pages/agilePlanning/charge/chargeList/body.jsp" />
+    </definition>
+
+<!-- =============== AGILEPLANNING > CHARGE > CHARGEDETAIL =============== -->    
+
+    <definition name=".base.agilePlanning.charge.chargeDetail" extends=".base.agilePlanning.charge">
+   	      <put name="navigationBar"  value="/pages/agilePlanning/charge/chargeDetail/navigationBar.jsp" />
+   	      <put name="body"  value="/pages/agilePlanning/charge/chargeDetail/body.jsp" />
+    </definition>    
+    
+
+<!-- =============== AGILEPLANNING > ITERATION =============== -->
+
+    <definition name=".base.agilePlanning.iteration" extends=".base.agilePlanning">
+	      <put name="tabMenu"  value="/pages/agilePlanning/iteration/tabMenu.jsp" />
+    </definition>
+
+<!-- =============== AGILEPLANNING > ITERATION > ITERATIONLIST =============== -->    
+
+    <definition name=".base.agilePlanning.iteration.iterationList" extends=".base.agilePlanning.iteration">
+   	      <put name="navigationBar"  value="/pages/agilePlanning/iteration/iterationList/navigationBar.jsp" />    
+   	      <put name="body"  value="/pages/agilePlanning/iteration/iterationList/body.jsp" />
+    </definition>
+
+<!-- =============== AGILEPLANNING > ITERATION > ITERATIONDETAIL =============== -->    
+
+    <definition name=".base.agilePlanning.iteration.iterationDetail" extends=".base.agilePlanning.iteration">
+   	      <put name="navigationBar"  value="/pages/agilePlanning/iteration/iterationDetail/navigationBar.jsp" />    
+   	      <put name="body"  value="/pages/agilePlanning/iteration/iterationDetail/body.jsp" />
+    </definition>
+
+<!-- =============== AGILEPLANNING > ITERATION > STORYLIST =============== -->    
+
+    <definition name=".base.agilePlanning.story.storyListForIteration" extends=".base.agilePlanning.iteration">
+   		  <put name="pageSummary" value="/pages/agilePlanning/iteration/storyList/summary.jsp" />
+   	      <put name="navigationBar"  value="/pages/agilePlanning/iteration/storyList/navigationBar.jsp" />    
+   	      <put name="body"  value="/pages/agilePlanning/iteration/storyList/body.jsp" />    
+    </definition>
+
+<!-- =============== AGILEPLANNING > ITERATION > STORYLISTTOADD =============== -->    
+
+    <definition name=".base.agilePlanning.story.storyListToAddForIteration" extends=".base.agilePlanning.story.storyListForIteration">
+   	      <put name="body"  value="/pages/agilePlanning/iteration/storyListToAdd/body.jsp" />
+    </definition>
+    
+<!-- =============== AGILEPLANNING > ITERATION > STORYLISTTOREMOVE =============== -->    
+
+    <definition name=".base.agilePlanning.story.storyListToRemoveForIteration" extends=".base.agilePlanning.story.storyListForIteration">
+   	      <put name="body"  value="/pages/agilePlanning/iteration/storyListToRemove/body.jsp" />
+    </definition>
+
+
+<!-- =============== AGILEPLANNING > RELEASE =============== -->
+
+    <definition name=".base.agilePlanning.release" extends=".base.agilePlanning">
+	      <put name="tabMenu"  value="/pages/agilePlanning/release/tabMenu.jsp" />
+    </definition>
+
+<!-- =============== AGILEPLANNING > RELEASE > RELEASELIST =============== -->    
+
+    <definition name=".base.agilePlanning.release.releaseList" extends=".base.agilePlanning.release">
+   	      <put name="navigationBar"  value="/pages/agilePlanning/release/releaseList/navigationBar.jsp" />    
+   	      <put name="body"  value="/pages/agilePlanning/release/releaseList/body.jsp" />
+    </definition>
+
+<!-- =============== AGILEPLANNING > RELEASE > RELEASEDETAIL =============== -->    
+
+    <definition name=".base.agilePlanning.release.releaseDetail" extends=".base.agilePlanning.release">
+   		  <put name="pageSummary" value="/pages/agilePlanning/release/releaseDetail/summary.jsp" />
+   	      <put name="navigationBar"  value="/pages/agilePlanning/release/releaseDetail/navigationBar.jsp" />    
+   	      <put name="body"  value="/pages/agilePlanning/release/releaseDetail/body.jsp" />
+    </definition>
+    
+<!-- =============== AGILEPLANNING > RELEASE > STORYLIST =============== -->    
+
+    <definition name=".base.agilePlanning.story.storyListForRelease" extends=".base.agilePlanning.release">
+   		  <put name="pageSummary" value="/pages/agilePlanning/release/storyList/summary.jsp" />
+   	      <put name="navigationBar"  value="/pages/agilePlanning/release/storyList/navigationBar.jsp" />    
+   	      <put name="body"  value="/pages/agilePlanning/release/storyList/body.jsp" />
+    </definition>
+
+<!-- =============== AGILEPLANNING > RELEASE > STORYLISTTOADD =============== -->    
+
+    <definition name=".base.agilePlanning.story.storyListToAddForRelease" extends=".base.agilePlanning.story.storyListForRelease">
+   	      <put name="navigationBar"  value="/pages/agilePlanning/release/storyListToAdd/navigationBar.jsp" />
+   	      <put name="body"  value="/pages/agilePlanning/release/storyListToAdd/body.jsp" />
+    </definition>
+    
+<!-- =============== AGILEPLANNING > RELEASE > STORYLISTTOREMOVE =============== -->    
+
+    <definition name=".base.agilePlanning.story.storyListToRemoveForRelease" extends=".base.agilePlanning.story.storyListForRelease">
+   	      <put name="navigationBar"  value="/pages/agilePlanning/release/storyListToRemove/navigationBar.jsp" />
+   	      <put name="body"  value="/pages/agilePlanning/release/storyListToRemove/body.jsp" />
+    </definition>
+    
+<!-- =============== TODO =============== -->
+
+    <definition name=".base.toDo" extends=".base">
+	      <put name="title"  value="PM - TODO" />
+	      <put name="pageSummary"  value="/pages/toDo/summary.jsp" />
+    </definition>
+
+<!-- =============== TODO > TODOLIST =============== -->    
+
+    <definition name=".base.toDo.toDoList" extends=".base.toDo">
+   	      <put name="navigationBar"  value="/pages/toDo/toDoList/navigationBar.jsp" />    
+   	      <put name="body"  value="/pages/toDo/toDoList/body.jsp" />
+    </definition>
+    
+ <!-- =============== TODO > TODODETAIL =============== -->    
+
+    <definition name=".base.toDo.toDoDetail" extends=".base.toDo">
+   	      <put name="navigationBar"  value="/pages/toDo/toDoDetail/navigationBar.jsp" />    
+   	      <put name="body"  value="/pages/toDo/toDoDetail/body.jsp" />
+    </definition>
+    
+
+</tiles-definitions>
