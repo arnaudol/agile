@@ -1,0 +1,92 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.sf.pmr.toDo</groupId>
+	<artifactId>toDo</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0</version>
+	<name>toDo</name>
+	<url>http://sourceforge.net/projects/pmr/</url>
+
+    <!-- Subversion repository -->
+    <scm>
+        <connection>scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/toDo/trunk/</connection>
+        <developerConnection>scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/toDo/trunk/</developerConnection>
+        <tag>HEAD</tag>
+        <url>http://pmr.svn.sourceforge.net/svnroot/pmr/toDo/trunk/</url>
+    </scm>
+    
+    
+    <!-- Common POM (multi-module project)-->
+	<parent>
+		<groupId>net.sf.pmr.maven</groupId>
+		<artifactId>pom-master</artifactId>
+		<version>0.3.3</version>
+	</parent>
+        
+	<!-- dependency with core -->
+	<dependencies>
+		<dependency>
+			<groupId>net.sf.pmr</groupId>
+			<artifactId>core</artifactId>
+			<version>0.3.4</version>
+		</dependency>
+
+
+		<!-- Test dependencies -->
+
+		<!-- database pool (not always provided by J2EE container) -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.2.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!--  MYSQL driver -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>3.1.14</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.0.1B</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.sql</groupId>
+			<artifactId>jdbc-stdext</artifactId>
+			<version>2.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+			<version>2.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>2.2</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+</project>
