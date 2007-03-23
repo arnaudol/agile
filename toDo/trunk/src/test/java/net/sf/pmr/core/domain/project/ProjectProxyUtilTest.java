@@ -72,7 +72,7 @@ public class ProjectProxyUtilTest extends TestCase {
         Project basicProjectTargetReturned = basicProjectProxyUtil
                 .getTarget(basicProject);
 
-        // Project est un proxy, il faut r�cup�rer la target
+        // Project est un proxy, il faut récupérer la target
         TargetSource targetSource = ((Advised) basicProject).getTargetSource();
         Object target = ((SingletonTargetSource) targetSource).getTarget();
 
