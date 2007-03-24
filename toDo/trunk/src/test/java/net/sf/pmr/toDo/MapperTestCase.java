@@ -84,15 +84,15 @@ public abstract class MapperTestCase extends DatabaseTestCase {
 //  			   "jdbc:hsqldb:hsql://localhost/", "sa", "");
 	    
 		
-		Class driverClass = Class.forName("org.hsqldb.jdbcDriver");
+//		Class driverClass = Class.forName("org.hsqldb.jdbcDriver");
+//		
+//	      Connection jdbcConnection = DriverManager.getConnection(
+//	    "jdbc:hsqldb:hsql://localhost/xdb", "sa", "");
 		
-	      Connection jdbcConnection = DriverManager.getConnection(
-	    "jdbc:hsqldb:hsql://localhost/xdb", "sa", "");
-		
-//		Class driverClass = Class.forName("com.mysql.jdbc.Driver");
-//
-//		Connection jdbcConnection = DriverManager.getConnection(
-//				"jdbc:mysql://localhost:3306/pm_tu", "pm", "pm");
+		Class driverClass = Class.forName("com.mysql.jdbc.Driver");
+
+		Connection jdbcConnection = DriverManager.getConnection(
+				"jdbc:mysql://localhost:3306/pm_tu", "pm", "pm");
 
 		// connection (+ schema à utiliser éventuellement)
 	      
