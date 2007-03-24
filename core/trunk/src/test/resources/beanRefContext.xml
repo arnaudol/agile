@@ -7,6 +7,8 @@
 		<constructor-arg>
 			<list>
 				<value>coreContext.xml</value>
+				<!-- <value>agilePlanningContext.xml</value>  -->
+				<!-- <value>toDoContext.xml</value> -->
 			</list>
 		</constructor-arg>
 	</bean>
