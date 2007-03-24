@@ -38,33 +38,36 @@ package net.sf.pmr.toDo.domain.service;
 import java.util.Date;
 
 import junit.framework.TestCase;
-import net.sf.pmr.core.domain.project.MockProjectRepository;
 import net.sf.pmr.core.domain.project.Project;
 import net.sf.pmr.core.domain.project.ProjectImpl;
-import net.sf.pmr.core.domain.user.MockUserRepository;
+import net.sf.pmr.core.domain.project.ProjectRepository;
 import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.core.domain.user.UserImpl;
+import net.sf.pmr.core.domain.user.UserRepository;
 import net.sf.pmr.toDo.ToDoObjectFactory;
-import net.sf.pmr.toDo.domain.todo.MockToDoRepository;
 import net.sf.pmr.toDo.domain.todo.ToDo;
 import net.sf.pmr.toDo.domain.todo.ToDoImpl;
+import net.sf.pmr.toDo.domain.todo.ToDoRepository;
 import net.sf.pmr.toDo.service.ToDoService;
 import net.sf.pmr.toDo.service.ToDoServiceImpl;
-import de.abstrakt.mock.MockCore;
-import de.abstrakt.mock.expectable.Ignore;
+
+import org.easymock.EasyMock;
+import org.easymock.IMocksControl;
 
 
 public class ToDoServiceTest extends TestCase {
 	
-    private MockToDoRepository mockToDoRepository;
+    private ToDoRepository mockToDoRepository;
     
-    private MockUserRepository mockUserRepository;
+    private UserRepository mockUserRepository;
     
-    private MockProjectRepository mockProjectRepository;
+    private ProjectRepository mockProjectRepository;
     
     private ToDoService toDoService;
     
     private ToDo toDo;
+    
+    private IMocksControl mocksControl;
 
     /*
      * @see TestCase#setUp()
@@ -72,11 +75,14 @@ public class ToDoServiceTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        this.mockToDoRepository = new MockToDoRepository();
+        // create mocks
+        mocksControl = EasyMock.createStrictControl();
         
-        this.mockUserRepository = new MockUserRepository();
+        this.mockToDoRepository = mocksControl.createMock(ToDoRepository.class);
         
-        this.mockProjectRepository = new MockProjectRepository();
+        this.mockUserRepository = mocksControl.createMock(UserRepository.class);
+        
+        this.mockProjectRepository = mocksControl.createMock(ProjectRepository.class);
         
         this.toDoService = new ToDoServiceImpl(mockToDoRepository, mockUserRepository, mockProjectRepository);
         
@@ -86,14 +92,15 @@ public class ToDoServiceTest extends TestCase {
         this.toDo.setDate(new Date());
         this.toDo.setDescription("");
         
-        MockCore.reset();
-        
     }
 
     /*
      * @see TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
+     	
+    	mocksControl.reset();
+    	
         super.tearDown();
     }
 
@@ -127,21 +134,26 @@ public class ToDoServiceTest extends TestCase {
     	toDo.setDescription("réunion!");
 
     	// recherche du user et du basicProject
-    	MockCore.startBlock();
         
-    	this.mockUserRepository.expectFindUserById(1, user);
-    	this.mockProjectRepository.expectFindByPersistanceId(2, project);
-    	
-    	MockCore.endBlock();
+    	EasyMock.expect(mockUserRepository.findUserByPersistanceId(1)).andReturn(user);
+    	EasyMock.expect(mockProjectRepository.findByPersistanceId(2)).andReturn(project);
         
     	// mise à jour
-    	this.mockToDoRepository.acceptAddOrUpdate(new Ignore());
+    	mockToDoRepository.addOrUpdate(EasyMock.isA(ToDo.class));
+    	
+    	//this.mockToDoRepository.acceptAddOrUpdate(new Ignore());
+    	
+        // check order
+        mocksControl.checkOrder(true);
+        
+        // set mock in replay mode
+        mocksControl.replay();
     	
     	// appel de la méthode
     	this.toDoService.add("réunion!", null, true, 1, 2);
     	
     	// contrôle de l'appel des méthodes
-    	MockCore.verify();
+        mocksControl.verify();
     	
     }
 
@@ -170,17 +182,23 @@ public class ToDoServiceTest extends TestCase {
     	toDo.setPersistanceVersion(2);
     	
     	// recherche du todo à mettre à jour
-    	this.mockToDoRepository.expectFindByPersistanceId(1, toDo);
-        
+    	EasyMock.expect(mockToDoRepository.findByPersistanceId(1)).andReturn(toDo);
+    	
     	// mise à jour
-    	this.mockToDoRepository.acceptAddOrUpdate(new Ignore());
+    	mockToDoRepository.addOrUpdate(EasyMock.isA(ToDo.class));
+
+    	// check order
+        mocksControl.checkOrder(true);
+        
+        // set mock in replay mode
+        mocksControl.replay();
     	
     	// appel de la méthode
     	this.toDoService.update(1, 2, "réunion avec Bob", null, true);
     	
-    	// contrôle de l'appel des méthodes
-    	MockCore.verify();
-    	
+        // verify calls
+        mocksControl.verify();
+        
     	// contrôle que l'object est mis à jour
     	assertEquals(1, toDo.getPersistanceId());
     	assertEquals("réunion avec Bob", toDo.getDescription());
@@ -205,13 +223,19 @@ public class ToDoServiceTest extends TestCase {
     	this.toDo = null;
     	
     	// recherche du todo à mettre à jour
-    	this.mockToDoRepository.expectFindByPersistanceId(1, toDo);
+    	EasyMock.expect(mockToDoRepository.findByPersistanceId(1)).andReturn(toDo);
+
+    	// check order
+        mocksControl.checkOrder(true);
+        
+        // set mock in replay mode
+        mocksControl.replay();
     	
     	// appel de la méthode
     	this.toDoService.update(1, 2, "réunion avec Bob", null, true);
     	
     	// contrôle de l'appel des méthodes
-    	MockCore.verify();
+        mocksControl.verify();
     	
     }
 
@@ -226,17 +250,23 @@ public class ToDoServiceTest extends TestCase {
     public void testDelete() {
     	
     	// recherche du todo à mettre à jour
-    	this.mockToDoRepository.expectFindByPersistanceId(1, this.toDo);
+    	EasyMock.expect(mockToDoRepository.findByPersistanceId(1)).andReturn(toDo);
         
     	// suppression
-    	this.mockToDoRepository.expectDelete(toDo);
+    	mockToDoRepository.delete(toDo);
+    	
+    	// check order
+        mocksControl.checkOrder(true);
+        
+        // set mock in replay mode
+        mocksControl.replay();
     	
     	// appel de la méthode
     	this.toDoService.delete(1, 44);
     	
     	// contrôle de l'appel des méthodes
-    	MockCore.verify();
-    	
+        mocksControl.verify();
+        
     	// test de la mise à jour du numéro de version
     	assertEquals(44, toDo.getPersistanceVersion());
     	
@@ -255,13 +285,19 @@ public class ToDoServiceTest extends TestCase {
     	this.toDo = null;
     	
     	// recherche du todo à mettre à jour
-    	this.mockToDoRepository.expectFindByPersistanceId(1, toDo);
+    	EasyMock.expect(mockToDoRepository.findByPersistanceId(1)).andReturn(toDo);
+
+    	// check order
+        mocksControl.checkOrder(true);
+        
+        // set mock in replay mode
+        mocksControl.replay();
     	
     	// appel de la méthode
     	this.toDoService.delete(1, 2);
     	
     	// contrôle de l'appel des méthodes
-    	MockCore.verify();
+        mocksControl.verify();
     	
     }
 
