@@ -1,44 +1,53 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.sf.pmr.struts</groupId>
-	<artifactId>web</artifactId>
-	<packaging>war</packaging>
-	<version>0.3.3</version>
-	<name>Maven Webapp Archetype</name>
-	<url>http://maven.apache.org</url>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.sf.pmr.faces</groupId>
+    <artifactId>web</artifactId>
+    <packaging>war</packaging>
+    <version>0.3.3</version>
+    <name>web</name>
+    <url>http://maven.apache.org</url>
 
-	<!-- Common POM (multi-module project)-->
-	<parent>
-		<groupId>net.sf.pmr</groupId>
-		<artifactId>pmr</artifactId>
-		<version>0.3.3</version>
-	</parent>
+    <!-- Subversion repository -->
+    <scm>
+        <connection>scm:svn:http://pmr.svn.sourceforge.net/svnroot/pmr/webstruts/trunk/</connection>
+        <developerConnection>scm:svn:https://pmr.svn.sourceforge.net/svnroot/pmr/webstruts/trunk/</developerConnection>
+        <tag>HEAD</tag>
+        <url>http://pmr.svn.sourceforge.net/svnroot/pmr/webstruts/trunk/</url>
+    </scm>
 
-	<dependencies>
-		<dependency>
-			<groupId>net.sf.pmr.core</groupId>
-			<artifactId>core</artifactId>
-			<version>0.3.3</version>
-		</dependency>
+    <!-- Common POM (multi-module project)-->
+    <parent>
+        <groupId>net.sf.pmr.maven</groupId>
+        <artifactId>pom-master</artifactId>
+        <version>0.3.3</version>
+    </parent>
+    
+    <dependencies>
+        <dependency>
+            <groupId>net.sf.pmr</groupId>
+            <artifactId>core</artifactId>
+            <version>0.3.4</version>
+        </dependency>
+        
 		<dependency>
 			<groupId>net.sf.pmr.agilePlanning</groupId>
 			<artifactId>agilePlanning</artifactId>
 			<version>0.3.3</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>net.sf.pmr.toDo</groupId>
 			<artifactId>toDo</artifactId>
 			<version>1.0</version>
 		</dependency>
 
-		<dependency>
-			<groupId>servletapi</groupId>
-			<artifactId>servletapi</artifactId>
-			<version>2.3</version>
-			<scope>provided</scope>
-		</dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>provided</scope>
+        </dependency>
 
 		<dependency>
 			<groupId>struts</groupId>
@@ -61,10 +70,9 @@
 			<version>1.6</version>
 		</dependency>
 
-
 	</dependencies>
 
 	<build>
-		<finalName>pm</finalName>
+		<finalName>web</finalName>
 	</build>
 </project>
