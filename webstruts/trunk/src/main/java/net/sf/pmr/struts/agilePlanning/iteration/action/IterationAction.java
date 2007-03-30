@@ -140,10 +140,10 @@ public class IterationAction extends LookupDispatchAction {
             // populate the form
             IterationForm iterationForm = (IterationForm) form;
             
-           iterationForm.setEndDate(iteration.getEndDate());
+           iterationForm.setEndDate(iteration.getEnd());
            iterationForm.setPersistanceId(iteration.getPersistanceId());
            iterationForm.setPersistanceVersion(iteration.getPersistanceVersion());
-           iterationForm.setStartDate(iteration.getStartDate());
+           iterationForm.setStartDate(iteration.getStart());
            // iterationForm.setReleasePersistanceId(iteration.getRelease().getPersistanceId());
             
         }
@@ -382,7 +382,6 @@ public class IterationAction extends LookupDispatchAction {
     			
     			// ajout à la liste des story
     			stories.add(StringUtils.remove(parameterName, storyPersistanceIdString));
-    			
     		}
 
 
@@ -655,8 +654,8 @@ public class IterationAction extends LookupDispatchAction {
 			
         	IterationView iterationView = new IterationView();
         	
-        	iterationView.setStart(iteration.getStartDate());
-        	iterationView.setEnd(iteration.getEndDate());
+        	iterationView.setStart(iteration.getStart());
+        	iterationView.setEnd(iteration.getEnd());
         	iterationView.setPercentCompleted(iteration.percentCompleted());
         	iterationView.setPersistanceId(iteration.getPersistanceId());
         	
