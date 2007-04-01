@@ -1,7 +1,7 @@
 /*
- * UserList.java
+ * Home.java
  *
- * Created on 26 décembre 2006, 15:03
+ * Created on 23 décembre 2006, 19:14
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -9,28 +9,37 @@
 
 package net.sf.pmr.web.pages.core;
 
+import java.util.ArrayList;
 import java.util.List;
-import net.sf.pmr.core.CoreObjectFactory;
-import org.apache.tapestry.event.PageBeginRenderListener;
-import org.apache.tapestry.event.PageEvent;
+
+import net.sf.pmr.web.components.Tab;
+import net.sf.pmr.web.components.Tabs;
+
 import org.apache.tapestry.html.BasePage;
 
-/**
- * @author arnaud
- */
-public abstract class UserList extends BasePage implements PageBeginRenderListener {
+public abstract class UserList extends BasePage {
     
-    // getter for user List
-    public abstract List<net.sf.pmr.core.domain.user.User> getUserList();
+    public abstract List<Tab> getTabList();
+    public abstract void setTabList(List<Tab> tabList);
+    	
     
-    // setter for user list
-    public abstract void setUserList(List<net.sf.pmr.core.domain.user.User> userList);
-    
-    public void pageBeginRender(PageEvent event) {
-        
-        // get the user list
-        setUserList(CoreObjectFactory.getUserService().findAll());
-        
+    /* (non-Javadoc)
+     * @see org.apache.tapestry.AbstractPage#beginPageRender()
+     */
+    @Override
+    public void beginPageRender() {
+    	
+//    	List<Tab> list = new ArrayList<Tab>();
+//    	
+//    	Tab tab = new Tab(); 
+//    	
+//    	list.add(tab);
+//    	
+//        setTabList(list);
+    	
+    	super.beginPageRender();
     }
-    
+  
+	
+	
 }
