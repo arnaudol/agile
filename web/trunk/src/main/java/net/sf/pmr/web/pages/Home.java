@@ -12,22 +12,22 @@ package net.sf.pmr.web.pages;
 import net.sf.pmr.core.CoreObjectFactory;
 import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.web.beans.UserLogin;
+
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.annotations.InjectPage;
 import org.apache.tapestry.event.PageBeginRenderListener;
 import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.html.BasePage;
 
-
 /**
  * @author arnaud
  */
 public abstract class Home extends BasePage implements PageBeginRenderListener {
     
-    // getter for user
+    // getter for userLogin
     public abstract net.sf.pmr.web.beans.UserLogin getUserLogin();
     
-    // setter for user
+    // setter for userLogin
     public abstract void setUserLogin(UserLogin userLogin);
     
     // inject workspace page
@@ -36,11 +36,11 @@ public abstract class Home extends BasePage implements PageBeginRenderListener {
     
     
     public void pageBeginRender(PageEvent event) {
-
+        
         UserLogin userLogin = new UserLogin();
-
+        
         this.setUserLogin(userLogin);
-
+        
     }
     
     /*
@@ -52,11 +52,14 @@ public abstract class Home extends BasePage implements PageBeginRenderListener {
         
         workspace.setUserLogin(getUserLogin());
         
-        User user = CoreObjectFactory.getSecurityService().login(getUserLogin().getLogin(), getUserLogin().getPassword());
+        User user =  CoreObjectFactory.getSecurityService().login(getUserLogin().getLogin(), getUserLogin().getPassword());
         
         if (user == null) {
             return this;
         } else {
+            getUserLogin().setPersistanceId(user.getPersistanceId());
+            // erase password (user login is put in session)
+            getUserLogin().setPassword("");
             return workspace;
         }
         
