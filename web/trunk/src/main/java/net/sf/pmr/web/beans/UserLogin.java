@@ -14,11 +14,22 @@ package net.sf.pmr.web.beans;
  * @author arnaud
  */
 public class UserLogin {
+
+    private int persistanceId;
     
     private String login;
     
     private String password;
 
+    public int getPersistanceId() {
+        return persistanceId;
+    }
+
+    public void setPersistanceId(int persistanceId) {
+        this.persistanceId = persistanceId;
+    }
+        
+    
     public String getLogin() {
         return login;
     }
@@ -34,5 +45,5 @@ public class UserLogin {
     public void setPassword(String password) {
         this.password = password;
     }    
-    
+
 }
