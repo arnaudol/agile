@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.sf.pmr.faces</groupId>
-    <artifactId>web</artifactId>
+    <groupId>net.sf.pmr.web</groupId>
+    <artifactId>webtapestry</artifactId>
     <packaging>war</packaging>
     <version>0.3.3</version>
-    <name>web</name>
+    <name>webtapestry</name>
     <url>http://maven.apache.org</url>
     
     <!-- Subversion repository -->
@@ -24,24 +24,24 @@
     </parent>
     
     <dependencies>
+        
         <dependency>
             <groupId>net.sf.pmr</groupId>
             <artifactId>core</artifactId>
             <version>0.3.4</version>
         </dependency>
         
-        <!--
-		<dependency>
-			<groupId>net.sf.pmr.agilePlanning</groupId>
-			<artifactId>agilePlanning</artifactId>
-			<version>0.3.3</version>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.pmr.toDo</groupId>
-			<artifactId>toDo</artifactId>
-			<version>1.0</version>
-		</dependency>
-		-->
+        <dependency>
+                <groupId>net.sf.pmr.agilePlanning</groupId>
+                <artifactId>agilePlanning</artifactId>
+                <version>0.3.3</version>
+        </dependency>
+		
+        <dependency>
+                <groupId>net.sf.pmr.toDo</groupId>
+                <artifactId>toDo</artifactId>
+                <version>1.0</version>
+        </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -76,6 +76,7 @@
         
         
         <!-- tapestry-spring and spring-web are used for tapestry-spring integration -->
+        <!--
         <dependency>
             <groupId>com.javaforge.tapestry</groupId>
             <artifactId>tapestry-spring</artifactId>
@@ -90,35 +91,36 @@
             <version>2.0.2</version>
             <scope>runtime</scope>
         </dependency>
-        
-        <!-- overriding scope given by core -->
-        
-        <!-- database pool (not always provided by J2EE container) -->
-        <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>1.2.1</version>
-            <scope>runtime</scope>
-        </dependency>
-        
-        <!--  MYSQL driver -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>3.1.14</version>
-            <scope>runtime</scope>
-        </dependency>
-        
+        -->
+                
     </dependencies>
     
+    <!-- REPOSITORY TAPESTRY-SPRING INTEGRATION -->
+    <!--
     <repositories>
         <repository>
-            <!-- REPOSITORY TAPESTRY-SPRING INTEGRATION -->
             <id>tapestry-spring</id>
             <name>tapestry-spring</name>
             <url>http://howardlewisship.com/repository/</url>
         </repository>
     </repositories>
+    -->
+    
+    <profiles>
+        <profile>
+            <id>netbeans-public</id>
+            <activation>
+                <property>
+                    <name>netbeans.execution</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build />
+            <properties>
+                <netbeans.deployment.server.type>Tomcat55</netbeans.deployment.server.type>
+            </properties>
+        </profile>
+    </profiles>
     
     <build>
         <finalName>web</finalName>
