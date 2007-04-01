@@ -1,0 +1,52 @@
+<html jwcid="@Border" title="Agile !">
+    <head jwcid="$remove$">
+        <meta content="text/html;"/>
+        <title>PMR</title>
+        <!-- begin style -->
+        <link rev="stylesheet" rel="stylesheet" type="text/css" href="styles/styles.css" />
+        <!-- end style -->
+    </head>
+                  
+    <form jwcid="@Form" success="listener:addProject">
+        
+    <table width="100%" border="0" cellspacing="0" cellpadding="0"> 
+        
+        <input type="hidden" name="persistanceId" value="ognl:project.persistanceId"/>
+        <input type="hidden" name="persistanceVersion" value="ognl:project.persistanceVersion"/>
+        
+        <tr> 
+            <td class="textForBodyText">
+                <label for="code" accesskey="c">Code : </label><font color="#FF0000">(*)</font> : 
+            </td>
+            <td>
+                <input jwcid="code@TextField" type="text" size="20" maxlength="100" tabindex="1" style="field" value="ognl:myProject.code"/>
+            </td>
+        </tr>
+        <tr> 
+            <td class="textForBodyText">
+                <label for="name" accesskey="n">Nom : </label><font color="#FF0000">(*)</font> : 
+            </td>
+            <td>
+                <input jwcid="name@TextField" type="text" size="20" maxlength="100" tabindex="2" style="field" value="ognl:myProject.name"/>			
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr> 
+            <td>&nbsp;</td>
+            <td align="left">
+                <input type="submit" value="Add Project"/>
+            </td>
+        </tr>
+        <tr>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="textForBodyRedText">champs obligatoires</td>
+        </tr>
+    </table>    
+    
+    </form>
+            
+</html>

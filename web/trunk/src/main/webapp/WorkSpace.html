@@ -1,137 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head><meta content="text/html;"/>
+<html jwcid="@Border" title="Agile !">
+    <head jwcid="$remove$">
+        <meta content="text/html;"/>
         <title>PMR</title>
         <!-- begin style -->
         <link rev="stylesheet" rel="stylesheet" type="text/css" href="styles/styles.css" />
         <!-- end style -->
     </head>
-    
-    <span jwcid="$content$">
-        <span jwcid="@Shell" stylesheet="asset:stylesheet" title="Login" doctype="html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-              
-              <body jwcid="@Body">
-                
-               <!-- begin header -->
+                  
+    <form jwcid="@Form">
         
-                <span jwcid="@Header"/>
-        
-                <!-- $remove$ : remove div Header when rendered with tapestry. Tapestry Component Header is used instead -->
-                <div id="Header" jwcid="$remove$"> 
-                    <table cellpadding="0" cellspacing="0" border="0" width="100%" summary="header">
-                        <tr>
-                            <td width="10" height="3"></td>
-                            <td height="2" align="center"></td>
-                            <td width="10" height="3"></td>
-                        </tr>
-                        <tr>
-                            <td width="10">
-                                <img alt="" src="images/vide.gif" border="0" width="10" />
-                            </td>
-                            <td align="right">connect&eacute;(e) tant que Arnaud Prost - D&eacute;connecter</td>
-                            <td width="10">
-                                <img alt="" src="images/vide.gif" border="0" width="10" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="10">
-                                <img alt="" src="images/vide.gif" border="0" width="10" />
-                            </td>
-                            <td align="left"><h1>Agile !</h1></td>
-                            <td width="5" >
-                                <img alt="" src="images/vide.gif" border="0" width="10" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="10" height="3"></td>
-                            <td align="center">&nbsp;</td>
-                            <td width="10" height="3"></td>
-                        </tr>
-                    </table>
-                </div>
-                
-                <!-- end header -->
-        
+            <label for="project" accesskey="p">Project</label>
+            <select name="project" id="project" jwcid="project@PropertySelection" model="ognl:projects" value="ognl:currentProject">
+                <option value="1">Project 11</option>
+                <option value="2">Project 22</option>
+            </select>
        
-                <!-- begin body -->
-
-                <span jwcid="@BodyWithoutSummary"/>
-        
-                <div id="Body" jwcid="$remove$">
-                    <table cellpadding="0" cellspacing="0" border="0" bgcolor="#E5E5E5" width="100%">
-                        
-                        <tr>
-                            <td colspan="5" width="100%" height="10">&nbsp;</td>
-                        </tr>
-                        
-                        <tr>
-                            <td width="10" height="40"><img alt="" src="images/vide.gif" border="0" width="10" height="40"/></td>
-                            <td width="430" rowspan="5" align="center" valign="top" bgcolor="#E5E5E5">
-                                
-                                
-                                
-                            </td>
-                            <td width="10" height="40" class="right"><img alt="" src="images/vide.gif" border="0" width="10" height="40"/></td>
-                            <td width="100%" bgcolor="#FFFFFF" class="top" height="40"><center>Votre espace de travail</center></td>
-                            <td width="10" height="40" class="left"><img alt="" src="images/vide.gif" border="0" width="10" height="40"/></td>
-                        </tr>
-                        
-                        <tr>
-                            <td width="10" height="40"><img alt="" src="images/vide.gif" border="0" width="10" height="40"/></td>
-                            <td width="10" height="40" class="right"><img alt="" src="images/vide.gif" border="0" width="10" height="40"/></td>
-                            
-                            <td width="100%" align="left" valign="top" bgcolor="#FFFFFF">
-                                
-                                <p>
-                                   
-                                    
-                                
-                            </td>
-                            
-                            <td width="10" height="40" class="left"><img alt="" src="images/vide.gif" border="0" width="10" height="40"/></td>
-                            <td width="10" height="40"><img alt="" src="images/vide.gif" border="0" width="10" height="40"/></td>
-                        </tr>
-                        
-                        <tr>
-                            <td width="10" height="40"><img alt="" src="images/vide.gif" border="0" width="10" height="40"/></td>
-                            <td width="10" height="40" class="right"><img alt="" src="images/vide.gif" border="0" width="10" height="40"/></td>
-                            
-                            <td width="100%" align="left" valign="top" bgcolor="#FFFFFF" class="bottom">&nbsp;</td>
-                            
-                            <td width="10" height="40" class="left"><img alt="" src="images/vide.gif" border="0" width="10" height="40"/></td>
-                            <td width="10" height="40" ><img alt="" src="images/vide.gif" border="0" width="10" height="40"/></td>
-                        </tr>
-                        
-                        <tr>
-                            <td width="100%" colspan="5">&nbsp;</td>
-                        </tr>
-                        
-                    </table>
-                </div>
-                
-                <!-- end body -->
-
-        
-		        <!-- begin copyright -->
-        
-    		    <span jwcid="@Copyright"/>
-        
-	 	       	<table summary="copyright" jwcid="$remove$">                    <tr>
-                        <td width="5" height="2">
-                            <img alt="" src="images/vide.gif" border="0" height="2" width="5" />
-                        </td>
-                        <td align="center">&nbsp;</td>
-                        <td width="5" height="2">
-                            <img alt="" src="images/vide.gif" border="0" height="2" width="5" />
-                        </td>
-                    </tr>
-                </table>
-                <!-- end copyright -->
-        
-            </body>
+            <a href="#" jwcid="@PageLink" page="Project">Ajouter un projet</a>
             
-        </span>
-        
-    </span>
-    
+    </form>
+            
 </html>
