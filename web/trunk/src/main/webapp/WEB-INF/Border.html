@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta content="text/html;"/>
+    <meta content="text/html;"/>
     <title>PMR</title>
     <!-- begin style -->
     <link rev="stylesheet" rel="stylesheet" type="text/css" href="../styles/styles.css" />
@@ -49,7 +49,7 @@
 	     <!-- end header (tapestry border component) -->
 	     
 	     
-	    <!-- begin tabs (tapestry border component) -->
+        <!-- begin tabs (tapestry border component) -->
         <span jwcid="@Tabs" tabList="ognl:tabList" />
         
         <div id="Tabs" jwcid="$remove$">
@@ -67,9 +67,9 @@
         <!-- end tabs (tapestry border component) -->
 	     
 	     
-	    <!-- begin body -->
+	<!-- begin body -->
         
-        <div id="Body" jwcid="$remove$">
+        <div id="Body">
             <table cellpadding="0" cellspacing="0" border="0" bgcolor="#E5E5E5" width="100%">
                 
                 <tr>
@@ -100,7 +100,11 @@
                     <td width="10" height="40"><img alt="" src="images/vide.gif" border="0" width="10" height="40"/></td>
                     <td width="10" height="40" class="right"><img alt="" src="images/vide.gif" border="0" width="10" height="40"/></td>
                     
-                    <td width="100%" align="left" valign="top" bgcolor="#FFFFFF"><p>body body body body body body body body body body body body body body body body body body body body body body body body body body body body body body body body body body</p></td>
+                    <td width="100%" align="left" valign="top" bgcolor="#FFFFFF">
+                        <p>
+                    	   <span jwcid="@RenderBody">Page content goes here.</span>	
+                       </p>
+                   </td>
                     
                     <td width="10" height="40" class="left"><img alt="" src="images/vide.gif" border="0" width="10" height="40"/></td>
                     <td width="10" height="40"><img alt="" src="images/vide.gif" border="0" width="10" height="40"/></td>
@@ -125,9 +129,7 @@
         
         <!-- end body -->
 	     
-	    <span jwcid="@RenderBody">Page content goes here.</span>	
-	     
-	    <!-- begin copyright (tapestry border component) -->
+	<!-- begin copyright (tapestry border component) -->
         <table summary="copyright">
             <tr>
                 <td width="5" height="2">
@@ -142,4 +144,4 @@
         <!-- end copyright (tapestry border component) -->
         
     </body>
-</html>	
+</html>

@@ -4,5 +4,7 @@
 <page-specification>
   
   <asset name="stylesheet" path="styles/styles.css"/>
+  
+  <property name="userLogin" persist="session"/>
    
 </page-specification>

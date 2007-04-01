@@ -11,20 +11,22 @@
     	<url-pattern>/</url-pattern>
     </filter-mapping>
 
-	<!-- Tapestry-Spring integration -->    
-	<!-- 
-    <listener>
-        <description>Used for tapestry-spring integration</description>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-	
+    <!-- Tapestry-Spring integration -->    
+    <!--
     <context-param>
         <description>Used for tapestry-spring integration</description>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/beanRefContext.xml</param-value>
     </context-param>
-	-->
-    
+    -->
+	
+    <!--
+    <listener>
+        <description>Used for tapestry-spring integration</description>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    -->
+	
     <servlet>
         <servlet-name>app</servlet-name>
         <servlet-class>org.apache.tapestry.ApplicationServlet</servlet-class>

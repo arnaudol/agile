@@ -5,14 +5,25 @@
 
 <component-specification class="org.apache.tapestry.BaseComponent" allow-body="yes" allow-informal-parameters="no">
 
-	<parameter name="title" required="yes"/>
+    <parameter name="title" required="yes"/>
+    
     <asset name="main" path="/styles/styles.css"/>
     
     <component id="shell" type="Shell">
       	<binding name="title" value="title"/>  
-		<binding name="stylesheet" value="asset:main"/>
-        <binding name="doctype">literal:html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
-            </binding> 
+        <binding name="stylesheet" value="asset:main"/>
+        <binding name="doctype">literal:html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</binding> 
     </component>
     
+    <!-- 
+   <asset name="imageAsset" path="/images/vide.gif"/>
+    
+    <component id="summary"  type="Image">
+        <binding name="image" value="asset:imageAsset"/>
+   </component>   
+   
+   <component id="emptyImage2" copy-of="emptyImage"/>
+    -->
+   
+   
 </component-specification>
