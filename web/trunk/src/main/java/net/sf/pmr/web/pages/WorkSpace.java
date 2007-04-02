@@ -9,8 +9,10 @@
 
 package net.sf.pmr.web.pages;
 
-import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
+import net.sf.pmr.agilePlanning.domain.iteration.Iteration;
 import net.sf.pmr.web.beans.UserLogin;
+
 import org.apache.tapestry.event.PageBeginRenderListener;
 import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.form.IPropertySelectionModel;
@@ -37,5 +39,38 @@ public abstract class WorkSpace extends BasePage implements PageBeginRenderListe
     public IPropertySelectionModel getProjects() {        
         return new ProjectSelectionModel(1);
     }    
+
+    /**
+     * Get the number of stories for the projet
+     * @return
+     */
+    public int getNumberOfStories() {
+    	return AgilePlanningObjectFactory.getStoryService().findByProjectPersistanceId(1).size();
+    }
+    
+    /**
+     * Get the number of iteration for the projet
+     * @return
+     */
+    public int getNumberOfIterations() {
+    	return AgilePlanningObjectFactory.getIterationService().findByProjectPersistanceId(1).size();
+    }
+    
+    /**
+     * Get the number of release for the projet
+     * @return 
+     */
+    public int getNumberOfReleases() {
+    	return AgilePlanningObjectFactory.getReleaseService().findByProjectPersistanceId(1).size();
+    }
+    
+    /**
+     * Get the number of iteration for the projet
+     * @return
+     */
+    public Iteration getCurrentIteration() {
+    	return AgilePlanningObjectFactory.getIterationService().findCurrentIteration(1);
+    }
+
     
 }
