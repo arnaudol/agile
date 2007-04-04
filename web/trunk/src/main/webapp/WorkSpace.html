@@ -1,30 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html jwcid="@Border" title="Agile !">
-    <head jwcid="$remove$">
-        <meta content="text/html;"/>
-        <title>PMR</title>
-        <!-- begin style -->
-        <link rev="stylesheet" rel="stylesheet" type="text/css" href="styles/styles.css" />
-        <!-- end style -->
-    </head>
-                  
-    <form jwcid="@Form">
-        
-            <label for="project" accesskey="p">Project</label>
-            <select name="project" id="project" jwcid="project@PropertySelection" model="ognl:projects" value="ognl:currentProject">
-                <option value="1">Project 11</option>
-                <option value="2">Project 22</option>
-            </select>
-            <a href="#" jwcid="@PageLink" page="Project">Ajouter un projet</a>
-       
-       		<br/>
-       		<span jwcid="@Insert" value="ognl:numberOfStories"/> histoires
-		    <br/>
-		    <span jwcid="@Insert" value="ognl:numberOfIterations"/> iterations
-		    <br/>
- 	        <span jwcid="@Insert" value="ognl:numberOfReleases"/> releases
-       
-            
-            
-    </form>
-            
+<head jwcid="$remove$">
+
+  <meta content="text/html;">
+  <title>PMR</title>
+
+
+<!-- begin style -->
+  <link rev="stylesheet" rel="stylesheet" type="text/css" href="styles/styles.css">
+
+<!-- end style -->
+</head>
+
+    <body>
+
+<form jwcid="@Form"> <label for="project" accesskey="p">Choisissez un projet </label>
+  <select name="project" id="project" jwcid="project@PropertySelection" model="ognl:projects" value="ognl:currentProject">
+  <option value="1">Project 11</option>
+  <option value="2">Project 22</option>
+  </select>
+
+ou <a href="#" jwcid="@PageLink" page="Project">
+  <img src="images/add.png" align="middle" border="0"> Ajoutez
+un projet</a><br>
+
+</form>
+
+<br>
+
+<table style="width: 366px; height: 121px;" cellpadding="0" cellspacing="0">
+
+  <tbody>
+
+    <tr>
+
+      <td style="width: 3px;" class="grayBackground5" colspan="1" rowspan="4"></td>
+
+      <td class="grayBackground5">
+      <p class="configTexteForWorkspaceTitle">Planning du
+projet</p>
+
+      </td>
+
+      <td style="width: 3px;" class="grayBackground5" colspan="1" rowspan="4"></td>
+
+    </tr>
+
+    <tr>
+
+      <td><span jwcid="@Insert" value="ognl:numberOfStories">&nbsp;3</span>
+histoires</td>
+
+    </tr>
+
+    <tr>
+
+      <td><span jwcid="@Insert" value="ognl:numberOfIterations">&nbsp;2</span>
+iterations</td>
+
+    </tr>
+
+    <tr>
+
+      <td><span jwcid="@Insert" value="ognl:numberOfReleases">&nbsp;1</span>
+releases</td>
+
+    </tr>
+
+    <tr>
+
+      <td style="height: 3px;" class="grayBackground5" colspan="3" rowspan="1"><img src="images/vide.gif" height="3"></td>
+
+    </tr>
+
+  </tbody>
+</table>
+
+</body>
 </html>
