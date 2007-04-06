@@ -14,6 +14,7 @@ import java.util.Set;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
 import net.sf.pmr.agilePlanning.domain.story.Story;
 
+import org.apache.tapestry.event.PageBeginRenderListener;
 import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.html.BasePage;
 
@@ -21,7 +22,7 @@ import org.apache.tapestry.html.BasePage;
  *
  * @author arnaud
  */
-public abstract class Stories extends BasePage {    
+public abstract class Stories extends BasePage implements PageBeginRenderListener {    
     
 	 // projet
     public abstract Set<Story> getStories();
