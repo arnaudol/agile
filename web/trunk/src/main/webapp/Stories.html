@@ -9,7 +9,11 @@
 </head>
 <body>
 
-	<table jwcid="@contrib:Table" source="ognl:stories" columns="persistanceId, shortDescription, businessValue, riskLevel, daysEstimated, percentCompleted, tasks.size, warning, persistanceVersion"/>
+	<table jwcid="@contrib:Table" 
+			source="ognl:stories" 
+			columns="persistanceId, shortDescription, businessValue.description, riskLevel.description, daysEstimated, percentCompleted(), tasks.size, warning(), persistanceVersion"
+			initialSortColumn="persistanceId"
+			pageSize="20" />
 
 </body>
 </html>
