@@ -11,8 +11,9 @@
 
 	<table jwcid="@contrib:Table" 
 			source="ognl:stories" 
-			columns="persistanceId, shortDescription, businessValue.description, riskLevel.description, daysEstimated, percentCompleted(), tasks.size, warning(), persistanceVersion"
+			columns="shortDescription, businessValue.description, riskLevel.description, daysEstimated, percentCompleted(), tasks.size, warning()"
 			initialSortColumn="persistanceId"
+			rowsClass="ognl:beans.evenOdd.next" 
 			pageSize="20" />
 
 </body>
