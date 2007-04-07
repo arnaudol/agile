@@ -339,3 +339,29 @@ label{
 	BACKGROUND-COLOR: #ffffff;
 	TEXT-DECORATION: none;
 }
+
+/***********************************************/
+/* Table tag styles                             */
+/***********************************************/ 
+
+tr.even {
+  	BACKGROUND-COLOR: #E0E0E0;
+  	COLOR:#333333;
+  	FONT-WEIGHT: normal;
+	FONT-SIZE: 12px;
+	TEXT-TRANSFORM: none;
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	vertical-align: middle;
+}
+tr.odd {
+  	BACKGROUND-COLOR: #F5F5F5;
+  	COLOR:#333333;
+  	FONT-WEIGHT: normal;
+	FONT-SIZE: 12px;
+	TEXT-TRANSFORM: none;
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	FONT-VARIANT: normal;
+	vertical-align: middle;
+
+}
+
