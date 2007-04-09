@@ -9,6 +9,15 @@
     <!-- persist stories in session for use in the table -->
     <property name="stories" persist="session"/>
    
+    <!-- create link for table column -->
+    <component id="persistanceIdLink" type="PageLink">
+	<binding name="page" value="literal:Story"/>
+   </component> 
+   <!-- used to output the shortDescription value in the link -->
+   <component id="shortDescriptionText" type="Insert">
+	<binding name="value" value="ognl:components.table.tableRow.shortDescription"/>
+    </component> 
+    
     <!-- Story table component-->
     <component id="table" type="contrib:Table">
         <binding name="source" value="ognl:stories"/>
@@ -18,5 +27,7 @@
         <binding name="pageSize" value="literal:20"/>
         <binding name="initialSortColumn" value="literal:shortDescription"/>
     </component>
+    
+    
     
 </page-specification>
