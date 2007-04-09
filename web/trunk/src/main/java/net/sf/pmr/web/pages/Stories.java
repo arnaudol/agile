@@ -30,6 +30,10 @@ public abstract class Stories extends BasePage implements PageBeginRenderListene
     public abstract Set<Story> getStories();
     public abstract void setStories(Set<Story> stories);
     
+    // project persistanceId to display stories for
+    public abstract void setProjectPersistanceId(int ProjectPersistanceId);
+    public abstract int getProjectPersistanceId();
+    
     // inject story page
     @InjectPage("Story")
     public abstract net.sf.pmr.web.pages.Story getStory();
@@ -40,7 +44,7 @@ public abstract class Stories extends BasePage implements PageBeginRenderListene
      **/
     public void pageBeginRender(PageEvent pageEvent) {
         
-    	this.setStories(AgilePlanningObjectFactory.getStoryService().findByProjectPersistanceId(1));
+    	this.setStories(AgilePlanningObjectFactory.getStoryService().findByProjectPersistanceId(this.getProjectPersistanceId()));
        
     }
 

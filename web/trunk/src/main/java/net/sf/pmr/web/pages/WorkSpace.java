@@ -24,28 +24,40 @@ import org.apache.tapestry.html.BasePage;
  */
 public abstract class WorkSpace extends BasePage implements PageBeginRenderListener {
     
+    // property selection model for projets list
+    private IPropertySelectionModel iPropertySelectionModel = null;
+    
     // getter for User Login
     public abstract void setUserLogin(UserLogin userLogin);
     
-    public abstract int getCurrentProject();
-    
-    public abstract void setCurrentProject(int currentProject);
-    
-    public void pageBeginRender(PageEvent pageEnvent) {
-        setCurrentProject(1);
-    }
+    // selected projet
+    public abstract net.sf.pmr.core.domain.project.Project getSelectedProject();    
+    public abstract void setSelectedProject(net.sf.pmr.core.domain.project.Project currentProject);
     
     // get projects list for the current user
-    public IPropertySelectionModel getProjects() {        
+    public IPropertySelectionModel getProjectSelectionModel() {        
         return new ProjectSelectionModel(1);
     }    
 
+    // get the list of projets
+    public void pageBeginRender(PageEvent event) {
+        
+       this.iPropertySelectionModel = new ProjectSelectionModel(1);
+       
+       // set the default selected project for the first rendering of the page
+       if (getSelectedProject() == null) {
+            setSelectedProject((net.sf.pmr.core.domain.project.Project) iPropertySelectionModel.getOption(0));
+       }
+       
+    }
+    
+   
     /**
      * Get the number of stories for the projet
      * @return
      */
     public int getNumberOfStories() {
-    	return AgilePlanningObjectFactory.getStoryService().findByProjectPersistanceId(1).size();
+    	return AgilePlanningObjectFactory.getStoryService().findByProjectPersistanceId(getSelectedProject().getPersistanceId()).size();
     }
     
     /**
@@ -53,7 +65,7 @@ public abstract class WorkSpace extends BasePage implements PageBeginRenderListe
      * @return
      */
     public int getNumberOfIterations() {
-    	return AgilePlanningObjectFactory.getIterationService().findByProjectPersistanceId(1).size();
+    	return AgilePlanningObjectFactory.getIterationService().findByProjectPersistanceId(getSelectedProject().getPersistanceId()).size();
     }
     
     /**
@@ -61,7 +73,7 @@ public abstract class WorkSpace extends BasePage implements PageBeginRenderListe
      * @return 
      */
     public int getNumberOfReleases() {
-    	return AgilePlanningObjectFactory.getReleaseService().findByProjectPersistanceId(1).size();
+    	return AgilePlanningObjectFactory.getReleaseService().findByProjectPersistanceId(getSelectedProject().getPersistanceId()).size();
     }
     
     /**
@@ -69,8 +81,14 @@ public abstract class WorkSpace extends BasePage implements PageBeginRenderListe
      * @return
      */
     public Iteration getCurrentIteration() {
-    	return AgilePlanningObjectFactory.getIterationService().findCurrentIteration(1);
+    	return AgilePlanningObjectFactory.getIterationService().findCurrentIteration(getSelectedProject().getPersistanceId());
     }
 
-    
+    /**
+     * the form is submited where the project is changed
+     **/
+    public void formSubmit() {
+        
+        
+    }
 }
