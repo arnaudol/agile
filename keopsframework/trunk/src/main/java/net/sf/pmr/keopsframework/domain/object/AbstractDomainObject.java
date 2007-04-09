@@ -34,10 +34,13 @@
 */
 package net.sf.pmr.keopsframework.domain.object;
 
+import java.io.Serializable;
+
 /**
  * @author arnaud.prost@gmail.com
+ * Les objects métiers sont Serializable pour pouvoir être persisté en session dans la couche présentation web
  */
-public abstract class AbstractDomainObject implements DomainObject {
+public abstract class AbstractDomainObject implements DomainObject, Serializable {
 
     private int persistanceId;
     
