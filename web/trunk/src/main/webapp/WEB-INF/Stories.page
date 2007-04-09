@@ -11,7 +11,6 @@
    
     <!-- create link for table column -->
     <component id="persistanceIdLink" type="DirectLink">
-	<binding name="page" value="literal:Story"/>
         <binding name="parameters" value="ognl:components.table.tableRow.persistanceId"/>
         <binding name="listener" value="listener:selectStory"/>
    </component> 
