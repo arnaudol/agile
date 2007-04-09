@@ -24,29 +24,15 @@ import org.apache.tapestry.html.BasePage;
  *
  * @author arnaud
  */
-public abstract class Stories extends BasePage implements PageBeginRenderListener {    
+public abstract class Stories extends BasePage {    
     
     // set of stories to display
     public abstract Set<Story> getStories();
     public abstract void setStories(Set<Story> stories);
-    
-    // project persistanceId to display stories for
-    public abstract void setProjectPersistanceId(int ProjectPersistanceId);
-    public abstract int getProjectPersistanceId();
-    
+ 
     // inject story page
     @InjectPage("Story")
     public abstract net.sf.pmr.web.pages.Story getStory();
-
-
-    /**
-     * find the stories for the given project
-     **/
-    public void pageBeginRender(PageEvent pageEvent) {
-        
-    	this.setStories(AgilePlanningObjectFactory.getStoryService().findByProjectPersistanceId(this.getProjectPersistanceId()));
-       
-    }
 
    /**
     * find the story selected by the user
@@ -61,6 +47,5 @@ public abstract class Stories extends BasePage implements PageBeginRenderListene
        return storyPage;
        
    }
-    
     
 }

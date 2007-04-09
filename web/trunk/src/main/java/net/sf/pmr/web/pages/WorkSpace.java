@@ -12,6 +12,8 @@ package net.sf.pmr.web.pages;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
 import net.sf.pmr.agilePlanning.domain.iteration.Iteration;
 import net.sf.pmr.web.beans.UserLogin;
+import org.apache.tapestry.IPage;
+import org.apache.tapestry.annotations.InjectPage;
 
 import org.apache.tapestry.event.PageBeginRenderListener;
 import org.apache.tapestry.event.PageEvent;
@@ -34,6 +36,10 @@ public abstract class WorkSpace extends BasePage implements PageBeginRenderListe
     public abstract net.sf.pmr.core.domain.project.Project getSelectedProject();    
     public abstract void setSelectedProject(net.sf.pmr.core.domain.project.Project currentProject);
     
+    // inject stories page
+    @InjectPage("Stories")
+    public abstract net.sf.pmr.web.pages.Stories getStories();
+    
     // get projects list for the current user
     public IPropertySelectionModel getProjectSelectionModel() {        
         return new ProjectSelectionModel(1);
@@ -51,6 +57,18 @@ public abstract class WorkSpace extends BasePage implements PageBeginRenderListe
        
     }
     
+     /**
+     * find the stories for the given project to display the stories list
+     **/
+    public IPage selectStories (int projectPersistanceId) {
+        
+        Stories stories = getStories();
+        
+        stories.setStories(AgilePlanningObjectFactory.getStoryService().findByProjectPersistanceId(projectPersistanceId));
+        
+        return stories;
+       
+    }
    
     /**
      * Get the number of stories for the projet
