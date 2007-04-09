@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE page-specification PUBLIC "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
-    "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+"http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
 <page-specification class="net.sf.pmr.web.pages.Stories">
-
-  <asset name="stylesheet" path="styles/styles.css"/>
-  
-  <property name="stories" persist="session"/>
-  
-   <bean name="evenOdd" class="org.apache.tapestry.bean.EvenOdd"/>
+    
+    <!-- stylesheet -->
+    <asset name="stylesheet" path="styles/styles.css"/>
+    
+    <!-- persist stories in session for use in the table -->
+    <property name="stories" persist="session"/>
    
+    <!-- Story table component-->
+    <component id="table" type="contrib:Table">
+        <binding name="source" value="ognl:stories"/>
+        <binding name="columns"
+                 value="literal:shortDescription, businessValue.description, riskLevel.description, daysEstimated, percentCompleted(), tasks.size, warning()"/>
+        <binding name="rowsClass" value="literal:beans.evenOdd.next"/>
+        <binding name="pageSize" value="literal:20"/>
+        <binding name="initialSortColumn" value="literal:shortDescription"/>
+    </component>
+    
 </page-specification>
