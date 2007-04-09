@@ -24,7 +24,7 @@
     <component id="table" type="contrib:Table">
         <binding name="source" value="ognl:stories"/>
         <binding name="columns"
-                 value="literal:persistanceId, shortDescription, businessValue.description, riskLevel.description, daysEstimated, percentCompleted(), tasks.size, warning()"/>
+                 value="literal:shortDescription, businessValue.description, riskLevel.description, daysEstimated, percentCompleted(), tasks.size, warning()"/>
         <binding name="rowsClass" value="literal:beans.evenOdd.next"/>
         <binding name="pageSize" value="literal:20"/>
         <binding name="initialSortColumn" value="literal:shortDescription"/>

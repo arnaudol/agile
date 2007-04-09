@@ -8,10 +8,12 @@
 <!-- end style -->
 </head>
 <body>
-<form jwcid="@Form"><label for="project" accesskey="p">Choisissez un projet </label> <select name="project" id="project" jwcid="project@PropertySelection" model="ognl:projects" value="ognl:currentProject">
+<form jwcid="@Form" listener="listener:formSubmit">
+    <label for="project" accesskey="p">Choisissez un projet </label>&nbsp;
+    <select name="project" id="project" jwcid="project@PropertySelection" model="ognl:ProjectSelectionModel" value="ognl:selectedProject" onchange="javascript:this.form.events.refresh();">
 	<option value="1">Project 11</option>
 	<option value="2">Project 22</option>
-</select> ou <a href="#" jwcid="@PageLink" page="Project"> <img src="images/add.png" align="middle" border="0">Ajoutez un projet</a><br>
+        </select> ou <a href="#" jwcid="@PageLink" page="Project"> <img src="images/add.png" align="middle" border="0">Ajoutez un projet</a><br>
 </form>
 <br>
 <table style="text-align: left;" border="0" cellpadding="2" cellspacing="2">
