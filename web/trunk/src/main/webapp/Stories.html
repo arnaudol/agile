@@ -8,13 +8,8 @@
 <!-- end style -->
 </head>
 <body>
-
-	<table jwcid="@contrib:Table" 
-			source="ognl:stories" 
-			columns="shortDescription, businessValue.description, riskLevel.description, daysEstimated, percentCompleted(), tasks.size, warning()"
-			initialSortColumn="persistanceId"
-			rowsClass="ognl:beans.evenOdd.next" 
-			pageSize="20" />
+ 
+        <table class="mytable" jwcid="table"/> 
 
 </body>
 </html>
