@@ -38,9 +38,8 @@ import java.io.Serializable;
 
 /**
  * @author arnaud.prost@gmail.com
- * Les objects métiers sont Serializable pour pouvoir être persisté en session dans la couche présentation web
  */
-public abstract class AbstractDomainObject implements DomainObject, Serializable {
+public abstract class AbstractDomainObject implements DomainObject {
 
     private int persistanceId;
     
