@@ -34,12 +34,13 @@
 */
 package net.sf.pmr.keopsframework.domain.collection;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
  * @author arnaud.prost@gmail.com
  */
-public interface GhostDomainCollection {
+public interface GhostDomainCollection extends Serializable {
 
     /**
      * @param objectToLoadFor objectToLoadFor
