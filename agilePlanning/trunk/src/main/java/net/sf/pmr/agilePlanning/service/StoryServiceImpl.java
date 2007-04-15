@@ -135,6 +135,21 @@ public class StoryServiceImpl implements StoryService {
         return errors;
 
     }
+    
+    public Errors addOrUpdate (final Story story) {
+        
+         // validate
+        Errors errors = storyValidator.validate(story);
+        
+        // no errors
+        if (!errors.hasErrors()) {
+            // persist
+            storyRepository.addOrUpdate(story);
+        }
+
+        return errors;
+        
+    }
 
     /**
      * @see net.sf.pmr.agilePlanning.service.StoryService#addTask(int, double,

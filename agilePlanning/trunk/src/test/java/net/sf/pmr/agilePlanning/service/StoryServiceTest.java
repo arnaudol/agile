@@ -207,6 +207,55 @@ public class StoryServiceTest extends TestCase {
     
     
     /**
+     * Test le service d'ajout d'un l'objet story quand tout est ok <br>
+     * Les étapes sont:
+     * <ul>
+     * <li>validation</li>
+     * <li>Enregistrement</li>
+     * </ul>
+     */
+    public void testAddStoryObject() {
+        
+        Story story = new StoryImpl();
+        
+        BusinessValue businessValue = new BusinessValueImpl();
+        businessValue.setId(1);
+        businessValue.setDescription("Hight");
+        
+        RiskLevel riskLevel = new RiskLevelImpl();
+        riskLevel.setId(2);
+        riskLevel.setDescription("Low");
+
+        story.setPersistanceId(1);
+        story.setBusinessValue(businessValue);
+        story.setRiskLevel(riskLevel);
+        
+        Project project = new ProjectImpl();
+        project.setPersistanceId(5);
+        story.setProject(project);
+        
+        story.setShortDescription("titi");
+        story.setDescription("toto");
+        story.setDaysEstimated(2);
+        
+        
+        // validation
+        EasyMock.expect(mockStoryValidator.validate(story)).andReturn(errors);
+        
+        // ajout
+        mockStoryRepository.addOrUpdate(story);
+
+        // set mock in replay mode
+        mocksControl.replay();
+        
+        storyService.addOrUpdate(story);
+
+        // Vérifie les appels
+        mocksControl.verify();
+
+    }
+    
+    /**
      * Test le service d'ajout d'une story quand la validation échoue <br>
      * Les étapes sont:
      * <ul>
@@ -269,6 +318,55 @@ public class StoryServiceTest extends TestCase {
 
     }
     
+        /**
+     * Test le service d'ajout d'un l'objet story quand tout est ok <br>
+     * Les étapes sont:
+     * <ul>
+     * <li>validation</li>
+     * <li>Enregistrement</li>
+     * </ul>
+     */
+    public void testAddStoryObjectWhenValidationFails() {
+        
+        Story story = new StoryImpl();
+        
+        BusinessValue businessValue = new BusinessValueImpl();
+        businessValue.setId(1);
+        businessValue.setDescription("Hight");
+        
+        RiskLevel riskLevel = new RiskLevelImpl();
+        riskLevel.setId(2);
+        riskLevel.setDescription("Low");
+
+        story.setPersistanceId(1);
+        story.setBusinessValue(businessValue);
+        story.setRiskLevel(riskLevel);
+        
+        Project project = new ProjectImpl();
+        project.setPersistanceId(5);
+        story.setProject(project);
+        
+        story.setShortDescription("titi");
+        story.setDescription("toto");
+        story.setDaysEstimated(2);
+        
+        
+        // validation
+        errors.reject("code");        
+        EasyMock.expect(mockStoryValidator.validate(story)).andReturn(errors);
+        
+        // set mock in replay mode
+        mocksControl.replay();
+        
+        Errors errorsFromService = storyService.addOrUpdate(story);
+
+        // Vérifie les appels
+        mocksControl.verify();
+         
+        // les erreurs sont retournées
+        assertTrue(errorsFromService.hasGlobalErrors());
+
+    }
     
     /**
      * Test le service d'ajout d'une task quand tout est ok <br>

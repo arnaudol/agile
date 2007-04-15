@@ -89,7 +89,16 @@ public interface StoryService {
      * @param riskLevelId risk level for the story
      * @return errors errors
      */
+    @Deprecated
     Errors add(final int agileProjectPersistanceId, final String shortDescription, final String description, final double daysEstimated, final int businessValueId, final int riskLevelId);
+    
+    /**
+     * Add or update a story.
+     * @param story story to add or update
+     * @return errors errors
+     */
+    Errors addOrUpdate(final Story story);
+
 
     /**
      * Update a story.
@@ -102,6 +111,7 @@ public interface StoryService {
      * @param persistanceVersion persistance version
      * @return errors errors
      */
+    @Deprecated
     Errors update(final String shortDescription, final String description,
             final double daysEstimated, final int businessValueId, final int riskLevelId,
             final int persistanceId, final long persistanceVersion);
