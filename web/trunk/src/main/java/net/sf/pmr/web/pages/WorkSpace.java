@@ -12,6 +12,7 @@ package net.sf.pmr.web.pages;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
 import net.sf.pmr.agilePlanning.domain.iteration.Iteration;
 import net.sf.pmr.web.beans.UserLogin;
+import net.sf.pmr.web.pages.select.ProjectSelectionModel;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.annotations.InjectPage;
 

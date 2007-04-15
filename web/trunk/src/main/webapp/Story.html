@@ -9,8 +9,75 @@
 </head>
 <body>
 
+    <form jwcid="@Form" success="listener:addStory">
+        
+    <table width="100%" border="0" cellspacing="0" cellpadding="0"> 
+        
+        <input type="hidden" name="persistanceId" value="ognl:story.persistanceId"/>
+        <input type="hidden" name="persistanceVersion" value="ognl:story.persistanceVersion"/>
+        
+        <tr> 
+            <td class="textForBodyText">
+                <label for="shortDescription" accesskey="s">Description courte : </label><font color="#FF0000">(*)</font> : 
+            </td>
+            <td>
+                <input jwcid="shortDescription@TextField" type="text" size="50" maxlength="100" tabindex="1" style="field" value="ognl:story.shortDescription"/>
+            </td>
+        </tr>
+        <tr> 
+            <td class="textForBodyText">
+                <label for="description" accesskey="d">Description : </label><font color="#FF0000">(*)</font> : 
+            </td>
+            <td>
+                <input jwcid="description@TextArea" type="text" cols="50" rows="5" tabindex="2" style="field" value="ognl:story.description"/>			
+            </td>
+        </tr>
+        <tr> 
+            <td class="textForBodyText">
+                <label for="daysEstimated" accesskey="e">Estimation : </label><font color="#FF0000">(*)</font> : 
+            </td>
+            <td>
+                <input jwcid="daysEstimated@TextField" type="text" size="6" maxlength="6" tabindex="1" style="field" value="ognl:story.daysEstimated"/>			
+            </td>
+        </tr>
+        <tr> 
+        <td class="textForBodyText">
+                <label for="riskLevels" accesskey="r">Risque : </label><font color="#FF0000">(*)</font> : 
+            </td>
+            <td>
+                <select name="riskLevel" id="riskLevel" jwcid="riskLevel@PropertySelection" model="ognl:RiskLevelSelectionModel" value="ognl:selectedRiskLevel"/>
+            </td>
+        </tr>
+        <tr> 
+        <td class="textForBodyText">
+                <label for="businessValues" accesskey="r">Valeur métier : </label><font color="#FF0000">(*)</font> : 
+            </td>
+            <td>
+                <select name="businessValues" id="businessValues" jwcid="businessValues@PropertySelection" model="ognl:BusinessValueSelectionModel" value="ognl:selectedBusinessValue"/>
+            </td>
+        </tr>
 
 
+
+        
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr> 
+            <td>&nbsp;</td>
+            <td align="left">
+                <input type="submit" value="Add Story"/>
+            </td>
+        </tr>
+        <tr>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="textForBodyRedText">champs obligatoires</td>
+        </tr>
+    </table>    
+    
+    </form>
 
 </body>
 </html>
