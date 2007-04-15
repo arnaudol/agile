@@ -35,6 +35,7 @@
 
 package net.sf.pmr.agilePlanning.domain.story;
 
+import java.io.Serializable;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -43,7 +44,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author arnaud.prost@gmail.com
  *
  */
-public class RiskLevelImpl implements RiskLevel {
+public class RiskLevelImpl implements RiskLevel, Serializable {
     
     /**
      * Id.

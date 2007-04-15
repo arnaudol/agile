@@ -35,10 +35,11 @@
 
 package net.sf.pmr.agilePlanning.domain.story;
 
+import java.io.Serializable;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-public class BusinessValueImpl implements BusinessValue {
+public class BusinessValueImpl implements BusinessValue, Serializable {
     
     /**
      * Id.
