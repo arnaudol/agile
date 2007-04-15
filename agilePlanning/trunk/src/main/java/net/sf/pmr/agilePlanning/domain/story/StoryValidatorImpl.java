@@ -53,6 +53,8 @@ public class StoryValidatorImpl implements StoryValidator {
      */
     public final Errors validate(final Object object) {
 
+        // TODO implémenter la validation d'une story....
+        
         Errors errors = AgilePlanningObjectFactory.getErrors();
 
         return errors;
