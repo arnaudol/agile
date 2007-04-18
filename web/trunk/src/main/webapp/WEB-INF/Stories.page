@@ -29,6 +29,4 @@
         <binding name="initialSortColumn" value="literal:shortDescription"/>
     </component>
     
-    
-    
 </page-specification>

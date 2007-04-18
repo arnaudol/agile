@@ -11,10 +11,12 @@ package net.sf.pmr.web.pages;
 
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
 import net.sf.pmr.agilePlanning.domain.iteration.Iteration;
+import net.sf.pmr.web.aso.CurrentProject;
 import net.sf.pmr.web.beans.UserLogin;
-import net.sf.pmr.web.pages.select.ProjectSelectionModel;
+import net.sf.pmr.web.select.ProjectSelectionModel;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.annotations.InjectPage;
+import org.apache.tapestry.annotations.InjectState;
 
 import org.apache.tapestry.event.PageBeginRenderListener;
 import org.apache.tapestry.event.PageEvent;
@@ -32,6 +34,9 @@ public abstract class WorkSpace extends BasePage implements PageBeginRenderListe
     
     // getter for User Login
     public abstract void setUserLogin(UserLogin userLogin);
+    
+    @InjectState("currentProject")
+    public abstract CurrentProject getCurrentProject();
     
     // selected projet
     public abstract net.sf.pmr.core.domain.project.Project getSelectedProject();    
@@ -55,6 +60,9 @@ public abstract class WorkSpace extends BasePage implements PageBeginRenderListe
        if (getSelectedProject() == null) {
             setSelectedProject((net.sf.pmr.core.domain.project.Project) iPropertySelectionModel.getOption(0));
        }
+       
+       CurrentProject currentProject = this.getCurrentProject();
+       currentProject.setProject(this.getSelectedProject());
        
     }
     
@@ -107,7 +115,6 @@ public abstract class WorkSpace extends BasePage implements PageBeginRenderListe
      * the form is submited where the project is changed
      **/
     public void formSubmit() {
-        
         
     }
 }

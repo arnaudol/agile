@@ -13,11 +13,12 @@ package net.sf.pmr.web.pages;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
 import net.sf.pmr.agilePlanning.domain.story.BusinessValue;
 import net.sf.pmr.agilePlanning.domain.story.RiskLevel;
-import net.sf.pmr.web.pages.select.BusinessValueSelectionModel;
-import net.sf.pmr.web.pages.select.RiskLevelSelectionModel;
+import net.sf.pmr.web.aso.CurrentProject;
+import net.sf.pmr.web.select.BusinessValueSelectionModel;
+import net.sf.pmr.web.select.RiskLevelSelectionModel;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.annotations.InjectPage;
-import org.apache.tapestry.annotations.Persist;
+import org.apache.tapestry.annotations.InjectState;
 
 import org.apache.tapestry.event.PageBeginRenderListener;
 import org.apache.tapestry.event.PageEvent;
@@ -38,10 +39,9 @@ public abstract class Story extends BasePage implements PageBeginRenderListener 
     @InjectPage("Stories")
     public abstract Stories getStoriesPage();
     
-    // get current project from session
-    @Persist("session")
-    public abstract net.sf.pmr.core.domain.project.Project getSelectedProject();
-    
+    @InjectState("currentProject")
+    public abstract CurrentProject getCurrentProject();
+        
     // the story to display
     public abstract net.sf.pmr.agilePlanning.domain.story.Story getStory();
     public abstract void setStory(net.sf.pmr.agilePlanning.domain.story.Story Story);
@@ -49,7 +49,7 @@ public abstract class Story extends BasePage implements PageBeginRenderListener 
     // property selection model for riskLevels list
     public IPropertySelectionModel getRiskLevelSelectionModel() {
         return this.riskLevelSelectionModel;
-    };
+    }
     
     // selected riskLevels
     public abstract RiskLevel getSelectedRiskLevel();    
@@ -97,7 +97,7 @@ public abstract class Story extends BasePage implements PageBeginRenderListener 
    
          getStory().setBusinessValue(this.getSelectedBusinessValue());
          getStory().setRiskLevel(this.getSelectedRiskLevel());
-         getStory().setProject(this.getSelectedProject());
+         getStory().setProject(this.getCurrentProject().getProject());
          
          AgilePlanningObjectFactory.getStoryService().addOrUpdate(getStory());
          
