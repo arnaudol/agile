@@ -13,9 +13,10 @@ import java.util.Set;
 
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
 import net.sf.pmr.agilePlanning.domain.story.Story;
+import net.sf.pmr.web.aso.CurrentProject;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.annotations.InjectPage;
-
+import org.apache.tapestry.annotations.InjectState;
 import org.apache.tapestry.event.PageBeginRenderListener;
 import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.html.BasePage;
@@ -24,7 +25,7 @@ import org.apache.tapestry.html.BasePage;
  *
  * @author arnaud
  */
-public abstract class Stories extends BasePage {    
+public abstract class Stories extends BasePage implements PageBeginRenderListener {    
     
     // set of stories to display
     public abstract Set<Story> getStories();
@@ -33,6 +34,18 @@ public abstract class Stories extends BasePage {
     // inject story page
     @InjectPage("Story")
     public abstract net.sf.pmr.web.pages.Story getStory();
+    
+    // inject current project
+    @InjectState("currentProject")
+    public abstract CurrentProject getCurrentProject();
+
+    
+    // get the list of projets
+    public void pageBeginRender(PageEvent event) {
+        
+        this.setStories(AgilePlanningObjectFactory.getStoryService().findByProjectPersistanceId(this.getCurrentProject().getProject().getPersistanceId()));
+        
+    }
 
    /**
     * find the story selected by the user

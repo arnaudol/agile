@@ -66,19 +66,6 @@ public abstract class WorkSpace extends BasePage implements PageBeginRenderListe
        
     }
     
-     /**
-     * find the stories for the given project to display the stories list
-     **/
-    public IPage selectStories (int projectPersistanceId) {
-        
-        Stories stories = getStories();
-        
-        stories.setStories(AgilePlanningObjectFactory.getStoryService().findByProjectPersistanceId(projectPersistanceId));
-        
-        return stories;
-       
-    }
-   
     /**
      * Get the number of stories for the projet
      * @return

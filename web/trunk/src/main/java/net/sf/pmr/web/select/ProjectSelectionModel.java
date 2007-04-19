@@ -46,6 +46,24 @@ public class ProjectSelectionModel implements IPropertySelectionModel  {
     public Object getOption(int index) {
         return projects.get(index);
     }
+    
+//     /**
+//     * find the Project for a given persistanceId
+//     * @param id 
+//     * @return Project found
+//     */
+//    public Project getOptionById(int id) {
+//        
+//        Project projectToReturn = null;
+//        
+//        for (Project project : projects) {
+//            if (project.getPersistanceId() == id) {
+//                ToReturn = project;
+//            }
+//        }
+//        
+//        return ToReturn;
+//    }
 
     public String getLabel(int index) {
         return projects.get(index).getName();

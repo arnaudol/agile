@@ -7,9 +7,11 @@
   
   
   <!-- create link for table column -->
+  <!--
     <component id="storiesLink" type="DirectLink">
         <binding name="parameters" value="ognl:selectedProject.persistanceId"/>
         <binding name="listener" value="listener:selectStories"/>
    </component>
+   -->
    
 </page-specification>
