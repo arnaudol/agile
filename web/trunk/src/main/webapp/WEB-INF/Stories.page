@@ -9,24 +9,42 @@
     <!-- persist stories in session for use in the table -->
     <property name="stories" persist="session"/>
    
+   <!-- block to display --> 
+   <component id="shortDescriptionColumnValue" type="Block"/>
     <!-- create link for table column -->
     <component id="persistanceIdLink" type="DirectLink">
-        <binding name="parameters" value="ognl:components.table.tableRow.persistanceId"/>
+        <binding name="parameters" value="ognl:components.tableRows.tableRow.persistanceId"/>
         <binding name="listener" value="listener:selectStory"/>
    </component> 
    <!-- used to output the shortDescription value in the link -->
    <component id="shortDescriptionText" type="Insert">
-	<binding name="value" value="ognl:components.table.tableRow.shortDescription"/>
+	<binding name="value" value="ognl:components.tableRows.tableRow.shortDescription"/>
     </component> 
     
-    <!-- Story table component-->
-    <component id="table" type="contrib:Table">
+    <!-- bean used to change table row colors -->
+    <bean name="evenOdd" class="org.apache.tapestry.bean.EvenOdd"/>
+    
+    <!-- Story table view component-->    
+    <component id="tableView" type="contrib:TableView">
         <binding name="source" value="ognl:stories"/>
         <binding name="columns"
                  value="literal:shortDescription, businessValue.description, riskLevel.description, daysEstimated, percentCompleted(), tasks.size, warning()"/>
-        <binding name="rowsClass" value="literal:beans.evenOdd.next"/>
-        <binding name="pageSize" value="literal:20"/>
-        <binding name="initialSortColumn" value="literal:shortDescription"/>
+         <binding name="pageSize" value="literal:20"/>
+         <binding name="initialSortColumn" value="literal:shortDescription"/>
+         <!--
+        <binding name="cellpadding" value="literal:2"/> 
+        <binding name="cellspacing" value="literal:0"/>
+        -->
     </component>
+    
+    <!-- Story table column component-->    
+    <component id="tableColumns" type="contrib:TableColumns">
+        <binding name="class" value="literal:columnheader"/>
+    </component>
+
+    <!-- Story table row component-->    
+    <component id="tableRows" type="contrib:TableRows">
+       <binding name="class" value="ognl:beans.evenOdd.next"/>
+   </component>
     
 </page-specification>
