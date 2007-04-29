@@ -123,7 +123,7 @@
     </profiles>
     
     <build>
-        <finalName>web</finalName>
+        <finalName>webtapestry</finalName>
     </build>
     
 </project>
