@@ -1,7 +1,3 @@
-/***********************************************/
-/* HTML tag styles                             */
-/***********************************************/ 
-
 body {
 	font-family: Arial,sans-serif;
 	color: #333333;
@@ -340,28 +336,92 @@ label{
 	TEXT-DECORATION: none;
 }
 
-/***********************************************/
-/* Table tag styles                             */
-/***********************************************/ 
+#########################################
+#Begin : Used by display tag
+#########################################
 
-tr.even {
-  	BACKGROUND-COLOR: #E0E0E0;
-  	COLOR:#333333;
-  	FONT-WEIGHT: normal;
-	FONT-SIZE: 12px;
-	TEXT-TRANSFORM: none;
-	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
-	vertical-align: middle;
+
+
+th.sorted {
+    BACKGROUND-COLOR: #000099;
+    background-repeat:no-repeat;
 }
-tr.odd {
-  	BACKGROUND-COLOR: #F5F5F5;
-  	COLOR:#333333;
-  	FONT-WEIGHT: normal;
-	FONT-SIZE: 12px;
+th.sorted a, th.sortable a {
+        BACKGROUND-COLOR: #000099;
+	text-decoration:none;
+	background-position: right;
+	background-repeat:no-repeat;
+	display: block;
+	color: #ffffff;
+}
+th.sortable a {
+   BACKGROUND-COLOR: #000099;  
+   background-image: url("images/icon_sortleft.gif");
+   color: #ffffff;
+}
+th.order1 a {
+        BACKGROUND-COLOR: #000099;
+	background-image: url("images/icon_sortdown.gif");
+	color: #ffffff;
+}
+th.order2 a {
+        BACKGROUND-COLOR: #000099;
+	background-image: url("images/icon_sortup.gif");
+	color: #ffffff;
+}
+th a, th a:visited, th a:hover {
+        BACKGROUND-COLOR: #000099;  
+	color: #ffffff;
+}
+
+th.columnheader {
+ 	BACKGROUND-COLOR: #000099;
+  	COLOR:#FFFFFF;
+  	FONT-WEIGHT: bold;
+	FONT-SIZE: 11px;
 	TEXT-TRANSFORM: none;
+	LINE-HEIGHT: normal;
 	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
 	FONT-VARIANT: normal;
+	height: 20px;
+	padding-left: 4px;
+	padding-right: 4px;
 	vertical-align: middle;
+}
 
+td.tablepager
+{
+   background-color: #ffffff;
+   font-size: 12px;
+   text-align: right
+}
+
+tr.even {
+   BACKGROUND-COLOR: #E0E0E0;
+   COLOR: #333333;
+   FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+   FONT-SIZE: 12px;
+   FONT-WEIGHT: normal;
+   TEXT-TRANSFORM: none;
+   margin-bottom: 5px;
+   margin-top: 5px;
+   padding-bottom: 5px;
+   padding-top: 5px;
+   vertical-align: middle
+}
+
+tr.odd {
+   BACKGROUND-COLOR: #F5F5F5;
+   COLOR: #333333;
+   FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+   FONT-SIZE: 12px;
+   FONT-VARIANT: normal;
+   FONT-WEIGHT: normal;
+   TEXT-TRANSFORM: none;
+   margin-bottom: 5px;
+   margin-top: 5px;
+   padding-bottom: 5px;
+   padding-top: 5px;
+   vertical-align: middle
 }
 
