@@ -397,7 +397,7 @@ td.tablepager
 }
 
 tr.even {
-   BACKGROUND-COLOR: #E0E0E0;
+   background-color: #E0E0E0;
    COLOR: #333333;
    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
    FONT-SIZE: 12px;
@@ -411,13 +411,13 @@ tr.even {
 }
 
 tr.odd {
-   BACKGROUND-COLOR: #F5F5F5;
+   background-color: #F5F5F5;
    COLOR: #333333;
    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
    FONT-SIZE: 12px;
    FONT-VARIANT: normal;
    FONT-WEIGHT: normal;
-   TEXT-TRANSFORM: none;
+   text-transform: none;
    margin-bottom: 5px;
    margin-top: 5px;
    padding-bottom: 5px;

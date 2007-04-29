@@ -10,7 +10,7 @@
     <property name="stories" persist="session"/>
    
    <!-- block to display --> 
-   <component id="shortDescriptionColumnValue" type="Block"/>
+   <!-- <component id="shortDescriptionColumnValue" type="Block"/>-->
     <!-- create link for table column -->
     <component id="persistanceIdLink" type="DirectLink">
         <binding name="parameters" value="ognl:components.tableRows.tableRow.persistanceId"/>
