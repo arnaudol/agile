@@ -21,6 +21,11 @@
 	<binding name="value" value="ognl:components.tableRows.tableRow.shortDescription"/>
     </component> 
     
+    <!-- used to display the progressBar -->
+   <component id="progressBar" type="ProgressBar">
+	<binding name="percent" value="ognl:components.tableRows.tableRow.percentCompleted()"/>
+    </component>
+    
     <!-- bean used to change table row colors -->
     <bean name="evenOdd" class="org.apache.tapestry.bean.EvenOdd"/>
     
@@ -28,7 +33,7 @@
     <component id="tableView" type="contrib:TableView">
         <binding name="source" value="ognl:stories"/>
         <binding name="columns"
-                 value="literal:shortDescription, businessValue.description, riskLevel.description, daysEstimated, percentCompleted(), tasks.size, warning()"/>
+                 value="literal:shortDescription, businessValue.description, riskLevel.description, daysEstimated, done, tasks.size, warning()"/>
          <binding name="pageSize" value="literal:20"/>
          <binding name="initialSortColumn" value="literal:shortDescription"/>
          <!--
