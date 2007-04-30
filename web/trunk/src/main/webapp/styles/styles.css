@@ -7,17 +7,17 @@ body {
 	background-color: #E5E5E5
 }
 
-#Header a:link {
+Header a:link {
 	color: #FFFFFF;
 	text-decoration: underline;
 }
 
-#Header a:visited {
+Header a:visited {
 	color: #FFFFFF;
 	text-decoration: underline;
 }
 
-#Header a:hover {
+Header a:hover {
 	background-color: #1D64AD;
 }
 
@@ -341,52 +341,25 @@ label{
 #########################################
 
 
-
-th.sorted {
-    BACKGROUND-COLOR: #000099;
-    background-repeat:no-repeat;
-}
-th.sorted a, th.sortable a {
-        BACKGROUND-COLOR: #000099;
-	text-decoration:none;
-	background-position: right;
-	background-repeat:no-repeat;
-	display: block;
-	color: #ffffff;
-}
-th.sortable a {
-   BACKGROUND-COLOR: #000099;  
-   background-image: url("images/icon_sortleft.gif");
-   color: #ffffff;
-}
-th.order1 a {
-        BACKGROUND-COLOR: #000099;
-	background-image: url("images/icon_sortdown.gif");
-	color: #ffffff;
-}
-th.order2 a {
-        BACKGROUND-COLOR: #000099;
-	background-image: url("images/icon_sortup.gif");
-	color: #ffffff;
-}
-th a, th a:visited, th a:hover {
-        BACKGROUND-COLOR: #000099;  
-	color: #ffffff;
-}
-
 th.columnheader {
- 	BACKGROUND-COLOR: #000099;
-  	COLOR:#FFFFFF;
-  	FONT-WEIGHT: bold;
-	FONT-SIZE: 11px;
-	TEXT-TRANSFORM: none;
-	LINE-HEIGHT: normal;
-	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
-	FONT-VARIANT: normal;
-	height: 20px;
-	padding-left: 4px;
-	padding-right: 4px;
-	vertical-align: middle;
+   background-color: #000099;
+   color: #FFFFFF;
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 10px;
+   font-style: normal;
+   font-variant: normal;
+   font-weight: bold;
+   height: 20px;
+   line-height: normal;
+   margin-bottom: 5px;
+   margin-left: 5px;
+   margin-top: 5px;
+   padding-left: 4px;
+   padding-right: 4px;
+   text-align: left;
+   text-decoration: none;
+   text-transform: none;
+   vertical-align: middle
 }
 
 td.tablepager
@@ -398,7 +371,7 @@ td.tablepager
 
 tr.even {
    background-color: #E0E0E0;
-   COLOR: #333333;
+   color: #333333;
    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
    FONT-SIZE: 12px;
    FONT-WEIGHT: normal;
@@ -412,7 +385,7 @@ tr.even {
 
 tr.odd {
    background-color: #F5F5F5;
-   COLOR: #333333;
+   color: #333333;
    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
    FONT-SIZE: 12px;
    FONT-VARIANT: normal;
