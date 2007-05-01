@@ -1,3 +1,8 @@
+=======
+/***********************************************/
+/* HTML tag styles                             */
+/***********************************************/ 
+
 body {
 	font-family: Arial,sans-serif;
 	color: #333333;
@@ -7,17 +12,17 @@ body {
 	background-color: #E5E5E5
 }
 
-Header a:link {
+#Header a:link {
 	color: #FFFFFF;
 	text-decoration: underline;
 }
 
-Header a:visited {
+#Header a:visited {
 	color: #FFFFFF;
 	text-decoration: underline;
 }
 
-Header a:hover {
+#Header a:hover {
 	background-color: #1D64AD;
 }
 
@@ -336,16 +341,11 @@ label{
 	TEXT-DECORATION: none;
 }
 
-#########################################
-#Begin : Used by display tag
-#########################################
-
-
 th.columnheader {
    background-color: #000099;
    color: #FFFFFF;
    font-family: Verdana, Arial, Helvetica, sans-serif;
-   font-size: 10px;
+   font-size: 12px;
    font-style: normal;
    font-variant: normal;
    font-weight: bold;
@@ -354,8 +354,9 @@ th.columnheader {
    margin-bottom: 5px;
    margin-left: 5px;
    margin-top: 5px;
-   padding-left: 4px;
-   padding-right: 4px;
+   padding-bottom: 5px;
+   padding-left: 5px;
+   padding-top: 5px;
    text-align: left;
    text-decoration: none;
    text-transform: none;
@@ -372,10 +373,10 @@ td.tablepager
 tr.even {
    background-color: #E0E0E0;
    color: #333333;
-   FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
-   FONT-SIZE: 12px;
-   FONT-WEIGHT: normal;
-   TEXT-TRANSFORM: none;
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 12px;
+   font-weight: normal;
+   text-transform: none;
    margin-bottom: 5px;
    margin-top: 5px;
    padding-bottom: 5px;
@@ -386,10 +387,10 @@ tr.even {
 tr.odd {
    background-color: #F5F5F5;
    color: #333333;
-   FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
-   FONT-SIZE: 12px;
-   FONT-VARIANT: normal;
-   FONT-WEIGHT: normal;
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 12px;
+   font-variant: normal;
+   font-weight: normal;
    text-transform: none;
    margin-bottom: 5px;
    margin-top: 5px;
@@ -397,4 +398,3 @@ tr.odd {
    padding-top: 5px;
    vertical-align: middle
 }
-
