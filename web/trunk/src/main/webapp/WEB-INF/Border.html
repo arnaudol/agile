@@ -13,45 +13,43 @@
 <html jwcid="shell">
 <body jwcid="@Body">
 
-	     <!-- begin header (tapestry border component) -->
-	     <div id="Header">
-	         <table cellpadding="0" cellspacing="0" border="0" width="100%" summary="header">
-	             <tr>
-	                 <td width="10" height="3"></td>
-	                 <td height="2" align="center"></td>
-	                 <td width="10" height="3"></td>
-	             </tr>
-	             <tr>
-	                 <td width="10">
-	                     <img alt="" src="images/vide.gif" border="0" width="10" />
-	                 </td>
-	                 <td align="right"><a href="#" jwcid="@PageLink" page="WorkSpace">Mon Bureau</a> - <a href="#" jwcid="@PageLink" page="UserList">Administrer</a> - connect&eacute;(e) tant que Arnaud Prost - D&eacute;connecter</td>
-	                 <td width="10">
-	                     <img alt="" src="images/vide.gif" border="0" width="10" />
-	                 </td>
-	             </tr>
-	             <tr>
-	                 <td width="10">
-	                     <img alt="" src="images/vide.gif" border="0" width="10" />
-	                 </td>
-	                 <td align="left"><h1>Agile !</h1></td>
-	                 <td width="5" >
-	                     <img alt="" src="images/vide.gif" border="0" width="10" />
-	                 </td>
-	             </tr>
-	             <tr>
-	                 <td width="10" height="3"></td>
-	                 <td align="center">&nbsp;</td>
-	                 <td width="10" height="3"></td>
-	             </tr>
-	         </table>
-	     </div>
-	     <!-- end header (tapestry border component) -->
+         <!-- begin header (tapestry border component) -->
+         <div id="Header">
+             <table cellpadding="0" cellspacing="0" border="0" width="100%" summary="header">
+                 <tr>
+                     <td width="10" height="3"></td>
+                     <td height="2" align="center"></td>
+                     <td width="10" height="3"></td>
+                 </tr>
+                 <tr>
+                     <td width="10">
+                         <img alt="" src="images/vide.gif" border="0" width="10" />
+                     </td>
+                     <td align="right"><a href="#" jwcid="@PageLink" page="WorkSpace">Mon Bureau</a> - <a href="#" jwcid="@PageLink" page="UserList">Administrer</a> - connect&eacute;(e) tant que Arnaud Prost - D&eacute;connecter</td>
+                     <td width="10">
+                         <img alt="" src="images/vide.gif" border="0" width="10" />
+                     </td>
+                 </tr>
+                 <tr>
+                     <td width="10">
+                         <img alt="" src="images/vide.gif" border="0" width="10" />
+                     </td>
+                     <td align="left"><h1>Agile !</h1></td>
+                     <td width="5" >
+                         <img alt="" src="images/vide.gif" border="0" width="10" />
+                     </td>
+                 </tr>
+                 <tr>
+                     <td width="10" height="3"></td>
+                     <td align="center">&nbsp;</td>
+                     <td width="10" height="3"></td>
+                 </tr>
+             </table>
+         </div>
+         <!-- end header (tapestry border component) -->
+         
+            <span jwcid="@RenderBody">Page content goes here.</span>
 	     
-	     
-        <!-- begin tabs (tapestry border component) -->
-        <span jwcid="@Tabs" tabList="ognl:tabList" />
-        
         <div id="Tabs" jwcid="$remove$">
         <!-- $remove$ : remove div Tabs when rendered with tapestry. Tapestry Component Tabs is used instead -->    
             <table cellpadding="0" cellspacing="0" border="0" bgcolor="#003366" width="100%" summary="tabs">
@@ -67,9 +65,9 @@
         <!-- end tabs (tapestry border component) -->
 	     
 	     
-	<!-- begin body -->
-        
-        <div id="Body">
+	<!-- begin Content -->
+        <!-- $remove$ : remove div Content when rendered with tapestry. Tapestry Component Content is used instead -->    
+        <div id="Content" jwcid="$remove$">
             <table cellpadding="0" cellspacing="0" border="0" bgcolor="#E5E5E5" width="100%">
                 
                 <tr>
@@ -79,7 +77,7 @@
                 <tr>
                     <td width="10" height="40"><img alt="" src="images/vide.gif" border="0" width="10" height="40"/></td>
                     <td width="430" rowspan="5" align="center" valign="top" bgcolor="#E5E5E5">
-                        
+
                         <div id="Summary">
                             <table cellpadding="0" cellspacing="0" border="0" align="center" valign="top" width="420">
                                 <tr>
@@ -106,7 +104,7 @@
                     
                     <td width="100%" align="left" valign="top" bgcolor="#FFFFFF">
                         <p>
-                    	   <span jwcid="@RenderBody">Page content goes here.</span>	
+                            Body Body Body Body Body Body
                        </p>
                    </td>
                     
@@ -131,8 +129,7 @@
                 
             </table>
         </div>
-        
-        <!-- end body -->
+        <!-- end Content -->
 	     
 	<!-- begin copyright (tapestry border component) -->
         <table summary="copyright">
