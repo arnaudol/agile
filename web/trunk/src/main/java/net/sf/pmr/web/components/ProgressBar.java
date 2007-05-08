@@ -36,14 +36,15 @@
 
 package net.sf.pmr.web.components;
 
-import org.apache.tapestry.BaseComponent;
+import org.apache.tapestry.AbstractComponent;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 
 //@ComponentClass(allowBody=false,allowInformalParameters=false)
 //@Parameter(name='percent',required=true)
-public abstract class ProgressBar extends BaseComponent {
+public abstract class ProgressBar extends AbstractComponent {
 	
+        //@Parameter()
         public abstract void setPercent(double percent);
         public abstract double getPercent();   
 
