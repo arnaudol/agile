@@ -7,26 +7,34 @@
 <link rev="stylesheet" rel="stylesheet" type="text/css" href="styles/styles.css">
 <!-- end style -->
 </head>
-<body>
+<!--<body>-->
  
+<span jwcid="@Tabs" tabList="ognl:tabList"/>
+
+<span jwcid="summary@Block">
+    Stories<p>Sumary</p>
+</span>
+
+<span jwcid="@Content" summary="summary">
+
         <a href="#" jwcid="@PageLink" page="Story">story</a><br>
         
         <table class="mytable" width="99%" jwcid="tableView">
             <span jwcid="tableColumns"/>
             <span jwcid="tableRows">
-                
-                <span jwcid="shortDescriptionColumnValue@Block">
-                    <span jwcid="persistanceIdLink">
-                        <span jwcid="shortDescriptionText">
-                        </span>
+            
+            <span jwcid="shortDescriptionColumnValue@Block">
+                <span jwcid="persistanceIdLink">
+                    <span jwcid="shortDescriptionText">
                     </span>
                 </span>
+            </span>
             
-                <span jwcid="doneColumnValue@Block">
-                    <span jwcid="progressBar"></span>
-                </span>
+            <span jwcid="doneColumnValue@Block">
+                <span jwcid="progressBar"></span>
+            </span>
             
-                <span jwcid="tableValues@contrib:TableValues"/>
+            <span jwcid="tableValues@contrib:TableValues"/>
                 
             </span>
             <tr>
@@ -35,6 +43,9 @@
                 </td>   
             </tr>
         </table>
-
-</body>
+        
+    </span>
+    
+        
+<!--</body>-->
 </html>

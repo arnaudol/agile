@@ -1,7 +1,3 @@
-=======
-/***********************************************/
-/* HTML tag styles                             */
-/***********************************************/ 
 
 body {
 	font-family: Arial,sans-serif;
@@ -101,38 +97,38 @@ body {
 	background-color: #F3F3AD;
 }
 
-#Body td.top {
+#Content td.top {
 	border-top: 1px solid #bbbbbb;
 }
 
-#Body td.right {
+#Content td.right {
 	border-right: 1px solid #bbbbbb;
 }
 
-#Body td.rightAndTop {
+#Content td.rightAndTop {
 	border-right: 1px solid #bbbbbb;
 	border-top: 1px solid #bbbbbb;
 }
 
-#Body td.rightAndBottom {
+#Content td.rightAndBottom {
 	border-right: 1px solid #bbbbbb;
 	border-bottom: 1px solid #bbbbbb;
 }
 
-#Body td.left {
+#Content td.left {
 	border-left: 1px solid #bbbbbb;
 }
 
-#Body td.bottom {
+#Content td.bottom {
 	border-bottom: 1px solid #bbbbbb;
 }
 
-#Body td.leftAndTop {
+#Content td.leftAndTop {
 	border-left: 1px solid #bbbbbb;
 	border-top: 1px solid #bbbbbb;
 }
 
-#Body td.leftAndBottom {
+#Content td.leftAndBottom {
 	border-left: 1px solid #bbbbbb;
 	border-bottom: 1px solid #bbbbbb;
 }
@@ -195,8 +191,6 @@ label{
  font: bold 100% Arial,sans-serif;
  color: #334d55;
 }
-
-
 
 .headerLink {
 	FONT-SIZE: 9px; COLOR: #FFFFFF; FONT-FAMILY: verdana, arial, helvetica, sans-serif; TEXT-DECORATION: none

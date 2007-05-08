@@ -7,7 +7,15 @@
 <link rev="stylesheet" rel="stylesheet" type="text/css" href="styles/styles.css">
 <!-- end style -->
 </head>
-<body>
+<!--<body>-->
+
+<span jwcid="@Tabs" tabList="ognl:tabList"/>
+
+<span jwcid="summary@Block">
+    Story<p>Sumary</p>
+</span>
+
+<span jwcid="@Content" summary="summary">
 
     <form jwcid="@Form" success="listener:addStory">
         
@@ -78,6 +86,8 @@
     </table>    
     
     </form>
+    
+</span>
 
-</body>
+<!--</body>-->
 </html>
