@@ -11,10 +11,10 @@ package net.sf.pmr.web.pages;
 
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
 import net.sf.pmr.agilePlanning.domain.iteration.Iteration;
+import net.sf.pmr.core.CoreObjectFactory;
 import net.sf.pmr.web.aso.CurrentProject;
 import net.sf.pmr.web.beans.UserLogin;
 import net.sf.pmr.web.select.ProjectSelectionModel;
-import org.apache.tapestry.IPage;
 import org.apache.tapestry.annotations.InjectPage;
 import org.apache.tapestry.annotations.InjectState;
 
@@ -64,6 +64,14 @@ public abstract class WorkSpace extends BasePage implements PageBeginRenderListe
        CurrentProject currentProject = this.getCurrentProject();
        currentProject.setProject(this.getSelectedProject());
        
+    }
+
+   /**
+     * Get the number of projects
+     * @return
+     */
+    public long getNumberOfProjects() {
+    	return CoreObjectFactory.getProjectService().countAll();
     }
     
     /**

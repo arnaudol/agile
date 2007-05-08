@@ -4,8 +4,7 @@
 <page-specification>
  
   <asset name="stylesheet" path="styles/styles.css"/>
-  
-  
+
   <!-- create link for table column -->
   <!--
     <component id="storiesLink" type="DirectLink">
