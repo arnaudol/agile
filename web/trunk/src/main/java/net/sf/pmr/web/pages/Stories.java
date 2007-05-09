@@ -9,6 +9,8 @@
 
 package net.sf.pmr.web.pages;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
@@ -25,7 +27,15 @@ import org.apache.tapestry.html.BasePage;
  *
  * @author arnaud
  */
-public abstract class Stories extends BasePage implements PageBeginRenderListener {    
+public abstract class Stories extends BasePage implements PageBeginRenderListener {
+    
+     // labels to use for the component
+     public abstract List getLabels();         
+     public abstract void setLabels(List labels);
+     
+     // current label to use for the component
+     public abstract String getCurrentLabel();         
+     public abstract void setCurrentLabel(String currentLabel);
     
     // set of stories to display
     public abstract Set<Story> getStories();
@@ -43,13 +53,21 @@ public abstract class Stories extends BasePage implements PageBeginRenderListene
     // get the list of projets
     public void pageBeginRender(PageEvent event) {
         
+        this.setCurrentLabel("Onglet 1");
+        List list = new ArrayList();
+        list.add("Histoire");
+        list.add("Itération");
+        list.add("Release");
+        this.setLabels(list);
+        
         this.setStories(AgilePlanningObjectFactory.getStoryService().findByProjectPersistanceId(this.getCurrentProject().getProject().getPersistanceId()));
         
     }
 
    /**
     * find the story selected by the user
-    *
+    * @param persistanceId
+    * @return Ipage
     */
    public IPage selectStory(int persistanceId)  {
        

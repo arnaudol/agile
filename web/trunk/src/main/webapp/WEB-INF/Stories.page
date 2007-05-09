@@ -5,6 +5,12 @@
   
     <!-- stylesheet -->
     <asset name="stylesheet" path="styles/styles.css"/>
+
+    <!-- used to display the tabs -->
+   <component id="tabs" type="Tabs">
+	<binding name="currentLabel" value="ognl:currentLabel"/>
+        <binding name="labels" value="ognl:labels"/>
+    </component>
     
     <!-- persist stories in session for use in the table -->
     <property name="stories" persist="session"/>
