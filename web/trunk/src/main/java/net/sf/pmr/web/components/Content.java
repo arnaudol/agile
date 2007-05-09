@@ -12,18 +12,17 @@ package net.sf.pmr.web.components;
 import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.components.Block;
 
-//@ComponentClass(allowBody=false)
+// TODO supprimer ce composant qui ne sert plus à rien.... utiliser directement le border à la place
 public abstract class Content extends BaseComponent {
-    
-     public abstract void setSummary(String summaryContent);
-     public abstract String getSummary();   
-     
-     
-  public Block getSelectedBlock()
+         
+  public Block getSummaryBlock()
     {
-      String selectedId = getSummary();
-              
-      return (Block) getContainer().getComponent(selectedId);   
+      return (Block) getContainer().getComponent("summary");   
+    }
+  
+  public Block getNavigationBarBlock()
+    {
+      return (Block) getContainer().getComponent("navigationBar");   
     }
 
 }
