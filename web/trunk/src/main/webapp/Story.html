@@ -9,7 +9,7 @@
 </head>
 <!--<body>-->
 
-<span jwcid="@Tabs" tabList="ognl:tabList"/>
+<span jwcid="tabs"/>
 
 <span jwcid="summary@Block">
     Story<p>Sumary</p>
@@ -29,7 +29,7 @@
                 <label for="shortDescription" accesskey="s">Description courte : </label><font color="#FF0000">(*)</font> : 
             </td>
             <td>
-                <input jwcid="shortDescription@TextField" type="text" size="50" maxlength="100" tabindex="1" style="field" value="ognl:story.shortDescription"/>
+                <input jwcid="shortDescription@TextField" type="text" size="50" maxlength="100" tabindex="1" class="field" value="ognl:story.shortDescription"/>
             </td>
         </tr>
         <tr> 
@@ -37,7 +37,7 @@
                 <label for="description" accesskey="d">Description : </label><font color="#FF0000">(*)</font> : 
             </td>
             <td>
-                <input jwcid="description@TextArea" type="text" cols="50" rows="5" tabindex="2" style="field" value="ognl:story.description"/>			
+                <input jwcid="description@TextArea" type="text" cols="50" rows="5" tabindex="2" class="field" value="ognl:story.description"/>			
             </td>
         </tr>
         <tr> 
@@ -45,7 +45,7 @@
                 <label for="daysEstimated" accesskey="e">Estimation : </label><font color="#FF0000">(*)</font> : 
             </td>
             <td>
-                <input jwcid="daysEstimated@TextField" type="text" size="6" maxlength="6" tabindex="1" style="field" value="ognl:story.daysEstimated"/>			
+                <input jwcid="daysEstimated@TextField" type="text" size="6" maxlength="6" tabindex="1" class="field" value="ognl:story.daysEstimated"/>			
             </td>
         </tr>
         <tr> 

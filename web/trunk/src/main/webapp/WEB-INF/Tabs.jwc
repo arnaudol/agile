@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE component-specification
+      PUBLIC "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+      "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<component-specification class="net.sf.pmr.web.components.Tabs" allow-body="false" allow-informal-parameters="no">
+    
+    <description>Component for drawing tabs</description>
+
+    <parameter name="currentLabel" required="yes"/>
+    <parameter name="labels" required="yes"/>
+       
+</component-specification>

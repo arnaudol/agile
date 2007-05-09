@@ -10,13 +10,18 @@
 package net.sf.pmr.web.pages;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
 import net.sf.pmr.agilePlanning.domain.story.BusinessValue;
 import net.sf.pmr.agilePlanning.domain.story.RiskLevel;
 import net.sf.pmr.web.aso.CurrentProject;
+import net.sf.pmr.web.components.Tabs;
 import net.sf.pmr.web.select.BusinessValueSelectionModel;
 import net.sf.pmr.web.select.RiskLevelSelectionModel;
 import org.apache.tapestry.IPage;
+import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.annotations.InjectComponent;
 import org.apache.tapestry.annotations.InjectPage;
 import org.apache.tapestry.annotations.InjectState;
 
@@ -30,6 +35,9 @@ import org.apache.tapestry.html.BasePage;
  * @author arnaud
  */
 public abstract class Story extends BasePage implements PageBeginRenderListener {    
+    
+    @InjectComponent("Tabs")
+    public abstract Tabs getTabs();    
 
     private RiskLevelSelectionModel riskLevelSelectionModel;
     
@@ -64,7 +72,15 @@ public abstract class Story extends BasePage implements PageBeginRenderListener 
     public abstract BusinessValue getSelectedBusinessValue();    
     public abstract void setSelectedBusinessValue(BusinessValue businessValue);
 
-    
+//    protected void prepareForRender(IRequestCycle arg0) {
+//        this.setCurrentLabel("Onglet 1");
+//        
+//        Lis list = new HashMap();
+//        map.
+//        
+//        
+//    }
+
     public void pageBeginRender(PageEvent pageEvent) {
 
         // instanciate the selection lists

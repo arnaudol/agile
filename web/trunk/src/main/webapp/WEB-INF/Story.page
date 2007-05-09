@@ -5,5 +5,11 @@
     
     <!-- stylesheet -->
     <asset name="stylesheet" path="styles/styles.css"/>    
+
+    <!-- used to display the tabs -->
+   <component id="tabs" type="Tabs">
+	<binding name="currentLabel" value="literal:Onglet 1"/>
+        <binding name="labels" value="ognl: new String[] { 'Onglet 1', 'Onglet 2', 'Onglet 3' }"/>
+    </component>
     
 </page-specification>
