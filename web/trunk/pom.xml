@@ -49,27 +49,27 @@
             <version>2.4</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <dependency>
-            <groupId>tapestry</groupId>
-            <artifactId>tapestry</artifactId>
-            <version>4.0.2</version>
+            <groupId>org.apache.tapestry</groupId>
+            <artifactId>tapestry-framework</artifactId>
+            <version>4.1.1</version>
             <scope>compile</scope>
             <type>jar</type>
         </dependency>
         
         <dependency>
-            <groupId>tapestry</groupId>
+            <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-annotations</artifactId>
-            <version>4.0.2</version>
+            <version>4.1.1</version>
             <scope>compile</scope>
             <type>jar</type>
         </dependency>
         
         <dependency>
-            <groupId>tapestry</groupId>
+            <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-contrib</artifactId>
-            <version>4.0.2</version>
+            <version>4.1.1</version>
             <scope>compile</scope>
             <type>jar</type>
         </dependency>
