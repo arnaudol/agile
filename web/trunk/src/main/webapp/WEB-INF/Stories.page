@@ -8,8 +8,8 @@
 
     <!-- used to display the tabs -->
    <component id="tabs" type="Tabs">
-	<binding name="currentLabel" value="ognl:currentLabel"/>
-        <binding name="labels" value="ognl:labels"/>
+	<binding name="selectedTab" value="ognl:selectedTab"/>
+        <binding name="notSelectedTabs" value="ognl:notSelectedTabs"/>
     </component>
     
     <!-- persist stories in session for use in the table -->

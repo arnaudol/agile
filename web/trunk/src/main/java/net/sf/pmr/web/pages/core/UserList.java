@@ -9,18 +9,13 @@
 
 package net.sf.pmr.web.pages.core;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import net.sf.pmr.web.components.Tab;
-import net.sf.pmr.web.components.Tabs;
 
 import org.apache.tapestry.html.BasePage;
 
 public abstract class UserList extends BasePage {
     
-    public abstract List<Tab> getTabList();
-    public abstract void setTabList(List<Tab> tabList);
+
     	
     
     /* (non-Javadoc)

@@ -7,7 +7,7 @@
     
     <description>Component for drawing tabs</description>
 
-    <parameter name="currentLabel" required="yes"/>
-    <parameter name="labels" required="yes"/>
+    <parameter name="selectedTab" required="yes"/>
+    <parameter name="notSelectedTabs" required="yes"/>
        
 </component-specification>

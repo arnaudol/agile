@@ -17,10 +17,12 @@
             <table cellpadding="0" cellspacing="0" border="0" bgcolor="#003366" width="100%" summary="tabs">
 
                 <tr>
-                    <td width="10" height="30" class="empty"><img alt="" src="images/vide.gif" border="0" width="10"/></td>                                        
-                    <td width="145" height="30" class="current">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span jwcid="@Insert" value="ognl:labels[0]">Onglet1</span>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                    <td width="145" height="30"><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span jwcid="@Insert" value="ognl:labels[1]">Onglet2</span>&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
-                    <td width="145" height="30"><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span jwcid="@Insert" value="ognl:labels[2]">Onglet3</span>&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
+                    <td width="10" height="30" class="empty"><img alt="" src="images/vide.gif" border="0" width="10"/></td>
+                    <!-- selected tab-->
+                    <td width="145" height="30" class="current">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span jwcid="@Insert" value="ognl:SelectedTab.label">Onglet1</span>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <!-- not selected tabs --> 
+                    <td width="145" height="30" jwcid="@For" source="ognl:notSelectedTabs" value="ognl:tabsContent" element="td"><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span jwcid="@Insert" value="ognl:tabsContent.label">Onglet2</span>&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
+                    <td jwcid="$remove$" width="145" height="30"><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Onglet3&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
                     <td class="empty">&nbsp;</td>
                 </tr>                
 
