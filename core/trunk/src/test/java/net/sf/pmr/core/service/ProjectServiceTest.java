@@ -38,7 +38,9 @@ package net.sf.pmr.core.service;
 import junit.framework.TestCase;
 import net.sf.pmr.core.CoreObjectFactory;
 import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.project.ProjectImpl;
 import net.sf.pmr.core.domain.project.ProjectRepository;
+import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.core.domain.user.UserImpl;
 import net.sf.pmr.core.domain.user.UserRepository;
 import net.sf.pmr.keopsframework.domain.validation.Errors;
@@ -52,7 +54,7 @@ import org.easymock.IMocksControl;
  */
 public class ProjectServiceTest extends TestCase {
     
-    private ProjectService basicProjectService;
+    private ProjectService projectService;
     
     private Validator mockBasicProjectValidator; 
     
@@ -81,7 +83,7 @@ public class ProjectServiceTest extends TestCase {
         mockBasicProjectErrors = mocksControl.createMock(Errors.class);
         
         // basicProjectService
-        basicProjectService = new ProjectServiceImpl(mockBasicProjectValidator, mockBasicProjectRepository, mockUserRepository);
+        projectService = new ProjectServiceImpl(mockBasicProjectValidator, mockBasicProjectRepository, mockUserRepository);
         
     }
 
@@ -107,7 +109,7 @@ public class ProjectServiceTest extends TestCase {
      * Quand la validation échoue, 
      * pas d'appel à la repository
      */
-    public void testAddWhenValidationFailed() {
+    public void testAddDeprecatedWhenValidationFailed() {
         
         // set expectations
         EasyMock.expect(mockUserRepository.findUserByPersistanceId(1)).andReturn(new UserImpl());
@@ -119,7 +121,36 @@ public class ProjectServiceTest extends TestCase {
         // set mock in replay mode
         mocksControl.replay();
         
-        basicProjectService.add("c1", "name1", 1);
+        projectService.add("c1", "name1", 1);
+        
+        // verify mock calls
+        mocksControl.verify();
+        
+    }
+    
+     /**
+     * Quand la validation échoue, 
+     * pas d'appel à la repository
+     */
+    public void testAddWhenValidationFailed() {
+        
+        Project project = new ProjectImpl();
+        project.setCode("c1");
+        project.setName("name1");
+        
+        User member = new UserImpl();
+        
+        // set expectations
+        //EasyMock.expect(mockUserRepository.findUserByPersistanceId(1)).andReturn(new UserImpl());
+        EasyMock.expect(mockBasicProjectValidator.validate(EasyMock.anyObject())).andReturn(mockBasicProjectErrors);
+        EasyMock.expect(mockBasicProjectErrors.hasErrors()).andReturn(true);
+        // check order
+        mocksControl.checkOrder(true);
+        
+        // set mock in replay mode
+        mocksControl.replay();
+        
+        projectService.add(project, member);
         
         // verify mock calls
         mocksControl.verify();
@@ -130,7 +161,7 @@ public class ProjectServiceTest extends TestCase {
      * Quand il n'y a pas d'erreur à la validation,
      * la repository peut être appellée
      */
-    public void testAddProjectWhenValidationSucceed() {
+    public void testAddDeprecatedWhenValidationSucceed() {
         
         // set expectations
         EasyMock.expect(mockUserRepository.findUserByPersistanceId(1)).andReturn(new UserImpl());
@@ -142,7 +173,36 @@ public class ProjectServiceTest extends TestCase {
         // set mock in replay mode
         mocksControl.replay();
         
-        basicProjectService.add("c1", "name1", 1);
+        projectService.add("c1", "name1", 1);
+        
+        // verify mock calls
+        mocksControl.verify();
+        
+    }
+    
+    
+    /**
+     * Quand il n'y a pas d'erreur à la validation,
+     * la repository peut être appellée
+     */
+    public void testAddWhenValidationSucceed() {
+        
+        Project project = new ProjectImpl();
+        project.setCode("c1");
+        project.setName("name1");
+        
+        User member = new UserImpl();
+        
+        // set expectations
+        EasyMock.expect(mockBasicProjectValidator.validate(EasyMock.anyObject())).andReturn(mockBasicProjectErrors);
+        EasyMock.expect(mockBasicProjectErrors.hasErrors()).andReturn(true);
+        // check order
+        mocksControl.checkOrder(true);
+         
+        // set mock in replay mode
+        mocksControl.replay();
+        
+        projectService.add(project, member);
         
         // verify mock calls
         mocksControl.verify();
@@ -165,7 +225,7 @@ public class ProjectServiceTest extends TestCase {
         // set mock in replay mode
         mocksControl.replay();
         
-        basicProjectService.update(1, "c1", "name1", 1);
+        projectService.update(1, "c1", "name1", 1);
         
         // verify mock calls
         mocksControl.verify();
@@ -190,7 +250,7 @@ public class ProjectServiceTest extends TestCase {
         // set mock in replay mode
         mocksControl.replay();
         
-        basicProjectService.update(1, "c1", "name1", 1);
+        projectService.update(1, "c1", "name1", 1);
         
         // verify mock calls
         mocksControl.verify();

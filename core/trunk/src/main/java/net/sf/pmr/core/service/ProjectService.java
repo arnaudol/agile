@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Set;
 
 import net.sf.pmr.core.domain.project.Project;
+import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.keopsframework.domain.validation.Errors;
 
 
@@ -51,10 +52,20 @@ public interface ProjectService {
      * Service to allow to add a project in the repository.
      * @param code code of the project
      * @param name name of the project
-     * @param defaultMemberPersistanceId defaultMemberPersistanceId Of the project
+     * @param defaultMemberPersistanceId defaultMemberPersistanceId of the project
+     * @return Errors
+     * @deprecated
+     */
+    @Deprecated
+    Errors add(final String code, final String name, final int defaultMemberPersistanceId);
+        
+    /**
+     * Service to allow to add a project in the repository.
+     * @param project project to add
+     * @param defaultMember defaultMember of the project
      * @return Errors
      */
-    Errors add(final String code, final String name, final int defaultMemberPersistanceId);
+    Errors add(final Project project, final User defaultMember);
     
     /**
      * Service to allow to update a project in the repository.

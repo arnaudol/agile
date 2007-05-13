@@ -55,12 +55,12 @@ public class ProjectServiceImpl implements ProjectService {
     /**
      * basicProject validator
      */
-    private Validator basicProjectValidator;
+    private Validator projectValidator;
 
     /**
      * basicProject repository
      */
-    private ProjectRepository basicProjectRepository;
+    private ProjectRepository projectRepository;
 
     /**
      * user repository
@@ -68,16 +68,16 @@ public class ProjectServiceImpl implements ProjectService {
     private UserRepository userRepository;
 
     /**
-     * @param basicProjectValidator
+     * @param projectValidator
      * @param basicProjectRepository
      * @param userRepository
      */
-    public ProjectServiceImpl(final Validator basicProjectValidator,
+    public ProjectServiceImpl(final Validator projectValidator,
             final ProjectRepository basicProjectRepository,
             final UserRepository userRepository) {
         super();
-        this.basicProjectValidator = basicProjectValidator;
-        this.basicProjectRepository = basicProjectRepository;
+        this.projectValidator = projectValidator;
+        this.projectRepository = basicProjectRepository;
         this.userRepository = userRepository;
     }
     
@@ -103,13 +103,13 @@ public class ProjectServiceImpl implements ProjectService {
       basicProject.setMembers(members);
 
       // validation of the basicProject
-      Errors errors = basicProjectValidator.validate(basicProject);
+      Errors errors = projectValidator.validate(basicProject);
 
       if (!errors.hasErrors()) {
 
           // if no error, add to repository
           try {
-              basicProjectRepository.addOrUpdate(basicProject);
+              projectRepository.addOrUpdate(basicProject);
           } catch (Exception exception) {
               // in case of exception, it put in the error struture
               errors.reject(exception.getClass().getName());
@@ -120,6 +120,31 @@ public class ProjectServiceImpl implements ProjectService {
 
     }
 
+    public Errors add(final Project project, final User defaultMember) {        
+
+      // add the user to the set of members
+      Set<User> members = new HashSet<User>();
+      members.add(defaultMember);
+      project.setMembers(members);
+
+      // validation of the basicProject
+      Errors errors = projectValidator.validate(project);
+
+      if (!errors.hasErrors()) {
+
+          // if no error, add to repository
+          try {
+              projectRepository.addOrUpdate(project);
+          } catch (Exception exception) {
+              // in case of exception, it put in the error struture
+              errors.reject(exception.getClass().getName());
+          }
+      }
+
+      return errors;
+        
+    }
+    
 
     public Errors update(final int persistanceId, final String code, final String name, final long persistanceVersion) {
 
@@ -133,13 +158,13 @@ public class ProjectServiceImpl implements ProjectService {
         basicProject.setPersistanceVersion(persistanceVersion);
 
         // validation of the basicProject
-        Errors errors = basicProjectValidator.validate(basicProject);
+        Errors errors = projectValidator.validate(basicProject);
 
         if (!errors.hasErrors()) {
 
             // if no error, add to repository
             try {
-                basicProjectRepository.addOrUpdate(basicProject);
+                projectRepository.addOrUpdate(basicProject);
             } catch (Exception exception) {
                 // in case of exception, it put in the error struture
                 errors.reject(exception.getClass().getName());
@@ -153,7 +178,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @see net.sf.pmr.core.service.ProjectService#countAll()
      */
     public Long countAll() {
-        return basicProjectRepository.countAll();
+        return projectRepository.countAll();
     }
     
     
@@ -163,7 +188,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @see net.sf.pmr.core.service.ProjectService#findAll()
      */
     public List<Project> findAll() {
-        return basicProjectRepository.findAll();
+        return projectRepository.findAll();
     }
 
 
@@ -171,7 +196,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @see net.sf.pmr.core.service.ProjectService#findByPersistanceId(int)
      */
     public Project findByPersistanceId(final int persistanceId) {
-        return basicProjectRepository.findByPersistanceId(persistanceId);
+        return projectRepository.findByPersistanceId(persistanceId);
     }
 
 
@@ -179,7 +204,7 @@ public class ProjectServiceImpl implements ProjectService {
 	 * @see net.sf.pmr.core.service.ProjectService#findForAUser(int)
 	 */
 	public Set<Project> findForAUser(final int userPersistanceId) {
-		return this.basicProjectRepository.findForAUser(userPersistanceId);
+		return this.projectRepository.findForAUser(userPersistanceId);
 	}
     
        
