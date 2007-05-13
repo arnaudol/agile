@@ -7,7 +7,11 @@
         </state-object>
     </contribution>
     
-    
+    <contribution configuration-id="tapestry.state.ApplicationObjects">
+        <state-object name="currentUser" scope="session">
+            <create-instance class="net.sf.pmr.web.aso.CurrentUser"/>
+        </state-object>
+    </contribution>
     
     
 </module> 

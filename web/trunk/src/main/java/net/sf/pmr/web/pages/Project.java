@@ -9,10 +9,15 @@
 
 package net.sf.pmr.web.pages;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.sf.pmr.core.CoreObjectFactory;
+import net.sf.pmr.web.aso.CurrentUser;
+import net.sf.pmr.web.components.TabsContent;
 
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.annotations.InjectPage;
+import org.apache.tapestry.annotations.InjectState;
 import org.apache.tapestry.event.PageBeginRenderListener;
 import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.html.BasePage;
@@ -23,31 +28,69 @@ import org.apache.tapestry.html.BasePage;
  */
 public abstract class Project extends BasePage implements PageBeginRenderListener {
     
+      // labels to use for the component
+     public abstract List<TabsContent> getNotSelectedTabs();         
+     public abstract void setNotSelectedTabs(List<TabsContent> tabsContents);
+     
+     // current label to use for the component
+     public abstract TabsContent getSelectedTab();         
+     public abstract void setSelectedTab(TabsContent TabsContent);
+    
     // get projet
-    public abstract net.sf.pmr.core.domain.project.Project getMyProject();
+    public abstract net.sf.pmr.core.domain.project.Project getProject();
     
     // set project
-    public abstract void setMyProject(net.sf.pmr.core.domain.project.Project project);
+    public abstract void setProject(net.sf.pmr.core.domain.project.Project project);
     
-    // inject workspace page
-    @InjectPage("WorkSpace")
-    public abstract WorkSpace getWorkSpace();
+    // get current user from session
+    @InjectState("currentUser")
+    public abstract CurrentUser getCurrentProject();
+    
+     // inject projectList page
+    @InjectPage("Projects")
+    public abstract Projects getProjectsPage();
     
     public void pageBeginRender(PageEvent pageEvent) {
         
-        if (getMyProject() == null) {
-            setMyProject(CoreObjectFactory.getProjectService().findByPersistanceId(1));
+        this.buildTabs();
+        
+        if (getProject() == null) {
+            setProject(CoreObjectFactory.getProjectService().findByPersistanceId(1));
         }
        
     }
     
+    // buid the tabs for the page
+    private void buildTabs(){
+        
+        List<TabsContent> tabsContents = new ArrayList<TabsContent>();
+        
+        TabsContent tabsContent1 = new TabsContent();
+        tabsContent1.setLabel("Projet");
+        tabsContent1.setUrl("#");
+        
+        // onglet actif
+        this.setSelectedTab(tabsContent1);
+
+        TabsContent tabsContent2 = new TabsContent();
+        tabsContent2.setLabel("Utilisateur");
+        tabsContent2.setUrl("#");
+        
+        tabsContents.add(tabsContent2);
+        
+        // liste des onglets utilisé par le composant Tabs
+        this.setNotSelectedTabs(tabsContents);
+                
+    }
+    
+    
     public IPage addProject() {
         
-        net.sf.pmr.core.domain.project.Project project = getMyProject();
+        net.sf.pmr.core.domain.project.Project project = getProject();
         
-        CoreObjectFactory.getProjectService().add(project.getCode(), project.getName(), 1);
+        CoreObjectFactory.getProjectService().add(this.getProject(), getCurrentProject().getUser());
         
-        return getWorkSpace();
+        return getProjectsPage();
         
     }
     

@@ -11,10 +11,12 @@ package net.sf.pmr.web.pages;
 
 import net.sf.pmr.core.CoreObjectFactory;
 import net.sf.pmr.core.domain.user.User;
+import net.sf.pmr.web.aso.CurrentUser;
 import net.sf.pmr.web.beans.UserLogin;
 
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.annotations.InjectPage;
+import org.apache.tapestry.annotations.InjectState;
 import org.apache.tapestry.event.PageBeginRenderListener;
 import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.html.BasePage;
@@ -29,6 +31,9 @@ public abstract class Home extends BasePage implements PageBeginRenderListener {
     
     // setter for userLogin
     public abstract void setUserLogin(UserLogin userLogin);
+    
+    @InjectState("currentUser")
+    public abstract CurrentUser getCurrentUser();
     
     // inject workspace page
     @InjectPage("WorkSpace")
@@ -59,6 +64,8 @@ public abstract class Home extends BasePage implements PageBeginRenderListener {
         } else {
             getUserLogin().setPersistanceId(user.getPersistanceId());
             // erase password (user login is put in session)
+            user.setPassword("");
+            this.getCurrentUser().setUser(user);
             getUserLogin().setPassword("");
             return workspace;
         }

@@ -18,7 +18,6 @@ import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.html.BasePage;
 
 /**
- *
  * @author arnaud
  */
 public abstract class Projects extends BasePage implements PageBeginRenderListener {
@@ -27,9 +26,10 @@ public abstract class Projects extends BasePage implements PageBeginRenderListen
     public abstract Set<net.sf.pmr.core.domain.project.Project> getProjects();
     public abstract void setProjects(Set<net.sf.pmr.core.domain.project.Project> projects);
     
+    
     public void pageBeginRender(PageEvent pageEvent) {
         
     	this.setProjects(CoreObjectFactory.getProjectService().findForAUser(1));
        
-    }
+    }    
 }

@@ -4,5 +4,12 @@
 <page-specification>
 
   <asset name="stylesheet" path="styles/styles.css"/>
+
+
+    <!-- used to display the tabs -->
+   <component id="tabs" type="Tabs">
+	<binding name="selectedTab" value="ognl:selectedTab"/>
+        <binding name="notSelectedTabs" value="ognl:notSelectedTabs"/>
+    </component>
    
 </page-specification>
