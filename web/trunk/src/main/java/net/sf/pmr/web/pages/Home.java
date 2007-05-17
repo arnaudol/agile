@@ -9,6 +9,7 @@
 
 package net.sf.pmr.web.pages;
 
+
 import net.sf.pmr.core.CoreObjectFactory;
 import net.sf.pmr.core.domain.user.User;
 import net.sf.pmr.web.aso.CurrentUser;
@@ -31,6 +32,11 @@ public abstract class Home extends BasePage implements PageBeginRenderListener {
     
     // setter for userLogin
     public abstract void setUserLogin(UserLogin userLogin);
+    
+    // security service
+    //@InjectSpring("securityService")
+    //@InjectObject("spring:securityService")
+    //public abstract SecurityService getSecurityService();
     
     @InjectState("currentUser")
     public abstract CurrentUser getCurrentUser();
@@ -57,7 +63,10 @@ public abstract class Home extends BasePage implements PageBeginRenderListener {
         
         workspace.setUserLogin(getUserLogin());
         
+        //User user =  CoreObjectFactory.getSecurityService().login(getUserLogin().getLogin(), getUserLogin().getPassword());
+        
         User user =  CoreObjectFactory.getSecurityService().login(getUserLogin().getLogin(), getUserLogin().getPassword());
+        
         
         if (user == null) {
             return this;
