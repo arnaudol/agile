@@ -18,9 +18,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/beanRefContext.xml</param-value>
     </context-param>
-    -->
 	
-    <!--
     <listener>
         <description>Used for tapestry-spring integration</description>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

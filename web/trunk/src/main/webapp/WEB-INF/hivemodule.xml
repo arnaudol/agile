@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module id="pmr" version="1.0.0" package="net.sf.pmr.web.aso">
-    
+       
     <contribution configuration-id="tapestry.state.ApplicationObjects">
         <state-object name="currentProject" scope="session">
             <create-instance class="net.sf.pmr.web.aso.CurrentProject"/>
@@ -12,6 +12,5 @@
             <create-instance class="net.sf.pmr.web.aso.CurrentUser"/>
         </state-object>
     </contribution>
-    
     
 </module> 
