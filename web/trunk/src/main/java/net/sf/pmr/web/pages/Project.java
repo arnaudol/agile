@@ -12,6 +12,7 @@ package net.sf.pmr.web.pages;
 import java.util.ArrayList;
 import java.util.List;
 import net.sf.pmr.core.CoreObjectFactory;
+import net.sf.pmr.keopsframework.domain.validation.Errors;
 import net.sf.pmr.web.aso.CurrentUser;
 import net.sf.pmr.web.components.TabsContent;
 
@@ -38,7 +39,6 @@ public abstract class Project extends BasePage implements PageBeginRenderListene
     
     // get projet
     public abstract net.sf.pmr.core.domain.project.Project getProject();
-    
     // set project
     public abstract void setProject(net.sf.pmr.core.domain.project.Project project);
     
@@ -55,7 +55,7 @@ public abstract class Project extends BasePage implements PageBeginRenderListene
         this.buildTabs();
         
         if (getProject() == null) {
-            setProject(CoreObjectFactory.getProjectService().findByPersistanceId(1));
+            setProject(CoreObjectFactory.getProject());
         }
        
     }
@@ -78,7 +78,7 @@ public abstract class Project extends BasePage implements PageBeginRenderListene
         
         tabsContents.add(tabsContent2);
         
-        // liste des onglets utilisé par le composant Tabs
+        // onglets inactifs
         this.setNotSelectedTabs(tabsContents);
                 
     }
@@ -88,7 +88,7 @@ public abstract class Project extends BasePage implements PageBeginRenderListene
         
         net.sf.pmr.core.domain.project.Project project = getProject();
         
-        CoreObjectFactory.getProjectService().add(this.getProject(), getCurrentProject().getUser());
+        Errors errors =  CoreObjectFactory.getProjectService().add(this.getProject(), getCurrentProject().getUser());
         
         return getProjectsPage();
         
