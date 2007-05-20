@@ -357,6 +357,20 @@ th.columnheader {
    vertical-align: middle
 }
 
+th.columnheader a:link {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+th.columnheader a:visited {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+th.columnheader a:hover {
+	background-color: #1D64AD;
+}
+
 td.tablepager
 {
    background-color: #ffffff;
