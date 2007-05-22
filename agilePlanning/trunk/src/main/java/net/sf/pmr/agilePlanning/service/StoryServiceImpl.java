@@ -191,10 +191,39 @@ public class StoryServiceImpl implements StoryService {
 
     }
 
+    public Errors addOrUpdateTask(final int storyPersistanceId, final Task task) {
+        
+         // find the story
+        Story story = storyRepository.findByPersistanceId(storyPersistanceId);
+        
+		// if the story is not found, return a global error
+		if (story == null) {
+			Errors errros = AgilePlanningObjectFactory.getErrors();
+			errros.reject("story.doesntExistsInDatabase");
+			return errros;
+		}
+
+      
+        // validate
+        Errors errors = taskValidator.validate(task);
+
+        // persist
+        if (!errors.hasErrors()) {
+                story.getTasks().add(task);
+                storyRepository.addOrUpdate(story);
+
+        }
+
+        return errors;
+        
+        
+    }
+
+
      /**
      * @see net.sf.pmr.agilePlanning.service.StoryService#delete(int, long)
      */
-     public Errors delete(int persistanceId, long persistanceVersion) {
+     public Errors delete(final int persistanceId, final long persistanceVersion) {
      
          // find the story to delete in the repository
          Story story = storyRepository.findByPersistanceId(persistanceId);

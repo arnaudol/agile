@@ -95,6 +95,8 @@ public class StoryServiceTest extends TestCase {
     private Errors errors;
     
     private IMocksControl mocksControl;
+    
+    private Task taskToAddorUpdate;
 
     /*
      * @see TestCase#setUp()
@@ -122,6 +124,25 @@ public class StoryServiceTest extends TestCase {
         errors = AgilePlanningObjectFactory.getErrors();
 
         storyService = new StoryServiceImpl(mockTaskValidator, mockStoryRepository, mockStoryValidator, mockProjectRepository, mockBusinessValueRepository, mockRiskLevelRepository, mockUserRepository);
+        
+        taskToAddorUpdate = new TaskImpl();
+
+        taskToAddorUpdate.setPersistanceId(0);
+        taskToAddorUpdate.setPersistanceVersion(0);
+        taskToAddorUpdate.setDaysEstimated(2);
+        taskToAddorUpdate.setShortDescription("toto");
+        
+        User owner = new UserImpl();
+        
+        owner.setPersistanceId(1);
+        owner.setPersistanceVersion(2);
+        owner.setFirstName("Pon");
+        owner.setLastName("Fel");
+        owner.setLogin("ponfel");
+        owner.setPassword("password");
+        owner.setEmail("ponfel@worldcompany.com");
+        
+        taskToAddorUpdate.setOwner(owner);
 
     }
 
@@ -489,6 +510,106 @@ public class StoryServiceTest extends TestCase {
         
     }
     
+
+   public void testAddOrUpdateTaskWhenStoryIsNotFound(){
+
+        // recherche de la story
+        Story story =  null;
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(1)).andReturn(story);
+ 
+        // set mock in replay mode
+        mocksControl.replay();
+
+        // Appel au service
+        Errors errorsFromService = storyService.addOrUpdateTask(1, taskToAddorUpdate);
+        
+        // contrôle de l'erreur retournée
+        assertTrue(errorsFromService.hasGlobalErrors());
+        // message en Français
+        assertEquals("Cette story n'existe pas en base de données", errorsFromService.getGlobalError(Locale.FRENCH));
+        // message en anglais
+        assertEquals("This story doesn't exists in database", errorsFromService.getGlobalError(Locale.ENGLISH));
+
+        // contrôle des appels
+        mocksControl.verify();
+        
+
+    } 
+
+   public void testAddOrUpdateTaskWhenWalidationFails(){
+       
+        // recherche de la story
+        Story story =  new StoryImpl();
+        story.setTasks(new HashSet<Task>());
+        EasyMock.expect(mockStoryRepository.findByPersistanceId(1)).andReturn(story);
+           	
+        // validation (avec erreurs)
+        Errors errors = AgilePlanningObjectFactory.getErrors();
+        errors.reject("erreur");
+        EasyMock.expect(mockTaskValidator.validate(EasyMock.isA(Task.class))).andReturn(errors);
+        
+        // set mock in replay mode
+        mocksControl.replay();
+        
+        Errors errorsFromService = storyService.addOrUpdateTask(1, taskToAddorUpdate);
+        
+        // Vérifie les appels
+        mocksControl.verify();
+        
+        // une erreur est retournée.
+        assertTrue(errorsFromService.hasErrors());        
+
+    }
+
+   public void testAddtask() {
+       
+       
+       // TODO comment tester unitairement la construction de l'objet à l'aide de la factory ???
+       
+       // recherche de la story
+       Story story =  new StoryImpl();
+       story.setTasks(new HashSet<Task>());
+       //Task task = new TaskImpl();
+       //story.getTasks().add(task);
+       
+       EasyMock.expect(mockStoryRepository.findByPersistanceId(1)).andReturn(story);
+       
+       // validation (sans erreurs)
+       EasyMock.expect(mockTaskValidator.validate(EasyMock.isA(Task.class))).andReturn(AgilePlanningObjectFactory.getErrors());
+       
+       // ajout
+       mockStoryRepository.addOrUpdate(story);
+       
+       // set mock in replay mode
+       mocksControl.replay();
+       
+       Errors errorsFromService = storyService.addOrUpdateTask(1, taskToAddorUpdate);
+       
+       // Vérifie les appels
+       mocksControl.verify();
+       
+       // aucune erreur n'est retournée (car pas de validation)
+       assertFalse(errorsFromService.hasErrors());
+       
+       // si aucune tâche dans la liste, retourne une erreur
+       if (story.getTasks().size()==0) {
+           fail();
+       } else {
+           
+           // test de l'ajout de la tâche dans le liste de la story
+           for (Iterator iterator = story.getTasks().iterator(); iterator.hasNext();) {
+               Task myTask = (Task) iterator.next();
+               
+               assertSame(taskToAddorUpdate,myTask);
+               
+               // une seule tâche dans la liste
+               break;
+               
+           }
+           
+       }
+       
+   }
 
     /**
      * Test le service de modification d'une story quand tout est ok <br>
