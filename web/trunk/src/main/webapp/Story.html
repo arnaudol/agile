@@ -8,14 +8,18 @@
 <!-- end style -->
 </head>
 <!--<body>-->
-
+ 
 <span jwcid="tabs"/>
 
 <span jwcid="summary@Block">
-    Story<p>Sumary</p>
+    Stories<p>Sumary</p>
 </span>
 
-<span jwcid="@Content" summary="summary">
+<span jwcid="navigationBar@Block">
+    <a href="#" jwcid="@PageLink" page="Stories">liste des histoires</a> > <span jwcid="@Insert" value="ognl:story.shortDescription"/> > <a href="#" jwcid="@PageLink" page="Tasks">tâches</a>
+</span>
+
+<span jwcid="@Content">
 
     <form jwcid="@Form" success="listener:addStory">
         

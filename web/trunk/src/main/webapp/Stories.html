@@ -12,16 +12,18 @@
 <span jwcid="tabs"/>
 
 <span jwcid="summary@Block">
-    Stories<p>Sumary</p>
+    <span jwcid="@Insert" value="ognl:currentProject.project.name"/><p>
+    <p><span jwcid="@Insert" value="ognl:currentProject.numberOfStories()"/> histoire(s) </p>
+    <p><span jwcid="@Insert" value="ognl:currentProject.numberOfIterations()"/> Itération(s) </p>
+    <p><span jwcid="@Insert" value="ognl:currentProject.numberOfReleases()"/> Release(s) </p>
 </span>
 
 <span jwcid="navigationBar@Block">
-    Projets > Stories   
+    liste des histoires
 </span>
 
 <span jwcid="@Content">
-
-        <a href="#" jwcid="@PageLink" page="Story">story</a><br>
+        
         
         <table class="mytable" width="99%" jwcid="tableView">
             <span jwcid="tableColumns"/>

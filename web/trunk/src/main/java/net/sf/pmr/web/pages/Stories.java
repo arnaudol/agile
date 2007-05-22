@@ -47,7 +47,7 @@ public abstract class Stories extends BasePage implements PageBeginRenderListene
  
     // inject story page
     @InjectPage("Story")
-    public abstract net.sf.pmr.web.pages.Story getStory();
+    public abstract net.sf.pmr.web.pages.Story getStoryPage();
     
     // inject current project
     @InjectState("currentProject")
@@ -94,7 +94,6 @@ public abstract class Stories extends BasePage implements PageBeginRenderListene
                 
     }
     
-
    /**
     * find the story selected by the user
     * @param persistanceId
@@ -102,11 +101,8 @@ public abstract class Stories extends BasePage implements PageBeginRenderListene
     */
    public IPage selectStory(int persistanceId)  {
        
-       net.sf.pmr.web.pages.Story storyPage = getStory();
-       
-       storyPage.setStory(AgilePlanningObjectFactory.getStoryService().findByPersistanceId(persistanceId));
-       
-       return storyPage;
+       this.getStoryPage().setStory(AgilePlanningObjectFactory.getStoryService().findByPersistanceId(persistanceId));
+       return this.getStoryPage();
        
    }
        

@@ -10,20 +10,20 @@
 package net.sf.pmr.web.pages;
 
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import net.sf.pmr.agilePlanning.AgilePlanningObjectFactory;
 import net.sf.pmr.agilePlanning.domain.story.BusinessValue;
 import net.sf.pmr.agilePlanning.domain.story.RiskLevel;
 import net.sf.pmr.web.aso.CurrentProject;
-import net.sf.pmr.web.components.Tabs;
+import net.sf.pmr.web.aso.CurrentStory;
+import net.sf.pmr.web.components.TabsContent;
 import net.sf.pmr.web.select.BusinessValueSelectionModel;
 import net.sf.pmr.web.select.RiskLevelSelectionModel;
 import org.apache.tapestry.IPage;
-import org.apache.tapestry.IRequestCycle;
-import org.apache.tapestry.annotations.InjectComponent;
 import org.apache.tapestry.annotations.InjectPage;
 import org.apache.tapestry.annotations.InjectState;
+
 
 import org.apache.tapestry.event.PageBeginRenderListener;
 import org.apache.tapestry.event.PageEvent;
@@ -34,11 +34,15 @@ import org.apache.tapestry.html.BasePage;
  *
  * @author arnaud
  */
-public abstract class Story extends BasePage implements PageBeginRenderListener {    
+public abstract class Story extends BasePage implements PageBeginRenderListener {
+        
+    // tabs (not selected)
+    public abstract List<TabsContent> getNotSelectedTabs();
+    public abstract void setNotSelectedTabs(List<TabsContent> tabsContents);
+    // tab (selected)
+    public abstract TabsContent getSelectedTab();
+    public abstract void setSelectedTab(TabsContent TabsContent);
     
-    @InjectComponent("Tabs")
-    public abstract Tabs getTabs();    
-
     private RiskLevelSelectionModel riskLevelSelectionModel;
     
     private BusinessValueSelectionModel businessValueSelectionModel;
@@ -49,7 +53,10 @@ public abstract class Story extends BasePage implements PageBeginRenderListener 
     
     @InjectState("currentProject")
     public abstract CurrentProject getCurrentProject();
-        
+    
+    @InjectState("currentStory")
+    public abstract CurrentStory getCurrentStory();
+    
     // the story to display
     public abstract net.sf.pmr.agilePlanning.domain.story.Story getStory();
     public abstract void setStory(net.sf.pmr.agilePlanning.domain.story.Story Story);
@@ -60,7 +67,7 @@ public abstract class Story extends BasePage implements PageBeginRenderListener 
     }
     
     // selected riskLevels
-    public abstract RiskLevel getSelectedRiskLevel();    
+    public abstract RiskLevel getSelectedRiskLevel();
     public abstract void setSelectedRiskLevel(RiskLevel riskLevel);
     
     // property selection model for businessValue list
@@ -69,20 +76,15 @@ public abstract class Story extends BasePage implements PageBeginRenderListener 
     }
     
     // selected businessValue
-    public abstract BusinessValue getSelectedBusinessValue();    
+    public abstract BusinessValue getSelectedBusinessValue();
     public abstract void setSelectedBusinessValue(BusinessValue businessValue);
-
-//    protected void prepareForRender(IRequestCycle arg0) {
-//        this.setCurrentLabel("Onglet 1");
-//        
-//        Lis list = new HashMap();
-//        map.
-//        
-//        
-//    }
-
+    
+    
     public void pageBeginRender(PageEvent pageEvent) {
-
+        
+        // build tabs
+        this.buildTabs();
+        
         // instanciate the selection lists
         this.riskLevelSelectionModel = new RiskLevelSelectionModel();
         this.businessValueSelectionModel = new BusinessValueSelectionModel();
@@ -91,10 +93,12 @@ public abstract class Story extends BasePage implements PageBeginRenderListener 
         if (this.getStory() == null) {
             this.setStory(AgilePlanningObjectFactory.getStory());
             
-             setSelectedRiskLevel((RiskLevel) riskLevelSelectionModel.getOption(0));
-             setSelectedBusinessValue((BusinessValue) businessValueSelectionModel.getOption(0));
+            setSelectedRiskLevel((RiskLevel) riskLevelSelectionModel.getOption(0));
+            setSelectedBusinessValue((BusinessValue) businessValueSelectionModel.getOption(0));
             
         } else {
+            
+            this.setStory(AgilePlanningObjectFactory.getStoryService().findByPersistanceId(this.getStory().getPersistanceId()));
             
             if (getSelectedRiskLevel() == null) {
                 setSelectedRiskLevel((RiskLevel) riskLevelSelectionModel.getOptionById(this.getStory().getRiskLevel().getId()));
@@ -105,20 +109,54 @@ public abstract class Story extends BasePage implements PageBeginRenderListener 
             }
             
         }
-
+        
+        this.getCurrentStory().setPersistanceId(this.getStory().getPersistanceId());
+        this.getCurrentStory().setShortDescription(this.getStory().getShortDescription());
+        
     }
     
     
-     public IPage addStory() {
-   
-         getStory().setBusinessValue(this.getSelectedBusinessValue());
-         getStory().setRiskLevel(this.getSelectedRiskLevel());
-         getStory().setProject(this.getCurrentProject().getProject());
-         
-         AgilePlanningObjectFactory.getStoryService().addOrUpdate(getStory());
-         
-          return getStoriesPage();
+    
+    public IPage addStory() {
+        
+        getStory().setBusinessValue(this.getSelectedBusinessValue());
+        getStory().setRiskLevel(this.getSelectedRiskLevel());
+        getStory().setProject(this.getCurrentProject().getProject());
+        
+        AgilePlanningObjectFactory.getStoryService().addOrUpdate(getStory());
+        
+        return getStoriesPage();
         
     }
+    
+    
+    // buid the tabs for the page
+    private void buildTabs(){
         
+        List<TabsContent> tabsContents = new ArrayList<TabsContent>();
+        
+        TabsContent tabsContent1 = new TabsContent();
+        tabsContent1.setLabel("Histoire");
+        tabsContent1.setUrl("#");
+        
+        // onglet actif
+        this.setSelectedTab(tabsContent1);
+        
+        TabsContent tabsContent2 = new TabsContent();
+        tabsContent2.setLabel("Iteration");
+        tabsContent2.setUrl("#");
+        
+        tabsContents.add(tabsContent2);
+        
+        TabsContent tabsContent3 = new TabsContent();
+        tabsContent3.setLabel("Release");
+        tabsContent3.setUrl("#");
+        
+        tabsContents.add(tabsContent3);
+        
+        // liste des onglets utilisé par le composant Tabs
+        this.setNotSelectedTabs(tabsContents);
+        
+    }
+    
 }
