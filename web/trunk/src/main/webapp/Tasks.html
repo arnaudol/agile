@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html jwcid="@Border" title="Agile !">
+<head jwcid="$remove$">
+<meta content="text/html;">
+<title>PMR</title>
+<!-- begin style -->
+<link rev="stylesheet" rel="stylesheet" type="text/css" href="styles/styles.css">
+<!-- end style -->
+</head>
+<!--<body>-->
+ 
+<span jwcid="tabs"/>
+
+<span jwcid="summary@Block">
+    Stories<p>Sumary</p>
+</span>
+
+<span jwcid="navigationBar@Block">
+     <a href="#" jwcid="@PageLink" page="Stories">liste des histoires</a> > <span jwcid="@Insert" value="ognl:currentStory.shortDescription"/> > tâche
+</span>
+
+<span jwcid="@Content">
+        
+        
+        <table class="mytable" width="99%" jwcid="tableView">
+            <span jwcid="tableColumns"/>
+            <span jwcid="tableRows">
+            
+            <span jwcid="shortDescriptionColumnValue@Block">
+                <span jwcid="persistanceIdLink">
+                    <span jwcid="shortDescriptionText">
+                    </span>
+                </span>
+            </span>
+            
+            <span jwcid="doneColumnValue@Block">
+                <span jwcid="progressBar"></span>
+            </span>
+            
+            <span jwcid="tableValues@contrib:TableValues"/>
+                
+            </span>
+            <tr>
+                <td colspan="7" class="tablepager">
+                    <span jwcid="tablePages@contrib:TablePages"/>
+                </td>   
+            </tr>
+        </table>
+        
+    </span>
+    
+        
+<!--</body>-->
+</html>
