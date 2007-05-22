@@ -12,5 +12,11 @@
             <create-instance class="net.sf.pmr.web.aso.CurrentUser"/>
         </state-object>
     </contribution>
+
+    <contribution configuration-id="tapestry.state.ApplicationObjects">
+        <state-object name="currentStory" scope="session">
+            <create-instance class="net.sf.pmr.web.aso.CurrentStory"/>
+        </state-object>
+    </contribution>
     
 </module> 
