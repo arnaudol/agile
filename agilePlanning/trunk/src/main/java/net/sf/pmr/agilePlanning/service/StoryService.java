@@ -88,6 +88,7 @@ public interface StoryService {
      * @param businessValueId business value of the story
      * @param riskLevelId risk level for the story
      * @return errors errors
+     * @deprecated
      */
     @Deprecated
     Errors add(final int agileProjectPersistanceId, final String shortDescription, final String description, final double daysEstimated, final int businessValueId, final int riskLevelId);
@@ -110,6 +111,7 @@ public interface StoryService {
      * @param persistanceId of the story
      * @param persistanceVersion persistance version
      * @return errors errors
+     * @deprecated
      */
     @Deprecated
     Errors update(final String shortDescription, final String description,
@@ -146,9 +148,20 @@ public interface StoryService {
      * @param shortDescription short description of the task
      * @param devopperPersistanceId for the task
      * @return errors errors
+     * @deprecated
      */
+    @Deprecated
     Errors addTask(final int storyPersistanceId, final double daysEstimated, final String shortDescription, final int devopperPersistanceId);
-    
+
+
+    /**
+     * Add or update a task.
+     * @param storyPersistanceId id of the story
+     * @param task task to add
+     * @return errors errors
+     */
+    Errors addOrUpdateTask(final int storyPersistanceId, final Task task);
+        
         
     /**
      * Update a task.
@@ -159,7 +172,9 @@ public interface StoryService {
      * @param persistanceId of the task
      * @param persistanceVersion persistance version
      * @return errors errors
+     * @deprecated
      */
+    @Deprecated
     Errors updateTask(final int storyPersistanceId, final double daysEstimated, final String shortDescription, final int developperPersistanceId,
             final int persistanceId, final long persistanceVersion);
 
@@ -182,7 +197,7 @@ public interface StoryService {
      * @param day day of the charge
      * @param timeUsedToday time used for the day
      * @param daysNeededToFinish days needed to finish
-     * @return TODO
+     * @return Errors errors
      */
     Errors addCharge(final int storyPersistanceId, final int taskPersistanceId, final int userPersistanceId, final Date day, final double timeUsedToday, final double daysNeededToFinish);
 
@@ -194,7 +209,7 @@ public interface StoryService {
      * @param daysNeededToFinish days needed to finis
      * @param chargePersistanceId persistance id of the charge
      * @param chargePersistanceVersion persistance version of the charge
-     * @return TODO
+     * @return Errors errors
      */
     Errors updateCharge(final Date day, final double timeUsedToday, final double daysNeededToFinish, final int storyPersistanceId, final int taskPersistanceId, final int chargePersistanceId, final long chargePersistanceVersion);
 
