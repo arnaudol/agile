@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
-
-<beans>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
 <!-- =============== BUSINESS OBJECT, BUSINESS SERVICE, REPOSITORIES, ASPECTS AND MAPPER DEFINITIONS =============== --> 
 
@@ -10,14 +12,14 @@
 	<!-- security -->
 	   
     <bean id="securityService" class="net.sf.pmr.core.service.SecurityServiceImpl" 
-          singleton="true" dependency-check="objects">
+          scope="singleton" dependency-check="objects">
         <constructor-arg index="0"><ref local="userRepository"/></constructor-arg>
     </bean>
 
 	<!-- user -->
 
     <bean id="userService" class="net.sf.pmr.core.service.UserServiceImpl" 
-          singleton="true" dependency-check="objects">
+          scope="singleton" dependency-check="objects">
           <constructor-arg index="0"><ref local="userRepository"/></constructor-arg>
           <constructor-arg index="1"><ref local="userValidator"/></constructor-arg>
           <constructor-arg index="2"><ref local="companyRepository"/></constructor-arg>
@@ -27,7 +29,7 @@
 	<!-- company -->
 
     <bean id="companyService" class="net.sf.pmr.core.service.CompanyServiceImpl" 
-          singleton="true" dependency-check="objects">
+          scope="singleton" dependency-check="objects">
           <constructor-arg index="0"><ref local="companyRepository"/></constructor-arg>
           <constructor-arg index="1"><ref local="companyValidator"/></constructor-arg>
           <constructor-arg index="2"><ref local="addressValidator"/></constructor-arg>
@@ -37,7 +39,7 @@
 	<!-- project -->
 	   
     <bean id="projectService" class="net.sf.pmr.core.service.ProjectServiceImpl" 
-          singleton="true" dependency-check="objects">
+          scope="singleton" dependency-check="objects">
           <constructor-arg index="0"><ref local="projectValidator"/></constructor-arg>
           <constructor-arg index="1"><ref local="projectRepository"/></constructor-arg>
           <constructor-arg index="2"><ref local="userRepository"/></constructor-arg>
@@ -46,7 +48,7 @@
 	<!-- reference service -->
 
     <bean id="referenceService" class="net.sf.pmr.core.service.ReferenceServiceImpl" 
-          singleton="true" dependency-check="objects">
+          scope="singleton" dependency-check="objects">
         <constructor-arg index="0"><ref local="countryRepository"/></constructor-arg>
     </bean>
 
@@ -60,7 +62,7 @@
 		   <!-- user -->
 		
 		    <bean id="user" class="net.sf.pmr.core.domain.user.UserImpl" 
-		          singleton="false" dependency-check="objects">
+		          scope="prototype" dependency-check="objects">
 		          <property name="persistanceId"><value>0</value></property>
 		          <property name="login"><value></value></property>
 		          <property name="company"><ref bean="company"/></property>
@@ -71,7 +73,7 @@
 		    <!-- company -->
 	    
 		    <bean id="company" class="net.sf.pmr.core.domain.user.company.CompanyImpl" 
-		          singleton="false" dependency-check="objects">
+		          scope="prototype" dependency-check="objects">
 	            <property name="persistanceId"><value>0</value></property>
 	            <property name="name"><value></value></property>
 				<property name="address"><ref bean="address"/></property>
@@ -95,7 +97,7 @@
 			</bean>
 
 		    <bean id="projectTarget" class="net.sf.pmr.core.domain.project.ProjectImpl" 
-	         		singleton="false" dependency-check="none">
+	         		scope="prototype" dependency-check="none">
             		<property name="persistanceId"><value>0</value></property>
             		<property name="code"><value></value></property>
                     <property name="members"><null/></property>
@@ -105,7 +107,7 @@
 			<!-- country (Reference) -->
 	    
 		    <bean id="country" class="net.sf.pmr.core.domain.reference.CountryImpl" 
-		          singleton="false" dependency-check="objects">
+		          scope="prototype" dependency-check="objects">
 	            <property name="code"><value></value></property>
 		    </bean>
 	    
@@ -119,7 +121,7 @@
 			<!-- address -->
 		    
 		    <bean id="address" class="net.sf.pmr.core.domain.user.company.AddressImpl" 
-		          singleton="false" 
+		          scope="prototype" 
 		          dependency-check="objects">
 		   	</bean>          
 		
@@ -133,7 +135,7 @@
 	<!-- advice (also called interceptor by Spring) -->
 	<!-- Action taken by the AOP framework at a particular joinpoint -->
 	<bean id="membersLasyLoadingAdvice" class="net.sf.pmr.core.domain.project.GetMembersLasyLoadingInterceptor" 
-		  singleton="true" dependency-check="objects">
+		  scope="singleton" dependency-check="objects">
 		  <property name="domainListMapper"><ref local="userMapper"/></property>
 	</bean>
 
@@ -147,7 +149,7 @@
 
 	<!-- In Spring, an Advisor is a modularization of an aspect. Advisors typically incorporate both an advice and a pointcut -->
 	<bean id="membersLasyLoadingAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor"
-          singleton="false">
+          scope="prototype">
         <property name="pointcut">
             <ref local="membersLasyLoadingPointcut"/>
         </property>
@@ -159,7 +161,7 @@
 	<!-- projectProxyUtil -->
 	
    	<bean id="projectProxyUtil" class="net.sf.pmr.core.domain.project.ProjectProxyUtilImpl" 
-        		singleton="true" dependency-check="none">
+        		scope="singleton" dependency-check="none">
    	</bean>
     
 	
@@ -177,45 +179,45 @@
 	<!-- general Errors structure -->
 
 	<bean id="coreErrors" class="net.sf.pmr.keopsframework.domain.validation.ErrorsImpl"
-		  singleton="false" dependency-check="objects">
+		  scope="prototype" dependency-check="objects">
 		<constructor-arg index="0"><ref bean="coreMessageSource"/></constructor-arg>
 	</bean>
 
 	<!-- project Validator -->
 
 	<bean id="projectValidator" class="net.sf.pmr.core.domain.project.ProjectValidatorImpl"
-		  singleton="true" 	dependency-check="none"/>
+		  scope="singleton" 	dependency-check="none"/>
 
 	<!-- user Validator -->
 
 	<bean id="userValidator" class="net.sf.pmr.core.domain.user.UserValidatorImpl"
-		  singleton="true" 	dependency-check="none">
+		  scope="singleton" 	dependency-check="none">
         <constructor-arg index="0"><ref local="userRepository"/></constructor-arg>
 	</bean>
 
 	<!-- company Validator -->
 
 	<bean id="companyValidator" class="net.sf.pmr.core.domain.user.company.CompanyValidatorImpl"
-		  singleton="true" 	dependency-check="none"/>
+		  scope="singleton" 	dependency-check="none"/>
 
 	<!--  address Validator -->
 
 	<bean id="addressValidator" class="net.sf.pmr.core.domain.user.company.AddressValidatorImpl"
-		  singleton="true" 	dependency-check="none"/>
+		  scope="singleton" 	dependency-check="none"/>
 
 <!-- repositories -->
 
 	<!-- user -->
 
     <bean id="userRepository" class="net.sf.pmr.core.domain.user.UserRepositoryImpl"
-          singleton="true" dependency-check="objects">
+          scope="singleton" dependency-check="objects">
 	    <constructor-arg index="0"><ref local="userMapper"/></constructor-arg>
 	    <constructor-arg index="1"><ref local="projectProxyUtil"/></constructor-arg>
     </bean>   
 
 	<!-- company -->
 	<bean id="companyRepository" class="net.sf.pmr.core.domain.user.company.CompanyRepositoryImpl"
-          singleton="true" dependency-check="objects">
+          scope="singleton" dependency-check="objects">
 	    <constructor-arg index="0"><ref local="companyMapper"/></constructor-arg>
     </bean>   
     
@@ -223,7 +225,7 @@
     <!-- project -->
 
     <bean id="projectRepository" class="net.sf.pmr.core.domain.project.ProjectRepositoryImpl"
-          singleton="true" dependency-check="objects">
+          scope="singleton" dependency-check="objects">
 	    <constructor-arg index="0"><ref local="projectMapper"/></constructor-arg>
 	    <constructor-arg index="1"><ref local="projectProxyUtil"/></constructor-arg>
     </bean>   
@@ -231,7 +233,7 @@
     <!-- country -->
     
     <bean id="countryRepository" class="net.sf.pmr.core.domain.reference.CountryRepositoryImpl"
-          singleton="true" dependency-check="objects">
+          scope="singleton" dependency-check="objects">
 	    <constructor-arg index="0"><ref local="countryMapper"/></constructor-arg>
     </bean>   
     
@@ -243,35 +245,35 @@
 	<!-- user -->
 
     <bean id="userMapper" class="net.sf.pmr.core.data.user.UserMapperImpl"
-    	  singleton="true" dependency-check="none">
+    	  scope="singleton" dependency-check="none">
 		<property name="sessionFactory"><ref local="sessionFactory"/></property>
 	</bean>
     
     <!-- company -->
     
     <bean id="companyMapper" class="net.sf.pmr.core.data.user.company.CompanyMapperImpl"
-    	  singleton="true" dependency-check="none">
+    	  scope="singleton" dependency-check="none">
 		<property name="sessionFactory"><ref local="sessionFactory"/></property>
 	</bean>
 	
 	<!-- country -->
 	
 	<bean id="countryMapper" class="net.sf.pmr.core.data.reference.CountryMapperImpl"
-    	  singleton="true" dependency-check="none">
+    	  scope="singleton" dependency-check="none">
 		<property name="sessionFactory"><ref local="sessionFactory"/></property>
 	</bean>
 	
 	<!-- project -->
 	
 	<bean id="projectMapper" class="net.sf.pmr.core.data.project.ProjectMapperImpl"
-    	  singleton="true" dependency-check="none">
+    	  scope="singleton" dependency-check="none">
 		<property name="sessionFactory"><ref local="sessionFactory"/></property>
 	</bean>
 	
 	<!-- =============== Java Object =============== -->
 
 	<bean id="date" class="java.util.Date" 
-				  singleton="false" dependency-check="none">
+				  scope="prototype" dependency-check="none">
     </bean>
 	
 	
@@ -314,7 +316,7 @@
 <!-- DataSource configuration-->
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		    <property name="driverClassName"><value>${jdbc.driverClassName}</value></property>
+                        <property name="driverClassName"><value>${jdbc.driverClassName}</value></property>
 			<property name="url"><value>${jdbc.url}</value></property>
 			<property name="username"><value>${jdbc.username}</value></property>
 			<property name="password"><value>${jdbc.password}</value></property>
