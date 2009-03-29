@@ -55,6 +55,7 @@ public class ErrorsTest extends TestCase {
     /*
      * @see TestCase#setUp()
      */
+    @Override
     protected void setUp() throws Exception {
     	
         super.setUp();
@@ -68,6 +69,7 @@ public class ErrorsTest extends TestCase {
     /*
      * @see TestCase#tearDown()
      */
+    @Override
     protected void tearDown() throws Exception {
     	EasyMock.reset(mockmessageSource);
         super.tearDown();
