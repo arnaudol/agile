@@ -47,12 +47,12 @@ import org.springframework.context.NoSuchMessageException;
 /**
  * @author Arnaud Prost (arnaud.prost@gmail.com)
  * 
- * TODO : sur les opération sur les field utiliser les commons-beanUtils pour vérifier les champs et accéder à leur valeur et renvoyer une exception s'il le champs n'est pas trouvé
- * TODO : supprimer la dépendance avec Spring. Ne dépendre que du JDK voir des commons
+ * TODO : sur les opï¿½ration sur les field utiliser les commons-beanUtils pour vï¿½rifier les champs et accï¿½der ï¿½ leur valeur et renvoyer une exception s'il le champs n'est pas trouvï¿½
+ * TODO : supprimer la dï¿½pendance avec Spring. Ne dï¿½pendre que du JDK voir des commons
  */
 public class ErrorsImpl implements Errors {
 
-    // TODO  ce n'est pas terrible de dépendre d'une classe de spring....
+    // TODO  ce n'est pas terrible de dï¿½pendre d'une classe de spring....
     private MessageSource messageSource;
 
     private List<MessageParameters> globalErrors;
@@ -367,7 +367,7 @@ public class ErrorsImpl implements Errors {
     private String getMessage(final String errorCode,
             final Object[] errorArguments, final Locale locale) {
 
-        String messageToReturn = null;
+        String messageToReturn;
 
         try {
             messageToReturn = messageSource.getMessage(errorCode,
