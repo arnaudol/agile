@@ -47,16 +47,16 @@ import net.sf.pmr.keopsframework.domain.validation.Validator;
 public class AddressValidatorImpl implements Validator {
 
     /**
-     * Validation de l'object métier Address<br>
-     * Les règles sont les suivantes: 
+     * Validation de l'object mÃ©tier Addresse<br>
+     * Les rÃ©gles sont les suivantes: 
      * <ul>
      * <li>le pays est obligatoire</li>
      * <li>la ville est obligatoire</li>
      * <li>le code postal obligatoire</li>
      * <li>le nom de la rue est obligatoire</li>
-     * <li>le numéro de la rue est obligatoire</li>
+     * <li>le numÃ©ro de la rue est obligatoire</li>
      * </ul>
-     * @param object Address à valider
+     * @param object Address Ã  valider
      */
     public Errors validate(final Object object) {
 
